@@ -1,0 +1,22 @@
+{
+  "name": "app-merge",
+  "version": "1.0.0",
+  "description": "App Merge Fliplet Studio",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-modules-amd": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.0.6",
+    "eslint": "^7.32.0",
+    "eslint-config-fliplet": "^1.0.9",
+    "gulp": "^4.0.2",
+    "vinyl-named": "^1.1.0",
+    "webpack-stream": "^5.2.1"
+  },
+  "scripts": {
+    "watch": "gulp watch"
+  }
+}
