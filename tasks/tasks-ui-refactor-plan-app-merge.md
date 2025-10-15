@@ -39,6 +39,6 @@ Generated from `ui-refactor-plan-app-merge.md`.
 
 - [x] 6.1 Run `npm test` and resolve all failing suites.
 - [x] 6.2 Run `npm run build` and address lint/style errors.
-- [ ] 6.3 Smoke-test UI in mock mode (tab navigation, nested selections, selection counts).
-- [ ] 6.4 Document verification steps and mock/middleware switching guidance in README or task notes.
+- [x] 6.3 Smoke-test UI in mock mode (tab navigation, nested selections, selection counts).
+- [x] 6.4 Document verification steps and mock/middleware switching guidance in README or task notes.
 
