@@ -6,13 +6,40 @@ const Loader2Stub = {
   template: '<svg />'
 };
 
-// Mock Fliplet.UI.Table
+// Mock Fliplet.UI.Table matching actual API
 class MockFlipletTable {
-  constructor(element, options) {
-    this.element = element;
+  constructor(options) {
     this.options = options;
     this.data = options.data || [];
+    this.selection = [];
     this.destroyed = false;
+    this._events = {};
+  }
+
+  on(eventName, handler) {
+    if (!this._events[eventName]) {
+      this._events[eventName] = [];
+    }
+    this._events[eventName].push(handler);
+  }
+
+  off(eventName, handler) {
+    if (!this._events[eventName]) {
+      return;
+    }
+    const index = this._events[eventName].indexOf(handler);
+    if (index > -1) {
+      this._events[eventName].splice(index, 1);
+    }
+  }
+
+  fire(eventName, detail) {
+    if (!this._events[eventName]) {
+      return;
+    }
+    this._events[eventName].forEach(function(handler) {
+      handler(detail);
+    });
   }
 
   setData(data) {
@@ -23,22 +50,59 @@ class MockFlipletTable {
     this.destroyed = true;
   }
 
-  clearSelection() {
-    if (this.options.onSelectionChange) {
-      this.options.onSelectionChange([]);
+  deselectAll() {
+    this.selection = [];
+    this.fire('selection:change', {
+      selected: [],
+      deselected: [],
+      source: 'api'
+    });
+  }
+
+  selectRow(rowData) {
+    const row = this.data.find(r => r.id === rowData.id);
+    if (row && this.selection.indexOf(row) === -1) {
+      this.selection.push(row);
+      this.fire('selection:change', {
+        selected: this.selection,
+        deselected: [],
+        source: 'api'
+      });
     }
   }
 
-  selectRow(index) {
-    // Simulate row selection
+  deselectRow(rowData) {
+    const row = this.data.find(r => r.id === rowData.id);
+    const index = this.selection.indexOf(row);
+    if (index > -1) {
+      this.selection.splice(index, 1);
+      this.fire('selection:change', {
+        selected: this.selection,
+        deselected: [row],
+        source: 'api'
+      });
+    }
   }
 
-  deselectRow(index) {
-    // Simulate row deselection
+  selectAll() {
+    this.selection = this.data.slice();
+    this.fire('selection:change', {
+      selected: this.selection,
+      deselected: [],
+      source: 'api'
+    });
   }
 
-  refresh() {
-    // Simulate refresh
+  getSelectedRows() {
+    return this.selection;
+  }
+
+  getCurrentPageData() {
+    return this.data;
+  }
+
+  renderBody() {
+    // Simulate re-render
   }
 }
 
@@ -111,17 +175,20 @@ describe('FlipletTableWrapper', () => {
 
     expect(wrapper.vm.flipletTable).toBeDefined();
     expect(wrapper.vm.flipletTable.options.columns).toHaveLength(2);
+    // Columns are mapped from key/title to field/name
+    expect(wrapper.vm.flipletTable.options.columns[0].field).toBe('name');
+    expect(wrapper.vm.flipletTable.options.columns[0].name).toBe('Name');
     expect(wrapper.vm.flipletTable.options.data).toEqual(sampleData);
   });
 
-  it('passes search option to Fliplet table', () => {
+  it('passes searchable option to Fliplet table', () => {
     const wrapper = renderComponent({
       columns: sampleColumns,
       data: sampleData,
       searchable: true
     });
 
-    expect(wrapper.vm.flipletTable.options.search).toBe(true);
+    expect(wrapper.vm.flipletTable.options.searchable).toBe(true);
   });
 
   it('passes pagination option to Fliplet table', () => {
@@ -142,7 +209,11 @@ describe('FlipletTableWrapper', () => {
       selection: 'multiple'
     });
 
-    expect(wrapper.vm.flipletTable.options.selection).toBe('multiple');
+    expect(wrapper.vm.flipletTable.options.selection).toEqual({
+      enabled: true,
+      multiple: true,
+      rowClickEnabled: true
+    });
   });
 
   it('emits selection:change event when Fliplet table selection changes', () => {
@@ -153,50 +224,15 @@ describe('FlipletTableWrapper', () => {
     });
 
     const selectedRows = [{ id: 1, name: 'Item 1' }];
-    wrapper.vm.handleSelectionChange(selectedRows);
+    // Fliplet.UI.Table passes { selected, deselected, source }
+    wrapper.vm.handleSelectionChange({
+      selected: selectedRows,
+      deselected: [],
+      source: 'row-click'
+    });
 
     expect(wrapper.emitted('selection:change')).toBeTruthy();
     expect(wrapper.emitted('selection:change')[0]).toEqual([selectedRows]);
-  });
-
-  it('emits row-click event when row is clicked', () => {
-    const wrapper = renderComponent({
-      columns: sampleColumns,
-      data: sampleData
-    });
-
-    const row = { id: 1, name: 'Item 1' };
-    const event = new Event('click');
-    wrapper.vm.handleRowClick(row, 0, event);
-
-    expect(wrapper.emitted('row-click')).toBeTruthy();
-    expect(wrapper.emitted('row-click')[0][0].row).toEqual(row);
-    expect(wrapper.emitted('row-click')[0][0].index).toBe(0);
-  });
-
-  it('emits sort:change event when column is sorted', () => {
-    const wrapper = renderComponent({
-      columns: sampleColumns,
-      data: sampleData
-    });
-
-    wrapper.vm.handleSort('name', 'asc');
-
-    expect(wrapper.emitted('sort:change')).toBeTruthy();
-    expect(wrapper.emitted('sort:change')[0]).toEqual([{ column: 'name', direction: 'asc' }]);
-  });
-
-  it('emits pagination:change event when page changes', () => {
-    const wrapper = renderComponent({
-      columns: sampleColumns,
-      data: sampleData,
-      pagination: { pageSize: 10 }
-    });
-
-    wrapper.vm.handlePaginationChange(2, 10);
-
-    expect(wrapper.emitted('pagination:change')).toBeTruthy();
-    expect(wrapper.emitted('pagination:change')[0]).toEqual([{ page: 2, pageSize: 10 }]);
   });
 
   it('emits search event when search query changes', () => {
@@ -206,7 +242,11 @@ describe('FlipletTableWrapper', () => {
       searchable: true
     });
 
-    wrapper.vm.handleSearch('test query');
+    // Fliplet.UI.Table passes { term, data }
+    wrapper.vm.handleSearch({
+      term: 'test query',
+      data: sampleData
+    });
 
     expect(wrapper.emitted('search')).toBeTruthy();
     expect(wrapper.emitted('search')[0]).toEqual(['test query']);
@@ -220,10 +260,16 @@ describe('FlipletTableWrapper', () => {
     });
 
     const row = { id: 1, name: 'Item 1' };
-    wrapper.vm.handleExpand(row, 0, true);
+    // Fliplet.UI.Table passes { row, rowEl, contentEl }
+    wrapper.vm.handleExpandComplete({
+      row,
+      rowEl: document.createElement('div'),
+      contentEl: document.createElement('div')
+    });
 
     expect(wrapper.emitted('expand')).toBeTruthy();
-    expect(wrapper.emitted('expand')[0]).toEqual([{ row, index: 0, isExpanded: true }]);
+    expect(wrapper.emitted('expand')[0][0].row).toEqual(row);
+    expect(wrapper.emitted('expand')[0][0].isExpanded).toBe(true);
   });
 
   it('emits expand event with isExpanded false when row is collapsed', () => {
@@ -234,10 +280,15 @@ describe('FlipletTableWrapper', () => {
     });
 
     const row = { id: 1, name: 'Item 1' };
-    wrapper.vm.handleExpand(row, 0, false);
+    // Fliplet.UI.Table passes { row, rowEl }
+    wrapper.vm.handleCollapseComplete({
+      row,
+      rowEl: document.createElement('div')
+    });
 
     expect(wrapper.emitted('expand')).toBeTruthy();
-    expect(wrapper.emitted('expand')[0]).toEqual([{ row, index: 0, isExpanded: false }]);
+    expect(wrapper.emitted('expand')[0][0].row).toEqual(row);
+    expect(wrapper.emitted('expand')[0][0].isExpanded).toBe(false);
   });
 
   it('updates Fliplet table data when data prop changes', async () => {
@@ -260,6 +311,8 @@ describe('FlipletTableWrapper', () => {
     });
 
     const tableInstance = wrapper.vm.flipletTable;
+    expect(tableInstance.destroyed).toBe(false);
+
     wrapper.unmount();
 
     expect(tableInstance.destroyed).toBe(true);
@@ -272,7 +325,10 @@ describe('FlipletTableWrapper', () => {
       selection: 'multiple'
     });
 
-    wrapper.vm.handleSelectionChange([{ id: 1 }]);
+    // Trigger selection through the mock API
+    wrapper.vm.flipletTable.selectRow({ id: 1 });
+    expect(wrapper.vm.selectedRows.length).toBeGreaterThan(0);
+
     wrapper.vm.clearSelection();
 
     expect(wrapper.vm.selectedRows).toEqual([]);
@@ -285,10 +341,10 @@ describe('FlipletTableWrapper', () => {
       selection: 'multiple'
     });
 
-    const selectedRows = [{ id: 1, name: 'Item 1' }];
-    wrapper.vm.handleSelectionChange(selectedRows);
+    // Trigger selection through the mock API
+    wrapper.vm.flipletTable.selectRow({ id: 1 });
 
-    expect(wrapper.vm.getSelectedRows()).toEqual(selectedRows);
+    expect(wrapper.vm.getSelectedRows()).toEqual([{ id: 1, name: 'Item 1' }]);
   });
 
   it('applies custom container classes', () => {
