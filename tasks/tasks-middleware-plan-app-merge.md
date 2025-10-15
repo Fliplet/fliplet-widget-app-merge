@@ -108,52 +108,52 @@
   - [x] 1.6 Create a sample test `tests/example.test.js` to verify Jest configuration runs successfully
   - [x] 1.7 Run `npm test` to ensure the test framework is working correctly
 
-- [ ] 2.0 Implement core foundation classes
-  - [ ] 2.1 Create `src/middleware/core/EventEmitter.js` first (needed by other classes)
-    - [ ] 2.1.1 Implement basic event emitter with `on()`, `off()`, `emit()` methods
-    - [ ] 2.1.2 Add support for one-time listeners with `once()` method
-    - [ ] 2.1.3 Add JSDoc documentation for all public methods
-    - [ ] 2.1.4 Create `src/middleware/utils/EventEmitter.test.js` with tests for all methods
-  - [ ] 2.2 Create `src/middleware/core/ApiClient.js`
-    - [ ] 2.2.1 Implement constructor checking for Fliplet.Navigate.query.apiUrl and auth_token
-    - [ ] 2.2.2 Implement `request(method, endpoint, data, options)` method using Fliplet.API.request()
-    - [ ] 2.2.3 Implement `buildRequestUrl()` handling both custom apiUrl and default cases
-    - [ ] 2.2.4 Implement `buildRequestHeaders()` with custom auth token support
-    - [ ] 2.2.5 Implement `executeWithRetry()` with exponential backoff (no retry on 4xx errors)
-    - [ ] 2.2.6 Implement `delay(ms)` helper for retry delays
-    - [ ] 2.2.7 Add comprehensive JSDoc documentation
-    - [ ] 2.2.8 Create `ApiClient.test.js` with tests for all methods and error scenarios
-  - [ ] 2.3 Create `src/middleware/core/ErrorHandler.js`
-    - [ ] 2.3.1 Implement `transformError(error, options)` to create user-friendly error objects
-    - [ ] 2.3.2 Implement `getErrorMessage(errorCode, context)` to map error codes to messages
-    - [ ] 2.3.3 Implement `logError(error, options)` for error logging
-    - [ ] 2.3.4 Define error categories constants (validation, api, network, permission)
-    - [ ] 2.3.5 Add JSDoc documentation
-    - [ ] 2.3.6 Create `ErrorHandler.test.js` with tests for all error types
-  - [ ] 2.4 Create `src/middleware/core/StateManager.js`
-    - [ ] 2.4.1 Implement constructor initializing state schema (mergeConfiguration, lockStatus, mergeStatus, validationState, cache)
-    - [ ] 2.4.2 Implement `getState(path)` to retrieve state by path (e.g., 'mergeConfiguration.sourceApp')
-    - [ ] 2.4.3 Implement `setState(path, value)` to update state immutably
-    - [ ] 2.4.4 Implement `clearState()` to reset all state
-    - [ ] 2.4.5 Implement `validateStateTransition(from, to)` to check valid transitions
-    - [ ] 2.4.6 Integrate EventEmitter to emit 'state:change' events on updates
-    - [ ] 2.4.7 Add JSDoc documentation
-    - [ ] 2.4.8 Create `StateManager.test.js` with tests for state operations and transitions
-  - [ ] 2.5 Create `src/middleware/core/ValidationEngine.js`
-    - [ ] 2.5.1 Implement `validateAppSelection(sourceAppId, destinationAppId)` for basic validation
-    - [ ] 2.5.2 Implement `validateResourceSelection(config)` to check at least one resource selected
-    - [ ] 2.5.3 Implement `validateDataTypes(config)` to check ID types and data structures
-    - [ ] 2.5.4 Implement `validateConstraints(config)` for business rule validation
-    - [ ] 2.5.5 Implement `getValidationErrors()` to return list of validation errors
-    - [ ] 2.5.6 Add JSDoc documentation
-    - [ ] 2.5.7 Create `ValidationEngine.test.js` with tests for all validation scenarios
-  - [ ] 2.6 Create `src/middleware/core/BaseMiddleware.js`
-    - [ ] 2.6.1 Implement constructor accepting dependencies and configuration
-    - [ ] 2.6.2 Implement `initialize(config)` to configure middleware
-    - [ ] 2.6.3 Implement `getDependency(name)` to retrieve injected dependencies
-    - [ ] 2.6.4 Implement `emit(event, data)` wrapper for event emission
-    - [ ] 2.6.5 Add JSDoc documentation
-    - [ ] 2.6.6 Create `BaseMiddleware.test.js` with tests for initialization and dependency injection
+- [x] 2.0 Implement core foundation classes
+  - [x] 2.1 Create `src/middleware/core/EventEmitter.js` first (needed by other classes)
+    - [x] 2.1.1 Implement basic event emitter with `on()`, `off()`, `emit()` methods
+    - [x] 2.1.2 Add support for one-time listeners with `once()` method
+    - [x] 2.1.3 Add JSDoc documentation for all public methods
+    - [x] 2.1.4 Create `src/middleware/utils/EventEmitter.test.js` with tests for all methods
+  - [x] 2.2 Create `src/middleware/core/ApiClient.js`
+    - [x] 2.2.1 Implement constructor checking for Fliplet.Navigate.query.apiUrl and auth_token
+    - [x] 2.2.2 Implement `request(method, endpoint, data, options)` method using Fliplet.API.request()
+    - [x] 2.2.3 Implement `buildRequestUrl()` handling both custom apiUrl and default cases
+    - [x] 2.2.4 Implement `buildRequestHeaders()` with custom auth token support
+    - [x] 2.2.5 Implement `executeWithRetry()` with exponential backoff (no retry on 4xx errors)
+    - [x] 2.2.6 Implement `delay(ms)` helper for retry delays
+    - [x] 2.2.7 Add comprehensive JSDoc documentation
+    - [x] 2.2.8 Create `ApiClient.test.js` with tests for all methods and error scenarios
+  - [x] 2.3 Create `src/middleware/core/ErrorHandler.js`
+    - [x] 2.3.1 Implement `transformError(error, options)` to create user-friendly error objects
+    - [x] 2.3.2 Implement `getErrorMessage(errorCode, context)` to map error codes to messages
+    - [x] 2.3.3 Implement `logError(error, options)` for error logging
+    - [x] 2.3.4 Define error categories constants (validation, api, network, permission)
+    - [x] 2.3.5 Add JSDoc documentation
+    - [x] 2.3.6 Create `ErrorHandler.test.js` with tests for all error types
+  - [x] 2.4 Create `src/middleware/core/StateManager.js`
+    - [x] 2.4.1 Implement constructor initializing state schema (mergeConfiguration, lockStatus, mergeStatus, validationState, cache)
+    - [x] 2.4.2 Implement `getState(path)` to retrieve state by path (e.g., 'mergeConfiguration.sourceApp')
+    - [x] 2.4.3 Implement `setState(path, value)` to update state immutably
+    - [x] 2.4.4 Implement `clearState()` to reset all state
+    - [x] 2.4.5 Implement `validateStateTransition(from, to)` to check valid transitions
+    - [x] 2.4.6 Integrate EventEmitter to emit 'state:change' events on updates
+    - [x] 2.4.7 Add JSDoc documentation
+    - [x] 2.4.8 Create `StateManager.test.js` with tests for state operations and transitions
+  - [x] 2.5 Create `src/middleware/core/ValidationEngine.js`
+    - [x] 2.5.1 Implement `validateAppSelection(sourceAppId, destinationAppId)` for basic validation
+    - [x] 2.5.2 Implement `validateResourceSelection(config)` to check at least one resource selected
+    - [x] 2.5.3 Implement `validateDataTypes(config)` to check ID types and data structures
+    - [x] 2.5.4 Implement `validateConstraints(config)` for business rule validation
+    - [x] 2.5.5 Implement `getValidationErrors()` to return list of validation errors
+    - [x] 2.5.6 Add JSDoc documentation
+    - [x] 2.5.7 Create `ValidationEngine.test.js` with tests for all validation scenarios
+  - [x] 2.6 Create `src/middleware/core/BaseMiddleware.js`
+    - [x] 2.6.1 Implement constructor accepting dependencies and configuration
+    - [x] 2.6.2 Implement `initialize(config)` to configure middleware
+    - [x] 2.6.3 Implement `getDependency(name)` to retrieve injected dependencies
+    - [x] 2.6.4 Implement `emit(event, data)` wrapper for event emission
+    - [x] 2.6.5 Add JSDoc documentation
+    - [x] 2.6.6 Create `BaseMiddleware.test.js` with tests for initialization and dependency injection
 
 - [ ] 3.0 Implement API service classes
   - [ ] 3.1 Create `src/middleware/api/AppsApiService.js`
