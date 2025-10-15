@@ -79,13 +79,14 @@ Before generating the UI plan, clarify with the user whether the UI is being bui
 1. **Clarify Context:** Determine if building for interface or build context
 2. **Interpret Product & Design Docs:** Absorb PRD and design specifications to understand business goals, target personas, canonical screens, and prescribed interactions
 3. **Analyze Middleware Architecture:** Read and understand the existing middleware plan and implementation
-4. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
-5. **Identify UI Requirements:** Extract user workflows, data displays, interactions, and contextual warnings called out in product/design docs
-6. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that integrate with middleware and map to documented UI constructs
-7. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
-8. **Define Customization Framework:** Plan theming and branding customization
-9. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
-10. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
+4. **Plan Mock-First Infrastructure:** Design UIConfig, DataService abstraction, MockDataService, fixtures, and test scenarios to enable independent UI development
+5. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
+6. **Identify UI Requirements:** Extract user workflows, data displays, interactions, and contextual warnings called out in product/design docs
+7. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that use DataService abstraction (never directly access middleware)
+8. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
+9. **Define Customization Framework:** Plan theming and branding customization
+10. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
+11. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
 
 ## Input Requirements
 
@@ -1016,14 +1017,670 @@ For complex, repeated patterns, use `@apply` in component styles:
 - **Undo Actions:** Where appropriate
 - **Help Text:** Contextual assistance
 
+## Mock-First Development Strategy
+
+### Philosophy
+
+**UI development should never be blocked by middleware availability.**
+
+- **Independent Development**: UI can be built, tested, and iterated without middleware
+- **Progressive Integration**: Start with mocks, swap to middleware when ready
+- **Design Review Enablement**: Stakeholders see working UI without functional backend
+- **Parallel Development**: UI and middleware teams work simultaneously
+- **Rapid Prototyping**: Iterate on UI design without backend concerns
+- **Realistic Testing**: Test with comprehensive mock scenarios including errors and edge cases
+
+### Configuration-Based Mode Switching
+
+Use a simple configuration object to control data source:
+
+\`\`\`javascript
+// src/config/ui-config.js
+const UIConfig = {
+  // Development mode: 'mock' | 'middleware' | 'hybrid'
+  mode: 'mock',
+
+  // Mock behavior settings
+  mock: {
+    delay: 500,           // Simulate network latency (ms)
+    errorRate: 0.1,       // 10% random error rate for testing
+    enableErrors: true,   // Show error scenarios
+    logRequests: true     // Console log all data requests
+  },
+
+  // Toggle modes easily during development
+  useMockData: function() {
+    this.mode = 'mock';
+    console.log('📦 Using mock data');
+  },
+
+  useMiddleware: function() {
+    this.mode = 'middleware';
+    console.log('⚡ Using middleware');
+  },
+
+  useHybrid: function(mockServices = []) {
+    this.mode = 'hybrid';
+    this.hybridMockServices = mockServices;
+    console.log('🔀 Using hybrid mode:', mockServices);
+  }
+};
+
+// Export for use in components
+window.UIConfig = UIConfig;
+
+// Quick toggle in browser console:
+// UIConfig.useMockData()
+// UIConfig.useMiddleware()
+\`\`\`
+
+### Data Service Abstraction Layer
+
+Create a single interface for all data operations that switches between mock and real implementation:
+
+\`\`\`javascript
+// src/services/DataService.js
+
+/**
+ * Data Service Abstraction Layer
+ * Provides unified interface for data operations with configurable backend
+ */
+class DataService {
+  constructor() {
+    this.config = window.UIConfig;
+    this.mockService = new MockDataService();
+    this.middlewareService = window.[WidgetName]?.middleware;
+  }
+
+  /**
+   * Get current mode from config
+   */
+  get mode() {
+    return this.config.mode;
+  }
+
+  /**
+   * Check if service should use mock data
+   */
+  shouldUseMock(serviceName) {
+    if (this.mode === 'mock') return true;
+    if (this.mode === 'middleware') return false;
+    if (this.mode === 'hybrid') {
+      return this.config.hybridMockServices?.includes(serviceName);
+    }
+    return false;
+  }
+
+  /**
+   * Get workflow state with automatic mode switching
+   */
+  async getWorkflowState(workflowName) {
+    if (this.shouldUseMock('workflow')) {
+      return this.mockService.getWorkflowState(workflowName);
+    }
+
+    if (!this.middlewareService) {
+      console.warn('Middleware not available, falling back to mock data');
+      return this.mockService.getWorkflowState(workflowName);
+    }
+
+    return this.middlewareService.stateManager.getWorkflowState(workflowName);
+  }
+
+  /**
+   * Submit form data
+   */
+  async submitData(data) {
+    if (this.shouldUseMock('submit')) {
+      return this.mockService.submitData(data);
+    }
+
+    return this.middlewareService.apiService.submit(data);
+  }
+
+  /**
+   * Fetch list data
+   */
+  async fetchItems(filters = {}) {
+    if (this.shouldUseMock('items')) {
+      return this.mockService.fetchItems(filters);
+    }
+
+    return this.middlewareService.apiService.fetchItems(filters);
+  }
+
+  /**
+   * Subscribe to state changes
+   */
+  on(eventName, callback) {
+    if (this.shouldUseMock('events')) {
+      return this.mockService.on(eventName, callback);
+    }
+
+    return this.middlewareService.on(eventName, callback);
+  }
+
+  /**
+   * Unsubscribe from state changes
+   */
+  off(eventName, callback) {
+    if (this.shouldUseMock('events')) {
+      return this.mockService.off(eventName, callback);
+    }
+
+    return this.middlewareService.off(eventName, callback);
+  }
+}
+
+// Create singleton instance
+window.DataService = new DataService();
+\`\`\`
+
+### Mock Data Infrastructure
+
+Comprehensive mock data service with realistic behavior:
+
+\`\`\`javascript
+// src/mocks/MockDataService.js
+
+/**
+ * Mock Data Service
+ * Provides realistic mock data and behavior for UI development
+ */
+class MockDataService {
+  constructor() {
+    this.config = window.UIConfig;
+    this.fixtures = MockFixtures;
+    this.eventListeners = {};
+  }
+
+  /**
+   * Simulate network delay
+   */
+  async delay() {
+    const ms = this.config.mock.delay || 500;
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Simulate random errors for testing
+   */
+  shouldSimulateError() {
+    if (!this.config.mock.enableErrors) return false;
+    return Math.random() < (this.config.mock.errorRate || 0);
+  }
+
+  /**
+   * Log mock request
+   */
+  log(method, ...args) {
+    if (this.config.mock.logRequests) {
+      console.log(\`📦 Mock: \${method}\`, ...args);
+    }
+  }
+
+  /**
+   * Get workflow state
+   */
+  async getWorkflowState(workflowName) {
+    this.log('getWorkflowState', workflowName);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Simulated network error');
+    }
+
+    return this.fixtures.workflowStates[workflowName] || null;
+  }
+
+  /**
+   * Submit data
+   */
+  async submitData(data) {
+    this.log('submitData', data);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Submission failed: Simulated error');
+    }
+
+    return {
+      success: true,
+      id: 'mock-' + Date.now(),
+      data: data
+    };
+  }
+
+  /**
+   * Fetch items with filtering
+   */
+  async fetchItems(filters = {}) {
+    this.log('fetchItems', filters);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to fetch items');
+    }
+
+    let items = [...this.fixtures.items];
+
+    // Apply filters
+    if (filters.status) {
+      items = items.filter(item => item.status === filters.status);
+    }
+
+    if (filters.search) {
+      items = items.filter(item =>
+        item.name.toLowerCase().includes(filters.search.toLowerCase())
+      );
+    }
+
+    return {
+      items,
+      total: items.length,
+      page: filters.page || 1
+    };
+  }
+
+  /**
+   * Event system for mock state changes
+   */
+  on(eventName, callback) {
+    if (!this.eventListeners[eventName]) {
+      this.eventListeners[eventName] = [];
+    }
+    this.eventListeners[eventName].push(callback);
+  }
+
+  off(eventName, callback) {
+    if (!this.eventListeners[eventName]) return;
+    this.eventListeners[eventName] = this.eventListeners[eventName]
+      .filter(cb => cb !== callback);
+  }
+
+  emit(eventName, data) {
+    if (!this.eventListeners[eventName]) return;
+    this.eventListeners[eventName].forEach(callback => callback(data));
+  }
+}
+\`\`\`
+
+### Mock Data Fixtures
+
+Comprehensive test data covering all scenarios:
+
+\`\`\`javascript
+// src/mocks/fixtures.js
+
+const MockFixtures = {
+  /**
+   * Workflow states for different scenarios
+   */
+  workflowStates: {
+    publishing: {
+      currentStep: 'initialize',
+      progress: 0.2,
+      data: {
+        platform: 'ios',
+        type: 'appStore',
+        teamId: 'AFIG8RX79F'
+      },
+      errors: [],
+      isComplete: false,
+      dependencies: []
+    },
+
+    'publishing-error': {
+      currentStep: 'upload',
+      progress: 0.6,
+      data: {},
+      errors: [{
+        code: 'UPLOAD_FAILED',
+        message: 'Build upload failed. Please try again.'
+      }],
+      isComplete: false,
+      dependencies: ['initialize']
+    },
+
+    'publishing-complete': {
+      currentStep: 'complete',
+      progress: 1.0,
+      data: {
+        submissionId: 'sub_12345',
+        status: 'published'
+      },
+      errors: [],
+      isComplete: true,
+      dependencies: ['initialize', 'configure', 'upload']
+    }
+  },
+
+  /**
+   * List items for tables/grids
+   */
+  items: [
+    {
+      id: '1',
+      name: 'Production App',
+      status: 'published',
+      lastModified: '2024-01-15T10:30:00Z',
+      owner: 'John Smith'
+    },
+    {
+      id: '2',
+      name: 'Staging App',
+      status: 'draft',
+      lastModified: '2024-01-14T15:45:00Z',
+      owner: 'Jane Doe'
+    },
+    {
+      id: '3',
+      name: 'Dev App',
+      status: 'in-progress',
+      lastModified: '2024-01-13T09:20:00Z',
+      owner: 'Bob Wilson'
+    }
+  ],
+
+  /**
+   * User data
+   */
+  currentUser: {
+    id: 'user_123',
+    name: 'Demo User',
+    email: 'demo@example.com',
+    role: 'admin',
+    permissions: ['read', 'write', 'delete']
+  },
+
+  /**
+   * Error scenarios for testing
+   */
+  errors: {
+    network: new Error('Network request failed'),
+    validation: new Error('Validation failed: Invalid input'),
+    permission: new Error('Permission denied'),
+    notFound: new Error('Resource not found')
+  },
+
+  /**
+   * Empty state data
+   */
+  emptyStates: {
+    noItems: {
+      items: [],
+      total: 0,
+      message: 'No items found'
+    },
+    noResults: {
+      items: [],
+      total: 0,
+      message: 'No results match your search'
+    }
+  }
+};
+
+window.MockFixtures = MockFixtures;
+\`\`\`
+
+### Component Implementation Pattern
+
+Components use DataService abstraction - never directly access middleware:
+
+\`\`\`vue
+<template>
+  <div class="workflow-container">
+    <!-- Loading State -->
+    <div v-if="loading" class="flex items-center justify-center p-8">
+      <Loader2 class="w-8 h-8 text-primary animate-spin" />
+      <span class="ml-3">Loading workflow state...</span>
+    </div>
+
+    <!-- Error State -->
+    <div v-else-if="error" class="bg-error/10 border border-error rounded-lg p-4">
+      <AlertCircle class="w-5 h-5 text-error inline-block mr-2" />
+      <span class="text-error">{{ error }}</span>
+      <button @click="retry" class="ml-4 text-error underline">Retry</button>
+    </div>
+
+    <!-- Success State -->
+    <div v-else-if="workflowState">
+      <h2>{{ workflowState.currentStep }}</h2>
+      <div class="progress-bar">
+        <div class="progress-fill" :style="{ width: (workflowState.progress * 100) + '%' }"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { Loader2, AlertCircle } from 'lucide-vue-next';
+
+/**
+ * WorkflowView Component
+ * Displays workflow state using DataService abstraction
+ * Works with both mock data and real middleware
+ */
+export default {
+  name: 'WorkflowView',
+
+  components: {
+    Loader2,
+    AlertCircle
+  },
+
+  props: {
+    workflowName: {
+      type: String,
+      required: true
+    }
+  },
+
+  data() {
+    return {
+      dataService: window.DataService, // Use abstraction layer
+      workflowState: null,
+      loading: false,
+      error: null
+    };
+  },
+
+  async created() {
+    await this.loadWorkflowState();
+    this.subscribeToUpdates();
+  },
+
+  methods: {
+    async loadWorkflowState() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        // DataService automatically uses mock or middleware based on UIConfig
+        this.workflowState = await this.dataService.getWorkflowState(this.workflowName);
+      } catch (err) {
+        this.error = err.message;
+        console.error('Failed to load workflow state:', err);
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    async retry() {
+      await this.loadWorkflowState();
+    },
+
+    subscribeToUpdates() {
+      // Event subscription also uses abstraction
+      this.dataService.on('workflow:updated', this.handleWorkflowUpdate);
+    },
+
+    handleWorkflowUpdate(data) {
+      if (data.workflowName === this.workflowName) {
+        this.workflowState = data.state;
+      }
+    }
+  },
+
+  beforeUnmount() {
+    // Cleanup
+    this.dataService.off('workflow:updated', this.handleWorkflowUpdate);
+  }
+};
+</script>
+\`\`\`
+
+### Development Mode Toggle
+
+Easy switching between modes during development:
+
+\`\`\`javascript
+// In browser console or during development:
+
+// Use mock data (default for UI development)
+UIConfig.useMockData();
+
+// Use real middleware (when middleware is ready)
+UIConfig.useMiddleware();
+
+// Use hybrid mode (some services mock, some real)
+UIConfig.useHybrid(['workflow', 'items']); // Mock only these services
+
+// Adjust mock behavior
+UIConfig.mock.delay = 1000;        // Slower network
+UIConfig.mock.errorRate = 0.5;     // 50% error rate for stress testing
+UIConfig.mock.enableErrors = false; // Disable random errors
+\`\`\`
+
+### Testing with Mock Scenarios
+
+Test all UI states using mock data:
+
+\`\`\`javascript
+// src/mocks/scenarios.js
+
+const TestScenarios = {
+  /**
+   * Simulate successful workflow completion
+   */
+  async simulateSuccess() {
+    UIConfig.useMockData();
+    UIConfig.mock.enableErrors = false;
+    console.log('✅ Testing success scenario');
+  },
+
+  /**
+   * Simulate network errors
+   */
+  async simulateNetworkError() {
+    UIConfig.useMockData();
+    UIConfig.mock.errorRate = 1.0; // 100% errors
+    UIConfig.mock.enableErrors = true;
+    console.log('❌ Testing error scenario');
+  },
+
+  /**
+   * Simulate slow network
+   */
+  async simulateSlowNetwork() {
+    UIConfig.useMockData();
+    UIConfig.mock.delay = 3000; // 3 second delay
+    console.log('🐌 Testing slow network');
+  },
+
+  /**
+   * Simulate empty states
+   */
+  async simulateEmptyState() {
+    UIConfig.useMockData();
+    MockFixtures.items = [];
+    console.log('📭 Testing empty state');
+  },
+
+  /**
+   * Reset to normal
+   */
+  async reset() {
+    UIConfig.useMockData();
+    UIConfig.mock.delay = 500;
+    UIConfig.mock.errorRate = 0.1;
+    UIConfig.mock.enableErrors = true;
+    console.log('🔄 Reset to normal mock behavior');
+  }
+};
+
+window.TestScenarios = TestScenarios;
+
+// Usage in browser console:
+// TestScenarios.simulateNetworkError()
+// TestScenarios.simulateSlowNetwork()
+// TestScenarios.reset()
+\`\`\`
+
+### Benefits of Mock-First Approach
+
+✅ **Parallel Development**
+- UI team doesn't wait for middleware completion
+- Both teams work simultaneously without blocking
+
+✅ **Rapid Prototyping**
+- Iterate on UI design quickly
+- Get stakeholder feedback early
+- No dependency on backend functionality
+
+✅ **Comprehensive Testing**
+- Test all UI states (success, error, loading, empty)
+- Simulate network conditions (slow, offline, timeout)
+- Test edge cases without breaking real data
+
+✅ **Design Reviews**
+- Show working UI to stakeholders immediately
+- Realistic demos with comprehensive data
+- Interactive prototypes without backend
+
+✅ **Progressive Integration**
+- Start with 100% mock
+- Gradually swap to middleware as it becomes available
+- Use hybrid mode to test integration incrementally
+
+✅ **Better Component Isolation**
+- Components never directly coupled to middleware
+- Easy to test in isolation
+- Reusable across projects
+
+✅ **Debugging & Development**
+- Toggle between mock and real data easily
+- Test error scenarios on demand
+- Inspect and modify mock data in browser console
+
 ## Integration with Middleware
 
-### State Management Integration
+### Migration from Mock to Middleware
+
+When middleware is ready, integration is seamless:
+
 \`\`\`javascript
-// Example Vue.js 3.5.13 integration with middleware
+// Phase 1: Pure mock development
+UIConfig.useMockData();
+
+// Phase 2: Test with real middleware (one service at a time)
+UIConfig.useHybrid(['items']); // Use real items, mock everything else
+
+// Phase 3: Full middleware integration
+UIConfig.useMiddleware();
+
+// Phase 4: Production - middleware only
+UIConfig.mode = 'middleware';
+\`\`\`
+
+### State Management Integration
+
+\`\`\`javascript
+// Components use DataService - works with both mock and middleware
 export default {
   data() {
     return {
+      dataService: window.DataService,
       workflowState: null,
       loading: false,
       error: null
@@ -1033,17 +1690,10 @@ export default {
   async created() {
     try {
       this.loading = true;
-      // Get current state from middleware
-      // Replace [WidgetName] with actual widget global namespace
-      this.workflowState = await window.[WidgetName]
-        .middleware
-        .stateManager
-        .getWorkflowState('[workflow-name]');
+      // Automatically uses mock or middleware based on UIConfig
+      this.workflowState = await this.dataService.getWorkflowState('workflow-name');
     } catch (error) {
-      this.error = window.[WidgetName]
-        .middleware
-        .errorHandler
-        .getUserMessage(error);
+      this.error = error.message;
     } finally {
       this.loading = false;
     }
@@ -1052,18 +1702,17 @@ export default {
 \`\`\`
 
 ### Event System Integration
+
 \`\`\`javascript
-// Listen for middleware events in Vue 3.5.13
+// Event subscription works the same for mock and middleware
 mounted() {
-  // Replace [WidgetName] with actual widget global namespace
-  window.[WidgetName].middleware.on('workflow:updated', this.handleWorkflowUpdate);
-  window.[WidgetName].middleware.on('error:occurred', this.handleError);
+  this.dataService.on('workflow:updated', this.handleWorkflowUpdate);
+  this.dataService.on('error:occurred', this.handleError);
 },
 
-// Vue 2 lifecycle hook
-beforeDestroy() {
-  window.[WidgetName].middleware.off('workflow:updated', this.handleWorkflowUpdate);
-  window.[WidgetName].middleware.off('error:occurred', this.handleError);
+beforeUnmount() {
+  this.dataService.off('workflow:updated', this.handleWorkflowUpdate);
+  this.dataService.off('error:occurred', this.handleError);
 }
 \`\`\`
 
@@ -1595,6 +2244,14 @@ The UI plan must include enough detail for QA to verify:
 \`\`\`
 /
 ├── src/
+│   ├── config/
+│   │   └── ui-config.js            # UIConfig for mode switching (mock/middleware/hybrid)
+│   ├── services/
+│   │   └── DataService.js          # Data abstraction layer
+│   ├── mocks/
+│   │   ├── MockDataService.js      # Mock data service implementation
+│   │   ├── fixtures.js             # Mock data fixtures
+│   │   └── scenarios.js            # Test scenarios (errors, loading, empty states)
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── AppShell.vue
@@ -1643,6 +2300,14 @@ The UI plan must include enough detail for QA to verify:
 
 **Key Files:**
 
+**Mock-First Infrastructure:**
+- **`src/config/ui-config.js`** - UIConfig object for mode switching (mock/middleware/hybrid)
+- **`src/services/DataService.js`** - Data abstraction layer (single interface for all data operations)
+- **`src/mocks/MockDataService.js`** - Mock implementation with realistic behavior
+- **`src/mocks/fixtures.js`** - Mock data for all scenarios
+- **`src/mocks/scenarios.js`** - Test scenario helpers (errors, loading, etc.)
+
+**Styling:**
 - **`src/scss/index.scss`** - Main SCSS file with Tailwind directives:
   \`\`\`scss
   @tailwind base;
@@ -1653,6 +2318,7 @@ The UI plan must include enough detail for QA to verify:
   // Additional custom styles as needed
   \`\`\`
 
+**Build Outputs:**
 - **`tailwind.config.js`** - Tailwind configuration with Fliplet brand tokens
 - **`dist/css/index.css`** - Compiled output (referenced in widget.json)
 - **`dist/app.js`** - Bundled Vue app (referenced in widget.json)
@@ -1710,22 +2376,28 @@ The generated plan should be suitable for:
 ## Final Instructions
 
 1. **Design Philosophy** - Create beautiful, production-worthy interfaces, not cookie-cutter designs
-2. **Check widget context** - Clarify if building for interface or build context
-3. **Review Fliplet documentation** - Use the reference table to understand constraints
-4. **Analyze the middleware architecture** thoroughly before beginning
-5. **Use Tailwind CSS exclusively** - All styling must use Tailwind utility classes
-6. **Use lucide-vue-next for icons** - Do not use other icon libraries unless absolutely necessary
-7. **Design for Vue.js 3.5.13** - Use Options API for compatibility
-8. **Configure Tailwind theme** - Extend with Fliplet brand colors, spacing, and design tokens
-9. **Plan NPM dependencies** - List all required packages in package.json (Tailwind, lucide-vue-next, etc.)
-10. **Plan build process** - Ensure Tailwind compilation through Gulp/Webpack into dist/ folder
-11. **Create a complete UI/UX plan** that addresses every user touchpoint
-12. **Ensure the plan structure** matches the required format exactly
-13. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
-14. **Include specific details** that can be converted to actionable tasks
-15. **Plan for accessibility** and responsive design throughout (WCAG 2.1 AA)
-16. **Focus on visual excellence** - Attention to spacing, typography, colors, and interactions
-17. **Consider non-technical reviewers** in your language choices
-18. **Prepare for task generation** by including implementation details
-19. **Follow implementation guidelines** - Only compiled files (dist/) declared in widget.json
-20. **Fliplet dependencies** - Only fliplet-core is required; avoid fliplet-studio-ui, bootstrap-css
+2. **Mock-First Development** - CRITICAL: UI must work independently with mock data using UIConfig
+   - Plan UIConfig, DataService, MockDataService, fixtures, and scenarios
+   - Components NEVER directly access middleware - always use DataService abstraction
+   - Default to `UIConfig.mode = 'mock'` for parallel development
+   - Enable progressive integration via hybrid mode
+3. **Check widget context** - Clarify if building for interface or build context
+4. **Review Fliplet documentation** - Use the reference table to understand constraints
+5. **Analyze the middleware architecture** thoroughly before beginning (but don't depend on it)
+6. **Use Tailwind CSS exclusively** - All styling must use Tailwind utility classes
+7. **Use lucide-vue-next for icons** - Do not use other icon libraries unless absolutely necessary
+8. **Design for Vue.js 3.5.13** - Use Options API for compatibility
+9. **Configure Tailwind theme** - Extend with Fliplet brand colors, spacing, and design tokens
+10. **Plan NPM dependencies** - List all required packages in package.json (Tailwind, lucide-vue-next, etc.)
+11. **Plan build process** - Ensure Tailwind compilation through Gulp/Webpack into dist/ folder
+12. **Create a complete UI/UX plan** that addresses every user touchpoint
+13. **Ensure the plan structure** matches the required format exactly
+14. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
+15. **Include specific details** that can be converted to actionable tasks
+16. **Plan for accessibility** and responsive design throughout (WCAG 2.1 AA)
+17. **Focus on visual excellence** - Attention to spacing, typography, colors, and interactions
+18. **Consider non-technical reviewers** in your language choices
+19. **Prepare for task generation** by including implementation details
+20. **Follow implementation guidelines** - Only compiled files (dist/) declared in widget.json
+21. **Fliplet dependencies** - Only fliplet-core is required; avoid fliplet-studio-ui, bootstrap-css
+22. **Enable rapid prototyping** - UI should be demonstrable to stakeholders without functional middleware

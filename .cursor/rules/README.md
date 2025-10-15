@@ -175,7 +175,7 @@ graph TB
 
 ### Step 1: UI/UX Planning
 
-**Purpose:** Analyze middleware architecture and create a comprehensive UI/UX plan.
+**Purpose:** Analyze middleware architecture and create a comprehensive UI/UX plan with mock-first development strategy.
 
 ```bash
 # User Command: Reference generate-ui-plan.mdc
@@ -184,12 +184,15 @@ graph TB
 ```
 
 **What It Creates:**
+- **Mock-First Infrastructure:** UIConfig, DataService abstraction, MockDataService, fixtures, test scenarios
 - User journey mapping
-- Component architecture
+- Component architecture (using DataService, never direct middleware access)
 - Responsive design strategy
 - Theming & customization framework
 - Accessibility specifications
-- Integration patterns with middleware
+- Progressive integration patterns (mock → hybrid → middleware)
+
+**Critical Design Decision:** UI components never directly access middleware - all data operations go through DataService abstraction layer, enabling independent UI development with mock data.
 
 **Review Point:** Product Managers and Designers review for UX quality and brand compliance.
 
