@@ -1,0 +1,42 @@
+{
+  "name": "com.fliplet.app-merge",
+  "version": "1.0.0",
+  "description": "App Merge",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "watch": "gulp build && gulp watch",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "core-js": "^3.39.0",
+    "regenerator-runtime": "^0.14.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/plugin-transform-modules-amd": "^7.25.9",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/runtime": "^7.26.0",
+    "@babel/eslint-parser": "^7.25.9",
+    "babel-loader": "^9.2.1",
+    "css-loader": "^7.1.2",
+    "del": "^6.1.1",
+    "eslint": "^8.57.1",
+    "eslint-config-fliplet": "^0.7.0",
+    "eslint-plugin-vue": "^9.31.0",
+    "eslint-webpack-plugin": "^4.2.0",
+    "gulp": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-vueify2": "0.0.3",
+    "path": "^0.12.7",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3",
+    "style-loader": "^4.0.0",
+    "vinyl-named": "^1.1.0",
+    "vue-loader": "^17.4.2",
+    "webpack": "^5.96.1",
+    "webpack-stream": "^7.0.0"
+  }
+}

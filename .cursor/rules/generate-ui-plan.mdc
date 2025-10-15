@@ -1,0 +1,1253 @@
+---
+description: Generating Comprehensive UI/UX Plans from Middleware Architecture
+globs:
+alwaysApply: false
+---
+# Rule: Generating Comprehensive UI/UX Plans from Middleware Architecture
+
+## Goal
+
+To guide an AI assistant in analyzing existing documents including (but not limited to) PRD, design specs, REST API specs, middleware architecture and creating a comprehensive UI/UX plan that enables Product Managers and Designers to review and ensure high-quality and responsive user interfaces that meet the requirements. The plan serves as the foundation for subsequent task generation and implementation while maintaining Fliplet's branding guidelines and accessibility standards.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `ui-plan-[project-name].md`
+- **Purpose:** Comprehensive UI/UX plan ready for review and task generation
+
+## Important Technical Context
+
+### Vue.js Version
+
+This rule generates UI plans for **Vue.js v3.5.13** projects. All component syntax, lifecycle hooks, and API usage should be compatible with Vue 3.5.13.
+
+### Widget Context
+
+Before generating the UI plan, clarify with the user whether the UI is being built for:
+- **Interface Context:** Configuration UI shown in Fliplet Studio (widget settings)
+- **Build Context:** Runtime UI shown to end users in the published app
+
+### Essential Documentation References
+
+```yaml
+# MUST READ - Include these in your context window
+
+- url: https://api.fliplet.com/v1/widgets/assets
+  why: Complete list of available assets (CSS/JS libraries) that widgets can use
+  critical: Check available versions, latest version and dependencies before suggesting libraries
+
+- url: https://developers.fliplet.com/Dependencies-and-assets.html
+  why: Explains how to properly include assets and manage dependencies in widgets
+  section: Focus on "Declaring dependencies" and "Loading assets dynamically"
+
+- url: https://developers.fliplet.com/Introduction.html
+  why: Core concepts for building Fliplet widgets (components)
+  critical: Understand the widget lifecycle and build/interface contexts
+
+- file: widget.json
+  why: Widget configuration file that defines dependencies and settings
+  critical: Check existing dependencies before suggesting new ones
+
+- doc: /tasks/middleware-plan-[project-name].md
+  why: The middleware architecture this UI plan must integrate with
+  critical: Understand available services, data flows, and state management
+```
+
+## Process
+
+1. **Clarify Context:** Determine if building for interface or build context
+2. **Analyze Middleware Architecture:** Read and understand the existing middleware plan and implementation
+3. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
+4. **Identify UI Requirements:** Extract user workflows, data displays, and interaction patterns
+5. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that integrate with middleware
+6. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
+7. **Define Customization Framework:** Plan theming and branding customization
+8. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
+9. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
+
+## Input Requirements
+
+The AI should analyze the following:
+
+### Middleware Documentation
+- **Architecture Plan:** `/tasks/middleware-plan-[project-name].md`
+- **Implementation Files:** `/src/middleware/` directory structure
+- **API Service Interfaces:** Available methods and data structures
+- **Workflow Controllers:** User interaction sequences
+- **State Management:** Data available for UI display
+
+### Key Analysis Areas
+- **User Workflows:** Sequential steps users must complete
+- **Data Presentation:** Information that needs to be displayed
+- **User Actions:** Buttons, forms, and interactions required
+- **Error States:** How errors should be presented to users
+- **Loading States:** Progressive disclosure and skeleton screens
+- **Accessibility:** Keyboard navigation, screen reader support
+
+## UI/UX Plan Structure
+
+The generated plan must follow this exact structure for compatibility with `generate-tasks.mdc` and comprehensive UX review:
+
+```markdown
+# UI/UX Plan: [Project Name]
+
+## Overview
+[Brief description of the UI system, its purpose, and target users]
+
+## Technical Stack
+
+### Framework
+- **Vue.js Version:** 3.5.13 (if Vue is used)
+- **Component API:** Vue Options API
+- **Build Context:** [interface|build] - Specify which context this UI serves
+
+### Available Dependencies
+[List dependencies from widget.json and Fliplet asset library]
+
+## Design Principles
+
+### Core Principles
+- **Responsive Design:** Mobile-first approach with fluid layouts
+- **Accessibility:** WCAG 2.1 AA compliance throughout
+- **Brand Flexibility:** Customizable theming system
+- **User Experience:** Clear navigation and intuitive interactions
+- **Performance:** Optimized loading and smooth transitions
+
+### Design System Integration
+- **Fliplet Studio UI:** How components integrate with Fliplet's design system
+- **Custom Components:** When and how to extend the base system
+- **Theming Architecture:** CSS custom properties and SCSS variables
+
+## User Journey Mapping
+
+### Primary User Flow: [Flow Name]
+**User Goal:** [What the user wants to achieve]
+**Entry Point:** [How users access this flow]
+**Success Criteria:** [How users know they've succeeded]
+
+**Steps:**
+1. **[Step Name]**
+   - User Action: [What the user does]
+   - System Response: [How the UI responds]
+   - Data Displayed: [Information shown]
+   - Possible Errors: [Error states and messages]
+
+2. **[Next Step]**
+   [Continue for all steps]
+
+### Secondary User Flows
+[Document additional user journeys as needed]
+
+## State-Oriented UX Specifications
+
+### UI State Matrix
+
+Use state specifications to clearly outline different states/screens/pages, enabling thorough UX review and comprehensive testing.
+
+#### State Template
+
+**[State Name]**
+
+- **Entry Triggers:** How do we get here? (events, user actions, preconditions)
+- **Visibility/Data:** Exactly what's on screen; data freshness rules and loading behavior
+- **Allowed Actions:** Available buttons/gestures/menu items; preconditions for each; expected outcomes
+- **Forbidden Actions (and Why):** What's disabled/hidden and rationale; how restrictions are communicated
+- **System Feedback:** Loading indicators, progress bars, validation messages, toasts, banners
+- **Empty/Error/Offline Variants:** Copy, visuals, retry logic for each edge case
+- **Permissions/Entitlements:** Role-based access, ownership rules, feature flags
+- **Analytics:** Event names, properties, success metrics tracked in this state
+- **Transitions:** Which next states are reachable and their triggers
+
+#### Example State Specification
+
+**Dashboard**
+
+- **Entry Triggers:** User navigates to dashboard, page refresh, session timeout recovery
+- **Visibility/Data:** Skeleton layout showing page structure, loading spinner in data areas
+- **Allowed Actions:** Navigate away via main menu, cancel loading (if applicable)
+- **Forbidden Actions (and Why):** No data actions available - buttons disabled with loading states
+- **System Feedback:** Progress indicator, "Loading dashboard data..." message
+- **Loading/Empty/Error/Offline Variants:** (e.g.)
+  - Network error: "Unable to load dashboard. Check connection and try again"
+  - Timeout: "Dashboard is taking longer than usual to load. Please wait or refresh"
+- **Permissions/Entitlements:** Must have authenticated session and dashboard access role
+- **Analytics:** `dashboard_load_started`, `dashboard_load_duration`, `dashboard_load_error`
+- **Transitions:** → Dashboard Loaded (success), → Error State (failure), → Login (auth expired)
+
+### State Transition Matrix
+
+Create a matrix (rows = high-level application states, columns = user actions) to identify interaction gaps and valid transitions between major application areas:
+
+| State / Action | Create New | Edit Existing | Submit | View Details | Delete | Navigate |
+|---|---|---|---|---|---|---|
+| **Planning Dashboard** | ✅ New Initiative | ✅ Edit Selected | ❌ Not Applicable | ✅ View Item | ✅ Archive Item | ✅ All Sections |
+| **Work Item Drafting** | ✅ Draft Work Item | ✅ Edit Fields | ✅ Submit for Review | ✅ Preview Draft | ❌ Restricted | ⚠️ Confirm Exit |
+| **Review & Approval** | ❌ Review Only | ✅ Request Changes | ✅ Approve Submission | ✅ View Submission | ❌ Restricted | ✅ Back to Dashboard |
+| **Deployment Scheduling** | ❌ In Progress | ✅ Update Schedule | ✅ Confirm Release | ✅ View Schedule | ❌ Restricted | ⚠️ Unsaved Changes |
+| **Audit & Reporting** | ❌ Read Only | ❌ Read Only | ❌ Not Applicable | ✅ View History | ❌ Restricted | ✅ Back to Dashboard |
+
+## Product Analytics & Audit Logging
+
+Define analytics events and audit logging from a Product perspective to measure success metrics, user behavior, and system usage. This complements engineering's system performance logging.
+
+### Analytics Strategy
+
+#### Product Success Metrics
+Document what the Product team considers success for this feature:
+
+- **Primary Success Metrics:** Key performance indicators that define feature success
+- **User Engagement Metrics:** How users interact with the feature over time
+- **Business Impact Metrics:** Revenue, conversion, or operational efficiency gains
+- **User Experience Metrics:** Task completion rates, user satisfaction, error rates
+
+#### Analytics Event Categories
+
+**User Journey Events**
+- **Entry Points:** How users discover and access the feature
+- **Navigation Events:** Movement through the application workflow
+- **Completion Events:** Successful task completion and outcomes
+- **Abandonment Events:** Where users drop off and why
+
+**Feature Usage Events**
+- **Feature Discovery:** When users find and explore new capabilities
+- **Feature Adoption:** First-time usage and ongoing engagement
+- **Feature Mastery:** Advanced usage patterns and power user behaviors
+- **Feature Feedback:** User satisfaction and feature improvement requests
+
+**Business Process Events**
+- **Workflow Initiation:** When business processes start
+- **Process Milestones:** Key steps in business workflows
+- **Process Completion:** Successful business outcomes
+- **Process Optimization:** Efficiency improvements and bottlenecks
+
+### Analytics Implementation Plan
+
+#### Fliplet App Analytics Events
+
+Use `Fliplet.App.Analytics.event()` for user behavior analytics visible in App Analytics dashboard:
+
+```javascript
+// Example: Track workflow completion
+Fliplet.App.Analytics.event({
+  category: 'workflow_console',
+  action: 'process_completed',
+  label: 'Launch Checklist',
+  value: 1 // Optional numeric value
+});
+
+// Example: Track feature usage
+Fliplet.App.Analytics.event({
+  category: 'ui_interaction',
+  action: 'button_clicked',
+  label: 'Export Summary Report'
+});
+
+// Example: Track user journey milestone
+Fliplet.App.Analytics.event({
+  category: 'process_journey',
+  action: 'milestone_reached',
+  label: 'First Process Completed'
+});
+```
+
+#### Fliplet App Logs for Audit Trail
+
+Use `Fliplet.App.Logs.create()` for audit logs visible to organization admins:
+
+```javascript
+// Example: Log data modification (scope only, no detailed values)
+Fliplet.App.Logs.create({
+  type: 'record_metadata_modified',
+  data: {
+    action: 'Record metadata updated',
+    entity_id: 'record_123',
+    modified_fields: ['title', 'description', 'status'],
+    timestamp: new Date().toISOString()
+  }
+});
+
+// Example: Log sensitive actions
+Fliplet.App.Logs.create({
+  type: 'workflow_transition_completed',
+  data: {
+    action: 'Workflow transitioned to Approved',
+    entity_id: 'record_123',
+    context: 'Operations Review',
+    outcome: 'approved',
+    timestamp: new Date().toISOString()
+  }
+});
+
+// Example: Log permission changes (scope only)
+Fliplet.App.Logs.create({
+  type: 'user_permissions_changed',
+  data: {
+    action: 'User role updated',
+    target_user_id: 'user_789',
+    entity_scope: 'workspace_123',
+    timestamp: new Date().toISOString()
+  }
+});
+```
+
+#### User Interaction Analytics
+
+Track actual user interactions and actions using Fliplet Analytics Events:
+
+**User Actions**
+```javascript
+// When user clicks a button
+Fliplet.App.Analytics.event({
+  category: 'user_action',
+  action: 'button_clicked',
+  label: 'Submit for Approval'
+});
+
+// When user navigates to a section
+Fliplet.App.Analytics.event({
+  category: 'navigation',
+  action: 'section_opened',
+  label: 'Review Hub'
+});
+
+// When user completes a form
+Fliplet.App.Analytics.event({
+  category: 'form_interaction',
+  action: 'form_submitted',
+  label: 'Workflow Intake Form'
+});
+```
+
+**Critical Actions (Analytics + Audit Log)**
+```javascript
+// User performs critical action - track engagement + log for audit
+Fliplet.App.Analytics.event({
+  category: 'critical_action',
+  action: 'workflow_closed',
+  label: 'Operations Release',
+  value: 1
+});
+
+// Log the business outcome for admin review
+Fliplet.App.Logs.create({
+  type: 'workflow_closed',
+  data: {
+    action: 'Workflow closed with Release',
+    context: 'Operations Release',
+    timestamp: new Date().toISOString()
+  }
+});
+```
+
+**System States (Audit Log Only)**
+```javascript
+// System states like errors, loading timeouts should only be logged for admin review
+// DO NOT track these as analytics events since they're not user interactions
+
+// Log system errors for troubleshooting
+Fliplet.App.Logs.create({
+  type: 'system_error',
+  data: {
+    action: 'Network timeout during workflow update',
+    error_type: 'network_timeout',
+    timestamp: new Date().toISOString()
+  }
+});
+```
+
+### Audit Logging Requirements
+
+#### Compliance and Security Logging
+Events that need to be logged for audit trails and compliance:
+
+- **Data Access Events:** When users view sensitive information
+- **Data Modification Events:** When users change system data
+- **Permission Changes:** When user roles or access levels change
+- **Configuration Changes:** When system settings are modified
+- **Export Events:** When data is downloaded or exported
+- **Import Events:** When external data is brought into the system
+
+#### Business Process Audit Trail
+Important business events that need permanent records:
+
+- **Approval Workflows:** Who approved what and when
+- **Financial Transactions:** Any monetary operations or calculations
+- **Regulatory Compliance:** Events required for industry regulations
+- **Data Retention:** Events related to data lifecycle management
+
+### Analytics Integration with UI Components
+
+#### Component-Level Event Tracking
+
+Each UI component should define its analytics events:
+
+```javascript
+// Example component analytics integration
+const ComponentAnalytics = {
+  // Form component events
+  FormSubmission: {
+    event: 'form_submitted',
+    required_properties: ['form_type', 'validation_errors', 'completion_time'],
+    success_metric: 'form_completion_rate'
+  },
+
+  // Table component events
+  DataTableInteraction: {
+    event: 'table_action_performed',
+    required_properties: ['action_type', 'row_count', 'filter_applied'],
+    success_metric: 'data_discoverability'
+  },
+
+  // Navigation component events
+  NavigationUsage: {
+    event: 'navigation_item_clicked',
+    required_properties: ['destination', 'source_page', 'user_intent'],
+    success_metric: 'navigation_efficiency'
+  }
+};
+```
+
+#### User Experience Analytics
+
+Track user experience quality metrics:
+
+- **Task Efficiency:** Time to complete common tasks
+- **Error Rates:** Frequency and types of user errors
+- **Help Usage:** When users need assistance or documentation
+- **Feature Discovery:** How users learn about new capabilities
+- **Customization Usage:** How users personalize their experience
+
+### Analytics Success Measurement
+
+#### Key Performance Indicators (KPIs)
+- **Feature Adoption Rate:** Percentage of eligible users who use the feature
+- **Task Success Rate:** Percentage of successful task completions
+- **User Retention Rate:** Users who return to use the feature repeatedly
+- **Time to Value:** How quickly users achieve their goals
+- **User Satisfaction Score:** Direct feedback from users about the experience
+
+#### Reporting and Dashboards
+- **Real-time Monitoring:** Live dashboard for critical metrics
+- **Weekly Business Reviews:** Summary reports for stakeholders
+- **Monthly Deep Dives:** Detailed analysis of user behavior patterns
+- **Quarterly Strategy Reviews:** Long-term trend analysis and planning
+
+### Privacy and Data Protection
+
+#### Data Collection Guidelines
+- **Minimal Data Principle:** Only collect data necessary for defined success metrics
+- **User Consent:** Clear communication about what data is collected and why
+- **Data Anonymization:** Remove personally identifiable information where possible
+- **Retention Policies:** Define how long analytics data is stored
+
+#### GDPR and Privacy Compliance
+- **Right to Delete:** Ability to remove user data from analytics systems
+- **Data Portability:** Export user's analytics data in readable format
+- **Consent Management:** Track and manage user consent for different data types
+- **Privacy by Design:** Build privacy considerations into analytics architecture
+
+## Component Architecture
+
+### Layout Components
+
+#### AppShell
+**Purpose:** Main application wrapper providing consistent structure
+**Features:**
+- Responsive navigation
+- Branding area
+- Content container
+- Footer information
+
+**Props:**
+```javascript
+{
+  branding: Object,     // Logo, colors, typography
+  navigation: Array,    // Menu items and structure
+  user: Object,        // Current user information
+  showFooter: Boolean  // Toggle footer visibility
+}
+```
+
+#### NavigationHeader
+**Purpose:** Primary navigation and branding display
+**Responsive Behavior:**
+- Desktop: Horizontal navigation bar
+- Tablet: Condensed navigation
+- Mobile: Hamburger menu with slide-out drawer
+
+### Page Components
+
+#### [PageName]View
+**Purpose:** [What this page displays and manages]
+**Data Requirements:** [What middleware data it consumes]
+**User Actions:** [Primary interactions available]
+**States:**
+- Loading: [How loading is indicated]
+- Empty: [What shows when no data]
+- Error: [How errors are displayed]
+- Success: [Success state appearance]
+
+### Form Components
+
+#### [FormName]Form
+**Purpose:** [What data this form collects]
+**Fields:** [List all form fields with types]
+**Validation:** [Client-side validation rules]
+**Submission:** [How form interacts with middleware]
+
+### UI Components
+
+#### DataTable
+**Purpose:** Display tabular data with sorting and filtering
+**Features:**
+- Responsive table design
+- Column sorting
+- Search/filter functionality
+- Pagination
+- Row actions
+
+#### StatusIndicator
+**Purpose:** Show workflow progress and status
+**States:** [Different status types and their visual representation]
+
+#### ActionButton
+**Purpose:** Primary action triggers with loading states
+**Variants:** Primary, Secondary, Danger, Success
+
+### Feedback Components
+
+#### NotificationToast
+**Purpose:** Temporary feedback messages
+**Types:** Success, Warning, Error, Info
+**Behavior:** Auto-dismiss with manual close option
+
+#### ModalDialog
+**Purpose:** Confirmations and focused interactions
+**Variants:** Confirm, Alert, Custom content
+
+## Responsive Design Strategy
+
+### Breakpoints
+```scss
+$breakpoints: (
+  'mobile': 320px,    // Base mobile design
+  'tablet': 768px,    // Tablet portrait
+  'desktop': 1024px,  // Desktop and larger
+  'wide': 1440px     // Wide screens
+);
+```
+
+### Layout Patterns
+
+#### Mobile First
+- Single column layouts
+- Stacked navigation
+- Full-width forms
+- Collapsed tables to cards
+
+#### Tablet Adaptations
+- Two-column layouts where appropriate
+- Side navigation option
+- Expanded table views
+- Modal dialogs instead of full-screen
+
+#### Desktop Enhancements
+- Multi-column dashboards
+- Persistent navigation
+- Side-by-side comparisons
+- Advanced filtering panels
+
+## Theming & Customization
+
+### CSS Custom Properties
+```css
+:root {
+  /* Brand Colors */
+  --primary-color: #00abd1;
+  --secondary-color: #eae9ec;
+  --accent-color: #36344c;
+
+  /* Semantic Colors */
+  --success-color: #19cd9d
+  --warning-color: #ed9119;
+  --error-color: #e03629;
+  --info-color: #413e5b;
+
+  /* Typography */
+  --font-family-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-size-base: 14px;
+  --line-height-base: 1.428571429;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --container-max-width: 1200px;
+
+  /* Shadows & Borders */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+  --border-radius: 4px;
+}
+```
+
+### Theme Configuration
+```javascript
+{
+  name: "Custom Theme",
+  colors: {
+    primary: "#custom-primary",
+    secondary: "#custom-secondary",
+    // ... other color overrides
+  },
+  typography: {
+    fontFamily: "Custom Font Stack",
+    headingFont: "Custom Heading Font",
+    // ... other typography settings
+  },
+  spacing: {
+    compact: true,  // Reduces default spacing
+    // ... other spacing options
+  }
+}
+```
+
+## Interaction Patterns
+
+### Form Interactions
+- **Inline Validation:** Real-time feedback as users type
+- **Error Prevention:** Disable submit until valid
+- **Clear Error Messages:** Specific, actionable error text
+- **Progress Indication:** Multi-step form progress
+
+### Data Loading
+- **Skeleton Screens:** Show layout structure while loading
+- **Progressive Loading:** Load critical content first
+- **Optimistic Updates:** Immediate UI feedback
+- **Error Recovery:** Clear retry mechanisms
+
+### Navigation
+- **Breadcrumbs:** Clear location indication
+- **Tab Navigation:** For related content sections
+- **Pagination:** For large data sets
+- **Search:** Global and contextual search
+
+## Accessibility Requirements
+
+### WCAG 2.1 AA Compliance
+- **Color Contrast:** Minimum 4.5:1 for normal text, 3:1 for large text
+- **Keyboard Navigation:** All interactive elements keyboard accessible
+- **Focus Indicators:** Clear visual focus states
+- **Screen Reader Support:** Proper ARIA labels and landmarks
+
+### Implementation Guidelines
+```vue
+<!-- Example accessible component structure -->
+<template>
+  <nav role="navigation" aria-label="Main navigation">
+    <ul role="list">
+      <li v-for="item in navItems" :key="item.id">
+        <a
+          :href="item.url"
+          :aria-current="item.active ? 'page' : null"
+          @click="handleNavigation"
+        >
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</template>
+```
+
+### Testing Requirements
+- **Keyboard Testing:** Navigate entire app without mouse
+- **Screen Reader Testing:** NVDA/JAWS on Windows, VoiceOver on Mac
+- **Color Contrast:** Automated testing with axe-core
+- **Focus Management:** Proper focus restoration after modals
+
+## Performance Optimization
+
+### Loading Strategy
+- **Code Splitting:** Lazy load route components
+- **Image Optimization:** Responsive images with loading="lazy"
+- **Font Loading:** FOUT prevention with font-display
+- **CSS Optimization:** Critical CSS inline, rest async
+
+### Runtime Performance
+- **Virtual Scrolling:** For large lists
+- **Debounced Inputs:** Prevent excessive API calls
+- **Memoization:** Cache expensive computations
+- **Animation Performance:** CSS transforms over position
+
+## Error Handling & Feedback
+
+### Error States
+- **Network Errors:** Clear offline indication
+- **Validation Errors:** Inline field-level messages
+- **System Errors:** User-friendly error pages
+- **Permission Errors:** Clear access denied messaging
+
+### User Feedback
+- **Success Confirmations:** Clear success messages
+- **Progress Indicators:** Long-running operations
+- **Undo Actions:** Where appropriate
+- **Help Text:** Contextual assistance
+
+## Integration with Middleware
+
+### State Management Integration
+```javascript
+// Example Vue.js 3.5.13 integration with middleware
+export default {
+  data() {
+    return {
+      workflowState: null,
+      loading: false,
+      error: null
+    };
+  },
+
+  async created() {
+    try {
+      this.loading = true;
+      // Get current state from middleware
+      // Replace [WidgetName] with actual widget global namespace
+      this.workflowState = await window.[WidgetName]
+        .middleware
+        .stateManager
+        .getWorkflowState('[workflow-name]');
+    } catch (error) {
+      this.error = window.[WidgetName]
+        .middleware
+        .errorHandler
+        .getUserMessage(error);
+    } finally {
+      this.loading = false;
+    }
+  }
+};
+```
+
+### Event System Integration
+```javascript
+// Listen for middleware events in Vue 3.5.13
+mounted() {
+  // Replace [WidgetName] with actual widget global namespace
+  window.[WidgetName].middleware.on('workflow:updated', this.handleWorkflowUpdate);
+  window.[WidgetName].middleware.on('error:occurred', this.handleError);
+},
+
+// Vue 2 lifecycle hook
+beforeDestroy() {
+  window.[WidgetName].middleware.off('workflow:updated', this.handleWorkflowUpdate);
+  window.[WidgetName].middleware.off('error:occurred', this.handleError);
+}
+```
+
+## Implementation Guidelines
+
+### Fliplet Widget File Loading & Dependencies
+
+**CRITICAL:** All CSS and JavaScript files must be properly declared in `widget.json` to be loaded by Fliplet. Files cannot be loaded independently - they must follow Fliplet's asset management system.
+
+#### Widget.json Configuration
+
+Every UI component file must be declared in `widget.json` under the appropriate context:
+
+```json
+{
+  "name": "Widget Name",
+  "build": {
+    "dependencies": [
+      "vue.js"
+    ],
+    "assets": [
+      "css/build.css",
+      "js/components/layout/app-shell.js",
+      "js/components/pages/dashboard-view.js",
+      "js/components/ui/data-table.js",
+      "js/build.js"
+    ]
+  },
+  "interface": {
+    "dependencies": [
+      "jquery",
+      "bootstrap",
+      "fliplet-studio-ui"
+    ],
+    "assets": [
+      "css/interface.css",
+      "js/components/forms/settings-form.js",
+      "js/interface.js"
+    ]
+  }
+}
+```
+
+#### Dependency Requirements
+
+**Available Dependencies:** All dependencies must be available in [Fliplet's asset library](https://api.fliplet.com/v1/widgets/assets). Check the API endpoint before specifying any dependency.
+
+**Context-Specific Loading:**
+- **Build Context:** Files loaded in the published app for end users
+- **Interface Context:** Files loaded in Fliplet Studio for configuration
+
+#### File Organization Strategy
+
+```
+/css/
+├── build.css          # Compiled styles for end users
+├── interface.css      # Compiled styles for Studio
+└── components/        # Individual component styles (pre-build)
+    ├── layout/
+    ├── forms/
+    └── ui/
+
+/js/
+├── build.js           # Main entry point for end users
+├── interface.js       # Main entry point for Studio
+└── components/        # Individual components
+    ├── layout/
+    │   ├── app-shell.js
+    │   └── navigation-header.js
+    ├── pages/
+    │   └── dashboard-view.js
+    ├── forms/
+    │   └── settings-form.js
+    └── ui/
+        ├── data-table.js
+        └── status-indicator.js
+```
+
+#### HTML Template Integration
+
+**Build Context Templates:** Must be in `build.html` or loaded via JavaScript:
+```html
+<!-- build.html -->
+<div id="app">
+  <!-- Component templates go here -->
+</div>
+
+<!-- OR loaded dynamically -->
+<script>
+window.[WidgetName].templates = {
+  'app-shell': '<div class="app-shell">...</div>',
+  'data-table': '<table class="data-table">...</table>'
+};
+</script>
+```
+
+**Interface Context Templates:** Must be in `interface.html` or loaded via JavaScript:
+```html
+<!-- interface.html -->
+<div class="widget-settings">
+  <!-- Configuration UI templates -->
+</div>
+```
+
+#### Asset Loading Order
+
+Files are loaded in the exact order listed in the `assets` array:
+
+```json
+{
+  "build": {
+    "assets": [
+      "css/base.css",           // 1. Base styles first
+      "css/components.css",     // 2. Component styles
+      "css/themes.css",         // 3. Theme overrides
+      "js/utils.js",           // 4. Utilities first
+      "js/components/base.js",  // 5. Base components
+      "js/components/ui.js",    // 6. UI components
+      "js/main.js"             // 7. Main application last
+    ]
+  }
+}
+```
+
+#### Build Optimization Options
+
+**Option 1: Manual Compilation**
+Use build tools (gulp, webpack) to compile multiple files:
+
+```json
+{
+  "build": {
+    "assets": [
+      "dist/app.min.css",    # Single compiled CSS
+      "dist/app.min.js"      # Single compiled JS
+    ]
+  }
+}
+```
+
+**Option 2: Fliplet Auto-Concatenation**
+List individual files - Fliplet automatically concatenates in production:
+
+```json
+{
+  "build": {
+    "assets": [
+      "css/base.css",
+      "css/layout.css",
+      "css/forms.css",
+      "css/ui.css",
+      "js/utils.js",
+      "js/components.js",
+      "js/main.js"
+    ]
+  }
+}
+```
+
+#### Vue.js 3.5.13 Component Loading
+
+**Component Registration Pattern:**
+```javascript
+// Each component file should register itself globally
+(function() {
+  'use strict';
+
+  // Replace [WidgetName] with actual widget namespace
+  window.[WidgetName] = window.[WidgetName] || {};
+  window.[WidgetName].components = window.[WidgetName].components || {};
+
+  // Register component
+  window.[WidgetName].components['AppShell'] = {
+    template: window.[WidgetName].templates['app-shell'],
+    props: ['branding', 'navigation'],
+    data() {
+      return {
+        // component state
+      };
+    },
+    methods: {
+      // component methods
+    }
+  };
+})();
+```
+
+**Main Application Registration:**
+```javascript
+// main.js - loaded last in assets array
+(function() {
+  'use strict';
+
+  // Create Vue app with all registered components
+  window.[WidgetName].app = new Vue({
+    el: '#app',
+    components: window.[WidgetName].components,
+    data: {
+      // app state
+    }
+  });
+})();
+```
+
+#### Critical Implementation Checklist
+
+Before generating UI implementation tasks, verify:
+
+1. **✅ Context Clarity:** Confirmed whether building for interface or build context
+2. **✅ Dependency Check:** All dependencies exist in [Fliplet's asset library](https://api.fliplet.com/v1/widgets/assets)
+3. **✅ File Declaration:** Every CSS/JS file listed in appropriate widget.json context
+4. **✅ Load Order:** Assets listed in correct loading sequence
+5. **✅ Template Strategy:** HTML templates integrated via build.html/interface.html or JavaScript
+6. **✅ Component Registration:** Vue components properly registered in global namespace
+7. **✅ Build Strategy:** Chosen between manual compilation vs Fliplet auto-concatenation
+
+#### Example Implementation Reference
+
+See [fliplet-widget-form-builder](https://github.com/Fliplet/fliplet-widget-form-builder/blob/master/widget.json) and [fliplet-widget-theme](https://github.com/Fliplet/fliplet-widget-theme/blob/master/widget.json) for complete examples of proper asset declaration and loading.
+
+## Component Documentation
+
+### Component Template
+```vue
+<template>
+  <div class="component-name" :class="computedClasses">
+    <!-- Component markup -->
+  </div>
+</template>
+
+<script>
+/**
+ * ComponentName - Brief description
+ * Vue 3.5.13 component using Options API
+ *
+ * @example
+ * <ComponentName
+ *   :prop1="value"
+ *   @event="handler"
+ * />
+ */
+export default {
+  name: 'ComponentName',
+
+  props: {
+    /**
+     * Prop description
+     * @type {String}
+     * @required
+     */
+    prop1: {
+      type: String,
+      required: true,
+      validator: (value) => {
+        return ['option1', 'option2'].includes(value);
+      }
+    }
+  },
+
+  // Vue 2 doesn't have emits option, events are documented via comments
+  // Events: event-name
+
+  data() {
+    return {
+      // Component state
+    };
+  },
+
+  computed: {
+    computedClasses() {
+      return {
+        'is-active': this.isActive,
+        'has-error': this.hasError
+      };
+    }
+  },
+
+  methods: {
+    handleEvent() {
+      // Emit events using Vue 2 syntax
+      this.$emit('event-name', payload);
+    }
+  },
+
+  // Vue 2 lifecycle hooks
+  created() {
+    // Component initialization
+  },
+
+  mounted() {
+    // DOM is ready
+  },
+
+  beforeDestroy() {
+    // Cleanup before component destruction
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.component-name {
+  // Component styles using CSS custom properties
+}
+</style>
+```
+
+## Testing Strategy
+
+### Component Testing
+- **Unit Tests:** Test component logic in isolation
+- **Integration Tests:** Test component with middleware
+- **Visual Tests:** Screenshot comparisons
+- **Accessibility Tests:** Automated a11y testing
+
+### User Testing
+- **Usability Testing:** Task-based user testing
+- **A/B Testing:** Test different UI variations
+- **Performance Testing:** Load time metrics
+- **Device Testing:** Cross-device compatibility
+
+## QA Test Plan Generation
+
+The UI/UX plan should provide sufficient detail for generating a comprehensive Test Plan for QA verification. This Test Plan will be generated as a separate task and file (`test-plan-[project-name].md`) based on the UI specifications.
+
+### Test Plan Requirements
+
+The UI plan must include enough detail for QA to verify:
+
+#### Functional Testing Areas
+- **State Verification:** Each UI state defined in the State-Oriented UX Specs
+- **User Flow Testing:** Complete user journeys from entry to completion
+- **Form Validation:** All validation rules and error messages
+- **Data Display:** Correct data rendering and formatting
+- **Interactive Elements:** Button behavior, navigation, and user controls
+- **Permission Testing:** Role-based access and feature flag verification
+
+#### Cross-Platform Testing Scope
+- **Responsive Behavior:** Mobile, tablet, desktop breakpoint testing
+- **Browser Compatibility:** Testing matrix for supported browsers
+- **Device Testing:** Touch interactions, keyboard navigation
+- **Accessibility Testing:** Screen reader compatibility, keyboard navigation
+
+#### Edge Case Testing Scenarios
+- **Empty States:** No data available scenarios
+- **Error States:** Network failures, API errors, validation failures
+- **Loading States:** Long-running operations, timeout handling
+- **Permission States:** Unauthorized access, insufficient privileges
+- **Offline Scenarios:** Network connectivity issues
+
+#### Performance Testing Benchmarks
+- **Load Time Targets:** Based on performance optimization requirements
+- **User Interaction Response:** Click-to-feedback timing requirements
+- **Memory Usage:** Resource consumption limits
+- **Network Usage:** Data transfer optimization verification
+
+### Test Plan Generation Process
+
+1. **Extract Testable Requirements:** From UI states, user flows, and component specifications
+2. **Map Test Scenarios:** Each state transition and user action becomes a test case
+3. **Define Success Criteria:** Measurable outcomes for each test scenario
+4. **Create Test Data Requirements:** Mock data, user accounts, and system states needed
+5. **Document Expected Behaviors:** Precise descriptions of correct system responses
+
+## Implementation Priorities
+
+### Phase 1: Core Components
+1. AppShell and navigation
+2. Basic form components
+3. Data display components
+4. Error handling components
+
+### Phase 2: Advanced Features
+1. Complex workflows
+2. Data visualization
+3. Advanced filtering
+4. Batch operations
+
+### Phase 3: Polish & Optimization
+1. Animation refinements
+2. Performance optimization
+3. Advanced theming
+4. Enhanced accessibility
+
+## Success Metrics
+
+### User Experience Metrics
+- **Task Completion Rate:** 95%+ successful completions
+- **Time to Complete:** Reduced by 30% from current
+- **Error Rate:** Less than 5% user errors
+- **Satisfaction Score:** 4.5+ out of 5
+
+### Technical Metrics
+- **Load Time:** Initial load under 3 seconds
+- **Accessibility Score:** 100% WCAG 2.1 AA compliance
+- **Browser Support:** Modern browsers + IE11
+- **Device Support:** Responsive from 320px width
+
+### Design System Metrics
+- **Component Reuse:** 80%+ shared components
+- **Theme Adoption:** Easy customization demonstrated
+- **Documentation Coverage:** 100% components documented
+- **Design Consistency:** Style guide adherence
+
+## File Structure Plan
+
+```
+/src/
+├── components/
+│   ├── layout/
+│   │   ├── AppShell.vue
+│   │   ├── NavigationHeader.vue
+│   │   ├── PageContainer.vue
+│   │   └── FooterSection.vue
+│   ├── pages/
+│   │   ├── [PageName]View.vue
+│   │   └── ...
+│   ├── forms/
+│   │   ├── [FormName]Form.vue
+│   │   ├── FormField.vue
+│   │   └── ValidationMessage.vue
+│   ├── ui/
+│   │   ├── DataTable.vue
+│   │   ├── StatusIndicator.vue
+│   │   ├── ActionButton.vue
+│   │   └── LoadingSpinner.vue
+│   ├── feedback/
+│   │   ├── NotificationToast.vue
+│   │   ├── ModalDialog.vue
+│   │   └── ErrorBoundary.vue
+│   └── shared/
+│       ├── BaseComponent.vue
+│       └── TransitionWrapper.vue
+├── styles/
+│   ├── _variables.scss
+│   ├── _mixins.scss
+│   ├── _base.scss
+│   ├── _utilities.scss
+│   └── themes/
+│       ├── default.scss
+│       └── [custom-theme].scss
+├── utils/
+│   ├── validators.js
+│   ├── formatters.js
+│   └── accessibility.js
+└── main.js
+```
+
+## Next Steps
+
+This UI/UX plan should be reviewed for:
+1. **User Experience:** Intuitive workflows and clear interactions
+2. **Visual Design:** Consistent with Fliplet brand guidelines
+3. **Technical Feasibility:** Vue.js 3.5.13 implementation approach
+4. **Accessibility:** WCAG 2.1 AA compliance throughout
+5. **Performance:** Optimal loading and runtime performance
+
+Once approved, this plan will be converted to implementation tasks using `generate-tasks.mdc`.
+```
+
+## Plan Generation Guidelines
+
+### Comprehensive Analysis
+- Read the complete middleware architecture plan
+- Understand all user workflows and data flows
+- Identify every user interaction point
+- Map all states (loading, error, success, empty)
+
+### UI/UX Design
+- Design for non-technical users first
+- Ensure responsive mobile-first approach
+- Plan for accessibility from the start
+- Include comprehensive customization options
+
+### Documentation Quality
+- Use clear, non-technical language where possible
+- Include visual examples and code snippets
+- Ensure compatibility with task generation
+- Provide implementation guidance
+
+### Review Considerations
+- Design decisions should be clear to non-developers
+- Customization options should be well-documented
+- Accessibility requirements must be specific
+- Performance targets should be measurable
+
+## Target Audience
+
+The generated plan should be suitable for:
+- **Product Managers** reviewing user experience decisions
+- **Designers** understanding component structure and theming
+- **Developers** who will implement the components
+- **QA Engineers** understanding UI behavior and states
+- **Stakeholders** reviewing brand compliance
+
+## Final Instructions
+
+1. **Check widget context** - Clarify if building for interface or build context
+2. **Review Fliplet documentation** - Use the reference table to understand constraints
+3. **Analyze the middleware architecture** thoroughly before beginning
+4. **Verify available assets** - Check widget.json and Fliplet asset library
+5. **Create a complete UI/UX plan** that addresses every user touchpoint
+6. **Ensure the plan structure** matches the required format exactly
+7. **Design for Vue.js 3.5.13** within Fliplet's framework constraints
+8. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
+9. **Include specific details** that can be converted to actionable tasks
+10. **Plan for accessibility** and responsive design throughout
+11. **Consider non-technical reviewers** in your language choices
+12. **Prepare for task generation** by including implementation details
+13. **Follow implementation guidelines** - Ensure all files are properly declared in widget.json
+14. **Verify dependency availability** - Check all dependencies against Fliplet's asset library
+15. **Plan file loading strategy** - Choose between manual compilation or Fliplet auto-concatenation

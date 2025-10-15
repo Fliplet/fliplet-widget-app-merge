@@ -1,0 +1,23 @@
+---
+description: Rule for Root Cause Assessment based on Feedback
+globs:
+alwaysApply: false
+---
+
+# Rule for Root Cause Assessment based on Feedback
+
+## Process
+
+See the feedback on the UI produced in /docs/FEEDBACK.md
+
+I want you to assess why these happened and what should be improved about the process or documentation. I want to focus on a process and standard-oriented solution that can be the most effective for the long run. That means based on the process outlined in @/.cursor/rules/README.md we can capture the problems upstream and early instead of waiting for the middleware/UI to be built to spot the problem.
+
+- Anything that's missing or could be improved in the API specs /docs/API/
+- Improvements that can be made to any of the processes and templates described in @/.cursor/rules/
+- Any of the plans or tasks generated in @/tasks/
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/docs/` (depending on project structure)
+- **Filename:** `FEEDBACK_ASSESSMENT.md`
