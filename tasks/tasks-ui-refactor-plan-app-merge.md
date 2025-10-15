@@ -4,9 +4,9 @@ Generated from `ui-refactor-plan-app-merge.md`.
 
 ## 1. Foundation Stabilisation
 
-- [ ] 1.1 Align `AppShell` tests with updated test IDs and progress selectors.
-- [ ] 1.2 Audit `FlipletTableWrapper.vue` event payloads and extend helpers if required for expandable rows.
-- [ ] 1.3 Extract shared selection diff utilities (if needed) for reuse across tab components.
+- [x] 1.1 Align `AppShell` tests with updated test IDs and progress selectors.
+- [x] 1.2 Audit `FlipletTableWrapper.vue` event payloads and extend helpers if required for expandable rows.
+- [x] 1.3 Extract shared selection diff utilities (if needed) for reuse across tab components.
 
 ## 2. Tab Rebuilds (Screens / Data Sources / Files)
 
