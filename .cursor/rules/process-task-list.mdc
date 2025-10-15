@@ -23,7 +23,12 @@ Guidelines for managing task lists in markdown files to track progress on comple
     - If user says "n": Skip tests for this parent task.
     - **Proceed** only if tests (when run) pass, or if the user chose to skip tests:
     - **Only if all tests pass**: Stage changes (`git add .`)
+     - **Review changes**: Run `git status` to see all modified files
+     - **Stage selectively**: Only stage files related to this task (avoid `git add .` unless it can't be determined which files are related to this task and we don't want to leave any files uncommitted)
+       - List the specific files being staged in the commit preparation
+       - Use `git add <file1> <file2> ...` for explicit control
     - **Clean up**: Remove any temporary files and temporary code before committing
+    - **Verify staging**: Run `git status` again to confirm only intended files are staged    -
     - **Commit**: Use a descriptive commit message that:
       - Uses conventional commit format (`feat:`, `fix:`, `refactor:`, etc.)
       - Summarizes what was accomplished in the parent task
