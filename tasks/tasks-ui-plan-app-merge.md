@@ -345,111 +345,111 @@
 
 ### 6.0 Implement Page Components (State 3: Configuration with Tabs)
 
-- [ ] 6.1 Create MergeConfiguration component
-  - [ ] Create `src/components/pages/MergeConfiguration.vue`
-  - [ ] Implement template: app direction indicator, lock warning, tab navigation, selected items counter, action buttons
-  - [ ] Implement tab switching logic
-  - [ ] Manage selection state across all tabs
-  - [ ] Display LockCountdown component
-  - [ ] Calculate total selected items count
-  - [ ] Style with Tailwind: tab navigation, spacing
-  - [ ] Import ArrowRight, Lock icons from lucide-vue-next
-  - [ ] Emit events: `review`, `back`, `cancel`, `extend-lock`
+- [x] 6.1 Create MergeConfiguration component
+  - [x] Create `src/components/pages/MergeConfiguration.vue`
+  - [x] Implement template: app direction indicator, lock warning, tab navigation, selected items counter, action buttons
+  - [x] Implement tab switching logic
+  - [x] Manage selection state across all tabs
+  - [x] Display LockCountdown component
+  - [x] Calculate total selected items count
+  - [x] Style with Tailwind: tab navigation, spacing
+  - [x] Import ArrowRight, Lock icons from lucide-vue-next
+  - [x] Emit events: `review`, `back`, `cancel`, `extend-lock`
 
-- [ ] 6.2 Create MergeConfiguration tests
-  - [ ] Create `src/components/pages/MergeConfiguration.test.js`
-  - [ ] Test: switches tabs correctly
-  - [ ] Test: tracks selection counts across tabs
-  - [ ] Test: displays lock countdown
-  - [ ] Test: emits events correctly
-  - [ ] Run tests: `npm test MergeConfiguration.test.js`
+- [x] 6.2 Create MergeConfiguration tests
+  - [x] Create `src/components/pages/MergeConfiguration.test.js`
+  - [x] Test: switches tabs correctly
+  - [x] Test: tracks selection counts across tabs
+  - [x] Test: displays lock countdown
+  - [x] Test: emits events correctly
+  - [x] Run tests: `npm test MergeConfiguration.test.js`
 
-- [ ] 6.3 Create ScreensTab component
-  - [ ] Create `src/components/tabs/ScreensTab.vue`
-  - [ ] Implement template: instructions, Fliplet table wrapper for screens with expandable rows
-  - [ ] Integrate with middleware: fetch screens with associations
-  - [ ] Configure table columns: Checkbox, Name, ID, Preview, Last Modified, Associated DS (count), Associated Files (count)
-  - [ ] Implement expandable rows to show associated data sources and files
-  - [ ] Implement bulk selection (select all / individual)
-  - [ ] Show warning icon for screens with non-copyable components
-  - [ ] Style with Tailwind
-  - [ ] Import Eye, AlertTriangle icons from lucide-vue-next
-  - [ ] Emit events: `selection-change`
+- [x] 6.3 Create ScreensTab component
+  - [x] Create `src/components/tabs/ScreensTab.vue`
+  - [x] Implement template: instructions, Fliplet table wrapper for screens with expandable rows
+  - [x] Integrate with middleware: fetch screens with associations
+  - [x] Configure table columns: Checkbox, Name, ID, Preview, Last Modified, Associated DS (count), Associated Files (count)
+  - [x] Implement expandable rows to show associated data sources and files
+  - [x] Implement bulk selection (select all / individual)
+  - [x] Show warning icon for screens with non-copyable components
+  - [x] Style with Tailwind
+  - [x] Import Eye, AlertTriangle icons from lucide-vue-next
+  - [x] Emit events: `selection-change`
 
-- [ ] 6.4 Create ScreensTab tests
-  - [ ] Create `src/components/tabs/ScreensTab.test.js`
-  - [ ] Mock middleware API responses
-  - [ ] Test: loads screens correctly
-  - [ ] Test: shows associated items in expandable rows
-  - [ ] Test: selection works correctly
-  - [ ] Test: emits selection-change with correct data
-  - [ ] Run tests: `npm test ScreensTab.test.js`
+- [x] 6.4 Create ScreensTab tests
+  - [x] Create `src/components/tabs/ScreensTab.test.js`
+  - [x] Mock middleware API responses
+  - [x] Test: loads screens correctly
+  - [x] Test: shows associated items in expandable rows
+  - [x] Test: selection works correctly
+  - [x] Test: emits selection-change with correct data
+  - [x] Run tests: `npm test ScreensTab.test.js`
 
-- [ ] 6.5 Create DataSourcesTab component
-  - [ ] Create `src/components/tabs/DataSourcesTab.vue`
-  - [ ] Implement template: instructions with live impact warning, Fliplet table wrapper with copy mode dropdown
-  - [ ] Integrate with middleware: fetch data sources with associations
-  - [ ] Configure table columns: Checkbox, Name, ID, Last Modified, Entries, Copy Mode (dropdown), Associated Screens, Associated Files, Global Dep
-  - [ ] Implement copy mode dropdown per row: "Structure only" vs "Overwrite structure and data"
-  - [ ] Add "Set all to structure only" bulk action
-  - [ ] Show global dependency indicator (star icon)
-  - [ ] Implement expandable rows for associations
-  - [ ] Filter: only standard data sources (type=null)
-  - [ ] Style with Tailwind
-  - [ ] Import Database, Star icons from lucide-vue-next
-  - [ ] Emit events: `selection-change`, `copy-mode-change`
+- [x] 6.5 Create DataSourcesTab component
+  - [x] Create `src/components/tabs/DataSourcesTab.vue`
+  - [x] Implement template: instructions with live impact warning, Fliplet table wrapper with copy mode dropdown
+  - [x] Integrate with middleware: fetch data sources with associations
+  - [x] Configure table columns: Checkbox, Name, ID, Last Modified, Entries, Copy Mode (dropdown), Associated Screens, Associated Files, Global Dep
+  - [x] Implement copy mode dropdown per row: "Structure only" vs "Overwrite structure and data"
+  - [x] Add "Set all to structure only" bulk action
+  - [x] Show global dependency indicator (star icon)
+  - [x] Implement expandable rows for associations
+  - [x] Filter: only standard data sources (type=null)
+  - [x] Style with Tailwind
+  - [x] Import Database, Star icons from lucide-vue-next
+  - [x] Emit events: `selection-change`, `copy-mode-change`
 
-- [ ] 6.6 Create DataSourcesTab tests
-  - [ ] Create `src/components/tabs/DataSourcesTab.test.js`
-  - [ ] Mock middleware API responses
-  - [ ] Test: loads data sources correctly
-  - [ ] Test: copy mode dropdown changes state
-  - [ ] Test: "Set all to structure only" works
-  - [ ] Test: filters non-standard data sources
-  - [ ] Test: emits events correctly
-  - [ ] Run tests: `npm test DataSourcesTab.test.js`
+- [x] 6.6 Create DataSourcesTab tests
+  - [x] Create `src/components/tabs/DataSourcesTab.test.js`
+  - [x] Mock middleware API responses
+  - [x] Test: loads data sources correctly
+  - [x] Test: copy mode dropdown changes state
+  - [x] Test: "Set all to structure only" works
+  - [x] Test: filters non-standard data sources
+  - [x] Test: emits events correctly
+  - [x] Run tests: `npm test DataSourcesTab.test.js`
 
-- [ ] 6.7 Create FilesTab component
-  - [ ] Create `src/components/tabs/FilesTab.vue`
-  - [ ] Implement template: instructions, Fliplet table wrapper with folder options
-  - [ ] Integrate with middleware: fetch files and folders with associations
-  - [ ] Configure table columns: Checkbox, Name, Path, Type, Added, ID, Preview, Associated Screens, Associated DS, Global Lib
-  - [ ] Implement folder copy options dropdown: "Copy folder only" vs "Copy folder and files"
-  - [ ] Show file type icons
-  - [ ] Show unused file indicator (no associations)
-  - [ ] Implement expandable rows for associations
-  - [ ] Style with Tailwind
-  - [ ] Import Folder, File, Image, FileText icons from lucide-vue-next
-  - [ ] Emit events: `selection-change`, `folder-option-change`
+- [x] 6.7 Create FilesTab component
+  - [x] Create `src/components/tabs/FilesTab.vue`
+  - [x] Implement template: instructions, Fliplet table wrapper with folder options
+  - [x] Integrate with middleware: fetch files and folders with associations
+  - [x] Configure table columns: Checkbox, Name, Path, Type, Added, ID, Preview, Associated Screens, Associated DS, Global Lib
+  - [x] Implement folder copy options dropdown: "Copy folder only" vs "Copy folder and files"
+  - [x] Show file type icons
+  - [x] Show unused file indicator (no associations)
+  - [x] Implement expandable rows for associations
+  - [x] Style with Tailwind
+  - [x] Import Folder, File, Image, FileText icons from lucide-vue-next
+  - [x] Emit events: `selection-change`, `folder-option-change`
 
-- [ ] 6.8 Create FilesTab tests
-  - [ ] Create `src/components/tabs/FilesTab.test.js`
-  - [ ] Mock middleware API responses
-  - [ ] Test: loads files and folders correctly
-  - [ ] Test: folder options dropdown works
-  - [ ] Test: identifies unused files
-  - [ ] Test: emits events correctly
-  - [ ] Run tests: `npm test FilesTab.test.js`
+- [x] 6.8 Create FilesTab tests
+  - [x] Create `src/components/tabs/FilesTab.test.js`
+  - [x] Mock middleware API responses
+  - [x] Test: loads files and folders correctly
+  - [x] Test: folder options dropdown works
+  - [x] Test: identifies unused files
+  - [x] Test: emits events correctly
+  - [x] Run tests: `npm test FilesTab.test.js`
 
-- [ ] 6.9 Create SettingsTab component
-  - [ ] Create `src/components/tabs/SettingsTab.vue`
-  - [ ] Implement template: instructions, checkboxes for app-level configurations
-  - [ ] Create 4 checkboxes with descriptions:
-    - [ ] App settings (with link to details)
-    - [ ] Menu settings
-    - [ ] Global appearance settings
-    - [ ] Global code customizations (with version warning)
-  - [ ] Add warning banner for global code overwrite
-  - [ ] Style with Tailwind
-  - [ ] Import Settings, Code, Palette, Menu icons from lucide-vue-next
-  - [ ] Emit events: `selection-change`
+- [x] 6.9 Create SettingsTab component
+  - [x] Create `src/components/tabs/SettingsTab.vue`
+  - [x] Implement template: instructions, checkboxes for app-level configurations
+  - [x] Create 4 checkboxes with descriptions:
+    - [x] App settings (with link to details)
+    - [x] Menu settings
+    - [x] Global appearance settings
+    - [x] Global code customizations (with version warning)
+  - [x] Add warning banner for global code overwrite
+  - [x] Style with Tailwind
+  - [x] Import Settings, Code, Palette, Menu icons from lucide-vue-next
+  - [x] Emit events: `selection-change`
 
-- [ ] 6.10 Create SettingsTab tests
-  - [ ] Create `src/components/tabs/SettingsTab.test.js`
-  - [ ] Test: renders all checkboxes
-  - [ ] Test: checkbox states change correctly
-  - [ ] Test: emits selection-change with correct data
-  - [ ] Run tests: `npm test SettingsTab.test.js`
+- [x] 6.10 Create SettingsTab tests
+  - [x] Create `src/components/tabs/SettingsTab.test.js`
+  - [x] Test: renders all checkboxes
+  - [x] Test: checkbox states change correctly
+  - [x] Test: emits selection-change with correct data
+  - [x] Run tests: `npm test SettingsTab.test.js`
 
 ### 7.0 Implement Page Components (States 4-6: Review, Progress, Complete)
 
