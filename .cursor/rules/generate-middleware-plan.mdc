@@ -80,7 +80,7 @@ The generated plan must follow this exact structure for compatibility with `gene
 #### Intent-Based Function Signatures
 
 **DO:** Accept parameters that describe *what behavior is needed*
-```typescript
+\`\`\`typescript
 // ✓ Behavior-driven parameters
 fetchApps({
   fields: ['id', 'name', 'lastModified'],
@@ -89,14 +89,14 @@ fetchApps({
   sortBy: { field: 'lastModified', order: 'desc' },
   include: ['organisation', 'settings']
 })
-```
+\`\`\`
 
 **DON'T:** Accept parameters that identify *who is calling*
-```typescript
+\`\`\`typescript
 // ❌ Caller identification
 fetchApps(orgId, callerType: 'dashboard' | 'mobile' | 'admin')
 fetchApps(orgId, { isMobileView: true, isDashboard: false })
-```
+\`\`\`
 
 #### API Response Transformation
 
@@ -107,7 +107,7 @@ fetchApps(orgId, { isMobileView: true, isDashboard: false })
 - Never create different response shapes based on assumed caller identity
 
 **Example:**
-```javascript
+\`\`\`javascript
 // ✓ Transformation based on explicit options
 function transformAppResponse(apiResponse, options = {}) {
   const { fields, include } = options;
@@ -131,7 +131,7 @@ function transformAppResponse(apiResponse, options = {}) {
 
   return result;
 }
-```
+\`\`\`
 
 #### State Management Integration
 
@@ -141,7 +141,7 @@ function transformAppResponse(apiResponse, options = {}) {
 - Provide cache control options: `{ cache: 'force-refresh' | 'cache-first' | 'network-only' }`
 
 **Example:**
-```javascript
+\`\`\`javascript
 // ✓ Cache key from request parameters
 function generateCacheKey(endpoint, options) {
   return `${endpoint}:${JSON.stringify(options)}`;
@@ -151,7 +151,7 @@ function generateCacheKey(endpoint, options) {
 function generateCacheKey(endpoint, callerType) {
   return `${endpoint}:${callerType}`;
 }
-```
+\`\`\`
 
 #### Data Fetching Patterns
 
@@ -223,7 +223,7 @@ If you answer "no" to any of these, reconsider the design.
 4. **URL handling:** Fliplet.API.request() expects base URL to end with trailing slash and endpoint to start without slash (e.g., apiUrl: 'https://api.fliplet.com/', url: 'v1/submissions')
 
 **Example Implementation Pattern:**
-```javascript
+\`\`\`javascript
 // Constructor - no baseUrl needed
 this.config = {
   timeout: 30000,
@@ -260,7 +260,7 @@ if (this.apiUrl) {
 // buildRequestUrl method handles both cases:
 // - No custom apiUrl: return 'v1/submissions' (Fliplet.API.request() adds base URL with trailing slash)
 // - Custom apiUrl: return 'https://custom.api.com/v1/submissions' (full URL when custom apiUrl provided)
-```
+\`\`\`
 
 #### [Domain]ApiService Classes
 [For each major API domain, define:]
@@ -271,7 +271,7 @@ if (this.apiUrl) {
 - Use **options objects** with descriptive, behavioral parameters
 - Accept parameters describing what data/behavior is needed, not who is calling
 - Example method signature:
-  ```javascript
+  \`\`\`javascript
   fetchItems(id, options = {
     fields: [],        // Which data fields to return
     include: [],       // Related resources to include
@@ -280,7 +280,7 @@ if (this.apiUrl) {
     sort: {},         // Sort field and order
     cache: 'default'  // Cache strategy
   })
-  ```
+  \`\`\`
 - **Avoid** caller-identifying parameters like `callerType`, `isMobile`, `viewMode`
 - **Avoid** implicit behavior based on internal logic or environment detection
 
@@ -304,7 +304,7 @@ if (this.apiUrl) {
 - Accept options that control workflow behavior (validation depth, rollback strategy, notification preferences)
 - Provide granular, compositional options over high-level "modes"
 - Example:
-  ```javascript
+  \`\`\`javascript
   executeWorkflow(workflowId, options = {
     validation: 'strict' | 'lenient',  // How to validate steps
     parallel: false,                    // Execute steps in parallel where possible
@@ -312,7 +312,7 @@ if (this.apiUrl) {
     notify: true,                       // Send progress notifications
     checkpoints: []                     // Steps where state is persisted
   })
-  ```
+  \`\`\`
 - **Design for reusability** across different UI contexts
 - If the UI completely changes, the controller should still be useful
 
@@ -359,7 +359,7 @@ if (this.apiUrl) {
 ## State Management Design
 
 ### State Schema
-```javascript
+\`\`\`javascript
 {
   workflows: {
     [workflowName]: {
@@ -385,7 +385,7 @@ if (this.apiUrl) {
     // Application configuration
   }
 }
-```
+\`\`\`
 
 ### State Transitions
 [Define valid state transitions and validation rules]
@@ -432,40 +432,40 @@ Document these anti-patterns explicitly in the plan to guide implementation:
 
 ### Caller Identification
 ❌ **Never accept parameters that identify who is calling:**
-```javascript
+\`\`\`javascript
 // ❌ Bad: Caller identification
 function fetchData(id, source: 'mobile' | 'web' | 'admin')
 function fetchData(id, { isMobileView: true, isDashboard: false })
 function fetchData(id, callerType)
-```
+\`\`\`
 
 ### Hidden Branching Logic
 ❌ **Never use implicit branching based on caller context:**
-```javascript
+\`\`\`javascript
 // ❌ Bad: Hidden branching
 function fetchData(id) {
   if (someInternalCheck) { return minimalData; }
   return fullData;
 }
-```
+\`\`\`
 
 ### Overloaded Boolean Flags
 ❌ **Never use ambiguous boolean parameters:**
-```javascript
+\`\`\`javascript
 // ❌ Bad: What does "fast" mean?
 function fetchData(id, fast: boolean)
-```
+\`\`\`
 
 ### Magic Strings Without Clear Semantics
 ❌ **Never use mode strings without clear behavioral meaning:**
-```javascript
+\`\`\`javascript
 // ❌ Bad: What's the difference between these?
 function fetchData(id, mode: 'quick' | 'full' | 'detailed')
-```
+\`\`\`
 
 ### Environmental Detection
 ❌ **Never detect caller context from environment:**
-```javascript
+\`\`\`javascript
 // ❌ Bad: Detecting device type
 function fetchData(id) {
   if (window.innerWidth < 768) {
@@ -473,12 +473,12 @@ function fetchData(id) {
   }
   return fullData;
 }
-```
+\`\`\`
 
 ### Proper Alternatives
 
 ✓ **Instead, use explicit behavioral options:**
-```javascript
+\`\`\`javascript
 // ✓ Good: Explicit behavioral parameters
 function fetchData(id, options = {
   fields: [],        // What data to include
@@ -486,7 +486,7 @@ function fetchData(id, options = {
   cache: true,       // Whether to use cache
   priority: 'normal' // Request priority
 })
-```
+\`\`\`
 
 ## Integration Patterns
 
@@ -517,7 +517,7 @@ function fetchData(id, options = {
 
 ## File Structure Plan
 
-```
+\`\`\`
 /src/middleware/
 ├── core/
 │   ├── BaseMiddleware.js
@@ -539,7 +539,7 @@ function fetchData(id, options = {
 │   ├── error-messages.js
 │   └── workflows.js
 └── middleware.js
-```
+\`\`\`
 
 ## Implementation Considerations
 
@@ -558,7 +558,7 @@ function fetchData(id, options = {
 - **Test edge cases**: Empty options, maximum options, invalid combinations
 - **No caller simulation**: Don't write tests that simulate different "mobile" vs "web" contexts
 - **Example:**
-  ```javascript
+  \`\`\`javascript
   // ✓ Good: Test different behavioral options
   test('fetchApps with minimal fields', () => {
     const result = fetchApps({ fields: ['id', 'name'] });
@@ -575,7 +575,7 @@ function fetchData(id, options = {
     const result = fetchApps({ callerType: 'mobile' });
     // ...
   });
-  ```
+  \`\`\`
 
 **Framework & Setup:**
 - **Framework Detection (existing codebases):** Before planning tests, identify if a framework already exists by checking for files like `jest.config.*`, `vitest.config.*`, test directories (`__tests__`, `tests`, `*.test.js`), and `package.json` scripts (`test`). If present, conform to existing conventions (folders, scripts, matchers, setup files).

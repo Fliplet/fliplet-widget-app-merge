@@ -49,6 +49,14 @@ Before generating the UI plan, clarify with the user whether the UI is being bui
   why: Widget configuration file that defines dependencies and settings
   critical: Check existing dependencies before suggesting new ones
 
+- doc: /docs/*-prd.md
+  why: Product requirements defining business goals, user journeys, and acceptance criteria
+  critical: Align UI behaviours, content hierarchy, and success metrics with the PRD
+
+- doc: /docs/*design-spec*.md
+  why: Detailed UI layouts, component behaviours, and interaction nuances
+  critical: Ensure the plan reflects prescribed layouts, states, and interaction rules
+
 - doc: /tasks/middleware-plan-[project-name].md
   why: The middleware architecture this UI plan must integrate with
   critical: Understand available services, data flows, and state management
@@ -57,18 +65,23 @@ Before generating the UI plan, clarify with the user whether the UI is being bui
 ## Process
 
 1. **Clarify Context:** Determine if building for interface or build context
-2. **Analyze Middleware Architecture:** Read and understand the existing middleware plan and implementation
-3. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
-4. **Identify UI Requirements:** Extract user workflows, data displays, and interaction patterns
-5. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that integrate with middleware
-6. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
-7. **Define Customization Framework:** Plan theming and branding customization
-8. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
-9. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
+2. **Interpret Product & Design Docs:** Absorb PRD and design specifications to understand business goals, target personas, canonical screens, and prescribed interactions
+3. **Analyze Middleware Architecture:** Read and understand the existing middleware plan and implementation
+4. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
+5. **Identify UI Requirements:** Extract user workflows, data displays, interactions, and contextual warnings called out in product/design docs
+6. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that integrate with middleware and map to documented UI constructs
+7. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
+8. **Define Customization Framework:** Plan theming and branding customization
+9. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
+10. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
 
 ## Input Requirements
 
 The AI should analyze the following:
+
+### Product & Design Source Materials
+- **Product Requirements:** `/docs/*-prd.md` — define business outcomes, user journeys, acceptance criteria
+- **Design Specifications:** `/docs/*design-spec*.md` — prescribe layouts, state visuals, component hierarchies, interaction rules
 
 ### Middleware Documentation
 - **Architecture Plan:** `/tasks/middleware-plan-[project-name].md`
@@ -78,12 +91,12 @@ The AI should analyze the following:
 - **State Management:** Data available for UI display
 
 ### Key Analysis Areas
-- **User Workflows:** Sequential steps users must complete
-- **Data Presentation:** Information that needs to be displayed
-- **User Actions:** Buttons, forms, and interactions required
-- **Error States:** How errors should be presented to users
-- **Loading States:** Progressive disclosure and skeleton screens
-- **Accessibility:** Keyboard navigation, screen reader support
+- **User Workflows:** Sequential steps users must complete, aligned with PRD journeys
+- **Data Presentation:** Information that needs to be displayed, using design-spec layout guidance
+- **User Actions:** Buttons, forms, and interactions required; include locking, validation, and warnings
+- **Error States:** How errors should be presented to users, referencing design copy and fallback patterns
+- **Loading & Countdown States:** Progressive disclosure, skeleton screens, timers, and lock countdowns
+- **Accessibility:** Keyboard navigation, screen reader support, focus management detailed in specs
 
 ## UI/UX Plan Structure
 
@@ -94,6 +107,10 @@ The generated plan must follow this exact structure for compatibility with `gene
 
 ## Overview
 [Brief description of the UI system, its purpose, and target users]
+
+### Source Alignment
+- **Primary PRD References:** Summarize key feature goals, guardrails, and acceptance criteria informing the UI plan
+- **Design Spec References:** Note canonical screen layouts, component patterns, and interaction details guiding the UI
 
 ## Technical Stack
 
@@ -125,13 +142,15 @@ The generated plan must follow this exact structure for compatibility with `gene
 **User Goal:** [What the user wants to achieve]
 **Entry Point:** [How users access this flow]
 **Success Criteria:** [How users know they've succeeded]
+**Referenced States:** [Enumerate relevant design-spec states/screens powering this flow]
+**PRD Alignment:** [Link behaviour back to PRD requirements]
 
 **Steps:**
 1. **[Step Name]**
    - User Action: [What the user does]
-   - System Response: [How the UI responds]
-   - Data Displayed: [Information shown]
-   - Possible Errors: [Error states and messages]
+   - System Response: [How the UI responds; cite design-spec interactions]
+   - Data Displayed: [Information shown; reference design layouts]
+   - Possible Errors: [Error states and messages; include PRD acceptance criteria]
 
 2. **[Next Step]**
    [Continue for all steps]
@@ -145,16 +164,19 @@ The generated plan must follow this exact structure for compatibility with `gene
 
 Use state specifications to clearly outline different states/screens/pages, enabling thorough UX review and comprehensive testing.
 
+> **Instruction:** Enumerate every canonical state captured in the design specification (e.g., dashboards, step-based flows, progress overlays) and ensure each has a corresponding entry below. Where the PRD defines business rules or acceptance criteria for a state, capture those within the relevant fields.
+
 #### State Template
 
 **[State Name]**
 
 - **Entry Triggers:** How do we get here? (events, user actions, preconditions)
+- **Design References:** Cite relevant design-spec sections or figures guiding layout/interactions
 - **Visibility/Data:** Exactly what's on screen; data freshness rules and loading behavior
 - **Allowed Actions:** Available buttons/gestures/menu items; preconditions for each; expected outcomes
 - **Forbidden Actions (and Why):** What's disabled/hidden and rationale; how restrictions are communicated
-- **System Feedback:** Loading indicators, progress bars, validation messages, toasts, banners
-- **Empty/Error/Offline Variants:** Copy, visuals, retry logic for each edge case
+- **System Feedback:** Loading indicators, progress bars, validation messages, toasts, banners (align with design copy)
+- **Empty/Error/Offline Variants:** Copy, visuals, retry logic for each edge case; validate against PRD acceptance criteria
 - **Permissions/Entitlements:** Role-based access, ownership rules, feature flags
 - **Analytics:** Event names, properties, success metrics tracked in this state
 - **Transitions:** Which next states are reachable and their triggers
@@ -179,6 +201,8 @@ Use state specifications to clearly outline different states/screens/pages, enab
 
 Create a matrix (rows = high-level application states, columns = user actions) to identify interaction gaps and valid transitions between major application areas:
 
+> **Instruction:** Use the canonical states extracted from the design specification as matrix rows. Actions should reflect real interactions captured in PRD/design docs (e.g., lock extension, conflict resolution, audit-log access). Highlight restricted transitions mandated by product requirements.
+
 | State / Action | Create New | Edit Existing | Submit | View Details | Delete | Navigate |
 |---|---|---|---|---|---|---|
 | **Planning Dashboard** | ✅ New Initiative | ✅ Edit Selected | ❌ Not Applicable | ✅ View Item | ✅ Archive Item | ✅ All Sections |
@@ -194,7 +218,7 @@ Define analytics events and audit logging from a Product perspective to measure 
 ### Analytics Strategy
 
 #### Product Success Metrics
-Document what the Product team considers success for this feature:
+Document what the Product team considers success for this feature. Reference the PRD to ensure coverage of core KPIs, guardrails, and business outcomes:
 
 - **Primary Success Metrics:** Key performance indicators that define feature success
 - **User Engagement Metrics:** How users interact with the feature over time
@@ -207,19 +231,19 @@ Document what the Product team considers success for this feature:
 - **Entry Points:** How users discover and access the feature
 - **Navigation Events:** Movement through the application workflow
 - **Completion Events:** Successful task completion and outcomes
-- **Abandonment Events:** Where users drop off and why
+- **Abandonment Events:** Where users drop off and why (include PRD-defined failure thresholds)
 
 **Feature Usage Events**
 - **Feature Discovery:** When users find and explore new capabilities
 - **Feature Adoption:** First-time usage and ongoing engagement
-- **Feature Mastery:** Advanced usage patterns and power user behaviors
+- **Feature Mastery:** Advanced usage patterns and power user behaviors; align with PRD adoption milestones
 - **Feature Feedback:** User satisfaction and feature improvement requests
 
 **Business Process Events**
 - **Workflow Initiation:** When business processes start
 - **Process Milestones:** Key steps in business workflows
 - **Process Completion:** Successful business outcomes
-- **Process Optimization:** Efficiency improvements and bottlenecks
+- **Process Optimization:** Efficiency improvements and bottlenecks tied to PRD metrics (e.g., merge duration, conflict resolution rate)
 
 ### Analytics Implementation Plan
 
@@ -227,7 +251,7 @@ Document what the Product team considers success for this feature:
 
 Use `Fliplet.App.Analytics.event()` for user behavior analytics visible in App Analytics dashboard:
 
-```javascript
+\`\`\`javascript
 // Example: Track workflow completion
 Fliplet.App.Analytics.event({
   category: 'workflow_console',
@@ -249,54 +273,45 @@ Fliplet.App.Analytics.event({
   action: 'milestone_reached',
   label: 'First Process Completed'
 });
-```
+\`\`\`
 
 #### Fliplet App Logs for Audit Trail
 
 Use `Fliplet.App.Logs.create()` for audit logs visible to organization admins:
 
-```javascript
+\`\`\`javascript
 // Example: Log data modification (scope only, no detailed values)
 Fliplet.App.Logs.create({
-  type: 'record_metadata_modified',
-  data: {
-    action: 'Record metadata updated',
-    entity_id: 'record_123',
-    modified_fields: ['title', 'description', 'status'],
-    timestamp: new Date().toISOString()
-  }
-});
+  action: 'Record metadata updated',
+  entity_id: 'record_123',
+  modified_fields: ['title', 'description', 'status'],
+  timestamp: new Date().toISOString()
+}, 'record.metadata.modified');
 
 // Example: Log sensitive actions
 Fliplet.App.Logs.create({
-  type: 'workflow_transition_completed',
-  data: {
-    action: 'Workflow transitioned to Approved',
-    entity_id: 'record_123',
-    context: 'Operations Review',
-    outcome: 'approved',
-    timestamp: new Date().toISOString()
-  }
-});
+  action: 'Workflow transitioned to Approved',
+  entity_id: 'record_123',
+  context: 'Operations Review',
+  outcome: 'approved',
+  timestamp: new Date().toISOString()
+}, 'workflow.transition.completed');
 
 // Example: Log permission changes (scope only)
 Fliplet.App.Logs.create({
-  type: 'user_permissions_changed',
-  data: {
-    action: 'User role updated',
-    target_user_id: 'user_789',
-    entity_scope: 'workspace_123',
-    timestamp: new Date().toISOString()
-  }
-});
-```
+  action: 'User role updated',
+  target_user_id: 'user_789',
+  entity_scope: 'workspace_123',
+  timestamp: new Date().toISOString()
+}, 'user.permissions.changed');
+\`\`\`
 
 #### User Interaction Analytics
 
 Track actual user interactions and actions using Fliplet Analytics Events:
 
 **User Actions**
-```javascript
+\`\`\`javascript
 // When user clicks a button
 Fliplet.App.Analytics.event({
   category: 'user_action',
@@ -317,10 +332,10 @@ Fliplet.App.Analytics.event({
   action: 'form_submitted',
   label: 'Workflow Intake Form'
 });
-```
+\`\`\`
 
 **Critical Actions (Analytics + Audit Log)**
-```javascript
+\`\`\`javascript
 // User performs critical action - track engagement + log for audit
 Fliplet.App.Analytics.event({
   category: 'critical_action',
@@ -331,30 +346,24 @@ Fliplet.App.Analytics.event({
 
 // Log the business outcome for admin review
 Fliplet.App.Logs.create({
-  type: 'workflow_closed',
-  data: {
-    action: 'Workflow closed with Release',
-    context: 'Operations Release',
-    timestamp: new Date().toISOString()
-  }
-});
-```
+  action: 'Workflow closed with Release',
+  context: 'Operations Release',
+  timestamp: new Date().toISOString()
+}, 'workflow.closed');
+\`\`\`
 
 **System States (Audit Log Only)**
-```javascript
+\`\`\`javascript
 // System states like errors, loading timeouts should only be logged for admin review
 // DO NOT track these as analytics events since they're not user interactions
 
 // Log system errors for troubleshooting
 Fliplet.App.Logs.create({
-  type: 'system_error',
-  data: {
-    action: 'Network timeout during workflow update',
-    error_type: 'network_timeout',
-    timestamp: new Date().toISOString()
-  }
-});
-```
+  action: 'Network timeout during workflow update',
+  error_type: 'network_timeout',
+  timestamp: new Date().toISOString()
+}, 'system.error');
+\`\`\`
 
 ### Audit Logging Requirements
 
@@ -382,7 +391,7 @@ Important business events that need permanent records:
 
 Each UI component should define its analytics events:
 
-```javascript
+\`\`\`javascript
 // Example component analytics integration
 const ComponentAnalytics = {
   // Form component events
@@ -406,7 +415,7 @@ const ComponentAnalytics = {
     success_metric: 'navigation_efficiency'
   }
 };
-```
+\`\`\`
 
 #### User Experience Analytics
 
@@ -460,14 +469,14 @@ Track user experience quality metrics:
 - Footer information
 
 **Props:**
-```javascript
+\`\`\`javascript
 {
   branding: Object,     // Logo, colors, typography
   navigation: Array,    // Menu items and structure
   user: Object,        // Current user information
   showFooter: Boolean  // Toggle footer visibility
 }
-```
+\`\`\`
 
 #### NavigationHeader
 **Purpose:** Primary navigation and branding display
@@ -475,37 +484,45 @@ Track user experience quality metrics:
 - Desktop: Horizontal navigation bar
 - Tablet: Condensed navigation
 - Mobile: Hamburger menu with slide-out drawer
+- **Design References:** [Map to design spec sections defining header layout, progress indicators, lock warnings]
+- **PRD Alignment:** [Summarize responsibilities tied to product requirements]
 
 ### Page Components
 
-#### [PageName]View
+#### [PageName]View (Map to design-spec page/state names)
 **Purpose:** [What this page displays and manages]
+**Design References:** [Call out the design-spec section that defines layout, components, warnings]
+**PRD Alignment:** [Tie page responsibilities back to product requirements]
 **Data Requirements:** [What middleware data it consumes]
 **User Actions:** [Primary interactions available]
 **States:**
-- Loading: [How loading is indicated]
-- Empty: [What shows when no data]
-- Error: [How errors are displayed]
+- Loading: [How loading is indicated; include skeleton/timer guidance from design]
+- Empty: [What shows when no data; cite design copy]
+- Error: [How errors are displayed; include PRD acceptance messaging]
 - Success: [Success state appearance]
 
 ### Form Components
 
 #### [FormName]Form
 **Purpose:** [What data this form collects]
+**Design References:** [Specify design-spec section showing field arrangement, helper text, validation]
 **Fields:** [List all form fields with types]
-**Validation:** [Client-side validation rules]
+**Validation:** [Client-side validation rules; incorporate PRD acceptance criteria and design error messaging]
 **Submission:** [How form interacts with middleware]
 
 ### UI Components
 
-#### DataTable
+#### DataTable (Reference design-spec tab/table patterns)
 **Purpose:** Display tabular data with sorting and filtering
+**Design References:** [Tie back to table layouts, column configurations, and nested interactions described in design spec]
 **Features:**
 - Responsive table design
 - Column sorting
 - Search/filter functionality
 - Pagination
 - Row actions
+- Nested rows / association indicators (if specified)
+- Selection/locking indicators (if applicable in design spec)
 
 #### StatusIndicator
 **Purpose:** Show workflow progress and status
@@ -521,22 +538,26 @@ Track user experience quality metrics:
 **Purpose:** Temporary feedback messages
 **Types:** Success, Warning, Error, Info
 **Behavior:** Auto-dismiss with manual close option
+- **Design References:** [Link to design-spec messaging patterns and copy]
+- **PRD Alignment:** [Ensure warnings/success align with product acceptance criteria]
 
 #### ModalDialog
 **Purpose:** Confirmations and focused interactions
 **Variants:** Confirm, Alert, Custom content
+- **Design References:** [Specify modal layouts and content flows from design spec]
+- **PRD Alignment:** [Tie usage to business rules requiring confirmation]
 
 ## Responsive Design Strategy
 
 ### Breakpoints
-```scss
+\`\`\`scss
 $breakpoints: (
   'mobile': 320px,    // Base mobile design
   'tablet': 768px,    // Tablet portrait
   'desktop': 1024px,  // Desktop and larger
   'wide': 1440px     // Wide screens
 );
-```
+\`\`\`
 
 ### Layout Patterns
 
@@ -561,7 +582,7 @@ $breakpoints: (
 ## Theming & Customization
 
 ### CSS Custom Properties
-```css
+\`\`\`css
 :root {
   /* Brand Colors */
   --primary-color: #00abd1;
@@ -587,10 +608,10 @@ $breakpoints: (
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
   --border-radius: 4px;
 }
-```
+\`\`\`
 
 ### Theme Configuration
-```javascript
+\`\`\`javascript
 {
   name: "Custom Theme",
   colors: {
@@ -608,27 +629,27 @@ $breakpoints: (
     // ... other spacing options
   }
 }
-```
+\`\`\`
 
 ## Interaction Patterns
 
 ### Form Interactions
-- **Inline Validation:** Real-time feedback as users type
-- **Error Prevention:** Disable submit until valid
-- **Clear Error Messages:** Specific, actionable error text
-- **Progress Indication:** Multi-step form progress
+- **Inline Validation:** Real-time feedback as users type (reference design-spec copy for validation messaging)
+- **Error Prevention:** Disable submit until valid, following PRD acceptance criteria
+- **Clear Error Messages:** Specific, actionable error text consistent with design content guidelines
+- **Progress Indication:** Multi-step form progress, aligned with design-spec progress indicators and PRD flow sequencing
 
 ### Data Loading
-- **Skeleton Screens:** Show layout structure while loading
-- **Progressive Loading:** Load critical content first
-- **Optimistic Updates:** Immediate UI feedback
-- **Error Recovery:** Clear retry mechanisms
+- **Skeleton Screens:** Show layout structure while loading; follow design-spec visuals and timing guidance
+- **Progressive Loading:** Load critical content first per PRD priorities
+- **Optimistic Updates:** Immediate UI feedback when actions succeed; match design-spec animations
+- **Error Recovery:** Clear retry mechanisms using prescribed copy and button placements
 
 ### Navigation
-- **Breadcrumbs:** Clear location indication
-- **Tab Navigation:** For related content sections
-- **Pagination:** For large data sets
-- **Search:** Global and contextual search
+- **Breadcrumbs:** Clear location indication matching design hierarchy
+- **Tab Navigation:** For related content sections; replicate tab behaviour defined in design spec
+- **Pagination:** For large data sets, using design-spec controls and PRD limits
+- **Search:** Global and contextual search; include filtering rules and debounce requirements from PRD
 
 ## Accessibility Requirements
 
@@ -639,7 +660,7 @@ $breakpoints: (
 - **Screen Reader Support:** Proper ARIA labels and landmarks
 
 ### Implementation Guidelines
-```vue
+\`\`\`vue
 <!-- Example accessible component structure -->
 <template>
   <nav role="navigation" aria-label="Main navigation">
@@ -656,7 +677,7 @@ $breakpoints: (
     </ul>
   </nav>
 </template>
-```
+\`\`\`
 
 ### Testing Requirements
 - **Keyboard Testing:** Navigate entire app without mouse
@@ -695,7 +716,7 @@ $breakpoints: (
 ## Integration with Middleware
 
 ### State Management Integration
-```javascript
+\`\`\`javascript
 // Example Vue.js 3.5.13 integration with middleware
 export default {
   data() {
@@ -725,10 +746,10 @@ export default {
     }
   }
 };
-```
+\`\`\`
 
 ### Event System Integration
-```javascript
+\`\`\`javascript
 // Listen for middleware events in Vue 3.5.13
 mounted() {
   // Replace [WidgetName] with actual widget global namespace
@@ -741,7 +762,7 @@ beforeDestroy() {
   window.[WidgetName].middleware.off('workflow:updated', this.handleWorkflowUpdate);
   window.[WidgetName].middleware.off('error:occurred', this.handleError);
 }
-```
+\`\`\`
 
 ## Implementation Guidelines
 
@@ -753,7 +774,7 @@ beforeDestroy() {
 
 Every UI component file must be declared in `widget.json` under the appropriate context:
 
-```json
+\`\`\`json
 {
   "name": "Widget Name",
   "build": {
@@ -781,7 +802,7 @@ Every UI component file must be declared in `widget.json` under the appropriate 
     ]
   }
 }
-```
+\`\`\`
 
 #### Dependency Requirements
 
@@ -793,7 +814,7 @@ Every UI component file must be declared in `widget.json` under the appropriate 
 
 #### File Organization Strategy
 
-```
+\`\`\`
 /css/
 ├── build.css          # Compiled styles for end users
 ├── interface.css      # Compiled styles for Studio
@@ -816,12 +837,12 @@ Every UI component file must be declared in `widget.json` under the appropriate 
     └── ui/
         ├── data-table.js
         └── status-indicator.js
-```
+\`\`\`
 
 #### HTML Template Integration
 
 **Build Context Templates:** Must be in `build.html` or loaded via JavaScript:
-```html
+\`\`\`html
 <!-- build.html -->
 <div id="app">
   <!-- Component templates go here -->
@@ -834,21 +855,21 @@ window.[WidgetName].templates = {
   'data-table': '<table class="data-table">...</table>'
 };
 </script>
-```
+\`\`\`
 
 **Interface Context Templates:** Must be in `interface.html` or loaded via JavaScript:
-```html
+\`\`\`html
 <!-- interface.html -->
 <div class="widget-settings">
   <!-- Configuration UI templates -->
 </div>
-```
+\`\`\`
 
 #### Asset Loading Order
 
 Files are loaded in the exact order listed in the `assets` array:
 
-```json
+\`\`\`json
 {
   "build": {
     "assets": [
@@ -862,14 +883,14 @@ Files are loaded in the exact order listed in the `assets` array:
     ]
   }
 }
-```
+\`\`\`
 
 #### Build Optimization Options
 
 **Option 1: Manual Compilation**
 Use build tools (gulp, webpack) to compile multiple files:
 
-```json
+\`\`\`json
 {
   "build": {
     "assets": [
@@ -878,12 +899,12 @@ Use build tools (gulp, webpack) to compile multiple files:
     ]
   }
 }
-```
+\`\`\`
 
 **Option 2: Fliplet Auto-Concatenation**
 List individual files - Fliplet automatically concatenates in production:
 
-```json
+\`\`\`json
 {
   "build": {
     "assets": [
@@ -897,12 +918,12 @@ List individual files - Fliplet automatically concatenates in production:
     ]
   }
 }
-```
+\`\`\`
 
 #### Vue.js 3.5.13 Component Loading
 
 **Component Registration Pattern:**
-```javascript
+\`\`\`javascript
 // Each component file should register itself globally
 (function() {
   'use strict';
@@ -925,10 +946,10 @@ List individual files - Fliplet automatically concatenates in production:
     }
   };
 })();
-```
+\`\`\`
 
 **Main Application Registration:**
-```javascript
+\`\`\`javascript
 // main.js - loaded last in assets array
 (function() {
   'use strict';
@@ -942,7 +963,7 @@ List individual files - Fliplet automatically concatenates in production:
     }
   });
 })();
-```
+\`\`\`
 
 #### Critical Implementation Checklist
 
@@ -963,7 +984,7 @@ See [fliplet-widget-form-builder](https://github.com/Fliplet/fliplet-widget-form
 ## Component Documentation
 
 ### Component Template
-```vue
+\`\`\`vue
 <template>
   <div class="component-name" :class="computedClasses">
     <!-- Component markup -->
@@ -1044,7 +1065,7 @@ export default {
   // Component styles using CSS custom properties
 }
 </style>
-```
+\`\`\`
 
 ## Testing Strategy
 
@@ -1145,7 +1166,7 @@ The UI plan must include enough detail for QA to verify:
 
 ## File Structure Plan
 
-```
+\`\`\`
 /src/
 ├── components/
 │   ├── layout/
@@ -1185,7 +1206,7 @@ The UI plan must include enough detail for QA to verify:
 │   ├── formatters.js
 │   └── accessibility.js
 └── main.js
-```
+\`\`\`
 
 ## Next Steps
 
