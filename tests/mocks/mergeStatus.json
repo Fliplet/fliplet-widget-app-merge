@@ -1,0 +1,87 @@
+[
+  {
+    "mergeId": 5000,
+    "status": "not_started",
+    "currentStage": null,
+    "progress": 0,
+    "logs": []
+  },
+  {
+    "mergeId": 5001,
+    "status": "in_progress",
+    "currentStage": "media",
+    "progress": 25,
+    "logs": [
+      {
+        "timestamp": "2024-01-01T00:00:00.000Z",
+        "message": "Starting merge process",
+        "type": "info"
+      },
+      {
+        "timestamp": "2024-01-01T00:01:00.000Z",
+        "message": "Copying media files...",
+        "type": "info"
+      }
+    ]
+  },
+  {
+    "mergeId": 5002,
+    "status": "in_progress",
+    "currentStage": "screens",
+    "progress": 75,
+    "logs": [
+      {
+        "timestamp": "2024-01-01T00:00:00.000Z",
+        "message": "Starting merge process",
+        "type": "info"
+      },
+      {
+        "timestamp": "2024-01-01T00:05:00.000Z",
+        "message": "Copying screens...",
+        "type": "info"
+      }
+    ]
+  },
+  {
+    "mergeId": 5003,
+    "status": "completed",
+    "currentStage": "screens",
+    "progress": 100,
+    "logs": [
+      {
+        "timestamp": "2024-01-01T00:00:00.000Z",
+        "message": "Starting merge process",
+        "type": "info"
+      },
+      {
+        "timestamp": "2024-01-01T00:10:00.000Z",
+        "message": "Merge completed successfully",
+        "type": "success"
+      }
+    ]
+  },
+  {
+    "mergeId": 5004,
+    "status": "error",
+    "currentStage": "data-sources",
+    "progress": 50,
+    "error": {
+      "code": "MERGE_FAILED",
+      "message": "Failed to copy data source",
+      "details": "Data source 'Users' already exists in destination app"
+    },
+    "logs": [
+      {
+        "timestamp": "2024-01-01T00:00:00.000Z",
+        "message": "Starting merge process",
+        "type": "info"
+      },
+      {
+        "timestamp": "2024-01-01T00:03:00.000Z",
+        "message": "Error copying data source",
+        "type": "error"
+      }
+    ]
+  }
+]
+

@@ -9,6 +9,18 @@ alwaysApply: false
 
 To guide an AI assistant in analyzing existing documents including (but not limited to) PRD, design specs, REST API specs, middleware architecture and creating a comprehensive UI/UX plan that enables Product Managers and Designers to review and ensure high-quality and responsive user interfaces that meet the requirements. The plan serves as the foundation for subsequent task generation and implementation while maintaining Fliplet's branding guidelines and accessibility standards.
 
+## Design Philosophy
+
+**Create beautiful, production-worthy interfaces—not cookie-cutter designs.**
+
+All UI plans should result in fully-featured, polished webpages ready for production use. Prioritize:
+
+- **Visual Excellence:** Modern, aesthetically pleasing designs with attention to spacing, typography, and visual hierarchy
+- **User Delight:** Thoughtful interactions, smooth transitions, and intuitive user flows
+- **Production Quality:** Robust error handling, loading states, and edge case coverage
+- **Brand Consistency:** Cohesive design language aligned with Fliplet's design principles
+- **Accessibility First:** WCAG 2.1 AA compliance built in from the start, not added later
+
 ## Output
 
 - **Format:** Markdown (`.md`)
@@ -115,12 +127,34 @@ The generated plan must follow this exact structure for compatibility with `gene
 ## Technical Stack
 
 ### Framework
-- **Vue.js Version:** 3.5.13 (if Vue is used)
-- **Component API:** Vue Options API
+- **Vue.js Version:** 3.5.13
+- **Component API:** Vue Options API (for compatibility)
 - **Build Context:** [interface|build] - Specify which context this UI serves
 
-### Available Dependencies
-[List dependencies from widget.json and Fliplet asset library]
+### Styling Framework
+- **Tailwind CSS:** Modern utility-first CSS framework
+  - Installed via `package.json` as a dev dependency
+  - Compiled through Gulp and Webpack build process
+  - Configured via `tailwind.config.js`
+  - PostCSS processing for production optimization
+  - **DO NOT** rely on Fliplet's asset library for Tailwind—it's compiled into the widget's CSS bundle
+
+### Icon Library
+- **lucide-vue-next:** Beautiful, consistent icon set for Vue 3
+  - Installed via `package.json`
+  - Provides tree-shakeable, customizable SVG icons
+  - Use for all icons, logos, and visual indicators
+  - **DO NOT** install other icon packages unless absolutely necessary
+
+### Available Fliplet Dependencies
+- **fliplet-core:** Core Fliplet functionality (always required)
+- **font-awesome:** Available from Fliplet assets (v4.7.0) - use only if lucide-vue-next doesn't have needed icons
+- **fliplet-icons:** Fliplet's custom icon font - use only for Fliplet-specific UI elements
+
+### Dependencies to Avoid
+- **fliplet-studio-ui:** Not needed when using Tailwind CSS
+- **bootstrap-css:** Not needed when using Tailwind CSS
+- **Additional UI frameworks:** Tailwind CSS is sufficient for all styling needs
 
 ## Design Principles
 
@@ -132,9 +166,10 @@ The generated plan must follow this exact structure for compatibility with `gene
 - **Performance:** Optimized loading and smooth transitions
 
 ### Design System Integration
-- **Fliplet Studio UI:** How components integrate with Fliplet's design system
-- **Custom Components:** When and how to extend the base system
-- **Theming Architecture:** CSS custom properties and SCSS variables
+- **Tailwind CSS Utility Classes:** Use Tailwind's utility-first approach for all styling
+- **Custom Components:** Build reusable Vue components with Tailwind classes
+- **Design Tokens:** Configure Tailwind's theme to match Fliplet brand colors and spacing
+- **Component Variants:** Use Tailwind's @apply directive sparingly for complex, repeated patterns only
 
 ## User Journey Mapping
 
@@ -143,7 +178,7 @@ The generated plan must follow this exact structure for compatibility with `gene
 **Entry Point:** [How users access this flow]
 **Success Criteria:** [How users know they've succeeded]
 **Referenced States:** [Enumerate relevant design-spec states/screens powering this flow]
-**PRD Alignment:** [Link behaviour back to PRD requirements]
+**PRD Alignment:** [Link behavior back to PRD requirements]
 
 **Steps:**
 1. **[Step Name]**
@@ -579,56 +614,324 @@ $breakpoints: (
 - Side-by-side comparisons
 - Advanced filtering panels
 
-## Theming & Customization
+### Tailwind Responsive Classes
 
-### CSS Custom Properties
-\`\`\`css
-:root {
-  /* Brand Colors */
-  --primary-color: #00abd1;
-  --secondary-color: #eae9ec;
-  --accent-color: #36344c;
+Use Tailwind's responsive prefixes for all breakpoint-specific styling:
 
-  /* Semantic Colors */
-  --success-color: #19cd9d
-  --warning-color: #ed9119;
-  --error-color: #e03629;
-  --info-color: #413e5b;
+\`\`\`vue
+<template>
+  <!-- Mobile-first: stack vertically, then side-by-side on tablet+ -->
+  <div class="flex flex-col md:flex-row gap-4">
+    <!-- Content -->
+  </div>
 
-  /* Typography */
-  --font-family-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-size-base: 14px;
-  --line-height-base: 1.428571429;
+  <!-- Hide on mobile, show on desktop -->
+  <nav class="hidden lg:block">
+    <!-- Desktop navigation -->
+  </nav>
 
-  /* Spacing */
-  --spacing-unit: 8px;
-  --container-max-width: 1200px;
+  <!-- Show on mobile, hide on desktop -->
+  <button class="lg:hidden">
+    <!-- Mobile menu button -->
+  </button>
 
-  /* Shadows & Borders */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
-  --border-radius: 4px;
-}
+  <!-- Responsive padding and text sizes -->
+  <div class="px-4 md:px-6 lg:px-8">
+    <h1 class="text-xl md:text-2xl lg:text-3xl">
+      Responsive Heading
+    </h1>
+  </div>
+</template>
 \`\`\`
 
-### Theme Configuration
+**Breakpoint Mapping:**
+- Default: Mobile (0px+) - no prefix
+- `sm:`: 640px and up
+- `md:`: 768px and up (tablet)
+- `lg:`: 1024px and up (desktop)
+- `xl:`: 1280px and up (wide desktop)
+
+## Theming & Customization
+
+### Tailwind Configuration
+Configure Tailwind theme in `tailwind.config.js` to match Fliplet branding:
+
 \`\`\`javascript
-{
-  name: "Custom Theme",
-  colors: {
-    primary: "#custom-primary",
-    secondary: "#custom-secondary",
-    // ... other color overrides
+// tailwind.config.js
+module.exports = {
+  content: [
+    './src/**/*.{vue,js,html}',
+    './build.html'
+  ],
+  theme: {
+    extend: {
+      colors: {
+        // Fliplet Brand Colors
+        primary: {
+          DEFAULT: '#00abd1',
+          50: '#e6f7fb',
+          100: '#b3e7f4',
+          500: '#00abd1',
+          600: '#0095b8',
+          700: '#00809f',
+        },
+        secondary: {
+          DEFAULT: '#eae9ec',
+          50: '#fafafa',
+          100: '#eae9ec',
+          500: '#d4d3d8',
+          700: '#a8a7af',
+        },
+        accent: {
+          DEFAULT: '#36344c',
+          500: '#36344c',
+          700: '#242333',
+        },
+        // Semantic Colors
+        success: '#19cd9d',
+        warning: '#ed9119',
+        error: '#e03629',
+        info: '#413e5b',
+      },
+      fontFamily: {
+        sans: ['Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+      fontSize: {
+        base: '14px',
+      },
+      spacing: {
+        // 8px base spacing unit
+        unit: '8px',
+      },
+      maxWidth: {
+        container: '1200px',
+      },
+      boxShadow: {
+        sm: '0 1px 3px rgba(0, 0, 0, 0.12)',
+        md: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
+      },
+      borderRadius: {
+        DEFAULT: '4px',
+      },
+    },
   },
-  typography: {
-    fontFamily: "Custom Font Stack",
-    headingFont: "Custom Heading Font",
-    // ... other typography settings
-  },
-  spacing: {
-    compact: true,  // Reduces default spacing
-    // ... other spacing options
-  }
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+  ],
+};
+\`\`\`
+
+### Using Tailwind Design Tokens
+
+Apply Tailwind classes using the configured theme:
+
+\`\`\`vue
+<template>
+  <!-- Primary button using brand colors -->
+  <button class="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded">
+    Click Me
+  </button>
+
+  <!-- Success state -->
+  <div class="bg-success/10 border border-success text-success-700 px-4 py-3 rounded">
+    Success message
+  </div>
+
+  <!-- Card with shadow -->
+  <div class="bg-white shadow-md rounded p-6 max-w-container mx-auto">
+    Card content
+  </div>
+</template>
+\`\`\`
+
+### Custom Component Classes
+
+For complex, repeated patterns, use `@apply` in component styles:
+
+\`\`\`vue
+<style scoped>
+.btn-primary {
+  @apply bg-primary hover:bg-primary-600 text-white font-medium py-2 px-4 rounded transition-colors;
 }
+
+.card {
+  @apply bg-white shadow-md rounded-lg p-6 border border-gray-200;
+}
+</style>
+\`\`\`
+
+### Common Tailwind Patterns for Beautiful UIs
+
+#### Buttons
+\`\`\`vue
+<!-- Primary Button -->
+<button class="bg-primary hover:bg-primary-600 active:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors shadow-sm hover:shadow-md">
+  Primary Action
+</button>
+
+<!-- Secondary Button -->
+<button class="bg-white hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-lg border border-gray-300 transition-colors">
+  Secondary Action
+</button>
+
+<!-- Danger Button -->
+<button class="bg-error hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+  Delete
+</button>
+
+<!-- Icon Button -->
+<button class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+  <Settings class="w-5 h-5 text-gray-600" />
+</button>
+\`\`\`
+
+#### Cards and Containers
+\`\`\`vue
+<!-- Basic Card -->
+<div class="bg-white rounded-lg shadow-md p-6 border border-gray-200">
+  <h3 class="text-lg font-semibold text-gray-900 mb-2">Card Title</h3>
+  <p class="text-gray-600">Card content goes here</p>
+</div>
+
+<!-- Interactive Card (hover effect) -->
+<div class="bg-white rounded-lg shadow-md p-6 border border-gray-200 hover:shadow-lg hover:border-primary transition-all cursor-pointer">
+  <h3 class="text-lg font-semibold text-gray-900 mb-2">Interactive Card</h3>
+</div>
+
+<!-- Card with Header and Footer -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+  <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+    <h3 class="text-lg font-semibold text-gray-900">Header</h3>
+  </div>
+  <div class="p-6">
+    <p class="text-gray-600">Content</p>
+  </div>
+  <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
+    <button class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded transition-colors">Cancel</button>
+    <button class="px-4 py-2 bg-primary text-white rounded hover:bg-primary-600 transition-colors">Save</button>
+  </div>
+</div>
+\`\`\`
+
+#### Form Inputs
+\`\`\`vue
+<!-- Text Input -->
+<input
+  type="text"
+  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+  placeholder="Enter text..."
+/>
+
+<!-- Input with Icon -->
+<div class="relative">
+  <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+  <input
+    type="text"
+    class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+    placeholder="Search..."
+  />
+</div>
+
+<!-- Input with Error State -->
+<div>
+  <input
+    type="email"
+    class="w-full px-4 py-2 border border-error rounded-lg focus:ring-2 focus:ring-error outline-none"
+    placeholder="Email"
+  />
+  <p class="mt-1 text-sm text-error">Please enter a valid email address</p>
+</div>
+
+<!-- Select Dropdown -->
+<select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none bg-white">
+  <option>Select an option</option>
+  <option>Option 1</option>
+  <option>Option 2</option>
+</select>
+\`\`\`
+
+#### Alerts and Notifications
+\`\`\`vue
+<!-- Success Alert -->
+<div class="bg-success/10 border border-success rounded-lg p-4 flex items-start gap-3">
+  <CheckCircle2 class="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+  <div>
+    <h4 class="font-semibold text-success-700 mb-1">Success!</h4>
+    <p class="text-sm text-success-700">Your changes have been saved successfully.</p>
+  </div>
+</div>
+
+<!-- Error Alert -->
+<div class="bg-error/10 border border-error rounded-lg p-4 flex items-start gap-3">
+  <AlertCircle class="w-5 h-5 text-error flex-shrink-0 mt-0.5" />
+  <div>
+    <h4 class="font-semibold text-red-900 mb-1">Error</h4>
+    <p class="text-sm text-red-800">Something went wrong. Please try again.</p>
+  </div>
+</div>
+
+<!-- Warning Alert -->
+<div class="bg-warning/10 border border-warning rounded-lg p-4 flex items-start gap-3">
+  <AlertTriangle class="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
+  <div>
+    <h4 class="font-semibold text-orange-900 mb-1">Warning</h4>
+    <p class="text-sm text-orange-800">This action cannot be undone.</p>
+  </div>
+</div>
+
+<!-- Info Alert -->
+<div class="bg-info/10 border border-info rounded-lg p-4 flex items-start gap-3">
+  <Info class="w-5 h-5 text-info flex-shrink-0 mt-0.5" />
+  <div>
+    <h4 class="font-semibold text-indigo-900 mb-1">Information</h4>
+    <p class="text-sm text-indigo-800">Here's some helpful information.</p>
+  </div>
+</div>
+\`\`\`
+
+#### Loading States
+\`\`\`vue
+<!-- Loading Spinner -->
+<div class="flex items-center justify-center p-8">
+  <Loader2 class="w-8 h-8 text-primary animate-spin" />
+</div>
+
+<!-- Skeleton Loader -->
+<div class="animate-pulse">
+  <div class="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+  <div class="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
+  <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+</div>
+
+<!-- Button Loading State -->
+<button
+  disabled
+  class="bg-primary text-white font-medium py-2 px-4 rounded-lg opacity-50 cursor-not-allowed inline-flex items-center gap-2"
+>
+  <Loader2 class="w-4 h-4 animate-spin" />
+  <span>Loading...</span>
+</button>
+\`\`\`
+
+#### Badges and Tags
+\`\`\`vue
+<!-- Status Badges -->
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-success/10 text-success border border-success">
+  <CheckCircle2 class="w-3 h-3" />
+  Active
+</span>
+
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-300">
+  <Clock class="w-3 h-3" />
+  Pending
+</span>
+
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-error/10 text-error border border-error">
+  <X class="w-3 h-3" />
+  Inactive
+</span>
 \`\`\`
 
 ## Interaction Patterns
@@ -766,6 +1069,53 @@ beforeDestroy() {
 
 ## Implementation Guidelines
 
+### Package Dependencies Setup
+
+**Required NPM Packages:**
+
+Add these dependencies to `package.json`:
+
+\`\`\`json
+{
+  "dependencies": {
+    "vue": "^3.5.13",
+    "lucide-vue-next": "^0.x.x",
+    "core-js": "^3.39.0",
+    "regenerator-runtime": "^0.14.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.x.x",
+    "postcss": "^8.x.x",
+    "autoprefixer": "^10.x.x",
+    "@tailwindcss/forms": "^0.5.x",
+    "@tailwindcss/typography": "^0.5.x",
+    "gulp": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.81.0",
+    "webpack": "^5.96.1",
+    "vue-loader": "^17.4.2",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0"
+  }
+}
+\`\`\`
+
+**Build Configuration:**
+
+1. **Tailwind Config** (`tailwind.config.js`):
+   - Configure content paths to scan for classes
+   - Extend theme with Fliplet brand colors
+   - Add required plugins
+
+2. **PostCSS Config** (`postcss.config.js`):
+   - Configure Tailwind processing
+   - Add autoprefixer for browser compatibility
+
+3. **Gulp/Webpack Build**:
+   - Compile Tailwind CSS into `dist/css/index.css`
+   - Bundle Vue components into `dist/app.js`
+   - Ensure production builds purge unused CSS
+
 ### Fliplet Widget File Loading & Dependencies
 
 **CRITICAL:** All CSS and JavaScript files must be properly declared in `widget.json` to be loaded by Fliplet. Files cannot be loaded independently - they must follow Fliplet's asset management system.
@@ -779,30 +1129,29 @@ Every UI component file must be declared in `widget.json` under the appropriate 
   "name": "Widget Name",
   "build": {
     "dependencies": [
-      "vue.js"
+      "fliplet-core"
     ],
     "assets": [
-      "css/build.css",
-      "js/components/layout/app-shell.js",
-      "js/components/pages/dashboard-view.js",
-      "js/components/ui/data-table.js",
-      "js/build.js"
+      "dist/css/index.css",
+      "dist/app.js"
     ]
   },
   "interface": {
     "dependencies": [
-      "jquery",
-      "bootstrap",
-      "fliplet-studio-ui"
+      "fliplet-core"
     ],
     "assets": [
-      "css/interface.css",
-      "js/components/forms/settings-form.js",
-      "js/interface.js"
+      "dist/css/interface.css",
+      "dist/interface.js"
     ]
   }
 }
 \`\`\`
+
+**Note:** With Tailwind CSS and Vue compiled through Gulp/Webpack:
+- All component CSS is compiled into `dist/css/index.css` (includes Tailwind utilities)
+- All component JavaScript is bundled into `dist/app.js` (includes Vue components and lucide-vue-next)
+- Only the compiled/bundled files need to be declared in `widget.json`
 
 #### Dependency Requirements
 
@@ -984,86 +1333,163 @@ See [fliplet-widget-form-builder](https://github.com/Fliplet/fliplet-widget-form
 ## Component Documentation
 
 ### Component Template
+
+Example component using Tailwind CSS and lucide-vue-next icons:
+
 \`\`\`vue
 <template>
-  <div class="component-name" :class="computedClasses">
-    <!-- Component markup -->
+  <div
+    class="bg-white rounded-lg shadow-md p-6 transition-all duration-200"
+    :class="{
+      'border-2 border-primary': isActive,
+      'border border-error': hasError
+    }"
+  >
+    <!-- Component header with icon -->
+    <div class="flex items-center gap-3 mb-4">
+      <CheckCircle2
+        v-if="isSuccess"
+        class="w-5 h-5 text-success"
+        :stroke-width="2"
+      />
+      <AlertCircle
+        v-else-if="hasError"
+        class="w-5 h-5 text-error"
+        :stroke-width="2"
+      />
+
+      <h3 class="text-lg font-semibold text-gray-900">
+        {{ title }}
+      </h3>
+    </div>
+
+    <!-- Component content -->
+    <div class="text-sm text-gray-600">
+      <slot />
+    </div>
+
+    <!-- Action button -->
+    <button
+      v-if="showAction"
+      @click="handleAction"
+      class="mt-4 bg-primary hover:bg-primary-600 text-white font-medium py-2 px-4 rounded transition-colors inline-flex items-center gap-2"
+      :disabled="isLoading"
+    >
+      <Loader2
+        v-if="isLoading"
+        class="w-4 h-4 animate-spin"
+      />
+      <span>{{ actionLabel }}</span>
+    </button>
   </div>
 </template>
 
 <script>
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-vue-next';
+
 /**
  * ComponentName - Brief description
- * Vue 3.5.13 component using Options API
+ * Vue 3.5.13 component using Options API with Tailwind CSS
  *
  * @example
  * <ComponentName
- *   :prop1="value"
- *   @event="handler"
- * />
+ *   title="Example Title"
+ *   :is-active="true"
+ *   @action="handleAction"
+ * >
+ *   Content goes here
+ * </ComponentName>
  */
 export default {
   name: 'ComponentName',
 
+  components: {
+    CheckCircle2,
+    AlertCircle,
+    Loader2
+  },
+
   props: {
     /**
-     * Prop description
+     * Component title
      * @type {String}
      * @required
      */
-    prop1: {
+    title: {
       type: String,
-      required: true,
-      validator: (value) => {
-        return ['option1', 'option2'].includes(value);
+      required: true
+    },
+
+    /**
+     * Whether component is in active state
+     * @type {Boolean}
+     */
+    isActive: {
+      type: Boolean,
+      default: false
+    },
+
+    /**
+     * Whether to show action button
+     * @type {Boolean}
+     */
+    showAction: {
+      type: Boolean,
+      default: false
+    },
+
+    /**
+     * Action button label
+     * @type {String}
+     */
+    actionLabel: {
+      type: String,
+      default: 'Submit'
+    }
+  },
+
+  // Events: action
+
+  data() {
+    return {
+      isLoading: false,
+      hasError: false,
+      isSuccess: false
+    };
+  },
+
+  methods: {
+    async handleAction() {
+      try {
+        this.isLoading = true;
+        this.hasError = false;
+
+        // Emit action event
+        this.$emit('action');
+
+        this.isSuccess = true;
+      } catch (error) {
+        this.hasError = true;
+        console.error('Action failed:', error);
+      } finally {
+        this.isLoading = false;
       }
     }
   },
 
-  // Vue 2 doesn't have emits option, events are documented via comments
-  // Events: event-name
-
-  data() {
-    return {
-      // Component state
-    };
-  },
-
-  computed: {
-    computedClasses() {
-      return {
-        'is-active': this.isActive,
-        'has-error': this.hasError
-      };
-    }
-  },
-
-  methods: {
-    handleEvent() {
-      // Emit events using Vue 2 syntax
-      this.$emit('event-name', payload);
-    }
-  },
-
-  // Vue 2 lifecycle hooks
-  created() {
-    // Component initialization
-  },
-
   mounted() {
-    // DOM is ready
+    // Component mounted
   },
 
-  beforeDestroy() {
-    // Cleanup before component destruction
+  beforeUnmount() {
+    // Cleanup before component destruction (Vue 3)
   }
 };
 </script>
 
-<style lang="scss" scoped>
-.component-name {
-  // Component styles using CSS custom properties
-}
+<style scoped>
+/* Use Tailwind classes in template - minimal custom CSS needed */
+/* Only add custom CSS for complex animations or unique requirements */
 </style>
 \`\`\`
 
@@ -1167,46 +1593,69 @@ The UI plan must include enough detail for QA to verify:
 ## File Structure Plan
 
 \`\`\`
-/src/
-├── components/
-│   ├── layout/
-│   │   ├── AppShell.vue
-│   │   ├── NavigationHeader.vue
-│   │   ├── PageContainer.vue
-│   │   └── FooterSection.vue
-│   ├── pages/
-│   │   ├── [PageName]View.vue
-│   │   └── ...
-│   ├── forms/
-│   │   ├── [FormName]Form.vue
-│   │   ├── FormField.vue
-│   │   └── ValidationMessage.vue
-│   ├── ui/
-│   │   ├── DataTable.vue
-│   │   ├── StatusIndicator.vue
-│   │   ├── ActionButton.vue
-│   │   └── LoadingSpinner.vue
-│   ├── feedback/
-│   │   ├── NotificationToast.vue
-│   │   ├── ModalDialog.vue
-│   │   └── ErrorBoundary.vue
-│   └── shared/
-│       ├── BaseComponent.vue
-│       └── TransitionWrapper.vue
-├── styles/
-│   ├── _variables.scss
-│   ├── _mixins.scss
-│   ├── _base.scss
-│   ├── _utilities.scss
-│   └── themes/
-│       ├── default.scss
-│       └── [custom-theme].scss
-├── utils/
-│   ├── validators.js
-│   ├── formatters.js
-│   └── accessibility.js
-└── main.js
+/
+├── src/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── AppShell.vue
+│   │   │   ├── NavigationHeader.vue
+│   │   │   ├── PageContainer.vue
+│   │   │   └── FooterSection.vue
+│   │   ├── pages/
+│   │   │   ├── [PageName]View.vue
+│   │   │   └── ...
+│   │   ├── forms/
+│   │   │   ├── [FormName]Form.vue
+│   │   │   ├── FormField.vue
+│   │   │   └── ValidationMessage.vue
+│   │   ├── ui/
+│   │   │   ├── DataTable.vue
+│   │   │   ├── StatusIndicator.vue
+│   │   │   ├── ActionButton.vue
+│   │   │   └── LoadingSpinner.vue
+│   │   ├── feedback/
+│   │   │   ├── NotificationToast.vue
+│   │   │   ├── ModalDialog.vue
+│   │   │   └── ErrorBoundary.vue
+│   │   └── shared/
+│   │       ├── BaseComponent.vue
+│   │       └── TransitionWrapper.vue
+│   ├── scss/
+│   │   └── index.scss              # Tailwind directives and custom styles
+│   ├── utils/
+│   │   ├── validators.js
+│   │   ├── formatters.js
+│   │   └── accessibility.js
+│   ├── Application.vue             # Root Vue component
+│   └── main.js                     # Vue app initialization
+├── dist/
+│   ├── css/
+│   │   └── index.css               # Compiled Tailwind + custom CSS
+│   └── app.js                      # Bundled Vue app + components
+├── build.html                      # Widget HTML template (build context)
+├── interface.html                  # Widget HTML template (interface context)
+├── tailwind.config.js              # Tailwind theme configuration
+├── postcss.config.js               # PostCSS configuration
+├── gulpfile.js                     # Gulp build tasks
+├── package.json                    # NPM dependencies
+└── widget.json                     # Fliplet widget configuration
 \`\`\`
+
+**Key Files:**
+
+- **`src/scss/index.scss`** - Main SCSS file with Tailwind directives:
+  \`\`\`scss
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  // Custom component classes (use @apply sparingly)
+  // Additional custom styles as needed
+  \`\`\`
+
+- **`tailwind.config.js`** - Tailwind configuration with Fliplet brand tokens
+- **`dist/css/index.css`** - Compiled output (referenced in widget.json)
+- **`dist/app.js`** - Bundled Vue app (referenced in widget.json)
 
 ## Next Steps
 
@@ -1229,10 +1678,13 @@ Once approved, this plan will be converted to implementation tasks using `genera
 - Map all states (loading, error, success, empty)
 
 ### UI/UX Design
+- **Design beautiful, production-worthy interfaces** - not cookie-cutter templates
+- **Use Tailwind CSS exclusively** for all styling (no custom CSS frameworks)
+- **Use lucide-vue-next** for all icons (no other icon libraries unless absolutely necessary)
 - Design for non-technical users first
 - Ensure responsive mobile-first approach
 - Plan for accessibility from the start
-- Include comprehensive customization options
+- Focus on visual excellence and user delight
 
 ### Documentation Quality
 - Use clear, non-technical language where possible
@@ -1257,18 +1709,23 @@ The generated plan should be suitable for:
 
 ## Final Instructions
 
-1. **Check widget context** - Clarify if building for interface or build context
-2. **Review Fliplet documentation** - Use the reference table to understand constraints
-3. **Analyze the middleware architecture** thoroughly before beginning
-4. **Verify available assets** - Check widget.json and Fliplet asset library
-5. **Create a complete UI/UX plan** that addresses every user touchpoint
-6. **Ensure the plan structure** matches the required format exactly
-7. **Design for Vue.js 3.5.13** within Fliplet's framework constraints
-8. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
-9. **Include specific details** that can be converted to actionable tasks
-10. **Plan for accessibility** and responsive design throughout
-11. **Consider non-technical reviewers** in your language choices
-12. **Prepare for task generation** by including implementation details
-13. **Follow implementation guidelines** - Ensure all files are properly declared in widget.json
-14. **Verify dependency availability** - Check all dependencies against Fliplet's asset library
-15. **Plan file loading strategy** - Choose between manual compilation or Fliplet auto-concatenation
+1. **Design Philosophy** - Create beautiful, production-worthy interfaces, not cookie-cutter designs
+2. **Check widget context** - Clarify if building for interface or build context
+3. **Review Fliplet documentation** - Use the reference table to understand constraints
+4. **Analyze the middleware architecture** thoroughly before beginning
+5. **Use Tailwind CSS exclusively** - All styling must use Tailwind utility classes
+6. **Use lucide-vue-next for icons** - Do not use other icon libraries unless absolutely necessary
+7. **Design for Vue.js 3.5.13** - Use Options API for compatibility
+8. **Configure Tailwind theme** - Extend with Fliplet brand colors, spacing, and design tokens
+9. **Plan NPM dependencies** - List all required packages in package.json (Tailwind, lucide-vue-next, etc.)
+10. **Plan build process** - Ensure Tailwind compilation through Gulp/Webpack into dist/ folder
+11. **Create a complete UI/UX plan** that addresses every user touchpoint
+12. **Ensure the plan structure** matches the required format exactly
+13. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
+14. **Include specific details** that can be converted to actionable tasks
+15. **Plan for accessibility** and responsive design throughout (WCAG 2.1 AA)
+16. **Focus on visual excellence** - Attention to spacing, typography, colors, and interactions
+17. **Consider non-technical reviewers** in your language choices
+18. **Prepare for task generation** by including implementation details
+19. **Follow implementation guidelines** - Only compiled files (dist/) declared in widget.json
+20. **Fliplet dependencies** - Only fliplet-core is required; avoid fliplet-studio-ui, bootstrap-css
