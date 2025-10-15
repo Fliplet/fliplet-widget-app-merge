@@ -365,7 +365,6 @@
 <script>
 import {
   AlertTriangle,
-  AlertCircle,
   Loader2
 } from 'lucide-vue-next';
 import StatusBadge from '../ui/StatusBadge.vue';
@@ -376,7 +375,6 @@ export default {
 
   components: {
     AlertTriangle,
-    AlertCircle,
     Loader2,
     StatusBadge,
     WarningBanner
