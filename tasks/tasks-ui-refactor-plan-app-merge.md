@@ -38,7 +38,7 @@ Generated from `ui-refactor-plan-app-merge.md`.
 ## 6. Build Verification & Documentation
 
 - [x] 6.1 Run `npm test` and resolve all failing suites.
-- [ ] 6.2 Run `npm run build` and address lint/style errors.
+- [x] 6.2 Run `npm run build` and address lint/style errors.
 - [ ] 6.3 Smoke-test UI in mock mode (tab navigation, nested selections, selection counts).
 - [ ] 6.4 Document verification steps and mock/middleware switching guidance in README or task notes.
 
