@@ -17,43 +17,28 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          },
-          'sass-loader'
-        ]
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
+        }
       },
       {
         test: /\.vue$/,
-        use: [
-          {
-            loader: 'vue-loader'
-          }
-        ]
+        loader: 'vue-loader'
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-transform-runtime']
-            }
-          }
-        ]
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.vue', '.scss'],
+    extensions: ['.js', '.vue'],
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'img': path.resolve(__dirname, '../src/img'),

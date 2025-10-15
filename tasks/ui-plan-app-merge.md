@@ -629,24 +629,24 @@ The App Merge Widget provides a comprehensive user interface within Fliplet Stud
 #### ScreensTab
 **Purpose:** Screen selection with associations
 **Features:**
-- Table with search, sort, pagination
-- Expandable rows for associated DS/files
+- Fliplet table wrapper configured with search, sort, pagination
+- Expandable rows for associated DS/files via wrapper slots
 - Preview icon
 - Selection checkboxes
 
 #### DataSourcesTab
 **Purpose:** Data source selection with copy mode
 **Features:**
-- Table with search, sort, filter, pagination
-- Copy mode dropdown (structure only / full)
+- Fliplet table wrapper with search, sort, filter, pagination
+- Copy mode dropdown (structure only / full) rendered via wrapper cell slot
 - Global dependency indicators
 - Associated screens/files
 
 #### FilesTab
 **Purpose:** File and folder selection
 **Features:**
-- Table with search, sort, filter, pagination
-- Folder copy options
+- Fliplet table wrapper with search, sort, filter, pagination
+- Folder copy options rendered via wrapper cell slot
 - Preview icons
 - Unused file indicators
 
@@ -659,37 +659,23 @@ The App Merge Widget provides a comprehensive user interface within Fliplet Stud
 
 ### UI Components
 
-#### DataTable
-**Purpose:** Reusable table with advanced features
+#### Fliplet Table Integration
+**Purpose:** Leverage `Fliplet.UI.Table` for rich tabular UI while maintaining Vue integration.
 
-**Design References:** PRD Tabular UI Library (lines 167-182), Design Spec Component Specifications (lines 622-646)
+**References:** [Fliplet.UI.Table documentation](https://developers.fliplet.com/API/fliplet-table.html).
 
-**Features:**
-- Clear column headings
-- Pagination (25, 50, 100, Show all)
-- Global search
-- Column sorting (asc/desc)
-- Responsive design (mobile cards, tablet/desktop tables)
-- Loading indicators
-- Bulk selection (select all, individual)
-- Partial selection indicator (indeterminate checkbox)
-- Custom cell UI (dropdowns, badges, icons)
-- Nested rows (expandable)
-- Empty state message
-- Events: row-click, selection-change, sort-change, page-change
+**Integration Approach:**
+- Wrap the Fliplet table in `src/components/ui/FlipletTableWrapper.vue` to manage lifecycle and declarative props.
+- Accept configuration for columns, data, selection, expandable rows, pagination, and search; pass through to the Fliplet constructor.
+- Provide scoped slots/inline render callbacks for custom cell content (badges, dropdowns, icons) when Fliplet supports template overrides.
+- Bridge Fliplet events (`rowClick`, `selection:change`, `sort:change`, `search`, `pagination:change`) into Vue emits.
+- Handle responsive behavior by configuring Fliplet’s options and augmenting with container classes when necessary.
+- Clean up the Fliplet instance on `beforeUnmount` to avoid memory leaks.
 
-**Props:**
-```javascript
-{
-  columns: Array,             // [{ key: 'name', label: 'Name', sortable: true }]
-  data: Array,               // Row data
-  selectable: Boolean,       // Show checkboxes
-  expandable: Boolean,       // Allow row expansion
-  loading: Boolean,          // Show loading state
-  pagination: Object,        // { page: 1, perPage: 25 }
-  searchable: Boolean        // Show search box
-}
-```
+**Testing Strategy:**
+- Mock `Fliplet.UI.Table` in unit tests to assert instantiation parameters and event wiring.
+- Verify wrapper updates underlying tables when reactive props change (data, columns, selection).
+- Ensure wrapper emits the correct Vue events when Fliplet callbacks fire.
 
 #### StatusBadge
 **Purpose:** Display status indicators
@@ -1931,7 +1917,7 @@ Fliplet.App.Logs.create({
 │   │   │   ├── FilesTab.vue
 │   │   │   ├── SettingsTab.vue
 │   │   ├── ui/
-│   │   │   ├── DataTable.vue
+│   │   │   ├── FlipletTableWrapper.vue
 │   │   │   ├── StatusBadge.vue
 │   │   │   ├── LockCountdown.vue
 │   │   ├── feedback/
@@ -1977,8 +1963,8 @@ Fliplet.App.Logs.create({
 
 ### Phase 2: Configuration UI (Configure Settings → Review)
 1. MergeConfiguration page with tabs (using DataService)
-2. DataTable component (reusable)
-3. ScreensTab, DataSourcesTab, FilesTab, SettingsTab (all using DataService)
+2. Fliplet table wrapper (reusable)
+3. ScreensTab, DataSourcesTab, FilesTab (all using Fliplet table wrapper via DataService)
 4. Selection logic and state management
 5. MergeReview page with conflict detection (using DataService)
 6. Lock countdown component

@@ -46,8 +46,8 @@
 - `src/components/tabs/SettingsTab.test.js` - Unit tests for SettingsTab
 
 ### UI Components
-- `src/components/ui/DataTable.vue` - Reusable table with advanced features
-- `src/components/ui/DataTable.test.js` - Unit tests for DataTable
+- `src/components/ui/FlipletTableWrapper.vue` - Wrapper around Fliplet.UI.Table for Vue integration
+- `src/components/ui/FlipletTableWrapper.test.js` - Unit tests for Fliplet table wrapper
 - `src/components/ui/StatusBadge.vue` - Status indicator component
 - `src/components/ui/StatusBadge.test.js` - Unit tests for StatusBadge
 - `src/components/ui/LockCountdown.vue` - Lock expiration timer
@@ -75,7 +75,7 @@
 
 ### Notes
 
-- Unit tests are placed alongside component files (e.g., `DataTable.vue` and `DataTable.test.js`)
+- Unit tests are placed alongside component files (e.g., `FlipletTableWrapper.vue` and `FlipletTableWrapper.test.js`)
 - Use `npm test` to run all tests
 - Use `npm run test:watch` for development
 - Use `npm run test:coverage` to check coverage
@@ -137,21 +137,21 @@
 
 ### 2.0 Implement Core Layout Components
 
-- [ ] 2.1 Create AppShell component
-  - [ ] Create `src/components/layout/AppShell.vue`
-  - [ ] Implement template: header area, progress area, main content slot, action footer
-  - [ ] Define props: `title` (String), `currentStep` (Number), `totalSteps` (Number), `showProgress` (Boolean)
-  - [ ] Style with Tailwind: white background, shadow, rounded corners, responsive padding
-  - [ ] Add ARIA labels for accessibility (role="main", aria-labelledby)
-  - [ ] Note: Close functionality handled by Studio overlay - no close button needed
+- [x] 2.1 Create AppShell component
+  - [x] Create `src/components/layout/AppShell.vue`
+  - [x] Implement template: header area, progress area, main content slot, action footer
+  - [x] Define props: `title` (String), `currentStep` (Number), `totalSteps` (Number), `showProgress` (Boolean)
+  - [x] Style with Tailwind: white background, shadow, rounded corners, responsive padding
+  - [x] Add ARIA labels for accessibility (role="main", aria-labelledby)
+  - [x] Note: Close functionality handled by Studio overlay - no close button needed
 
-- [ ] 2.2 Create AppShell tests
-  - [ ] Create `src/components/layout/AppShell.test.js`
-  - [ ] Test: renders title correctly
-  - [ ] Test: shows/hides progress indicator based on `showProgress` prop
-  - [ ] Test: renders content slot correctly
-  - [ ] Test: renders action footer slot correctly
-  - [ ] Run tests: `npm test AppShell.test.js`
+- [x] 2.2 Create AppShell tests
+  - [x] Create `src/components/layout/AppShell.test.js`
+  - [x] Test: renders title correctly
+  - [x] Test: shows/hides progress indicator based on `showProgress` prop
+  - [x] Test: renders content slot correctly
+  - [x] Test: renders action footer slot correctly
+  - [x] Run tests: `npm test AppShell.test.js`
 
 - [ ] 2.3 Create ProgressIndicator component
   - [ ] Create `src/components/layout/ProgressIndicator.vue`
@@ -168,35 +168,26 @@
   - [ ] Test: displays step labels
   - [ ] Run tests: `npm test ProgressIndicator.test.js`
 
-### 3.0 Implement Reusable UI Components
+### 3.0 Integrate Fliplet Table UI
 
-- [ ] 3.1 Create DataTable component
-  - [ ] Create `src/components/ui/DataTable.vue`
-  - [ ] Implement template: table with thead, tbody, pagination, search, loading states
-  - [ ] Define props: `columns` (Array), `data` (Array), `selectable` (Boolean), `expandable` (Boolean), `loading` (Boolean), `pagination` (Object), `searchable` (Boolean)
-  - [ ] Implement search functionality with debouncing (300ms)
-  - [ ] Implement column sorting (ascending/descending) with sort icons
-  - [ ] Implement pagination controls (25, 50, 100, Show all)
-  - [ ] Implement bulk selection with indeterminate checkbox state
-  - [ ] Implement expandable rows with slot for nested content
-  - [ ] Add loading skeleton for loading state
-  - [ ] Add empty state message
-  - [ ] Style with Tailwind: responsive table, hover effects, borders
-  - [ ] Import Search, ChevronDown, ChevronUp icons from lucide-vue-next
-  - [ ] Emit events: `row-click`, `selection-change`, `sort-change`, `page-change`, `search`
-  - [ ] Implement responsive design: convert to cards on mobile (<768px)
+- [ ] 3.1 Create Fliplet table wrapper component
+  - [ ] Create `src/components/ui/FlipletTableWrapper.vue`
+  - [ ] Accept props: `columns`, `data`, `selection`, `expandable`, `pagination`, `searchable`, `stateKey`, `loading`, and optional configuration objects
+  - [ ] Instantiate `Fliplet.UI.Table` in `mounted()` with provided options (search, pagination, sorting, selection, expandable rows)
+  - [ ] Expose scoped slots or render callbacks for custom cell and row templates
+  - [ ] Bridge Fliplet events (`rowClick`, `selection:change`, `sort:change`, `pagination:change`, `search`) back to Vue via emits
+  - [ ] Support partial selection states and expandable detail renderers via props/slots
+  - [ ] Provide responsive container classes and hooks for mobile view adjustments if required
+  - [ ] Clean up Fliplet table instance on component `beforeUnmount`
 
-- [ ] 3.2 Create DataTable tests
-  - [ ] Create `src/components/ui/DataTable.test.js`
-  - [ ] Test: renders columns and data correctly
-  - [ ] Test: search filters data
-  - [ ] Test: sorting works for all columns
-  - [ ] Test: pagination changes pages
-  - [ ] Test: selection emits correct events
-  - [ ] Test: expandable rows toggle correctly
-  - [ ] Test: loading state shows skeleton
-  - [ ] Test: empty state shows message
-  - [ ] Run tests: `npm test DataTable.test.js`
+- [ ] 3.2 Create Fliplet table wrapper tests
+  - [ ] Create `src/components/ui/FlipletTableWrapper.test.js`
+  - [ ] Mock `Fliplet.UI.Table` constructor and capture options
+  - [ ] Test: passes columns, data, search, pagination, and selection options correctly
+  - [ ] Test: emits Vue events when Fliplet table callbacks fire (e.g., `selection:change`, `rowClick`)
+  - [ ] Test: updates Fliplet instance when reactive props change (data, columns)
+  - [ ] Test: destroys Fliplet instance on component unmount
+  - [ ] Run tests: `npm test FlipletTableWrapper.test.js`
 
 - [ ] 3.3 Create StatusBadge component
   - [ ] Create `src/components/ui/StatusBadge.vue`
@@ -324,7 +315,7 @@
   - [ ] Create `src/components/pages/DestinationSelector.vue`
   - [ ] Implement template: organization dropdown (if multiple orgs), app list table, action buttons
   - [ ] Integrate with middleware: fetch organizations, fetch apps for selected org
-  - [ ] Use DataTable component for app list
+  - [ ] Use Fliplet table wrapper for app list
   - [ ] Configure columns: Name, ID, Last Modified, Live Status
   - [ ] Implement search and sort functionality
   - [ ] Filter out locked apps, source app, apps without publisher rights
@@ -369,7 +360,7 @@
 
 - [ ] 6.3 Create ScreensTab component
   - [ ] Create `src/components/tabs/ScreensTab.vue`
-  - [ ] Implement template: instructions, DataTable for screens with expandable rows
+  - [ ] Implement template: instructions, Fliplet table wrapper for screens with expandable rows
   - [ ] Integrate with middleware: fetch screens with associations
   - [ ] Configure table columns: Checkbox, Name, ID, Preview, Last Modified, Associated DS (count), Associated Files (count)
   - [ ] Implement expandable rows to show associated data sources and files
@@ -390,7 +381,7 @@
 
 - [ ] 6.5 Create DataSourcesTab component
   - [ ] Create `src/components/tabs/DataSourcesTab.vue`
-  - [ ] Implement template: instructions with live impact warning, DataTable with copy mode dropdown
+  - [ ] Implement template: instructions with live impact warning, Fliplet table wrapper with copy mode dropdown
   - [ ] Integrate with middleware: fetch data sources with associations
   - [ ] Configure table columns: Checkbox, Name, ID, Last Modified, Entries, Copy Mode (dropdown), Associated Screens, Associated Files, Global Dep
   - [ ] Implement copy mode dropdown per row: "Structure only" vs "Overwrite structure and data"
@@ -414,7 +405,7 @@
 
 - [ ] 6.7 Create FilesTab component
   - [ ] Create `src/components/tabs/FilesTab.vue`
-  - [ ] Implement template: instructions, DataTable with folder options
+  - [ ] Implement template: instructions, Fliplet table wrapper with folder options
   - [ ] Integrate with middleware: fetch files and folders with associations
   - [ ] Configure table columns: Checkbox, Name, Path, Type, Added, ID, Preview, Associated Screens, Associated DS, Global Lib
   - [ ] Implement folder copy options dropdown: "Copy folder only" vs "Copy folder and files"
@@ -621,7 +612,7 @@
   - [ ] Test: Tab through all interactive elements in correct order
   - [ ] Test: Enter activates buttons and links
   - [ ] Test: Escape closes modals and overlays
-  - [ ] Test: Arrow keys navigate within DataTable
+- [ ] Test: Arrow keys navigate within Fliplet table wrapper (when applicable)
   - [ ] Test: Space toggles checkboxes
 
 - [ ] 10.4 Test responsive design at all breakpoints
@@ -641,8 +632,8 @@
 
 - [ ] 11.1 Implement performance optimizations
   - [ ] Add lazy loading for tab components (use dynamic imports)
-  - [ ] Implement virtual scrolling in DataTable for large datasets (>500 rows)
-  - [ ] Add debouncing to search inputs (already done in DataTable)
+- [ ] Evaluate Fliplet table virtual scrolling capabilities for large datasets (>500 rows)
+- [ ] Confirm Fliplet table search includes debouncing; add wrapper debouncing if needed
   - [ ] Optimize re-renders with computed properties and watchers
   - [ ] Add loading skeletons for all async content
 

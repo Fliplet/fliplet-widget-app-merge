@@ -2,8 +2,9 @@ module.exports = {
   testEnvironment: 'jsdom',
   testMatch: ['**/*.test.js'],
   collectCoverageFrom: [
-    'src/middleware/**/*.js',
-    '!src/middleware/**/*.test.js',
+    'src/**/*.js',
+    'src/**/*.vue',
+    '!src/**/*.test.js',
     '!src/middleware/**/index.js'
   ],
   coverageThreshold: {
@@ -16,9 +17,14 @@ module.exports = {
   },
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
   transform: {
+    '^.+\\.vue$': '@vue/vue3-jest',
     '^.+\\.js$': 'babel-jest'
   },
-  moduleFileExtensions: ['js'],
+  moduleFileExtensions: ['js', 'vue'],
+  transformIgnorePatterns: ['/node_modules/(?!(@vue|vue|lucide-vue-next)/)'],
+  moduleNameMapper: {
+    '^@vue/test-utils$': '<rootDir>/node_modules/@vue/test-utils/dist/vue-test-utils.cjs.js'
+  },
   testPathIgnorePatterns: ['/node_modules/', '/dist/']
 };
 

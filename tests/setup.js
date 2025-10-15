@@ -1,10 +1,27 @@
-// tests/setup.js
-// Global test setup with Fliplet API mocks
+const { TextDecoder, TextEncoder } = require('util');
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
-/**
- * Mock Fliplet global object for testing
- * This setup runs before each test file
- */
+const { JSDOM } = require('jsdom');
+
+global.Vue = require('vue');
+global.VueCompilerDOM = require('@vue/compiler-dom');
+global.VueServerRenderer = require('@vue/server-renderer');
+
+const dom = new JSDOM('<!doctype html><html><body></body></html>');
+
+global.window = dom.window;
+global.document = dom.window.document;
+global.navigator = {
+  userAgent: 'node.js'
+};
+
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+global.requestAnimationFrame = (callback) => setTimeout(callback, 0);
+global.cancelAnimationFrame = (id) => clearTimeout(id);
+
 global.Fliplet = {
   API: {
     request: jest.fn()
@@ -23,14 +40,11 @@ global.Fliplet = {
   }
 };
 
-// Reset mocks before each test
 beforeEach(() => {
   jest.clearAllMocks();
 
-  // Reset Navigate.query to empty object
   global.Fliplet.Navigate.query = {};
 
-  // Reset default API URL
   global.Fliplet.Env.get.mockImplementation((key) => {
     if (key === 'apiUrl') {
       return 'https://api.fliplet.test/';
