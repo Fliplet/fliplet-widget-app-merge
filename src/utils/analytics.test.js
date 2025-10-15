@@ -162,7 +162,7 @@ describe('analytics', () => {
       analytics.trackMergeCompleted(123, 456, 30, 10);
 
       expect(mockFlipletAnalytics).toHaveBeenCalledTimes(2);
-      
+
       expect(mockFlipletAnalytics).toHaveBeenNthCalledWith(1, {
         category: analytics.EVENT_CATEGORIES.WORKFLOW,
         action: 'merge_completed',

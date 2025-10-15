@@ -17,13 +17,14 @@
           <div>
             <h1
               :id="headingId"
-              data-testid="app-shell-heading"
+              data-testid="app-shell-title"
               class="text-xl font-semibold text-accent"
             >
               {{ title }}
             </h1>
             <p
               v-if="showProgress"
+              data-testid="app-shell-progress-label"
               class="text-sm text-accent/70"
             >
               Step {{ currentStep }} of {{ totalSteps }}
@@ -33,12 +34,13 @@
       </div>
       <div
         v-if="showProgress"
+        data-testid="app-shell-progress"
         class="h-1 bg-secondary"
       >
-          <div
-            class="h-1 bg-primary transition-all duration-300"
-            :style="{ width: progressWidth }"
-          />
+        <div
+          class="h-1 bg-primary transition-all duration-300"
+          :style="{ width: progressWidth }"
+        />
       </div>
     </header>
 
@@ -52,7 +54,10 @@
       v-if="$slots.actions"
       class="border-t border-secondary/50 bg-white px-6 py-4"
     >
-      <div class="mx-auto flex w-full max-w-container justify-end gap-3">
+      <div
+        class="mx-auto flex w-full max-w-container justify-end gap-3"
+        data-testid="app-shell-actions"
+      >
         <slot name="actions" />
       </div>
     </footer>
@@ -60,10 +65,7 @@
 </template>
 
 <script>
-const Layers = {
-  name: 'LayersIcon',
-  template: '<svg />'
-};
+import { Layers } from 'lucide-vue-next';
 
 export default {
   name: 'AppShell',

@@ -3,3 +3,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: #36344c;
+  }
+
+  [type="checkbox"] {
+    border-radius: 3px;
+    border: 1px solid #6C757D;
+  }
+}
+
+.fl-table-select-all-checkbox {
+  font-size: 19px;
+
+  &.fl-table-header-checkbox-selected,
+  &.fl-table-header-checkbox-partial {
+    color: #2563EB;
+  }
+}

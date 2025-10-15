@@ -50,6 +50,9 @@ module.exports = {
     new ESLintPlugin({
       extensions: ['js', 'vue'],
       exclude: 'node_modules'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     })
   ]
 };

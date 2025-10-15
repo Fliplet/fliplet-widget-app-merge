@@ -190,7 +190,7 @@ For development testing, components use mock data in their lifecycle hooks:
 async mounted() {
   // Mock data - will be replaced with actual API calls
   await Promise.resolve();
-  
+
   this.data = [
     { id: 123, name: 'Example', ... }
   ];

@@ -18,7 +18,7 @@ const validateDuplicateNames = (items, field = 'name') => {
 
   items.forEach(item => {
     const name = item[field];
-    
+
     if (!name) {
       return;
     }
@@ -177,7 +177,7 @@ const validateRange = (num, min = -Infinity, max = Infinity) => {
   }
 
   const number = typeof num === 'number' ? num : parseFloat(num);
-  
+
   if (isNaN(number)) {
     return false;
   }
@@ -268,7 +268,7 @@ const validateDateRange = (date, minDate = null, maxDate = null) => {
   }
 
   const dateObj = new Date(date);
-  
+
   if (isNaN(dateObj.getTime())) {
     return false;
   }

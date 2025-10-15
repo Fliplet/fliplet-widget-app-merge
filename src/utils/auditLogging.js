@@ -2,10 +2,10 @@
 
 /**
  * Audit logging utility for tracking critical merge operations
- * 
+ *
  * NOTE: Audit logging requires log types to be whitelisted via API.
  * Enable by setting ENABLE_AUDIT_LOGS = true
- * 
+ *
  * This is disabled by default as it requires backend configuration.
  */
 

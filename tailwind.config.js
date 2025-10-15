@@ -33,7 +33,13 @@ module.exports = {
         sans: ['"Open Sans"', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
       },
       fontSize: {
-        base: '14px'
+        'xs': '0.875rem',    // 14px
+        'sm': '1rem',        // 16px (body text - most common)
+        'base': '1rem',      // 16px (default body)
+        'lg': '1.125rem',    // 18px (section headings)
+        'xl': '1.25rem',     // 20px (page titles)
+        '2xl': '1.5rem',     // 24px (main headings)
+        '3xl': '1.875rem'    // 30px (large headings)
       },
       spacing: {
         unit: '8px'

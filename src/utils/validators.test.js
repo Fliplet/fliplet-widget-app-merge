@@ -18,7 +18,7 @@ describe('validators', () => {
       ];
 
       const duplicates = validators.validateDuplicateNames(items);
-      
+
       expect(duplicates.length).toBe(2);
       expect(duplicates).toContainEqual({ id: 1, name: 'Test' });
       expect(duplicates).toContainEqual({ id: 2, name: 'test' });
@@ -32,7 +32,7 @@ describe('validators', () => {
       ];
 
       const duplicates = validators.validateDuplicateNames(items, 'title');
-      
+
       expect(duplicates.length).toBe(2);
     });
 
@@ -44,7 +44,7 @@ describe('validators', () => {
       ];
 
       const duplicates = validators.validateDuplicateNames(items);
-      
+
       expect(duplicates.length).toBe(2);
     });
 
@@ -55,7 +55,7 @@ describe('validators', () => {
       ];
 
       const duplicates = validators.validateDuplicateNames(items);
-      
+
       expect(duplicates.length).toBe(2);
     });
   });
@@ -92,7 +92,7 @@ describe('validators', () => {
   describe('validatePlanLimits', () => {
     it('returns valid for no limits', () => {
       const result = validators.validatePlanLimits({ screens: 10 }, null);
-      
+
       expect(result.valid).toBe(true);
       expect(result.exceededLimits).toEqual([]);
     });
@@ -102,7 +102,7 @@ describe('validators', () => {
       const limits = { screens: 10, dataSources: 10 };
 
       const result = validators.validatePlanLimits(current, limits);
-      
+
       expect(result.valid).toBe(false);
       expect(result.exceededLimits).toHaveLength(1);
       expect(result.exceededLimits[0]).toEqual({
@@ -118,7 +118,7 @@ describe('validators', () => {
       const limits = { screens: 10, dataSources: 10 };
 
       const result = validators.validatePlanLimits(current, limits);
-      
+
       expect(result.valid).toBe(true);
       expect(result.exceededLimits).toEqual([]);
     });
@@ -128,7 +128,7 @@ describe('validators', () => {
       const limits = { screens: 10, dataSources: 10 };
 
       const result = validators.validatePlanLimits(current, limits);
-      
+
       expect(result.valid).toBe(true);
     });
   });
@@ -187,7 +187,7 @@ describe('validators', () => {
       const required = ['name', 'email', 'age'];
 
       const missing = validators.validateRequiredFields(obj, required);
-      
+
       expect(missing).toEqual(['email', 'age']);
     });
 
@@ -196,7 +196,7 @@ describe('validators', () => {
       const required = ['name', 'email'];
 
       const missing = validators.validateRequiredFields(obj, required);
-      
+
       expect(missing).toEqual(['email']);
     });
 
@@ -205,7 +205,7 @@ describe('validators', () => {
       const required = ['name', 'email'];
 
       const missing = validators.validateRequiredFields(obj, required);
-      
+
       expect(missing).toEqual(['email']);
     });
 
@@ -311,49 +311,49 @@ describe('validators', () => {
   describe('validatePasswordStrength', () => {
     it('validates strong password', () => {
       const result = validators.validatePasswordStrength('Password123!');
-      
+
       expect(result.valid).toBe(true);
       expect(result.feedback).toEqual([]);
     });
 
     it('rejects password too short', () => {
       const result = validators.validatePasswordStrength('Pwd1!');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must be at least 8 characters long');
     });
 
     it('requires uppercase letter', () => {
       const result = validators.validatePasswordStrength('password123!');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must contain at least one uppercase letter');
     });
 
     it('requires lowercase letter', () => {
       const result = validators.validatePasswordStrength('PASSWORD123!');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must contain at least one lowercase letter');
     });
 
     it('requires number', () => {
       const result = validators.validatePasswordStrength('Password!');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must contain at least one number');
     });
 
     it('requires special character', () => {
       const result = validators.validatePasswordStrength('Password123');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password must contain at least one special character');
     });
 
     it('returns feedback for empty password', () => {
       const result = validators.validatePasswordStrength('');
-      
+
       expect(result.valid).toBe(false);
       expect(result.feedback).toContain('Password is required');
     });

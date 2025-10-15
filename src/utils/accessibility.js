@@ -96,7 +96,7 @@ const announceToScreenReader = (message, priority = 'polite') => {
     liveRegion.setAttribute('aria-live', priority);
     liveRegion.setAttribute('aria-atomic', 'true');
     liveRegion.className = 'sr-only';
-    
+
     // Add visually hidden styles
     Object.assign(liveRegion.style, {
       position: 'absolute',
@@ -111,7 +111,7 @@ const announceToScreenReader = (message, priority = 'polite') => {
 
   // Update the message
   liveRegion.textContent = '';
-  
+
   // Use setTimeout to ensure screen readers detect the change
   setTimeout(() => {
     liveRegion.textContent = message;
@@ -146,7 +146,7 @@ const removeAriaAttributes = (element, attributes) => {
   }
 
   const attributeArray = Array.isArray(attributes) ? attributes : [attributes];
-  
+
   attributeArray.forEach(key => {
     const ariaAttribute = key.startsWith('aria-') ? key : `aria-${key}`;
     element.removeAttribute(ariaAttribute);
@@ -159,7 +159,7 @@ const removeAriaAttributes = (element, attributes) => {
  */
 const addSkipLink = (targetId, linkText = 'Skip to main content') => {
   const existingSkipLink = document.getElementById('skip-to-main');
-  
+
   if (existingSkipLink) {
     return existingSkipLink;
   }
@@ -192,7 +192,7 @@ const addSkipLink = (targetId, linkText = 'Skip to main content') => {
   });
 
   document.body.insertBefore(skipLink, document.body.firstChild);
-  
+
   return skipLink;
 };
 

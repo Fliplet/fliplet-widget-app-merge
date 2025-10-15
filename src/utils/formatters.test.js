@@ -5,7 +5,7 @@ describe('formatters', () => {
     it('formats valid timestamp as date string', () => {
       const timestamp = new Date('2025-01-15T10:30:00').getTime();
       const result = formatters.formatDate(timestamp);
-      
+
       expect(result).toContain('Jan');
       expect(result).toContain('15');
       expect(result).toContain('2025');
@@ -14,7 +14,7 @@ describe('formatters', () => {
     it('handles custom options', () => {
       const timestamp = new Date('2025-01-15T10:30:00').getTime();
       const result = formatters.formatDate(timestamp, { month: 'long' });
-      
+
       expect(result).toContain('January');
     });
 
@@ -139,7 +139,7 @@ describe('formatters', () => {
 
     it('formats with "full" format by default', () => {
       const result = formatters.formatTimestamp(timestamp);
-      
+
       expect(result).toContain('Jan');
       expect(result).toContain('15');
       expect(result).toContain('2025');
@@ -148,27 +148,27 @@ describe('formatters', () => {
 
     it('formats with "date-only" format', () => {
       const result = formatters.formatTimestamp(timestamp, 'date-only');
-      
+
       expect(result).toContain('Jan');
       expect(result).not.toContain(':');
     });
 
     it('formats with "time-only" format', () => {
       const result = formatters.formatTimestamp(timestamp, 'time-only');
-      
+
       expect(result).toContain(':');
     });
 
     it('formats with "iso" format', () => {
       const result = formatters.formatTimestamp(timestamp, 'iso');
-      
+
       expect(result).toContain('T');
       expect(result).toContain('Z');
     });
 
     it('formats with "relative" format', () => {
       const result = formatters.formatTimestamp(Date.now() - 60000, 'relative');
-      
+
       expect(result).toContain('minute');
     });
 
@@ -262,7 +262,7 @@ describe('formatters', () => {
     it('truncates text longer than max length', () => {
       const text = 'This is a long text that needs to be truncated';
       const result = formatters.truncateText(text, 20);
-      
+
       expect(result).toBe('This is a long text ...');
       expect(result.length).toBe(23); // 20 + 3 for '...'
     });
@@ -270,14 +270,14 @@ describe('formatters', () => {
     it('does not truncate text shorter than max length', () => {
       const text = 'Short text';
       const result = formatters.truncateText(text, 20);
-      
+
       expect(result).toBe('Short text');
     });
 
     it('uses custom suffix', () => {
       const text = 'This is a long text';
       const result = formatters.truncateText(text, 10, '…');
-      
+
       expect(result).toBe('This is a …');
     });
 
@@ -292,7 +292,7 @@ describe('formatters', () => {
     it('handles text exactly at max length', () => {
       const text = 'Exact length';
       const result = formatters.truncateText(text, 12);
-      
+
       expect(result).toBe('Exact length');
     });
   });

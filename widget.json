@@ -14,7 +14,8 @@
   },
   "build": {
     "dependencies": [
-      "fliplet-core"
+      "fliplet-core",
+      "fliplet-table"
     ],
     "assets": [
       "dist/css/index.css",

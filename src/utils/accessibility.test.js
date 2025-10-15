@@ -47,7 +47,7 @@ describe('accessibility', () => {
       accessibility.trapFocus(modal);
 
       lastButton.focus();
-      
+
       const event = new KeyboardEvent('keydown', { key: 'Tab' });
       modal.dispatchEvent(event);
       // After Tab on last element, focus should cycle to first
@@ -97,7 +97,7 @@ describe('accessibility', () => {
 
     it('handles element without focus method gracefully', () => {
       const element = { notFocus: jest.fn() };
-      
+
       expect(() => {
         accessibility.restoreFocus(element);
       }).not.toThrow();
@@ -156,7 +156,7 @@ describe('accessibility', () => {
       const initialRegion = document.getElementById('screen-reader-announcements');
       accessibility.announceToScreenReader('');
       const finalRegion = document.getElementById('screen-reader-announcements');
-      
+
       expect(finalRegion).toEqual(initialRegion);
     });
   });
@@ -194,7 +194,7 @@ describe('accessibility', () => {
 
     it('does nothing if attributes are null', () => {
       const element = document.createElement('div');
-      
+
       expect(() => {
         accessibility.setAriaAttributes(element, null);
       }).not.toThrow();

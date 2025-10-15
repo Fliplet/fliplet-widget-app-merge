@@ -14,7 +14,7 @@ const formatDate = (timestamp, options = {}) => {
 
   try {
     const date = new Date(timestamp);
-    
+
     if (isNaN(date.getTime())) {
       return 'Invalid date';
     }
@@ -69,11 +69,11 @@ const formatNumber = (num) => {
 
   if (typeof num !== 'number') {
     const parsed = parseFloat(num);
-    
+
     if (isNaN(parsed)) {
       return '0';
     }
-    
+
     num = parsed;
   }
 
@@ -119,7 +119,7 @@ const formatTimestamp = (timestamp, format = 'full') => {
 
   try {
     const date = new Date(timestamp);
-    
+
     if (isNaN(date.getTime())) {
       return 'Invalid date';
     }
@@ -133,26 +133,26 @@ const formatTimestamp = (timestamp, format = 'full') => {
           hour: '2-digit',
           minute: '2-digit'
         });
-      
+
       case 'date-only':
         return date.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
           day: 'numeric'
         });
-      
+
       case 'time-only':
         return date.toLocaleTimeString('en-US', {
           hour: '2-digit',
           minute: '2-digit'
         });
-      
+
       case 'iso':
         return date.toISOString();
-      
+
       case 'relative':
         return formatRelativeTime(date);
-      
+
       default:
         return date.toLocaleString('en-US');
     }
@@ -174,25 +174,25 @@ const formatRelativeTime = (date) => {
   }
 
   const diffInMinutes = Math.floor(diffInSeconds / 60);
-  
+
   if (diffInMinutes < 60) {
     return `${diffInMinutes} ${diffInMinutes === 1 ? 'minute' : 'minutes'} ago`;
   }
 
   const diffInHours = Math.floor(diffInMinutes / 60);
-  
+
   if (diffInHours < 24) {
     return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
   }
 
   const diffInDays = Math.floor(diffInHours / 24);
-  
+
   if (diffInDays < 30) {
     return `${diffInDays} ${diffInDays === 1 ? 'day' : 'days'} ago`;
   }
 
   const diffInMonths = Math.floor(diffInDays / 30);
-  
+
   if (diffInMonths < 12) {
     return `${diffInMonths} ${diffInMonths === 1 ? 'month' : 'months'} ago`;
   }
@@ -210,7 +210,7 @@ const formatPercentage = (value, decimals = 0) => {
   }
 
   const num = typeof value === 'number' ? value : parseFloat(value);
-  
+
   if (isNaN(num)) {
     return '0%';
   }
