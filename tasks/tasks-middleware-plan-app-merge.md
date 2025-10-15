@@ -208,8 +208,8 @@
     - [x] 3.6.9 Add JSDoc documentation with mergeConfig structure details
     - [x] 3.6.10 Create `MergeApiService.test.js` with tests for all methods
 
-- [ ] 4.0 Implement workflow controller classes
-  - [ ] 4.1 Create `src/middleware/controllers/ValidationController.js`
+- [x] 4.0 Implement workflow controller classes
+  - [x] 4.1 Create `src/middleware/controllers/ValidationController.js`
     - [ ] 4.1.1 Implement constructor accepting AppsApiService and ValidationEngine dependencies
     - [ ] 4.1.2 Implement `validateAppForMerge(appId, options)` orchestrating multiple validations
     - [ ] 4.1.3 Implement `checkDuplicates(appId, options)` calling AppsApiService.checkDuplicates
@@ -254,9 +254,9 @@
     - [ ] 4.4.9 Add JSDoc documentation
     - [ ] 4.4.10 Create `MergeExecutionController.test.js` with tests for execution workflow
 
-- [ ] 5.0 Implement supporting utilities and configuration
-  - [ ] 5.1 Create `src/middleware/utils/EventEmitter.js` (if not already done in 2.1)
-  - [ ] 5.2 Create `src/middleware/utils/DataMapper.js`
+- [x] 5.0 Implement supporting utilities and configuration
+  - [x] 5.1 Create `src/middleware/utils/EventEmitter.js` (if not already done in 2.1)
+  - [x] 5.2 Create `src/middleware/utils/DataMapper.js`
     - [ ] 5.2.1 Implement `transformAppResponse(apiResponse, options)` filtering by fields parameter
     - [ ] 5.2.2 Implement `transformPageResponse(apiResponse, options)` with association handling
     - [ ] 5.2.3 Implement `transformDataSourceResponse(apiResponse, options)` with filters
@@ -298,8 +298,8 @@
     - [ ] 5.7.5 Define default validation configuration (level: 'strict', blockOnError: true, etc.)
     - [ ] 5.7.6 Export default configuration object
 
-- [ ] 6.0 Create main middleware entry point and integration tests
-  - [ ] 6.1 Create `src/middleware/middleware.js`
+- [x] 6.0 Create main middleware entry point and integration tests
+  - [x] 6.1 Create `src/middleware/middleware.js`
     - [ ] 6.1.1 Implement main AppMergeMiddleware class constructor accepting configuration
     - [ ] 6.1.2 Initialize all core foundation classes (ApiClient, StateManager, ValidationEngine, ErrorHandler)
     - [ ] 6.1.3 Initialize all API service classes with ApiClient dependency

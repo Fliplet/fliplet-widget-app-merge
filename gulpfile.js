@@ -5,6 +5,9 @@ const webpackStream = require('webpack-stream');
 const webpackConfig = require('./config/webpack.config.js');
 
 const sass = require('gulp-sass')(require('sass'));
+const postcss = require('gulp-postcss');
+const tailwindcss = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
 
 // Clean assets
 function clean() {
@@ -15,7 +18,8 @@ function clean() {
 function scss() {
   return gulp
     .src('src/scss/index.scss')
-    .pipe(sass())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(postcss([tailwindcss, autoprefixer]))
     .pipe(gulp.dest('dist/css/'));
 }
 
