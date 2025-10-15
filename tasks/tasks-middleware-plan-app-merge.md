@@ -155,58 +155,58 @@
     - [x] 2.6.5 Add JSDoc documentation
     - [x] 2.6.6 Create `BaseMiddleware.test.js` with tests for initialization and dependency injection
 
-- [ ] 3.0 Implement API service classes
-  - [ ] 3.1 Create `src/middleware/api/AppsApiService.js`
-    - [ ] 3.1.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.1.2 Implement `fetchApps(options)` with organizationId, filters, fields, sort, pagination, cache options
-    - [ ] 3.1.3 Implement `fetchApp(appId, options)` with fields and cache options
-    - [ ] 3.1.4 Implement `checkDuplicates(appId, options)` calling POST /v1/apps/:appId/duplicates
-    - [ ] 3.1.5 Implement `lockApp(sourceAppId, options)` calling POST /v1/apps/:appId/lock
-    - [ ] 3.1.6 Implement `unlockApp(sourceAppId, options)` calling POST /v1/apps/:appId/unlock
-    - [ ] 3.1.7 Implement `extendLock(sourceAppId, options)` calling POST /v1/apps/:appId/lock/extend
-    - [ ] 3.1.8 Implement helper methods for building query strings and transforming responses
-    - [ ] 3.1.9 Add comprehensive JSDoc documentation with option parameter descriptions
-    - [ ] 3.1.10 Create `AppsApiService.test.js` with tests for all methods and option combinations
-  - [ ] 3.2 Create `src/middleware/api/OrganizationsApiService.js`
-    - [ ] 3.2.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.2.2 Implement `fetchOrganizations(options)` calling GET /v1/organizations with fields, sort, cache
-    - [ ] 3.2.3 Implement `fetchOrganization(organizationId, options)` with fields and cache
-    - [ ] 3.2.4 Implement `fetchUserApps(organizationId, userId, options)` calling GET /v1/organizations/:orgId/users/:userId/apps with filters
-    - [ ] 3.2.5 Add JSDoc documentation
-    - [ ] 3.2.6 Create `OrganizationsApiService.test.js` with tests for all methods
-  - [ ] 3.3 Create `src/middleware/api/PagesApiService.js`
-    - [ ] 3.3.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.3.2 Implement `fetchPages(appId, options)` calling GET /v1/apps/:appId/pages with include, fields, filters, sort, pagination
-    - [ ] 3.3.3 Implement `fetchPage(appId, pageId, options)` with include, fields, cache
-    - [ ] 3.3.4 Implement `fetchPagePreview(appId, pageId, options)` calling preview endpoint
-    - [ ] 3.3.5 Implement query string builder for include parameter (associatedDS, associatedFiles)
-    - [ ] 3.3.6 Add JSDoc documentation
-    - [ ] 3.3.7 Create `PagesApiService.test.js` with tests for all methods and include options
-  - [ ] 3.4 Create `src/middleware/api/DataSourcesApiService.js`
-    - [ ] 3.4.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.4.2 Implement `fetchDataSources(appId, options)` calling GET /v1/data-sources with include, includeInUse, filters, fields, sort, pagination
-    - [ ] 3.4.3 Implement `fetchDataSource(dataSourceId, options)` with appId, include, fields, cache
-    - [ ] 3.4.4 Implement filtering for standard data sources only (type=null)
-    - [ ] 3.4.5 Add JSDoc documentation
-    - [ ] 3.4.6 Create `DataSourcesApiService.test.js` with tests for all methods
-  - [ ] 3.5 Create `src/middleware/api/MediaApiService.js`
-    - [ ] 3.5.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.5.2 Implement `fetchMedia(appId, options)` calling GET /v1/media with include, filters, fields, sort, pagination
-    - [ ] 3.5.3 Implement `fetchFile(fileId, options)` with appId, include, fields, cache
-    - [ ] 3.5.4 Implement `fetchFolder(folderId, options)` with appId, include, fields, cache
-    - [ ] 3.5.5 Add JSDoc documentation
-    - [ ] 3.5.6 Create `MediaApiService.test.js` with tests for all methods
-  - [ ] 3.6 Create `src/middleware/api/MergeApiService.js`
-    - [ ] 3.6.1 Implement constructor accepting ApiClient dependency
-    - [ ] 3.6.2 Implement `lockApps(sourceAppId, options)` with targetApp and lockDuration
-    - [ ] 3.6.3 Implement `unlockApps(sourceAppId, options)` with targetApp
-    - [ ] 3.6.4 Implement `extendLock(sourceAppId, options)` with targetApp and extendDuration
-    - [ ] 3.6.5 Implement `previewMerge(sourceAppId, mergeConfig)` calling POST /v1/apps/:appId/merge/preview
-    - [ ] 3.6.6 Implement `initiateMerge(sourceAppId, mergeConfig)` calling POST /v1/apps/:appId/merge
-    - [ ] 3.6.7 Implement `getMergeStatus(sourceAppId, options)` calling POST /v1/apps/:appId/merge/status
-    - [ ] 3.6.8 Implement `fetchMergeLogs(appId, options)` calling POST /v1/apps/:appId/logs
-    - [ ] 3.6.9 Add JSDoc documentation with mergeConfig structure details
-    - [ ] 3.6.10 Create `MergeApiService.test.js` with tests for all methods
+- [x] 3.0 Implement API service classes
+  - [x] 3.1 Create `src/middleware/api/AppsApiService.js`
+    - [x] 3.1.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.1.2 Implement `fetchApps(options)` with organizationId, filters, fields, sort, pagination, cache options
+    - [x] 3.1.3 Implement `fetchApp(appId, options)` with fields and cache options
+    - [x] 3.1.4 Implement `checkDuplicates(appId, options)` calling POST /v1/apps/:appId/duplicates
+    - [x] 3.1.5 Implement `lockApp(sourceAppId, options)` calling POST /v1/apps/:appId/lock
+    - [x] 3.1.6 Implement `unlockApp(sourceAppId, options)` calling POST /v1/apps/:appId/unlock
+    - [x] 3.1.7 Implement `extendLock(sourceAppId, options)` calling POST /v1/apps/:appId/lock/extend
+    - [x] 3.1.8 Implement helper methods for building query strings and transforming responses
+    - [x] 3.1.9 Add comprehensive JSDoc documentation with option parameter descriptions
+    - [x] 3.1.10 Create `AppsApiService.test.js` with tests for all methods and option combinations
+  - [x] 3.2 Create `src/middleware/api/OrganizationsApiService.js`
+    - [x] 3.2.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.2.2 Implement `fetchOrganizations(options)` calling GET /v1/organizations with fields, sort, cache
+    - [x] 3.2.3 Implement `fetchOrganization(organizationId, options)` with fields and cache
+    - [x] 3.2.4 Implement `fetchUserApps(organizationId, userId, options)` calling GET /v1/organizations/:orgId/users/:userId/apps with filters
+    - [x] 3.2.5 Add JSDoc documentation
+    - [x] 3.2.6 Create `OrganizationsApiService.test.js` with tests for all methods
+  - [x] 3.3 Create `src/middleware/api/PagesApiService.js`
+    - [x] 3.3.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.3.2 Implement `fetchPages(appId, options)` calling GET /v1/apps/:appId/pages with include, fields, filters, sort, pagination
+    - [x] 3.3.3 Implement `fetchPage(appId, pageId, options)` with include, fields, cache
+    - [x] 3.3.4 Implement `fetchPagePreview(appId, pageId, options)` calling preview endpoint
+    - [x] 3.3.5 Implement query string builder for include parameter (associatedDS, associatedFiles)
+    - [x] 3.3.6 Add JSDoc documentation
+    - [x] 3.3.7 Create `PagesApiService.test.js` with tests for all methods and include options
+  - [x] 3.4 Create `src/middleware/api/DataSourcesApiService.js`
+    - [x] 3.4.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.4.2 Implement `fetchDataSources(appId, options)` calling GET /v1/data-sources with include, includeInUse, filters, fields, sort, pagination
+    - [x] 3.4.3 Implement `fetchDataSource(dataSourceId, options)` with appId, include, fields, cache
+    - [x] 3.4.4 Implement filtering for standard data sources only (type=null)
+    - [x] 3.4.5 Add JSDoc documentation
+    - [x] 3.4.6 Create `DataSourcesApiService.test.js` with tests for all methods
+  - [x] 3.5 Create `src/middleware/api/MediaApiService.js`
+    - [x] 3.5.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.5.2 Implement `fetchMedia(appId, options)` calling GET /v1/media with include, filters, fields, sort, pagination
+    - [x] 3.5.3 Implement `fetchFile(fileId, options)` with appId, include, fields, cache
+    - [x] 3.5.4 Implement `fetchFolder(folderId, options)` with appId, include, fields, cache
+    - [x] 3.5.5 Add JSDoc documentation
+    - [x] 3.5.6 Create `MediaApiService.test.js` with tests for all methods
+  - [x] 3.6 Create `src/middleware/api/MergeApiService.js`
+    - [x] 3.6.1 Implement constructor accepting ApiClient dependency
+    - [x] 3.6.2 Implement `lockApps(sourceAppId, options)` with targetApp and lockDuration
+    - [x] 3.6.3 Implement `unlockApps(sourceAppId, options)` with targetApp
+    - [x] 3.6.4 Implement `extendLock(sourceAppId, options)` with targetApp and extendDuration
+    - [x] 3.6.5 Implement `previewMerge(sourceAppId, mergeConfig)` calling POST /v1/apps/:appId/merge/preview
+    - [x] 3.6.6 Implement `initiateMerge(sourceAppId, mergeConfig)` calling POST /v1/apps/:appId/merge
+    - [x] 3.6.7 Implement `getMergeStatus(sourceAppId, options)` calling POST /v1/apps/:appId/merge/status
+    - [x] 3.6.8 Implement `fetchMergeLogs(appId, options)` calling POST /v1/apps/:appId/logs
+    - [x] 3.6.9 Add JSDoc documentation with mergeConfig structure details
+    - [x] 3.6.10 Create `MergeApiService.test.js` with tests for all methods
 
 - [ ] 4.0 Implement workflow controller classes
   - [ ] 4.1 Create `src/middleware/controllers/ValidationController.js`

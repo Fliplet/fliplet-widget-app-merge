@@ -31,7 +31,8 @@ The App Merge Widget provides a comprehensive user interface within Fliplet Stud
 ### Framework
 - **Vue.js Version:** 3.5.13
 - **Component API:** Vue Options API (for Fliplet compatibility)
-- **Build Context:** interface - Runs in Fliplet Studio for app configuration
+- **Build Context:** interface - Runs in Fliplet Studio overlay (iFrame) for app configuration
+- **Note:** Widget runs in Studio-managed overlay - close/cancel controls handled by Studio, not the widget
 
 ### Styling Framework
 - **Tailwind CSS:** Modern utility-first CSS framework
@@ -549,8 +550,10 @@ The App Merge Widget provides a comprehensive user interface within Fliplet Stud
 #### AppShell
 **Purpose:** Main widget wrapper with consistent structure
 
+**Note:** This widget runs in a Fliplet Studio overlay (iFrame). The overlay's close button and controls are managed by Studio, so AppShell does not implement close functionality.
+
 **Features:**
-- Header with title and close button
+- Header with title
 - Progress indicator (for multi-step flows)
 - Main content area
 - Action button area (footer)
@@ -561,8 +564,7 @@ The App Merge Widget provides a comprehensive user interface within Fliplet Stud
   title: String,              // Page title
   currentStep: Number,        // Current step (1-3)
   totalSteps: Number,         // Total steps
-  showProgress: Boolean,      // Show/hide progress indicator
-  showClose: Boolean          // Show/hide close button
+  showProgress: Boolean       // Show/hide progress indicator
 }
 ```
 
@@ -995,18 +997,633 @@ module.exports = {
 - **Undo Actions:** Where appropriate (cancel before merge)
 - **Help Text:** Contextual assistance and tooltips
 
-## Integration with Middleware
+## Mock-First Development Strategy
 
-### Middleware Access Pattern
+### Philosophy
+
+**UI development should never be blocked by middleware availability.**
+
+- **Independent Development**: UI can be built, tested, and iterated without middleware
+- **Progressive Integration**: Start with mocks, swap to middleware when ready
+- **Design Review Enablement**: Stakeholders see working UI without functional backend
+- **Parallel Development**: UI and middleware teams work simultaneously
+- **Rapid Prototyping**: Iterate on UI design without backend concerns
+- **Realistic Testing**: Test with comprehensive mock scenarios including errors and edge cases
+
+### Configuration-Based Mode Switching
 
 ```javascript
-// Access middleware through global namespace
-const middleware = window.FlipletAppMerge.middleware;
+// src/config/ui-config.js
+const UIConfig = {
+  // Development mode: 'mock' | 'middleware' | 'hybrid'
+  mode: 'mock',
 
-// Example: Fetch apps
+  // Mock behavior settings
+  mock: {
+    delay: 500,           // Simulate network latency (ms)
+    errorRate: 0.1,       // 10% random error rate for testing
+    enableErrors: true,   // Show error scenarios
+    logRequests: true     // Console log all data requests
+  },
+
+  // Toggle modes easily during development
+  useMockData: function() {
+    this.mode = 'mock';
+    console.log('📦 Using mock data');
+  },
+
+  useMiddleware: function() {
+    this.mode = 'middleware';
+    console.log('⚡ Using middleware');
+  },
+
+  useHybrid: function(mockServices = []) {
+    this.mode = 'hybrid';
+    this.hybridMockServices = mockServices;
+    console.log('🔀 Using hybrid mode:', mockServices);
+  }
+};
+
+// Export for use in components
+window.UIConfig = UIConfig;
+
+// Quick toggle in browser console:
+// UIConfig.useMockData()
+// UIConfig.useMiddleware()
+// UIConfig.useHybrid(['locks', 'validation'])
+```
+
+### Data Service Abstraction Layer
+
+All UI components access data through a unified `DataService` that automatically switches between mock and real middleware:
+
+```javascript
+// src/services/DataService.js
+
+/**
+ * Data Service Abstraction Layer
+ * Provides unified interface for data operations with configurable backend
+ */
+class DataService {
+  constructor() {
+    this.config = window.UIConfig;
+    this.mockService = new MockDataService();
+    this.middlewareService = window.FlipletAppMerge?.middleware;
+  }
+
+  /**
+   * Get current mode from config
+   */
+  get mode() {
+    return this.config.mode;
+  }
+
+  /**
+   * Check if service should use mock data
+   */
+  shouldUseMock(serviceName) {
+    if (this.mode === 'mock') return true;
+    if (this.mode === 'middleware') return false;
+    if (this.mode === 'hybrid') {
+      return this.config.hybridMockServices?.includes(serviceName);
+    }
+    return false;
+  }
+
+  /**
+   * Fetch apps for organization
+   */
+  async fetchApps(options = {}) {
+    if (this.shouldUseMock('apps')) {
+      return this.mockService.fetchApps(options);
+    }
+
+    if (!this.middlewareService) {
+      console.warn('Middleware not available, falling back to mock data');
+      return this.mockService.fetchApps(options);
+    }
+
+    return this.middlewareService.api.apps.fetchApps(options);
+  }
+
+  /**
+   * Fetch screens for app
+   */
+  async fetchScreens(appId, options = {}) {
+    if (this.shouldUseMock('screens')) {
+      return this.mockService.fetchScreens(appId, options);
+    }
+
+    return this.middlewareService.api.screens.fetchScreens(appId, options);
+  }
+
+  /**
+   * Fetch data sources for app
+   */
+  async fetchDataSources(appId, options = {}) {
+    if (this.shouldUseMock('dataSources')) {
+      return this.mockService.fetchDataSources(appId, options);
+    }
+
+    return this.middlewareService.api.dataSources.fetchDataSources(appId, options);
+  }
+
+  /**
+   * Lock apps for merge
+   */
+  async lockApps(sourceAppId, destinationAppId) {
+    if (this.shouldUseMock('locks')) {
+      return this.mockService.lockApps(sourceAppId, destinationAppId);
+    }
+
+    return this.middlewareService.api.locks.lockApps(sourceAppId, destinationAppId);
+  }
+
+  /**
+   * Initiate merge
+   */
+  async initiateMerge(mergeConfig) {
+    if (this.shouldUseMock('merge')) {
+      return this.mockService.initiateMerge(mergeConfig);
+    }
+
+    return this.middlewareService.controllers.merge.initiateMerge(mergeConfig);
+  }
+
+  /**
+   * Subscribe to events
+   */
+  on(eventName, callback) {
+    if (this.shouldUseMock('events')) {
+      return this.mockService.on(eventName, callback);
+    }
+
+    return this.middlewareService.on(eventName, callback);
+  }
+
+  /**
+   * Unsubscribe from events
+   */
+  off(eventName, callback) {
+    if (this.shouldUseMock('events')) {
+      return this.mockService.off(eventName, callback);
+    }
+
+    return this.middlewareService.off(eventName, callback);
+  }
+}
+
+// Create singleton instance
+window.DataService = new DataService();
+```
+
+### Mock Data Infrastructure
+
+```javascript
+// src/mocks/MockDataService.js
+
+/**
+ * Mock Data Service
+ * Provides realistic mock data and behavior for UI development
+ */
+class MockDataService {
+  constructor() {
+    this.config = window.UIConfig;
+    this.fixtures = MockFixtures;
+    this.eventListeners = {};
+  }
+
+  /**
+   * Simulate network delay
+   */
+  async delay() {
+    const ms = this.config.mock.delay || 500;
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Simulate random errors for testing
+   */
+  shouldSimulateError() {
+    if (!this.config.mock.enableErrors) return false;
+    return Math.random() < (this.config.mock.errorRate || 0);
+  }
+
+  /**
+   * Log mock request
+   */
+  log(method, ...args) {
+    if (this.config.mock.logRequests) {
+      console.log(`📦 Mock: ${method}`, ...args);
+    }
+  }
+
+  /**
+   * Fetch apps
+   */
+  async fetchApps(options = {}) {
+    this.log('fetchApps', options);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to fetch apps');
+    }
+
+    let apps = [...this.fixtures.apps];
+
+    // Apply filters
+    if (options.filters?.locked === false) {
+      apps = apps.filter(app => !app.lockedUntil);
+    }
+
+    if (options.filters?.publisher === true) {
+      apps = apps.filter(app => app.hasPublisherRights);
+    }
+
+    return { apps, total: apps.length };
+  }
+
+  /**
+   * Fetch screens
+   */
+  async fetchScreens(appId, options = {}) {
+    this.log('fetchScreens', appId, options);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to fetch screens');
+    }
+
+    return {
+      screens: this.fixtures.screens,
+      total: this.fixtures.screens.length
+    };
+  }
+
+  /**
+   * Fetch data sources
+   */
+  async fetchDataSources(appId, options = {}) {
+    this.log('fetchDataSources', appId, options);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to fetch data sources');
+    }
+
+    return {
+      dataSources: this.fixtures.dataSources,
+      total: this.fixtures.dataSources.length
+    };
+  }
+
+  /**
+   * Lock apps
+   */
+  async lockApps(sourceAppId, destinationAppId) {
+    this.log('lockApps', sourceAppId, destinationAppId);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to lock apps');
+    }
+
+    return {
+      success: true,
+      lockedUntil: Date.now() + (15 * 60 * 1000), // 15 minutes
+      sourceAppId,
+      destinationAppId
+    };
+  }
+
+  /**
+   * Initiate merge
+   */
+  async initiateMerge(mergeConfig) {
+    this.log('initiateMerge', mergeConfig);
+    await this.delay();
+
+    if (this.shouldSimulateError()) {
+      throw new Error('Failed to initiate merge');
+    }
+
+    const mergeId = 'mock-merge-' + Date.now();
+
+    // Simulate merge progress events
+    setTimeout(() => this.emit('merge:status-updated', {
+      mergeId,
+      status: 'in-progress',
+      progress: 0.25,
+      message: 'Copying files...'
+    }), 1000);
+
+    setTimeout(() => this.emit('merge:status-updated', {
+      mergeId,
+      status: 'in-progress',
+      progress: 0.5,
+      message: 'Creating data sources...'
+    }), 2000);
+
+    setTimeout(() => this.emit('merge:status-updated', {
+      mergeId,
+      status: 'in-progress',
+      progress: 0.75,
+      message: 'Copying screens...'
+    }), 3000);
+
+    setTimeout(() => this.emit('merge:status-updated', {
+      mergeId,
+      status: 'complete',
+      progress: 1.0,
+      message: 'Merge complete!'
+    }), 4000);
+
+    return {
+      success: true,
+      mergeId
+    };
+  }
+
+  /**
+   * Event system
+   */
+  on(eventName, callback) {
+    if (!this.eventListeners[eventName]) {
+      this.eventListeners[eventName] = [];
+    }
+    this.eventListeners[eventName].push(callback);
+  }
+
+  off(eventName, callback) {
+    if (!this.eventListeners[eventName]) return;
+    this.eventListeners[eventName] = this.eventListeners[eventName]
+      .filter(cb => cb !== callback);
+  }
+
+  emit(eventName, data) {
+    if (!this.eventListeners[eventName]) return;
+    this.eventListeners[eventName].forEach(callback => callback(data));
+  }
+}
+```
+
+### Mock Data Fixtures
+
+```javascript
+// src/mocks/fixtures.js
+
+const MockFixtures = {
+  /**
+   * Apps for destination selection
+   */
+  apps: [
+    {
+      id: 123,
+      name: 'Production App',
+      organizationId: 1,
+      organizationName: 'Acme Corp',
+      lockedUntil: null,
+      updatedAt: '2025-01-15T10:30:00Z',
+      isLive: true,
+      hasPublisherRights: true
+    },
+    {
+      id: 456,
+      name: 'Staging App',
+      organizationId: 1,
+      organizationName: 'Acme Corp',
+      lockedUntil: null,
+      updatedAt: '2025-01-14T15:45:00Z',
+      isLive: false,
+      hasPublisherRights: true
+    },
+    {
+      id: 789,
+      name: 'Dev App (Locked)',
+      organizationId: 1,
+      organizationName: 'Acme Corp',
+      lockedUntil: Date.now() + 600000, // Locked for 10 more minutes
+      updatedAt: '2025-01-13T09:20:00Z',
+      isLive: false,
+      hasPublisherRights: false
+    }
+  ],
+
+  /**
+   * Screens for merge configuration
+   */
+  screens: [
+    {
+      id: 1,
+      name: 'Home Screen',
+      pageId: 'page-1',
+      updatedAt: '2025-01-10T12:00:00Z',
+      associatedDataSources: [1, 2],
+      associatedFiles: [5, 6],
+      hasPreview: true
+    },
+    {
+      id: 2,
+      name: 'Login Screen',
+      pageId: 'page-2',
+      updatedAt: '2025-01-09T14:30:00Z',
+      associatedDataSources: [3],
+      associatedFiles: [7],
+      hasPreview: true
+    },
+    {
+      id: 3,
+      name: 'Settings Screen',
+      pageId: 'page-3',
+      updatedAt: '2025-01-08T16:45:00Z',
+      associatedDataSources: [],
+      associatedFiles: [8, 9],
+      hasPreview: false
+    }
+  ],
+
+  /**
+   * Data sources for merge configuration
+   */
+  dataSources: [
+    {
+      id: 1,
+      name: 'Users',
+      dataSourceType: null,
+      updatedAt: '2025-01-12T10:00:00Z',
+      entries: 150,
+      associatedScreens: [1],
+      associatedFiles: [],
+      isGlobalDependency: false
+    },
+    {
+      id: 2,
+      name: 'Products',
+      dataSourceType: null,
+      updatedAt: '2025-01-11T11:30:00Z',
+      entries: 523,
+      associatedScreens: [1, 2],
+      associatedFiles: [10],
+      isGlobalDependency: true
+    },
+    {
+      id: 3,
+      name: 'Orders',
+      dataSourceType: null,
+      updatedAt: '2025-01-10T09:15:00Z',
+      entries: 1247,
+      associatedScreens: [2],
+      associatedFiles: [],
+      isGlobalDependency: false
+    }
+  ],
+
+  /**
+   * Files for merge configuration
+   */
+  files: [
+    {
+      id: 5,
+      name: 'logo.png',
+      path: '/assets/images/',
+      type: 'image',
+      addedAt: '2025-01-05T08:00:00Z',
+      associatedScreens: [1, 2],
+      associatedDataSources: [],
+      isGlobalLibrary: false,
+      hasPreview: true
+    },
+    {
+      id: 6,
+      name: 'banner.jpg',
+      path: '/assets/images/',
+      type: 'image',
+      addedAt: '2025-01-04T14:20:00Z',
+      associatedScreens: [1],
+      associatedDataSources: [],
+      isGlobalLibrary: false,
+      hasPreview: true
+    },
+    {
+      id: 10,
+      name: 'analytics.js',
+      path: '/assets/js/',
+      type: 'javascript',
+      addedAt: '2025-01-03T10:30:00Z',
+      associatedScreens: [],
+      associatedDataSources: [2],
+      isGlobalLibrary: true,
+      hasPreview: false
+    }
+  ],
+
+  /**
+   * Source app info
+   */
+  sourceApp: {
+    id: 100,
+    name: 'Source App',
+    organizationId: 1,
+    organizationName: 'Acme Corp',
+    region: 'EU',
+    isPublished: true,
+    updatedAt: '2025-01-15T12:00:00Z',
+    updatedBy: 'John Smith'
+  }
+};
+
+window.MockFixtures = MockFixtures;
+```
+
+### Test Scenarios
+
+```javascript
+// src/mocks/scenarios.js
+
+const TestScenarios = {
+  /**
+   * Simulate successful merge flow
+   */
+  async simulateSuccess() {
+    UIConfig.useMockData();
+    UIConfig.mock.enableErrors = false;
+    console.log('✅ Testing success scenario');
+  },
+
+  /**
+   * Simulate network errors
+   */
+  async simulateNetworkError() {
+    UIConfig.useMockData();
+    UIConfig.mock.errorRate = 1.0; // 100% errors
+    UIConfig.mock.enableErrors = true;
+    console.log('❌ Testing error scenario');
+  },
+
+  /**
+   * Simulate slow network
+   */
+  async simulateSlowNetwork() {
+    UIConfig.useMockData();
+    UIConfig.mock.delay = 3000; // 3 second delay
+    console.log('🐌 Testing slow network');
+  },
+
+  /**
+   * Simulate locked apps
+   */
+  async simulateLockedApps() {
+    UIConfig.useMockData();
+    MockFixtures.apps.forEach(app => {
+      app.lockedUntil = Date.now() + 600000; // Lock all apps
+    });
+    console.log('🔒 Testing locked apps scenario');
+  },
+
+  /**
+   * Simulate empty states
+   */
+  async simulateEmptyState() {
+    UIConfig.useMockData();
+    MockFixtures.apps = [];
+    MockFixtures.screens = [];
+    MockFixtures.dataSources = [];
+    MockFixtures.files = [];
+    console.log('📭 Testing empty state');
+  },
+
+  /**
+   * Reset to normal
+   */
+  async reset() {
+    UIConfig.useMockData();
+    UIConfig.mock.delay = 500;
+    UIConfig.mock.errorRate = 0.1;
+    UIConfig.mock.enableErrors = true;
+    console.log('🔄 Reset to normal mock behavior');
+  }
+};
+
+window.TestScenarios = TestScenarios;
+
+// Usage in browser console:
+// TestScenarios.simulateNetworkError()
+// TestScenarios.simulateSlowNetwork()
+// TestScenarios.reset()
+```
+
+### Component Implementation Pattern
+
+Components use DataService abstraction - never directly access middleware:
+
+```vue
+<script>
 export default {
+  name: 'DestinationSelector',
+
   data() {
     return {
+      dataService: window.DataService, // Use abstraction layer
       apps: [],
       loading: false,
       error: null
@@ -1023,8 +1640,8 @@ export default {
         this.loading = true;
         this.error = null;
 
-        // Call middleware API service
-        const result = await middleware.api.apps.fetchApps({
+        // DataService automatically uses mock or middleware based on UIConfig
+        const result = await this.dataService.fetchApps({
           organizationId: this.selectedOrgId,
           filters: {
             publisher: true,
@@ -1036,40 +1653,97 @@ export default {
         });
 
         this.apps = result.apps;
-      } catch (error) {
-        this.error = middleware.errorHandler.getUserMessage(error);
+      } catch (err) {
+        this.error = err.message;
+        console.error('Failed to load apps:', err);
       } finally {
         this.loading = false;
       }
     }
   }
 };
+</script>
+```
+
+### Progressive Integration Strategy
+
+```javascript
+// Phase 1: Pure mock development (UI team working independently)
+UIConfig.useMockData();
+
+// Phase 2: Test one service at a time as middleware becomes ready
+UIConfig.useHybrid(['locks', 'validation']); // These still use mock, rest use middleware
+
+// Phase 3: Gradually integrate more services
+UIConfig.useHybrid(['validation']); // Only validation still mocked
+
+// Phase 4: Full middleware integration
+UIConfig.useMiddleware();
+```
+
+### Benefits
+
+✅ **Parallel Development** - UI and middleware teams work simultaneously without blocking
+✅ **Rapid Prototyping** - Iterate on UI without backend dependencies
+✅ **Stakeholder Demos** - Show working UI with realistic data immediately
+✅ **Progressive Integration** - Test integration one service at a time
+✅ **Better Testing** - Test all UI states (loading, errors, empty) easily
+✅ **Component Isolation** - Zero coupling to middleware
+✅ **Easy Debugging** - Toggle modes in browser console on the fly
+
+## Integration with Middleware
+
+### Migration from Mock to Middleware
+
+When middleware is ready, integration is seamless thanks to the DataService abstraction:
+
+```javascript
+// Development: Pure mock (default)
+UIConfig.useMockData();
+
+// Testing: Hybrid mode - test specific services incrementally
+UIConfig.useHybrid(['locks']); // Lock service still mocked, rest uses middleware
+
+// Production: Full middleware
+UIConfig.useMiddleware();
 ```
 
 ### State Management Integration
 
 ```javascript
-// Listen for state changes
-mounted() {
-  window.FlipletAppMerge.middleware.on('merge:status-updated', this.handleStatusUpdate);
-  window.FlipletAppMerge.middleware.on('lock:expiring', this.handleLockExpiring);
-},
-
-beforeUnmount() {
-  window.FlipletAppMerge.middleware.off('merge:status-updated', this.handleStatusUpdate);
-  window.FlipletAppMerge.middleware.off('lock:expiring', this.handleLockExpiring);
-},
-
-methods: {
-  handleStatusUpdate(status) {
-    this.mergeStatus = status;
+// Components use DataService - works with both mock and middleware
+export default {
+  data() {
+    return {
+      dataService: window.DataService,
+      mergeStatus: null,
+      loading: false,
+      error: null
+    };
   },
 
-  handleLockExpiring(data) {
-    this.showLockWarning = true;
-    this.lockExpiresAt = data.expiresAt;
+  mounted() {
+    // Event subscription works the same for mock and middleware
+    this.dataService.on('merge:status-updated', this.handleStatusUpdate);
+    this.dataService.on('lock:expiring', this.handleLockExpiring);
+  },
+
+  beforeUnmount() {
+    this.dataService.off('merge:status-updated', this.handleStatusUpdate);
+    this.dataService.off('lock:expiring', this.handleLockExpiring);
+  },
+
+  methods: {
+    handleStatusUpdate(status) {
+      this.mergeStatus = status;
+    },
+
+    handleLockExpiring(data) {
+      this.showLockWarning = true;
+      this.lockExpiresAt = data.expiresAt;
+    }
   }
-}
+};
 ```
 
 ## Product Analytics & Audit Logging
@@ -1232,6 +1906,14 @@ Fliplet.App.Logs.create({
 ```
 /
 ├── src/
+│   ├── config/
+│   │   └── ui-config.js            # UIConfig for mode switching (mock/middleware/hybrid)
+│   ├── services/
+│   │   └── DataService.js          # Data abstraction layer
+│   ├── mocks/
+│   │   ├── MockDataService.js      # Mock data service implementation
+│   │   ├── fixtures.js             # Mock data fixtures
+│   │   └── scenarios.js            # Test scenarios (errors, loading, empty states)
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── AppShell.vue
@@ -1274,29 +1956,48 @@ Fliplet.App.Logs.create({
 
 ## Implementation Priorities
 
-### Phase 1: Core Structure (Dashboard → Select Destination)
-1. AppShell layout component
-2. ProgressIndicator component
-3. MergeDashboard page
-4. DestinationSelector page with app table
-5. Basic navigation flow
-6. Middleware integration
+### Phase 1: Mock Infrastructure & Core Structure
+1. **Mock-First Infrastructure:**
+   - UIConfig configuration (src/config/ui-config.js)
+   - DataService abstraction layer (src/services/DataService.js)
+   - MockDataService implementation (src/mocks/MockDataService.js)
+   - Mock fixtures for all data types (src/mocks/fixtures.js)
+   - Test scenarios helper (src/mocks/scenarios.js)
+2. **Core UI Components:**
+   - AppShell layout component
+   - ProgressIndicator component
+   - MergeDashboard page (using DataService)
+   - DestinationSelector page with app table (using DataService)
+3. **Basic Navigation:**
+   - Navigation flow between pages
+   - State management for current step
+4. **Verification:**
+   - Test all UI flows with pure mock data
+   - Verify mode switching works (mock/middleware/hybrid)
 
 ### Phase 2: Configuration UI (Configure Settings → Review)
-1. MergeConfiguration page with tabs
+1. MergeConfiguration page with tabs (using DataService)
 2. DataTable component (reusable)
-3. ScreensTab, DataSourcesTab, FilesTab, SettingsTab
+3. ScreensTab, DataSourcesTab, FilesTab, SettingsTab (all using DataService)
 4. Selection logic and state management
-5. MergeReview page with conflict detection
+5. MergeReview page with conflict detection (using DataService)
 6. Lock countdown component
+7. **Verification:**
+   - Test with mock data for all tabs
+   - Test error scenarios and empty states
+   - Verify hybrid mode works (test one tab with real middleware)
 
 ### Phase 3: Execution & Results (Progress → Complete)
-1. MergeProgress page with real-time updates
-2. MergeComplete page with summary
+1. MergeProgress page with real-time updates (using DataService)
+2. MergeComplete page with summary (using DataService)
 3. NotificationToast component
 4. ModalDialog component
 5. Error handling and recovery
 6. Analytics integration
+7. **Final Integration:**
+   - Switch from mock to full middleware
+   - End-to-end testing with real API
+   - Performance optimization
 
 ## Success Metrics
 
