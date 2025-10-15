@@ -1,63 +1,61 @@
 <template>
   <AppShell
-    :title="currentTitle"
+    :title="currentPageTitle"
     :current-step="currentStep"
     :total-steps="totalSteps"
     :show-progress="showProgress"
   >
     <template #default>
-      <section
-        class="space-y-6"
-        data-testid="app-shell-placeholder"
-      >
-        <div class="rounded-lg border border-secondary bg-white p-6 shadow-sm">
-          <h2 class="text-lg font-semibold text-accent">
-            Widget scaffold ready
-          </h2>
-          <p class="mt-2 text-sm text-accent/70">
-            This is temporary sample content so you can confirm the widget boots correctly inside Fliplet.
-            Use the button below to cycle through example steps. Real views will be wired in as we progress through the task list.
-          </p>
-          <button
-            type="button"
-            class="mt-4 inline-flex items-center rounded bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary/90"
-            @click="goToNextSampleStep"
-          >
-            Next sample step
-          </button>
-        </div>
+      <!-- Dashboard view -->
+      <MergeDashboard
+        v-if="currentView === 'dashboard'"
+        @configure-merge="goToDestinationSelector"
+        @view-audit-log="handleViewAuditLog"
+        @cancel="handleCancel"
+      />
 
-        <div class="rounded-lg border border-secondary bg-white p-6 shadow-sm">
-          <h3 class="text-base font-semibold text-accent">
-            Sample workflow
-          </h3>
-          <p class="mt-2 text-sm text-accent/70">
-            The cards below map to the plan requirements (states 1-4). Each click advances the highlighted card so you can verify the progress bar and theming behave as expected.
-          </p>
+      <!-- Destination Selector view -->
+      <DestinationSelector
+        v-if="currentView === 'destination-selector'"
+        @app-selected="handleDestinationSelected"
+        @back="goToDashboard"
+        @cancel="handleCancel"
+      />
 
-          <div class="mt-6 grid gap-4 md:grid-cols-2">
-            <article
-              v-for="(step, index) in stubSteps"
-              :key="step.id"
-              class="rounded-lg border border-secondary/70 p-4 transition"
-              :class="index + 1 === currentStep ? 'border-primary bg-primary/5' : 'bg-white'"
-            >
-              <h4 class="text-sm font-semibold text-accent">
-                Step {{ index + 1 }} · {{ step.label }}
-              </h4>
-              <p class="mt-1 text-sm text-accent/70">
-                {{ step.description }}
-              </p>
-            </article>
-          </div>
-        </div>
+      <!-- Merge configuration view -->
+      <MergeConfiguration
+        v-if="currentView === 'configuration' && selectedDestinationApp"
+        :source-app-id="sourceApp.id"
+        :source-app-name="sourceApp.name"
+        :destination-app-id="selectedDestinationApp.id"
+        :destination-app-name="selectedDestinationApp.name"
+        @review="handleReview"
+        @back="goToDestinationSelector"
+        @cancel="handleCancel"
+        @extend-lock="handleExtendLock"
+      />
 
-        <ProgressIndicator
-          v-if="stubSteps.length"
-          :steps="stubSteps"
-          :current-step="currentStep - 1"
-        />
-      </section>
+      <!-- Merge Review view -->
+      <MergeReview
+        v-if="currentView === 'review'"
+        @start-merge="handleStartMerge"
+        @edit-settings="goToConfiguration"
+        @cancel="handleCancel"
+      />
+
+      <!-- Merge Progress view -->
+      <MergeProgress
+        v-if="currentView === 'progress'"
+        @merge-complete="handleMergeComplete"
+        @merge-error="handleMergeError"
+      />
+
+      <!-- Merge Complete view -->
+      <MergeComplete
+        v-if="currentView === 'complete'"
+        @open-app="handleOpenApp"
+        @view-audit-log="handleViewAuditLog"
+      />
     </template>
 
     <template #actions>
@@ -68,67 +66,395 @@
 
 <script>
 import AppShell from './components/layout/AppShell.vue';
-import ProgressIndicator from './components/layout/ProgressIndicator.vue';
+import MergeDashboard from './components/pages/MergeDashboard.vue';
+import DestinationSelector from './components/pages/DestinationSelector.vue';
+import MergeConfiguration from './components/pages/MergeConfiguration.vue';
+import MergeReview from './components/pages/MergeReview.vue';
+import MergeProgress from './components/pages/MergeProgress.vue';
+import MergeComplete from './components/pages/MergeComplete.vue';
 
 export default {
   name: 'Application',
 
   components: {
     AppShell,
-    ProgressIndicator
+    MergeDashboard,
+    DestinationSelector,
+    MergeConfiguration,
+    MergeReview,
+    MergeProgress,
+    MergeComplete
   },
 
   data() {
     return {
-      currentStep: 1,
-      stubSteps: [
-        {
-          id: 'state-1',
-          label: 'Merge dashboard',
-          description: 'Review source app prerequisites and start configuring the merge.'
-        },
-        {
-          id: 'state-2',
-          label: 'Select destination',
-          description: 'Choose a destination organisation and target app.'
-        },
-        {
-          id: 'state-3',
-          label: 'Configure merge',
-          description: 'Pick screens, data sources, files, and settings to include.'
-        },
-        {
-          id: 'state-4',
-          label: 'Review summary',
-          description: 'Confirm selections and resolve warnings before executing the merge.'
-        }
-      ]
+      currentView: 'dashboard',
+      currentStep: 0,
+      totalSteps: 5,
+      selectedDestinationApp: null,
+      sourceApp: {
+        id: 123,
+        name: 'Source App'
+      },
+      mergeConfiguration: {
+        screens: [],
+        dataSources: [],
+        files: [],
+        configurations: []
+      },
+      isAppsLocked: false,
+      globalError: null
     };
   },
 
   computed: {
-    totalSteps() {
-      return this.stubSteps.length || 1;
-    },
-
     showProgress() {
-      return this.stubSteps.length > 0;
+      return ['destination-selector', 'configuration', 'review', 'progress'].includes(this.currentView);
     },
 
-    currentTitle() {
-      return this.stubSteps[this.currentStep - 1]?.label || 'App merge configuration';
+    currentPageTitle() {
+      const titles = {
+        'dashboard': 'Merge Dashboard',
+        'destination-selector': 'Select Destination App',
+        'configuration': 'Configure Merge Settings',
+        'review': 'Review Merge Summary',
+        'progress': 'Merge in Progress',
+        'complete': 'Merge Complete'
+      };
+      return titles[this.currentView] || 'App Merge';
     }
   },
 
+  created() {
+    // Initialize middleware when component is created
+    this.initializeMiddleware();
+  },
+
+  beforeUnmount() {
+    // Clean up: unlock apps if they are locked
+    if (this.isAppsLocked) {
+      this.unlockApps();
+    }
+  },
+
+  errorCaptured(err, instance, info) {
+    // Global error handler for child components
+    console.error('Error captured in Application:', err);
+    console.error('Error info:', info);
+
+    this.handleGlobalError(err);
+
+    // Return false to prevent error from propagating further
+    return false;
+  },
+
   methods: {
-    goToNextSampleStep() {
-      if (!this.stubSteps.length) {
-        return;
+    /**
+     * Initialize middleware
+     */
+    initializeMiddleware() {
+      // TODO: Initialize middleware when ready
+      // if (window.FlipletAppMerge && window.FlipletAppMerge.middleware) {
+      //   console.log('Middleware initialized');
+      // }
+    },
+
+    /**
+     * Navigate to dashboard
+     */
+    goToDashboard() {
+      this.currentView = 'dashboard';
+      this.currentStep = 0;
+      this.clearState();
+    },
+
+    /**
+     * Navigate to destination selector
+     */
+    goToDestinationSelector() {
+      this.currentView = 'destination-selector';
+      this.currentStep = 1;
+    },
+
+    /**
+     * Navigate to configuration
+     */
+    goToConfiguration() {
+      this.currentView = 'configuration';
+      this.currentStep = 2;
+    },
+
+    /**
+     * Navigate to review
+     */
+    goToReview() {
+      this.currentView = 'review';
+      this.currentStep = 3;
+    },
+
+    /**
+     * Navigate to progress
+     */
+    goToProgress() {
+      this.currentView = 'progress';
+      this.currentStep = 4;
+    },
+
+    /**
+     * Navigate to complete
+     */
+    goToComplete() {
+      this.currentView = 'complete';
+      this.currentStep = 5;
+    },
+
+    /**
+     * Handle destination app selection
+     */
+    async handleDestinationSelected(app) {
+      this.selectedDestinationApp = app;
+
+      // Lock both apps before proceeding
+      await this.lockApps();
+
+      this.currentView = 'configuration';
+      this.currentStep = 2;
+    },
+
+    /**
+     * Handle review navigation with selections
+     */
+    handleReview(selections) {
+      // Save merge configuration
+      this.mergeConfiguration = selections;
+
+      // Navigate to review
+      this.goToReview();
+    },
+
+    /**
+     * Handle start merge
+     */
+    async handleStartMerge() {
+      // Navigate to progress view
+      this.goToProgress();
+
+      // TODO: Trigger merge via middleware
+      // await window.FlipletAppMerge.middleware.controllers.mergeExecution.startMerge({
+      //   sourceAppId: this.sourceApp.id,
+      //   targetAppId: this.selectedDestinationApp.id,
+      //   configuration: this.mergeConfiguration
+      // });
+    },
+
+    /**
+     * Handle merge completion
+     */
+    handleMergeComplete() {
+      // Unlock apps
+      this.unlockApps();
+
+      // Navigate to complete view
+      this.goToComplete();
+    },
+
+    /**
+     * Handle merge error
+     */
+    handleMergeError(error) {
+      console.error('Merge error:', error);
+
+      // Unlock apps
+      this.unlockApps();
+
+      // TODO: Show error notification
+      // For now, go back to dashboard
+      this.goToDashboard();
+    },
+
+    /**
+     * Handle lock extension
+     */
+    async handleExtendLock() {
+      try {
+        // TODO: Integrate with middleware to extend lock
+        // await window.FlipletAppMerge.middleware.controllers.appLock.extendLock({
+        //   sourceAppId: this.sourceApp.id,
+        //   targetAppId: this.selectedDestinationApp.id
+        // });
+
+        console.log('Lock extended');
+      } catch (error) {
+        console.error('Failed to extend lock:', error);
+      }
+    },
+
+    /**
+     * Handle open destination app
+     */
+    handleOpenApp() {
+      if (this.selectedDestinationApp) {
+        // TODO: Open app in Studio
+        // window.Fliplet.Studio.emit('navigate', {
+        //   appId: this.selectedDestinationApp.id
+        // });
+
+        console.log('Opening app:', this.selectedDestinationApp.id);
+      }
+    },
+
+    /**
+     * Handle view audit log
+     */
+    handleViewAuditLog() {
+      // TODO: Open audit log in new window or tab
+      // const auditLogUrl = `https://studio.fliplet.com/apps/${this.sourceApp.id}/audit-log`;
+      // window.open(auditLogUrl, '_blank');
+
+      console.log('View audit log');
+    },
+
+    /**
+     * Handle cancel
+     */
+    async handleCancel() {
+      // Unlock apps if locked
+      if (this.isAppsLocked) {
+        await this.unlockApps();
       }
 
-      const next = this.currentStep + 1;
+      // Clear state
+      this.clearState();
 
-      this.currentStep = next > this.stubSteps.length ? 1 : next;
+      // TODO: Close overlay via Studio API
+      // window.Fliplet.Studio.emit('overlay-close');
+
+      console.log('Cancel merge');
+    },
+
+    /**
+     * Lock both source and destination apps
+     */
+    async lockApps() {
+      try {
+        // TODO: Integrate with middleware to lock apps
+        // await window.FlipletAppMerge.middleware.controllers.appLock.lockApps({
+        //   sourceAppId: this.sourceApp.id,
+        //   targetAppId: this.selectedDestinationApp.id
+        // });
+
+        this.isAppsLocked = true;
+        console.log('Apps locked');
+      } catch (error) {
+        console.error('Failed to lock apps:', error);
+        throw error;
+      }
+    },
+
+    /**
+     * Unlock both source and destination apps
+     */
+    async unlockApps() {
+      try {
+        // TODO: Integrate with middleware to unlock apps
+        // await window.FlipletAppMerge.middleware.controllers.appLock.unlockApps({
+        //   sourceAppId: this.sourceApp.id,
+        //   targetAppId: this.selectedDestinationApp.id
+        // });
+
+        this.isAppsLocked = false;
+        console.log('Apps unlocked');
+      } catch (error) {
+        console.error('Failed to unlock apps:', error);
+      }
+    },
+
+    /**
+     * Clear merge state
+     */
+    clearState() {
+      this.selectedDestinationApp = null;
+      this.mergeConfiguration = {
+        screens: [],
+        dataSources: [],
+        files: [],
+        configurations: []
+      };
+      this.isAppsLocked = false;
+    },
+
+    /**
+     * Handle global errors
+     */
+    handleGlobalError(error) {
+      // Determine error severity
+      const isCritical = this.isCriticalError(error);
+
+      if (isCritical) {
+        // Critical error - show error page
+        this.globalError = {
+          message: error.message || 'A critical error occurred',
+          isCritical: true
+        };
+
+        // Navigate to dashboard
+        this.goToDashboard();
+      } else {
+        // Non-critical error - show toast notification
+        // TODO: Integrate with NotificationToast component when implemented globally
+        console.warn('Non-critical error:', error.message);
+
+        this.globalError = {
+          message: error.message || 'An error occurred',
+          isCritical: false
+        };
+
+        // Clear error after 5 seconds
+        setTimeout(() => {
+          this.globalError = null;
+        }, 5000);
+      }
+
+      // Log error for debugging
+      this.logError(error);
+    },
+
+    /**
+     * Determine if error is critical
+     */
+    isCriticalError(error) {
+      // Add logic to determine if error is critical
+      // For now, treat API errors and network errors as critical
+      const criticalErrors = [
+        'NetworkError',
+        'AuthenticationError',
+        'PermissionError'
+      ];
+
+      return criticalErrors.some(criticalError => {
+        return error.name === criticalError || error.message.includes(criticalError);
+      });
+    },
+
+    /**
+     * Log error for debugging
+     */
+    logError(error) {
+      const errorLog = {
+        timestamp: new Date().toISOString(),
+        message: error.message,
+        stack: error.stack,
+        currentView: this.currentView,
+        sourceApp: this.sourceApp.id,
+        destinationApp: this.selectedDestinationApp?.id
+      };
+
+      console.error('Error log:', errorLog);
+
+      // TODO: Send to monitoring service if available
+      // if (window.FlipletMonitoring) {
+      //   window.FlipletMonitoring.logError(errorLog);
+      // }
     }
   }
 };
