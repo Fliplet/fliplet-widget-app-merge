@@ -144,36 +144,36 @@
   - [x] 8.13 Remove mock data (lines 484-545)
   - [x] 8.14 Test preview with various merge configurations
 
-- [x] 9.0 Integrate MergeProgress with real API status polling
-  - [x] 9.1 Import `MergeApiService` in MergeProgress.vue
-  - [x] 9.2 Update `startMerge()` to use actual merge initiation (pass mergeId from parent)
-  - [x] 9.3 Replace `simulateMergeProgress()` with real polling using `mergeApiService.getMergeStatus(sourceAppId, { mergeId })`
-  - [x] 9.4 Set up polling interval at 5 seconds (per feedback, not 2 seconds)
-  - [x] 9.5 Parse status response per `docs/05-api-tech-spec.md` structure
-  - [x] 9.6 Map progress percentage from API response
-  - [x] 9.7 Fetch logs separately via `mergeApiService.fetchMergeLogs(sourceAppId, { mergeId })`
-  - [x] 9.8 Parse logs to determine current phase based on log types (per feedback: use audit log types to determine phase)
-  - [x] 9.9 Map log entries to activity messages with correct status icons
-  - [x] 9.10 Update `currentPhaseLabel` based on latest log type
-  - [x] 9.11 Remove simulated phases array (lines 316-324)
-  - [x] 9.12 Stop polling when status is "completed" or "error"
-  - [x] 9.13 Pass mergeId as request body parameter, not query param (per feedback line 307)
-  - [x] 9.14 Clean up polling interval on component unmount
+- [ ] 9.0 Integrate MergeProgress with real API status polling
+  - [ ] 9.1 Import `MergeApiService` in MergeProgress.vue
+  - [ ] 9.2 Update `startMerge()` to use actual merge initiation (pass mergeId from parent)
+  - [ ] 9.3 Replace `simulateMergeProgress()` with real polling using `mergeApiService.getMergeStatus(sourceAppId, { mergeId })`
+  - [ ] 9.4 Set up polling interval at 5 seconds (per feedback, not 2 seconds)
+  - [ ] 9.5 Parse status response per `docs/05-api-tech-spec.md` structure
+  - [ ] 9.6 Map progress percentage from API response
+  - [ ] 9.7 Fetch logs separately via `mergeApiService.fetchMergeLogs(sourceAppId, { mergeId })`
+  - [ ] 9.8 Parse logs to determine current phase based on log types (per feedback: use audit log types to determine phase)
+  - [ ] 9.9 Map log entries to activity messages with correct status icons
+  - [ ] 9.10 Update `currentPhaseLabel` based on latest log type
+  - [ ] 9.11 Remove simulated phases array (lines 316-324)
+  - [ ] 9.12 Stop polling when status is "completed" or "error"
+  - [ ] 9.13 Pass mergeId as request body parameter, not query param (per feedback line 307)
+  - [ ] 9.14 Clean up polling interval on component unmount
 
-- [x] 10.0 Integrate MergeComplete with real API results
-  - [x] 10.1 Import `MergeApiService` in MergeComplete.vue
-  - [x] 10.2 Accept mergeId as prop from parent component
-  - [x] 10.3 Replace mock data in `loadMergeResults()` with final status call: `mergeApiService.getMergeStatus(sourceAppId, { mergeId })`
-  - [x] 10.4 Parse summary counts from status response per `docs/05-api-tech-spec.md` structure
-  - [x] 10.5 Map API field names to UI display names for counts
-  - [x] 10.6 Extract issues/warnings from final status response
-  - [x] 10.7 Extract plan limit warnings from `limitWarnings` field in status response
-  - [x] 10.8 Fetch merge history: call `mergeApiService.fetchMergeLogs(sourceAppId, { types: ['app.merge.initiated'] })`
-  - [x] 10.9 Parse log entries to build previousMerges array with fields: id, completedAt, sourceAppName, targetAppName, itemsCount, status
-  - [x] 10.10 Extract merge IDs from log data to show recent merge operations
-  - [x] 10.11 Format dates using `formatDate()` helper
-  - [x] 10.12 Remove mock data (lines 338-367)
-  - [x] 10.13 Test completion view with successful and failed merges
+- [ ] 10.0 Integrate MergeComplete with real API results
+  - [ ] 10.1 Import `MergeApiService` in MergeComplete.vue
+  - [ ] 10.2 Accept mergeId as prop from parent component
+  - [ ] 10.3 Replace mock data in `loadMergeResults()` with final status call: `mergeApiService.getMergeStatus(sourceAppId, { mergeId })`
+  - [ ] 10.4 Parse summary counts from status response per `docs/05-api-tech-spec.md` structure
+  - [ ] 10.5 Map API field names to UI display names for counts
+  - [ ] 10.6 Extract issues/warnings from final status response
+  - [ ] 10.7 Extract plan limit warnings from `limitWarnings` field in status response
+  - [ ] 10.8 Fetch merge history: call `mergeApiService.fetchMergeLogs(sourceAppId, { types: ['app.merge.initiated'] })`
+  - [ ] 10.9 Parse log entries to build previousMerges array with fields: id, completedAt, sourceAppName, targetAppName, itemsCount, status
+  - [ ] 10.10 Extract merge IDs from log data to show recent merge operations
+  - [ ] 10.11 Format dates using `formatDate()` helper
+  - [ ] 10.12 Remove mock data (lines 338-367)
+  - [ ] 10.13 Test completion view with successful and failed merges
 
 ### Phase 2: UI Design Feedback Implementation
 

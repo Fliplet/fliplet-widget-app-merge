@@ -273,6 +273,17 @@ export default {
     WarningBanner
   },
 
+  props: {
+    sourceAppId: {
+      type: Number,
+      required: true
+    },
+    mergeId: {
+      type: [Number, String],
+      required: true
+    }
+  },
+
   emits: ['open-app', 'view-audit-log'],
 
   data() {
@@ -331,40 +342,55 @@ export default {
         this.loading = true;
         this.error = null;
 
-        // Mock data for now - will be replaced with actual API call
-        // TODO: Integrate with middleware results API
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.results = {
-          screensCopied: 5,
-          dataSourcesCopied: 3,
-          filesCopied: 12,
-          configurationsCopied: 2,
-          issues: [
-            'Screen "Profile" contains non-copyable components that were skipped',
-            'File "config.json" was overwritten in destination'
-          ],
-          planLimitWarnings: []
-        };
+          // Fetch final merge status with results
+          const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {
+            mergeId: this.mergeId
+          });
 
-        this.previousMerges = [
-          {
-            id: 1,
-            completedAt: Date.now() - 86400000,
-            sourceAppName: 'App A',
-            targetAppName: 'App B',
-            itemsCount: 15,
-            status: 'success'
-          },
-          {
-            id: 2,
-            completedAt: Date.now() - 172800000,
-            sourceAppName: 'App C',
-            targetAppName: 'App D',
-            itemsCount: 8,
-            status: 'success'
-          }
-        ];
+          // Parse summary counts from response
+          this.results = {
+            screensCopied: statusResponse.summary?.screensCopied || 0,
+            dataSourcesCopied: statusResponse.summary?.dataSourcesCopied || 0,
+            filesCopied: statusResponse.summary?.filesCopied || 0,
+            configurationsCopied: statusResponse.summary?.configurationsCopied || 0,
+            issues: statusResponse.issues || statusResponse.warnings || [],
+            planLimitWarnings: statusResponse.limitWarnings ? Object.values(statusResponse.limitWarnings) : []
+          };
+
+          // Fetch merge history from audit logs
+          const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
+            types: ['app.merge.initiated']
+          });
+
+          const logs = logsResponse.logs || logsResponse || [];
+
+          // Parse logs to build previousMerges array
+          this.previousMerges = logs.slice(0, 5).map(log => ({
+            id: log.mergeId || log.id,
+            completedAt: log.createdAt || Date.now(),
+            sourceAppName: log.sourceAppName || 'Unknown',
+            targetAppName: log.targetAppName || log.destinationAppName || 'Unknown',
+            itemsCount: log.itemsCount || 0,
+            status: log.status === 'error' ? 'error' : 'success'
+          }));
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.results = {
+            screensCopied: 5,
+            dataSourcesCopied: 3,
+            filesCopied: 12,
+            configurationsCopied: 2,
+            issues: [],
+            planLimitWarnings: []
+          };
+
+          this.previousMerges = [];
+        }
       } catch (err) {
         this.error = 'Unable to load merge results. Please try again.';
         console.error('Failed to load merge results:', err);

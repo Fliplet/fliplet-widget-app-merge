@@ -154,6 +154,17 @@ export default {
     WarningBanner
   },
 
+  props: {
+    sourceAppId: {
+      type: Number,
+      required: true
+    },
+    mergeId: {
+      type: [Number, String],
+      required: true
+    }
+  },
+
   emits: ['merge-complete', 'merge-error'],
 
   data() {
@@ -163,7 +174,8 @@ export default {
       messages: [],
       isComplete: false,
       hasError: false,
-      eventUnsubscribe: null
+      eventUnsubscribe: null,
+      pollingInterval: null
     };
   },
 
@@ -196,6 +208,10 @@ export default {
     if (this.eventUnsubscribe) {
       this.eventUnsubscribe();
     }
+
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
   },
 
   methods: {
@@ -203,9 +219,125 @@ export default {
      * Start the merge process
      */
     async startMerge() {
-      // TODO: Integrate with middleware to start actual merge
-      // For now, simulate merge progress
-      this.simulateMergeProgress();
+      // Start polling for merge status at 5-second intervals
+      this.pollMergeStatus();
+      this.pollingInterval = setInterval(() => {
+        this.pollMergeStatus();
+      }, 5000); // 5 seconds
+    },
+
+    /**
+     * Poll merge status from API
+     */
+    async pollMergeStatus() {
+      if (this.isComplete || this.hasError) {
+        if (this.pollingInterval) {
+          clearInterval(this.pollingInterval);
+        }
+
+        return;
+      }
+
+      try {
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
+
+          // Fetch merge status (mergeId in request body, not query param)
+          const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {
+            mergeId: this.mergeId
+          });
+
+          // Update progress percentage
+          this.progressPercentage = statusResponse.percentage || 0;
+
+          // Fetch logs separately
+          const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
+            mergeId: this.mergeId
+          });
+
+          const logs = logsResponse.logs || logsResponse || [];
+
+          // Parse logs to determine current phase based on latest log type
+          if (logs.length > 0) {
+            const latestLog = logs[logs.length - 1];
+            this.currentPhase = this.determinePhaseFromLogType(latestLog.type);
+
+            // Add new log entries as messages
+            logs.forEach(log => {
+              const existingMessage = this.messages.find(m => m.logId === log.id);
+
+              if (!existingMessage) {
+                this.addMessage({
+                  logId: log.id,
+                  text: log.message || this.getDefaultMessageForType(log.type),
+                  status: this.getStatusFromLogType(log.type),
+                  timestamp: log.createdAt || Date.now()
+                });
+              }
+            });
+          }
+
+          // Check if merge is completed or errored
+          if (statusResponse.status === 'completed') {
+            this.handleMergeComplete();
+          } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
+            this.handleMergeError({ message: statusResponse.error || 'Merge failed' });
+          }
+        }
+      } catch (err) {
+        console.error('Failed to poll merge status:', err);
+      }
+    },
+
+    /**
+     * Determine phase from audit log type
+     */
+    determinePhaseFromLogType(logType) {
+      const phaseMap = {
+        'app.merge.initiated': 'initializing',
+        'app.merge.page.copy': 'copying-screens',
+        'app.merge.datasource.copy': 'copying-datasources',
+        'app.merge.file.copy': 'copying-files',
+        'app.merge.config.copy': 'copying-configurations',
+        'app.merge.finalize': 'finalizing',
+        'app.merge.completed': 'completed',
+        'app.merge.error': 'error'
+      };
+
+      return phaseMap[logType] || this.currentPhase;
+    },
+
+    /**
+     * Get status from log type
+     */
+    getStatusFromLogType(logType) {
+      if (logType.includes('error') || logType.includes('failed')) {
+        return 'error';
+      }
+
+      if (logType.includes('completed')) {
+        return 'completed';
+      }
+
+      return 'in-progress';
+    },
+
+    /**
+     * Get default message for log type
+     */
+    getDefaultMessageForType(logType) {
+      const messages = {
+        'app.merge.initiated': 'Merge initiated',
+        'app.merge.page.copy': 'Copying screen',
+        'app.merge.datasource.copy': 'Copying data source',
+        'app.merge.file.copy': 'Copying file',
+        'app.merge.config.copy': 'Copying configuration',
+        'app.merge.finalize': 'Finalizing merge',
+        'app.merge.completed': 'Merge completed successfully',
+        'app.merge.error': 'An error occurred'
+      };
+
+      return messages[logType] || 'Processing';
     },
 
     /**
@@ -306,47 +438,6 @@ export default {
         minute: '2-digit',
         second: '2-digit'
       });
-    },
-
-    /**
-     * Simulate merge progress (for testing)
-     * TODO: Remove when middleware integration is complete
-     */
-    simulateMergeProgress() {
-      const phases = [
-        { phase: 'initializing', percentage: 10, message: 'Preparing merge environment', delay: 1000 },
-        { phase: 'copying-screens', percentage: 30, message: 'Copying screens', count: 5, delay: 1500 },
-        { phase: 'copying-datasources', percentage: 50, message: 'Copying data sources', count: 3, delay: 1500 },
-        { phase: 'copying-files', percentage: 70, message: 'Copying files', count: 10, delay: 1500 },
-        { phase: 'copying-configurations', percentage: 85, message: 'Copying configurations', count: 4, delay: 1000 },
-        { phase: 'finalizing', percentage: 95, message: 'Finalizing merge', delay: 1000 },
-        { phase: 'completed', percentage: 100, message: 'Merge completed successfully', delay: 500 }
-      ];
-
-      let currentStep = 0;
-
-      const processNextPhase = () => {
-        if (currentStep >= phases.length) {
-          this.handleMergeComplete();
-          return;
-        }
-
-        const phaseData = phases[currentStep];
-        this.handleProgressUpdate({
-          phase: phaseData.phase,
-          percentage: phaseData.percentage,
-          message: phaseData.message,
-          status: phaseData.phase === 'completed' ? 'completed' : 'in-progress',
-          currentIndex: currentStep + 1,
-          count: phaseData.count || phases.length
-        });
-
-        currentStep++;
-        setTimeout(processNextPhase, phaseData.delay);
-      };
-
-      // Start the simulation
-      setTimeout(processNextPhase, 500);
     }
   }
 };
