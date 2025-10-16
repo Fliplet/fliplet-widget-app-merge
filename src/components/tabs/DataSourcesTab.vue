@@ -199,7 +199,7 @@ export default {
     }
   },
 
-  emits: ['selection-change', 'copy-mode-change', 'toggle:screen', 'toggle:file'],
+  emits: ['selection-change', 'copy-mode-change', 'toggle:screen', 'toggle:file', 'expand', 'row-click'],
 
   data() {
     return {
@@ -207,7 +207,7 @@ export default {
       error: null,
       dataSources: [],
       selectedIds: [],
-      copyModes: {}, // Maps dataSourceId -> 'structure' | 'overwrite'
+      copyModes: {},
       expandedIds: [],
       nestedSelections: {}
     };
@@ -219,8 +219,7 @@ export default {
         { key: 'name', title: 'Data source', sortable: true },
         { key: 'id', title: 'ID', sortable: false },
         { key: 'entryCount', title: 'Entries', sortable: false },
-        { key: 'modified', title: 'Last modified', sortable: false },
-        { key: 'status', title: 'Status', sortable: false }
+        { key: 'modified', title: 'Last modified', sortable: false }
       ];
     },
 
@@ -229,8 +228,7 @@ export default {
         id: ds.id,
         name: ds.name,
         entryCount: ds.entryCount || 0,
-        modified: ds.lastModified ? this.formatDate(ds.lastModified) : 'Unknown',
-        status: ds.isGlobalDependency ? 'Global dependency' : ''
+        modified: ds.lastModified ? this.formatDate(ds.lastModified) : 'Unknown'
       }));
     },
 
@@ -307,22 +305,22 @@ export default {
           let rawDataSources = response.dataSources || response || [];
 
           // Map field names and normalize structure
-          this.dataSources = rawDataSources.map(ds => {
-            const mapped = mapDataSourceFields(ds);
+          this.dataSources = rawDataSources.map(dataSource => {
+            const mapped = mapDataSourceFields(dataSource);
 
-            // Calculate isGlobalDependency
-            mapped.isGlobalDependency = isGlobalDependency(ds);
+            mapped.lastModified = mapped.lastModified || mapped.updatedAt || mapped.createdAt;
+            mapped.entryCount = typeof mapped.entryCount === 'number' ? mapped.entryCount : 0;
+            mapped.associatedScreens = this.normalizeAssociations(mapped.associatedScreens);
+            mapped.associatedFiles = this.normalizeAssociations(mapped.associatedFiles);
 
-            // Ensure associations are in correct format
-            if (mapped.associatedScreens) {
-              mapped.associatedScreens = this.normalizeAssociations(mapped.associatedScreens);
-            }
-
-            if (mapped.associatedFiles) {
-              mapped.associatedFiles = this.normalizeAssociations(mapped.associatedFiles);
-            }
-
-            return mapped;
+            return {
+              id: mapped.id,
+              name: mapped.name,
+              entryCount: mapped.entryCount,
+              lastModified: mapped.lastModified,
+              associatedScreens: mapped.associatedScreens,
+              associatedFiles: mapped.associatedFiles
+            };
           });
         } else {
           // Fallback to mock data
@@ -356,11 +354,6 @@ export default {
             }
           ];
         }
-
-        // Initialize all copy modes to 'structure' by default
-        this.dataSources.forEach(ds => {
-          this.copyModes[ds.id] = 'structure';
-        });
       } catch (err) {
         this.error = 'Failed to load data sources. Please try again.';
         console.error('Error loading data sources:', err);
@@ -401,12 +394,32 @@ export default {
       this.emitSelectionChange();
     },
 
-    handleRowClick({ row }) {
-      if (!row || typeof row.id === 'undefined') {
+    handleExpand(event) {
+      const { row, isExpanded } = event;
+
+      if (!row) {
         return;
       }
 
-      this.handleExpand({ row, isExpanded: !this.expandedIds.includes(row.id) });
+      if (isExpanded && !this.expandedIds.includes(row.id)) {
+        this.expandedIds.push(row.id);
+      } else if (!isExpanded) {
+        this.expandedIds = this.expandedIds.filter(id => id !== row.id);
+      }
+    },
+
+    handleRowClick(event) {
+      const { row } = event;
+
+      if (!row) {
+        return;
+      }
+
+      if (this.expandedIds.includes(row.id)) {
+        this.expandedIds = this.expandedIds.filter(id => id !== row.id);
+      } else {
+        this.expandedIds.push(row.id);
+      }
     },
 
     toggleSelectAll() {
@@ -417,36 +430,6 @@ export default {
       }
 
       this.emitSelectionChange();
-    },
-
-    handleExpand({ row, isExpanded }) {
-      const rowId = row?.id;
-
-      if (typeof rowId === 'undefined') {
-        return;
-      }
-
-      if (isExpanded) {
-        if (!this.expandedIds.includes(rowId)) {
-          this.expandedIds = [...this.expandedIds, rowId];
-        }
-      } else {
-        this.expandedIds = this.expandedIds.filter(id => id !== rowId);
-      }
-    },
-
-    getCopyMode(dataSourceId) {
-      return this.copyModes[dataSourceId] || 'structure';
-    },
-
-    handleCopyModeChange(dataSourceId, event) {
-      const mode = event.target.value;
-
-      this.copyModes[dataSourceId] = mode;
-      this.$emit('copy-mode-change', {
-        dataSourceId,
-        mode
-      });
     },
 
     setAllToStructureOnly() {
@@ -556,6 +539,24 @@ export default {
       } else {
         return date.toLocaleDateString();
       }
+    },
+
+    handleCopyModeChange(dataSourceId, event) {
+      const mode = event?.target?.value || event?.mode || 'structure';
+
+      this.copyModes[dataSourceId] = mode;
+      this.$emit('copy-mode-change', {
+        dataSourceId,
+        mode
+      });
+    },
+
+    handleScreenToggle(event) {
+      this.$emit('toggle:screen', event);
+    },
+
+    handleFileToggle(event) {
+      this.$emit('toggle:file', event);
     }
   }
 };

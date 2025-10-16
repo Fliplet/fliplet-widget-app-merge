@@ -22,6 +22,10 @@ const baseStubConfig = {
 
 const renderComponent = (dataOverrides = {}) => {
   return shallowMount(MergeProgress, {
+    propsData: {
+      sourceAppId: 1,
+      mergeId: 'test-merge'
+    },
     data() {
       return {
         progressPercentage: 0,
@@ -30,6 +34,7 @@ const renderComponent = (dataOverrides = {}) => {
         isComplete: false,
         hasError: false,
         eventUnsubscribe: null,
+        pollingInterval: null,
         ...dataOverrides
       };
     },

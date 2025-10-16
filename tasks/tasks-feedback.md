@@ -242,26 +242,26 @@
   - [ ] 16.9 Per feedback line 20: User should be warned they will lose merge configuration when canceling
   - [ ] 16.10 Test modal interaction and navigation flow
 
-- [ ] 17.0 Fix info banner positioning in MergeProgress
-  - [ ] 17.1 Locate info banner in MergeProgress.vue (lines 129-133): "The merge will continue even if you close this window..."
-  - [ ] 17.2 Per feedback line 23: message keeps getting pushed away at bottom
-  - [ ] 17.3 Move info banner to top of MergeProgress component (after header, before progress bar)
-  - [ ] 17.4 Use sticky positioning or fixed position so message stays visible
-  - [ ] 17.5 Alternatively, move inside header section for better visibility
-  - [ ] 17.6 Test with long activity logs to ensure message doesn't scroll out of view
-  - [ ] 17.7 Ensure message is visible when user first sees progress screen
+- [x] 17.0 Fix info banner positioning in MergeProgress
+  - [x] 17.1 Locate info banner in MergeProgress.vue (lines 129-133): "The merge will continue even if you close this window..."
+  - [x] 17.2 Per feedback line 23: message keeps getting pushed away at bottom
+  - [x] 17.3 Move info banner to top of MergeProgress component (after header, before progress bar)
+  - [x] 17.4 Use sticky positioning or fixed position so message stays visible
+  - [x] 17.5 Alternatively, move inside header section for better visibility
+  - [x] 17.6 Test with long activity logs to ensure message doesn't scroll out of view
+  - [x] 17.7 Ensure message is visible when user first sees progress screen
 
-- [ ] 18.0 Remove unused status columns
-  - [ ] 18.1 Review feedback line 18: "status column in this screen table doesn't appear to make sense or seem to be needed"
-  - [ ] 18.2 Check which table this refers to (likely ScreensTab, DataSourcesTab, or FilesTab)
-  - [ ] 18.3 In ScreensTab.vue: evaluate if status column (line 159) is necessary
-  - [ ] 18.4 In DataSourcesTab.vue: evaluate if status column (line 221) is necessary
-  - [ ] 18.5 In FilesTab.vue: evaluate if status column (line 183) is necessary
-  - [ ] 18.6 Remove status column from table columns definition
-  - [ ] 18.7 Remove status data from row mapping
-  - [ ] 18.8 If status was showing "Ready", "Global dependency", etc., consider moving that info elsewhere or removing
-  - [ ] 18.9 Test table layout without status column
-  - [ ] 18.10 Verify information loss is acceptable (e.g., "Global dependency" shown elsewhere)
+- [x] 18.0 Remove unused status columns
+  - [x] 18.1 Review feedback line 18: "status column in this screen table doesn't appear to make sense or seem to be needed"
+  - [x] 18.2 Check which table this refers to (likely ScreensTab, DataSourcesTab, or FilesTab)
+  - [x] 18.3 In ScreensTab.vue: evaluate if status column (line 159) is necessary
+  - [x] 18.4 In DataSourcesTab.vue: evaluate if status column (line 221) is necessary
+  - [x] 18.5 In FilesTab.vue: evaluate if status column (line 183) is necessary
+  - [x] 18.6 Remove status column from table columns definition
+  - [x] 18.7 Remove status data from row mapping
+  - [x] 18.8 If status was showing "Ready", "Global dependency", etc., consider moving that info elsewhere or removing
+  - [x] 18.9 Test table layout without status column
+  - [x] 18.10 Verify information loss is acceptable (e.g., "Global dependency" shown elsewhere)
 
 ### Phase 3: Testing & Validation
 

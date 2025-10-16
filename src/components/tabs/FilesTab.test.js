@@ -12,23 +12,30 @@ const filesFixture = [
   {
     id: 1,
     name: 'Marketing assets',
-    type: 'folder',
     path: '/assets/',
-    addedAt: Date.now() - 86400000,
-    isGlobalLibrary: false,
-    associatedScreens: [{ id: 10, name: 'Home Screen' }],
+    type: 'folder',
+    lastModified: null,
+    associatedScreens: [],
     associatedDataSources: [],
-    children: [{ id: 2, name: 'logo.png', type: 'image' }]
+    children: []
+  },
+  {
+    id: 2,
+    name: 'logo.png',
+    path: '/assets/logo.png',
+    type: 'image',
+    lastModified: new Date('2024-01-01T12:00:00Z').getTime(),
+    associatedScreens: [],
+    associatedDataSources: []
   },
   {
     id: 3,
     name: 'reports.csv',
-    type: 'file',
     path: '/data/reports.csv',
-    addedAt: Date.now() - 172800000,
-    isGlobalLibrary: false,
+    type: 'file',
+    lastModified: null,
     associatedScreens: [],
-    associatedDataSources: [{ id: 20, name: 'Sales data' }]
+    associatedDataSources: []
   }
 ];
 
@@ -74,26 +81,31 @@ describe('FilesTab', () => {
       expect(wrapper.text()).toContain('Select files and folders to copy.');
     });
 
-    it('builds file rows with derived fields', async () => {
+    it('maps files into table rows with formatted fields', () => {
       const wrapper = renderComponent();
-      await setFiles(wrapper);
+      wrapper.setData({ files: filesFixture });
 
-      const [firstRow] = wrapper.vm.fileRows;
-      expect(firstRow).toEqual(
-        expect.objectContaining({
-          id: 1,
-          name: 'Marketing assets',
-          status: ''
-        })
+      const rows = wrapper.vm.fileRows;
+
+      expect(rows).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: 1,
+            name: 'Marketing assets',
+            type: 'folder'
+          }),
+          expect.objectContaining({
+            id: 2,
+            name: 'logo.png',
+            type: 'image'
+          }),
+          expect.objectContaining({
+            id: 3,
+            name: 'reports.csv',
+            type: 'file'
+          })
+        ])
       );
-    });
-
-    it('marks unused files in status column', async () => {
-      const wrapper = renderComponent();
-      await setFiles(wrapper);
-
-      const secondRow = wrapper.vm.fileRows[1];
-      expect(secondRow.status).toBe('');
     });
   });
 

@@ -176,11 +176,10 @@ export default {
   computed: {
     fileColumns() {
       return [
-        { key: 'name', title: 'Name', sortable: true },
-        { key: 'id', title: 'ID', sortable: false },
-        { key: 'type', title: 'Type', sortable: false },
+        { key: 'name', title: 'File', sortable: true },
         { key: 'path', title: 'Path', sortable: false },
-        { key: 'added', title: 'Added', sortable: false }
+        { key: 'type', title: 'Type', sortable: false },
+        { key: 'lastModified', title: 'Last modified', sortable: false }
       ];
     },
 
@@ -188,9 +187,9 @@ export default {
       return this.files.map(file => ({
         id: file.id,
         name: file.name,
-        type: file.type,
-        path: file.path || '',
-        added: file.addedAt ? this.formatDate(file.addedAt) : 'Unknown'
+        path: file.path || '/',
+        type: file.type || 'file',
+        lastModified: file.lastModified ? this.formatDate(file.lastModified) : 'Unknown'
       }));
     },
 
@@ -265,21 +264,19 @@ export default {
           const response = await apiClient.get('v1/media', params);
 
           // API returns { files: [], folders: [] } - merge into single array
-          const mappedMedia = mapMediaFields(response);
+          const mappedFiles = mapMediaFields(response);
 
           // Normalize associations for all items
-          this.files = mappedMedia.map(item => {
-            // Ensure associations are in correct format
-            if (item.associatedScreens) {
-              item.associatedScreens = this.normalizeAssociations(item.associatedScreens);
-            }
-
-            if (item.associatedDataSources) {
-              item.associatedDataSources = this.normalizeAssociations(item.associatedDataSources);
-            }
-
-            return item;
-          });
+          this.files = mappedFiles.map(file => ({
+            id: file.id,
+            name: file.name,
+            type: file.type,
+            path: file.path,
+            lastModified: file.lastModified || file.updatedAt || file.createdAt,
+            associatedScreens: file.associatedScreens,
+            associatedDataSources: file.associatedDataSources,
+            children: file.children || []
+          }));
         } else {
           // Fallback to mock data
           await Promise.resolve();
@@ -290,11 +287,11 @@ export default {
               name: 'Marketing assets',
               type: 'folder',
               path: '/assets/',
-              addedAt: Date.now() - 86400000,
+              lastModified: Date.now() - 86400000,
               associatedScreens: [{ id: 10, name: 'Home Screen' }],
               associatedDataSources: [],
               children: [
-                { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', addedAt: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Home Screen' }], associatedDataSources: [] }
+                { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', lastModified: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Home Screen' }], associatedDataSources: [] }
               ]
             },
             {
@@ -302,7 +299,7 @@ export default {
               name: 'reports.csv',
               type: 'file',
               path: '/data/reports.csv',
-              addedAt: Date.now() - 172800000,
+              lastModified: Date.now() - 172800000,
               associatedScreens: [],
               associatedDataSources: [{ id: 20, name: 'Sales data' }]
             }

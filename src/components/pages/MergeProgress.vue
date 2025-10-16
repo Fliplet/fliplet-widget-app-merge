@@ -3,134 +3,138 @@
     class="space-y-6"
     data-testid="merge-progress"
   >
-    <!-- Header -->
-    <div class="rounded-lg bg-white p-6 shadow">
-      <h2 class="text-lg font-semibold text-gray-900">
-        Merge in progress
-      </h2>
-      <p class="mt-2 text-sm text-gray-600">
-        Please wait while your merge is being processed. You can safely close this window - the merge will continue in the background.
-      </p>
+    <!-- Info banner (sticky) -->
+    <div class="sticky top-0 z-10">
+      <WarningBanner
+        type="info"
+        message="The merge will continue even if you close this window. You can check the audit log for completion status."
+        data-testid="info-banner"
+      />
     </div>
 
-    <!-- Progress bar -->
-    <div class="rounded-lg bg-white p-6 shadow">
-      <div class="mb-4 flex items-center justify-between">
-        <span class="text-sm font-medium text-gray-700">
-          Progress
-        </span>
-        <span class="text-sm font-semibold text-primary">
-          {{ progressPercentage }}%
-        </span>
+    <div class="space-y-6">
+      <!-- Header -->
+      <div class="rounded-lg bg-white p-6 shadow">
+        <h2 class="text-lg font-semibold text-gray-900">
+          Merge in progress
+        </h2>
+        <p class="mt-2 text-sm text-gray-600">
+          Please wait while your merge is being processed. You can safely close this window - the merge will continue in the background.
+        </p>
       </div>
 
-      <div class="relative h-3 overflow-hidden rounded-full bg-gray-200">
-        <div
-          class="absolute left-0 top-0 h-full rounded-full bg-primary transition-all duration-500"
-          :style="{ width: progressPercentage + '%' }"
-          role="progressbar"
-          :aria-valuenow="progressPercentage"
-          aria-valuemin="0"
-          aria-valuemax="100"
-        />
+      <!-- Progress bar -->
+      <div class="rounded-lg bg-white p-6 shadow">
+        <div class="mb-4 flex items-center justify-between">
+          <span class="text-sm font-medium text-gray-700">
+            Progress
+          </span>
+          <span class="text-sm font-semibold text-primary">
+            {{ progressPercentage }}%
+          </span>
+        </div>
+
+        <div class="relative h-3 overflow-hidden rounded-full bg-gray-200">
+          <div
+            class="absolute left-0 top-0 h-full rounded-full bg-primary transition-all duration-500"
+            :style="{ width: progressPercentage + '%' }"
+            role="progressbar"
+            :aria-valuenow="progressPercentage"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          />
+        </div>
+
+        <div class="mt-3 text-sm text-gray-600">
+          {{ currentPhaseLabel }}
+        </div>
       </div>
 
-      <div class="mt-3 text-sm text-gray-600">
-        {{ currentPhaseLabel }}
-      </div>
-    </div>
-
-    <!-- Status messages list -->
-    <div class="rounded-lg bg-white shadow">
-      <div class="border-b border-gray-200 px-6 py-4">
-        <h3 class="text-base font-semibold text-gray-900">
-          Activity Log
-        </h3>
-      </div>
-
-      <div
-        ref="messagesList"
-        class="max-h-96 overflow-y-auto p-6"
-        data-testid="messages-list"
-      >
-        <div
-          v-if="messages.length === 0"
-          class="text-center text-sm text-gray-500"
-        >
-          Preparing merge...
+      <!-- Status messages list -->
+      <div class="rounded-lg bg-white shadow">
+        <div class="border-b border-gray-200 px-6 py-4">
+          <h3 class="text-base font-semibold text-gray-900">
+            Activity Log
+          </h3>
         </div>
 
         <div
-          v-else
-          class="space-y-3"
+          ref="messagesList"
+          class="max-h-96 overflow-y-auto p-6"
+          data-testid="messages-list"
         >
           <div
-            v-for="(message, index) in messages"
-            :key="index"
-            class="flex items-start gap-3"
-            :data-testid="`message-${index}`"
+            v-if="messages.length === 0"
+            class="text-center text-sm text-gray-500"
           >
-            <!-- Status icon -->
-            <div class="flex-shrink-0 pt-0.5">
-              <CheckCircle2
-                v-if="message.status === 'completed'"
-                class="h-5 w-5 text-success"
-                aria-hidden="true"
-              />
-              <Loader2
-                v-else-if="message.status === 'in-progress'"
-                class="h-5 w-5 animate-spin text-primary"
-                aria-hidden="true"
-              />
-              <AlertCircle
-                v-else-if="message.status === 'error'"
-                class="h-5 w-5 text-error"
-                aria-hidden="true"
-              />
-              <Clock
-                v-else
-                class="h-5 w-5 text-gray-400"
-                aria-hidden="true"
-              />
-            </div>
+            Preparing merge...
+          </div>
 
-            <!-- Message content -->
-            <div class="flex-1 pt-0.5">
-              <p
-                class="text-sm"
-                :class="{
-                  'text-gray-900': message.status === 'completed',
-                  'text-primary font-medium': message.status === 'in-progress',
-                  'text-error': message.status === 'error',
-                  'text-gray-600': !message.status || message.status === 'pending'
-                }"
-              >
-                {{ message.text }}
-                <span
-                  v-if="message.count"
-                  class="text-gray-500"
+          <div
+            v-else
+            class="space-y-3"
+          >
+            <div
+              v-for="(message, index) in messages"
+              :key="index"
+              class="flex items-start gap-3"
+              :data-testid="`message-${index}`"
+            >
+              <!-- Status icon -->
+              <div class="flex-shrink-0 pt-0.5">
+                <CheckCircle2
+                  v-if="message.status === 'completed'"
+                  class="h-5 w-5 text-success"
+                  aria-hidden="true"
+                />
+                <Loader2
+                  v-else-if="message.status === 'in-progress'"
+                  class="h-5 w-5 animate-spin text-primary"
+                  aria-hidden="true"
+                />
+                <AlertCircle
+                  v-else-if="message.status === 'error'"
+                  class="h-5 w-5 text-error"
+                  aria-hidden="true"
+                />
+                <Clock
+                  v-else
+                  class="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </div>
+
+              <!-- Message content -->
+              <div class="flex-1 pt-0.5">
+                <p
+                  class="text-sm"
+                  :class="{
+                    'text-gray-900': message.status === 'completed',
+                    'text-primary font-medium': message.status === 'in-progress',
+                    'text-error': message.status === 'error',
+                    'text-gray-600': !message.status || message.status === 'pending'
+                  }"
                 >
-                  ({{ message.currentIndex }} of {{ message.count }})
-                </span>
-              </p>
-              <p
-                v-if="message.timestamp"
-                class="mt-0.5 text-xs text-gray-500"
-              >
-                {{ formatTimestamp(message.timestamp) }}
-              </p>
+                  {{ message.text }}
+                  <span
+                    v-if="message.count"
+                    class="text-gray-500"
+                  >
+                    ({{ message.currentIndex }} of {{ message.count }})
+                  </span>
+                </p>
+                <p
+                  v-if="message.timestamp"
+                  class="mt-0.5 text-xs text-gray-500"
+                >
+                  {{ formatTimestamp(message.timestamp) }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Info banner -->
-    <WarningBanner
-      type="info"
-      message="The merge will continue even if you close this window. You can check the audit log for completion status."
-      data-testid="info-banner"
-    />
   </div>
 </template>
 
