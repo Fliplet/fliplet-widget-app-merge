@@ -1,0 +1,425 @@
+---
+description: Assessing UI Design Against Middleware and API Capabilities
+globs:
+alwaysApply: false
+---
+# Rule: UI-Middleware-API Integration Assessment
+
+## Goal
+
+To guide an AI assistant in systematically reviewing UI implementations against available middleware and API capabilities, identifying integration gaps, and documenting questions and recommendations for ensuring UI designs are supportable by the backend infrastructure.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/docs/`
+- **Filename:** `integration-feedback-[feature-name].md`
+- **Purpose:** Comprehensive integration assessment documenting compatibility issues and recommendations
+
+## Process
+
+1. **Gather Inputs:** Collect UI implementation files, middleware architecture/code, and API specifications
+2. **Analyse UI Data Requirements:** Extract all data dependencies from UI components
+3. **Map to Middleware:** Verify middleware methods can provide required data shapes
+4. **Verify API Support:** Ensure APIs can fulfil middleware requirements
+5. **Identify Gaps:** Document mismatches and missing capabilities
+6. **Propose Solutions:** Suggest UI adaptations or alternative API usage
+7. **Generate Feedback Document:** Create structured integration feedback report
+
+## Input Requirements
+
+### Required Inputs
+- **UI Implementation Files:** Components, screens, or mockups showing data usage
+- **Middleware Documentation/Code:** Architecture plan or implemented middleware classes
+- **API Specifications:** REST API documentation, OpenAPI specs, or endpoint descriptions
+
+### Optional Inputs
+- **PRD/Design Specs:** Original requirements for context
+- **Mock Data Files:** Sample data structures used in UI development
+- **State Management Code:** Redux/Context implementations showing data flow
+
+## Analysis Framework
+
+### Phase 1: UI Data Requirements Extraction
+
+#### Component-Level Analysis
+For each UI component/screen, document:
+
+````markdown
+### [Component/Screen Name]
+**File:** `path/to/component.js`
+**Purpose:** [Brief description of what this UI element does]
+
+#### Data Requirements
+- **Direct Fields:**
+  - `fieldName`: [type] - [usage/purpose]
+  - `nestedObject.field`: [type] - [usage/purpose]
+
+- **Computed/Derived Data:**
+  - `calculatedValue`: Derived from [source fields] using [logic]
+
+- **Relationships:**
+  - `relatedEntity`: Requires [relationship type] to [entity]
+
+- **Lists/Collections:**
+  - `itemList`: Array of [type] with [filtering/sorting/pagination needs]
+
+- **Real-time Requirements:**
+  - Fields requiring live updates: [list]
+  - Refresh frequency: [timing]
+````
+
+#### Interaction Patterns
+Document how UI interacts with data:
+- **CRUD Operations:** Create/Read/Update/Delete needs
+- **Filtering/Searching:** Query parameters and search fields
+- **Sorting:** Sort fields and directions
+- **Pagination:** Page size, cursor/offset needs
+- **Batch Operations:** Bulk updates or selections
+- **Validation:** Client-side validation rules
+
+### Phase 2: Middleware Capability Mapping
+
+#### Method-Level Assessment
+For each UI data requirement, verify middleware support:
+````markdown
+### Middleware Coverage Analysis
+
+#### [UI Requirement] → [Middleware Method]
+**Requirement:** [Description from UI]
+**Middleware Method:** `ClassName.methodName()`
+**Parameters Available:**
+```javascript
+{
+  fields: [],      // ✓ Supports field selection
+  include: [],     // ✓ Supports relationship loading
+  filters: {},     // ✓ Supports filtering
+  sort: {},        // ✗ Missing sort capability
+  pagination: {}   // ✓ Supports pagination
+}
+```
+**Assessment:**
+- ✓ **Supported:** [What works]
+- ⚠️ **Partial:** [What partially works with workarounds]
+- ✗ **Missing:** [What's not supported]
+````
+
+#### Behavioral Options Verification
+Check middleware follows behavior-parameterised design:
+- ✓ Accepts behavioral options, not caller identity
+- ✓ Field selection granularity matches UI needs
+- ✓ Relationship depth control available
+- ✗ Missing required transformation options
+
+### Phase 3: API Coverage Verification
+
+#### Endpoint Mapping
+Map middleware requirements to API capabilities:
+````markdown
+### API Support Analysis
+
+#### [Middleware Requirement] → [API Endpoint]
+**Middleware Need:** [What middleware is trying to do]
+**Primary Endpoint:** `GET /api/v1/resource`
+**Endpoint Capabilities:**
+- ✓ Returns required fields: [list]
+- ✗ Missing fields: [list]
+- ⚠️ Available via expansion: [how]
+
+**Alternative Endpoints:**
+- `GET /api/v1/related-resource` - Could provide [missing data]
+- `POST /api/v1/batch` - Could batch multiple requests
+
+**Response Structure:**
+```json
+{
+  "example": "response showing available fields"
+}
+```
+````
+
+### Phase 4: Gap Identification
+
+#### Gap Categories
+
+**1. Critical Blockers**
+- Data completely unavailable
+- Required operations not supported
+- Performance issues (N+1 queries)
+
+**2. Functional Limitations**
+- Suboptimal data shapes requiring transformation
+- Multiple API calls needed for single UI view
+- Missing filtering/sorting capabilities
+
+**3. Enhancement Opportunities**
+- Optional features that could improve UX
+- Performance optimisations
+- Caching opportunities
+
+### Phase 5: Solution Proposals
+
+#### Solution Framework
+For each identified gap, propose solutions:
+````markdown
+### Gap: [Description]
+
+**Severity:** Critical | High | Medium | Low
+**Type:** Missing Data | Missing Operation | Performance | UX Enhancement
+
+**Option 1: Adapt UI** (Recommended if API stability required)
+- Modify UI to work with available data
+- Implementation effort: [Low/Medium/High]
+- UX impact: [Description]
+- Example: [Specific changes needed]
+
+**Option 2: Use Alternative API**
+- Leverage different endpoint: `GET /api/v1/alternative`
+- Requires middleware changes: [List changes]
+- Implementation effort: [Low/Medium/High]
+
+**Option 3: Enhance Middleware**
+- Add data transformation/aggregation
+- Implementation: [Describe approach]
+- Performance impact: [Assessment]
+
+**Option 4: Request API Change** (Last resort)
+- Specific change needed: [Description]
+- Justification: [Why essential]
+- Backwards compatibility: [Impact assessment]
+
+**Recommendation:** [Which option and why]
+````
+
+## Output Document Structure
+
+````markdown
+# Integration Feedback: [Feature/Component Name]
+
+**Generated:** [Date]
+**Scope:** [UI components/screens assessed]
+**Middleware Version:** [Reference to middleware plan/implementation]
+**API Version:** [API spec version/date]
+
+## Executive Summary
+
+### Overall Assessment
+- **Integration Readiness:** [Ready | Requires Minor Changes | Requires Major Changes]
+- **Critical Blockers:** [Count and brief description]
+- **Recommended Approach:** [UI Adaptation | API Enhancement | Hybrid]
+
+### Key Findings
+1. [Most significant finding]
+2. [Second most significant]
+3. [Additional important findings]
+
+## Detailed Analysis
+
+### UI Data Requirements
+
+#### [Component/Screen 1]
+[Detailed requirements analysis following Phase 1 structure]
+
+#### [Component/Screen 2]
+[Continue for all UI elements]
+
+### Middleware Capability Assessment
+
+#### Supported Capabilities ✓
+- [List what works well]
+- [Method signatures that align with UI needs]
+
+#### Partial Support ⚠️
+- [List what works with limitations]
+- [Workarounds required]
+
+#### Missing Capabilities ✗
+- [List what's completely unsupported]
+- [Critical gaps]
+
+### API Coverage Analysis
+
+#### Direct API Support
+[Endpoints that directly support requirements]
+
+#### Alternative API Options
+[Other endpoints that could be leveraged]
+
+#### API Gaps
+[What's not available via any endpoint]
+
+## Integration Gaps
+
+### Critical Blockers (Must Fix)
+[Numbered list with detailed descriptions]
+
+### Functional Limitations (Should Fix)
+[Numbered list with impact assessment]
+
+### Enhancement Opportunities (Nice to Have)
+[Numbered list with benefit analysis]
+
+## Recommendations
+
+### Immediate Actions (Phase 1)
+1. **[Action Item]**
+   - Owner: [UI Team | Middleware Team | API Team]
+   - Effort: [Size estimate]
+   - Description: [What needs to be done]
+
+### Short-term Adaptations (Phase 2)
+[Actions that can be taken without API changes]
+
+### Long-term Improvements (Phase 3)
+[Strategic enhancements if API changes are possible]
+
+## Questions for Stakeholders
+
+### Data Availability
+1. Q: [Specific question about missing data]
+   - Context: [Why this matters]
+   - Impact if unavailable: [What happens]
+   - Possible alternatives: [Suggestions]
+
+### Business Logic
+1. Q: [Question about business rules]
+   - Current assumption: [What UI assumes]
+   - Needs clarification: [Specific point]
+
+### Performance Trade-offs
+1. Q: [Question about acceptable performance]
+   - Current approach requires: [Description]
+   - Alternative would: [Trade-off]
+
+## Implementation Roadmap
+
+### ✅ No Changes Required
+- [List UI features that work as-is]
+
+### 🔧 UI Adaptations Needed
+| Component | Change Required | Effort | Priority |
+|-----------|----------------|---------|----------|
+| [Name] | [Description] | [S/M/L] | [P0/P1/P2] |
+
+### 🔄 Middleware Enhancements
+| Method | Enhancement | Effort | Priority |
+|--------|------------|---------|----------|
+| [Name] | [Description] | [S/M/L] | [P0/P1/P2] |
+
+### 🚫 Blocked Features
+| Feature | Blocker | Resolution Path |
+|---------|---------|-----------------|
+| [Name] | [What blocks it] | [How to resolve] |
+
+## Appendices
+
+### A. Data Field Mapping
+[Comprehensive table mapping UI fields to middleware methods to API responses]
+
+### B. Alternative Implementation Patterns
+[Code examples showing how to work around limitations]
+
+### C. Mock Data vs Reality Gaps
+[Differences between mocked data and actual API responses]
+
+### D. Performance Considerations
+[Analysis of API call patterns and optimisation opportunities]
+
+## Notes
+
+- **API Stability Principle:** Recommendations prioritise UI adaptation over API changes unless absolutely necessary
+- **Behavioral Design:** All middleware enhancements must maintain caller-agnostic, behavior-parameterised design
+- **Progressive Enhancement:** Solutions should allow partial functionality while working toward full implementation
+````
+
+## Analysis Guidelines
+
+### Critical Thinking Requirements
+
+When performing the assessment, validate:
+
+1. **Assumption Checking**
+   - Don't assume data is available just because it's in mock data
+   - Verify each field exists in actual API responses
+   - Check data types match between UI expectations and API
+
+2. **Performance Analysis**
+   - Identify N+1 query problems
+   - Spot unnecessary API calls
+   - Find opportunities for batching or caching
+
+3. **Edge Case Consideration**
+   - Empty states and null values
+   - Error scenarios
+   - Pagination boundaries
+   - Large data sets
+
+4. **Middleware Design Validation**
+   - Ensure no caller-specific logic is introduced
+   - Verify behavioral parameters are used correctly
+   - Check that the same options produce consistent results
+
+### Common Pitfalls to Identify
+
+1. **UI Assumptions**
+   - Assuming related data is always available
+   - Expecting computed fields from the API
+   - Hard-coding data structures that may vary
+
+2. **Middleware Gaps**
+   - Missing transformation logic
+   - Incomplete error handling
+   - Lack of caching strategy
+
+3. **API Limitations**
+   - Rate limiting impacts
+   - Missing batch operations
+   - Incomplete filtering capabilities
+
+## Decision Framework
+
+### When to Adapt UI
+
+Recommend UI changes when:
+- API change would break existing consumers
+- The data need is purely presentational
+- Alternative UX patterns provide similar value
+- The effort to change UI is significantly less than API
+
+### When to Enhance Middleware
+
+Recommend middleware changes when:
+- Multiple UI components need the same transformation
+- Caching or aggregation can solve the problem
+- The logic is genuinely UI-agnostic behavior
+
+### When to Request API Changes
+
+Only recommend API changes when:
+- Critical functionality is impossible without it
+- Performance cannot be acceptable without it
+- Security or data integrity requires it
+- Multiple consumers would benefit
+
+## Quality Checks
+
+Before finalising the assessment:
+
+- [ ] Every UI component has been analysed for data requirements
+- [ ] All data requirements are mapped to middleware methods
+- [ ] All middleware methods are traced to API endpoints
+- [ ] Every gap has at least one proposed solution
+- [ ] Recommendations follow the API stability principle
+- [ ] Questions for stakeholders are specific and actionable
+- [ ] Priority and effort estimates are provided
+- [ ] The executive summary accurately reflects findings
+
+## Target Audience
+
+The assessment should be understandable by:
+- **Product Managers:** Understanding feature feasibility
+- **UI Developers:** Knowing what adaptations are needed
+- **Middleware Developers:** Understanding enhancement requirements
+- **API Team:** Evaluating change requests if any
+- **Project Managers:** Planning implementation timeline
+- **QA Engineers:** Understanding testing implications
