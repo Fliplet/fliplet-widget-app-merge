@@ -65,18 +65,18 @@
   - [x] 2.9 Add loading state during duplicate check
   - [x] 2.10 Test with app containing duplicates to verify error message and blocking behavior
 
-- [ ] 3.0 Integrate MergeDashboard with real API data
-  - [ ] 3.1 Import `AppsApiService` and initialize in component
-  - [ ] 3.2 Replace mock data in `loadAppDetails()` with `await appsApiService.fetchApp(this.sourceAppId)`
-  - [ ] 3.3 Apply field mapping: use `mapAppFields()` to transform API response
-  - [ ] 3.4 Map `productionAppId` to `isPublished`: `isPublished: !!app.productionAppId`
-  - [ ] 3.5 Remove `updatedBy` field (not provided by API) - update UI to show only date
-  - [ ] 3.6 Fetch organization name if needed: call `OrganizationsApiService.fetchOrganization(app.organizationId)` for `organizationName`
-  - [ ] 3.7 Calculate `isLocked` using `computedFields.isLocked(app.lockedUntil)`
-  - [ ] 3.8 Fetch current user info via `GET v1/user` and store for publisher rights check
-  - [ ] 3.9 Calculate `hasPublisherRights` using `computedFields.hasPublisherRights(app, currentUser)`
-  - [ ] 3.10 Update error handling to show user-friendly messages
-  - [ ] 3.11 Remove mock data and TODO comments (lines 235-247)
+- [x] 3.0 Integrate MergeDashboard with real API data
+  - [x] 3.1 Import `AppsApiService` and initialize in component
+  - [x] 3.2 Replace mock data in `loadAppDetails()` with `await appsApiService.fetchApp(this.sourceAppId)`
+  - [x] 3.3 Apply field mapping: use `mapAppFields()` to transform API response
+  - [x] 3.4 Map `productionAppId` to `isPublished`: `isPublished: !!app.productionAppId`
+  - [x] 3.5 Remove `updatedBy` field (not provided by API) - update UI to show only date
+  - [x] 3.6 Fetch organization name if needed: call `OrganizationsApiService.fetchOrganization(app.organizationId)` for `organizationName`
+  - [x] 3.7 Calculate `isLocked` using `computedFields.isLocked(app.lockedUntil)`
+  - [x] 3.8 Fetch current user info via `GET v1/user` and store for publisher rights check
+  - [x] 3.9 Calculate `hasPublisherRights` using `computedFields.hasPublisherRights(app, currentUser)`
+  - [x] 3.10 Update error handling to show user-friendly messages
+  - [x] 3.11 Remove mock data and TODO comments (lines 235-247)
 
 - [ ] 4.0 Integrate DestinationSelector with real API data
   - [ ] 4.1 Import `AppsApiService` and `OrganizationsApiService`

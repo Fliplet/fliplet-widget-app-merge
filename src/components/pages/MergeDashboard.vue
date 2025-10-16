@@ -157,6 +157,8 @@ import {
 } from 'lucide-vue-next';
 import StatusBadge from '../ui/StatusBadge.vue';
 import WarningBanner from '../feedback/WarningBanner.vue';
+import { mapAppFields } from '../../utils/apiFieldMapping.js';
+import { isLocked, hasPublisherRights } from '../../utils/computedFields.js';
 
 export default {
   name: 'MergeDashboard',
@@ -176,6 +178,8 @@ export default {
     return {
       loading: true,
       error: null,
+      sourceAppId: null,
+      currentUser: null,
       appDetails: {
         id: null,
         name: '',
@@ -183,16 +187,22 @@ export default {
         region: '',
         isPublished: false,
         updatedAt: null,
-        updatedBy: null,
         lockedUntil: null
-      },
-      hasPublisherRights: true
+      }
     };
   },
 
   computed: {
     isLocked() {
-      return Boolean(this.appDetails.lockedUntil && this.appDetails.lockedUntil > Date.now());
+      return isLocked(this.appDetails.lockedUntil);
+    },
+
+    hasPublisherRights() {
+      if (!this.appDetails || !this.currentUser) {
+        return false;
+      }
+
+      return hasPublisherRights(this.appDetails, this.currentUser);
     },
 
     canConfigureMerge() {
@@ -205,23 +215,33 @@ export default {
       }
 
       const date = new Date(this.appDetails.updatedAt);
-      const formattedDate = date.toLocaleDateString('en-US', {
+
+      return date.toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
       });
-
-      if (this.appDetails.updatedBy) {
-        return `${formattedDate} by ${this.appDetails.updatedBy}`;
-      }
-
-      return formattedDate;
     }
   },
 
   mounted() {
+    // Get sourceAppId from widget instance data or URL query params
+    if (window.Fliplet && window.Fliplet.Widget && window.Fliplet.Widget.getData) {
+      const widgetData = window.Fliplet.Widget.getData();
+
+      this.sourceAppId = widgetData.sourceAppId || widgetData.appId;
+    }
+
+    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Env && window.Fliplet.Env.get('appId')) {
+      this.sourceAppId = window.Fliplet.Env.get('appId');
+    }
+
+    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Navigate && window.Fliplet.Navigate.query) {
+      this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
+    }
+
     this.loadAppDetails();
   },
 
@@ -231,22 +251,54 @@ export default {
         this.loading = true;
         this.error = null;
 
-        // Mock data for now - will be replaced with actual API call
-        // TODO: Integrate with DataService when middleware is ready
-        await Promise.resolve();
+        // Fetch current user for publisher rights check
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.appDetails = {
-          id: 123,
-          name: 'Source App',
-          organizationName: 'Acme Corp',
-          region: 'EU',
-          isPublished: true,
-          updatedAt: '2025-01-15T10:30:00Z',
-          updatedBy: 'John Smith',
-          lockedUntil: null
-        };
+          // Fetch current user
+          const userResponse = await apiClient.get('v1/user');
 
-        this.hasPublisherRights = true;
+          this.currentUser = userResponse.user || userResponse;
+
+          // Fetch app details
+          const appResponse = await apiClient.get(`v1/apps/${this.sourceAppId}`);
+          const rawApp = appResponse.app || appResponse;
+
+          // Fetch organization name if organizationId is present
+          let organization = null;
+
+          if (rawApp.organizationId) {
+            const orgResponse = await apiClient.get(`v1/organizations/${rawApp.organizationId}`);
+
+            organization = orgResponse.organization || orgResponse;
+          }
+
+          // Apply field mapping
+          this.appDetails = mapAppFields(rawApp, { organization });
+
+          // Ensure region is set
+          if (!this.appDetails.region && organization) {
+            this.appDetails.region = organization.region;
+          }
+        } else {
+          // Fallback to mock data if middleware not available
+          await Promise.resolve();
+
+          this.currentUser = { email: 'user@example.com' };
+
+          this.appDetails = {
+            id: 123,
+            name: 'Source App',
+            organizationName: 'Acme Corp',
+            region: 'EU',
+            isPublished: true,
+            updatedAt: '2025-01-15T10:30:00Z',
+            lockedUntil: null,
+            users: [
+              { email: 'user@example.com', userRoleId: 1 }
+            ]
+          };
+        }
       } catch (err) {
         this.error = 'Unable to load app details. Please try again.';
         console.error('Failed to load app details:', err);
