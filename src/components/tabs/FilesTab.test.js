@@ -62,6 +62,37 @@ const renderComponent = (props = {}) => {
   });
 };
 
+const renderComponentWithMockedLoadFiles = (props = {}) => {
+  // Mock the loadFiles method on the component prototype before mounting
+  const originalLoadFiles = FilesTab.methods.loadFiles;
+  FilesTab.methods.loadFiles = jest.fn().mockResolvedValue();
+
+  const wrapper = shallowMount(FilesTab, {
+    propsData: {
+      sourceAppId: 123,
+      destinationAppId: 456,
+      selection: [],
+      selectedScreens: [],
+      selectedDataSources: [],
+      ...props
+    },
+    global: {
+      stubs: {
+        FlipletTableWrapper: FlipletTableWrapperStub,
+        Folder: { template: '<svg />' },
+        File: { template: '<svg />' },
+        ImageIcon: { template: '<svg />' },
+        FileText: { template: '<svg />' },
+        AlertTriangle: { template: '<svg />' }
+      }
+    }
+  });
+
+  // Restore the original method
+  FilesTab.methods.loadFiles = originalLoadFiles;
+  return wrapper;
+};
+
 const setFiles = async (wrapper, overrides = {}) => {
   await wrapper.setData({
     loading: false,
@@ -241,6 +272,264 @@ describe('FilesTab', () => {
       await wrapper.vm.$nextTick();
 
       expect(wrapper.text()).toContain('Failed to load files.');
+    });
+  });
+
+  describe('Edge cases (Task 20.15)', () => {
+    it('handles folder without children gracefully', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const emptyFolderFixture = [
+        {
+          id: 1,
+          name: 'Empty folder',
+          path: '/empty/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: [] // Empty children array
+        }
+      ];
+
+      await wrapper.setData({ files: emptyFolderFixture });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0]).toEqual(
+        expect.objectContaining({
+          id: 1,
+          name: 'Empty folder',
+          type: 'folder'
+        })
+      );
+
+      // Verify folder can still be selected
+      wrapper.vm.toggleSelectAll();
+      expect(wrapper.vm.selectedIds).toEqual([1]);
+    });
+
+    it('displays empty folder correctly in UI', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const emptyFolderFixture = [
+        {
+          id: 1,
+          name: 'Empty folder',
+          path: '/empty/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: []
+        }
+      ];
+
+      await wrapper.setData({ files: emptyFolderFixture });
+      await wrapper.vm.$nextTick();
+
+      // Check that the component renders without errors
+      expect(wrapper.exists()).toBe(true);
+
+      // Check that the fileRows computed property works correctly
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0]).toEqual(
+        expect.objectContaining({
+          id: 1,
+          name: 'Empty folder',
+          type: 'folder'
+        })
+      );
+    });
+
+    it('handles missing children field', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const folderWithoutChildrenField = [
+        {
+          id: 1,
+          name: 'Folder without children field',
+          path: '/no-children/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: []
+          // No children field at all
+        }
+      ];
+
+      await wrapper.setData({ files: folderWithoutChildrenField });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0]).toEqual(
+        expect.objectContaining({
+          id: 1,
+          name: 'Folder without children field',
+          type: 'folder'
+        })
+      );
+    });
+
+    it('handles folder with null children', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const folderWithNullChildren = [
+        {
+          id: 1,
+          name: 'Folder with null children',
+          path: '/null-children/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: null
+        }
+      ];
+
+      await wrapper.setData({ files: folderWithNullChildren });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0]).toEqual(
+        expect.objectContaining({
+          id: 1,
+          name: 'Folder with null children',
+          type: 'folder'
+        })
+      );
+    });
+
+    it('handles folder with undefined children', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const folderWithUndefinedChildren = [
+        {
+          id: 1,
+          name: 'Folder with undefined children',
+          path: '/undefined-children/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: undefined
+        }
+      ];
+
+      await wrapper.setData({ files: folderWithUndefinedChildren });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0]).toEqual(
+        expect.objectContaining({
+          id: 1,
+          name: 'Folder with undefined children',
+          type: 'folder'
+        })
+      );
+    });
+
+    it('handles mixed files and empty folders', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const mixedFixture = [
+        {
+          id: 1,
+          name: 'Empty folder',
+          path: '/empty/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: []
+        },
+        {
+          id: 2,
+          name: 'document.pdf',
+          path: '/document.pdf',
+          type: 'file',
+          lastModified: new Date('2024-01-01T12:00:00Z').getTime(),
+          associatedScreens: [],
+          associatedDataSources: []
+        },
+        {
+          id: 3,
+          name: 'Folder with files',
+          path: '/with-files/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: [
+            {
+              id: 4,
+              name: 'nested-file.txt',
+              path: '/with-files/nested-file.txt',
+              type: 'file',
+              lastModified: new Date('2024-01-02T12:00:00Z').getTime(),
+              associatedScreens: [],
+              associatedDataSources: []
+            }
+          ]
+        }
+      ];
+
+      await wrapper.setData({ files: mixedFixture });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(3);
+
+      // Verify all items are processed correctly
+      expect(rows[0].type).toBe('folder');
+      expect(rows[1].type).toBe('file');
+      expect(rows[2].type).toBe('folder');
+    });
+
+    it('handles folder names with special characters', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const specialFolderFixture = [
+        {
+          id: 1,
+          name: 'Folder with spaces & symbols!',
+          path: '/special/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: []
+        }
+      ];
+
+      await wrapper.setData({ files: specialFolderFixture });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0].name).toBe('Folder with spaces & symbols!');
+    });
+
+    it('handles folder names with very long text', async () => {
+      const wrapper = renderComponentWithMockedLoadFiles();
+      const longName = 'A'.repeat(200); // Very long folder name
+      const longFolderFixture = [
+        {
+          id: 1,
+          name: longName,
+          path: '/long-name/',
+          type: 'folder',
+          lastModified: null,
+          associatedScreens: [],
+          associatedDataSources: [],
+          children: []
+        }
+      ];
+
+      await wrapper.setData({ files: longFolderFixture });
+      await wrapper.vm.$nextTick();
+
+      const rows = wrapper.vm.fileRows;
+      expect(rows).toHaveLength(1);
+      expect(rows[0].name).toBe(longName);
     });
   });
 });

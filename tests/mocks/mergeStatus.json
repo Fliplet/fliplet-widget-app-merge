@@ -4,7 +4,8 @@
     "status": "not_started",
     "currentStage": null,
     "progress": 0,
-    "logs": []
+    "logs": [],
+    "limitWarnings": []
   },
   {
     "mergeId": 5001,
@@ -22,7 +23,8 @@
         "message": "Copying media files...",
         "type": "info"
       }
-    ]
+    ],
+    "limitWarnings": []
   },
   {
     "mergeId": 5002,
@@ -40,7 +42,8 @@
         "message": "Copying screens...",
         "type": "info"
       }
-    ]
+    ],
+    "limitWarnings": []
   },
   {
     "mergeId": 5003,
@@ -58,7 +61,8 @@
         "message": "Merge completed successfully",
         "type": "success"
       }
-    ]
+    ],
+    "limitWarnings": []
   },
   {
     "mergeId": 5004,
@@ -81,7 +85,8 @@
         "message": "Error copying data source",
         "type": "error"
       }
-    ]
+    ],
+    "limitWarnings": []
   }
 ]
 

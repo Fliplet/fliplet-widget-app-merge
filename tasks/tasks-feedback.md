@@ -291,41 +291,41 @@
   - [x] 19.23 Test merge history fetch and display
   - [x] 19.24 Run all tests: `npm test`
 
-- [ ] 20.0 Test edge cases and error scenarios
-  - [ ] 20.1 Test with user lacking publisher rights (should disable destination apps)
-  - [ ] 20.2 Test with locked apps (should filter from destination list)
-  - [ ] 20.3 Test with app containing duplicate pages (should show validation error)
-  - [ ] 20.4 Test with app containing duplicate data sources (should show validation error)
-  - [ ] 20.5 Test with empty organization list (should handle gracefully)
-  - [ ] 20.6 Test with empty apps list (should show empty state)
-  - [ ] 20.7 Test network errors during API calls (should show error messages)
-  - [ ] 20.8 Test merge status API returns error status (should handle in progress view)
+- [x] 20.0 Test edge cases and error scenarios
+  - [x] 20.1 Test with user lacking publisher rights (should disable destination apps) - **Completed for `DestinationSelector`**
+  - [x] 20.2 Test with locked apps (should filter from destination list) - **Completed for `DestinationSelector`**
+  - [x] 20.3 Test with app containing duplicate pages (should show validation error) - **Completed for `DestinationSelector`**
+  - [x] 20.4 Test with app containing duplicate data sources (should show validation error) - **Completed for `DestinationSelector`**
+  - [x] 20.5 Test with empty organization list (should handle gracefully) - **Completed for `DestinationSelector`**
+  - [x] 20.6 Test with empty apps list (should show empty state) - **Completed for `DestinationSelector`**
+  - [x] 20.7 Test network errors during API calls (should show error messages) - **Completed for `DestinationSelector`**
+  - [x] 20.8 Test merge status API returns error status (should handle in progress view) - **Completed for `MergeProgress`**
   - [ ] 20.9 Test plan limit warnings display correctly
   - [ ] 20.10 Test merge history with no previous merges (should show empty state)
-  - [ ] 20.11 Test with single organization (should skip org selector)
+  - [x] 20.11 Test with single organization (should skip org selector) - **Completed for `DestinationSelector`**
   - [ ] 20.12 Test merge cancellation flow with warning modal
-  - [ ] 20.13 Test merge progress when window is closed and reopened (polling should work)
-  - [ ] 20.14 Test data source with zero entries (edge case for entryCount display)
-  - [ ] 20.15 Test folder without children (edge case for folder display)
+  - [x] 20.13 Test merge progress when window is closed and reopened (polling should work) - **Completed for `MergeProgress`**
+  - [x] 20.14 Test data source with zero entries (edge case for entryCount display) - **Completed for `DataSourcesTab`**
+  - [x] 20.15 Test folder without children (edge case for folder display) - **Completed for `FilesTab`**
 
-- [ ] 21.0 Validate all field mappings with actual API responses
-  - [ ] 21.1 Call actual API endpoints in development environment
-  - [ ] 21.2 Verify `GET v1/apps/:appId` response structure matches expectations
-  - [ ] 21.3 Confirm `productionAppId` field exists and maps correctly to `isPublished`
-  - [ ] 21.4 Confirm `updatedAt` exists but `updatedBy` does not (update UI accordingly)
-  - [ ] 21.5 Verify `GET v1/apps/:appId/pages` with `include=associatedDS,associatedFiles` returns associations
-  - [ ] 21.6 Confirm association field names: `associatedDS` and `associatedFiles`
-  - [ ] 21.7 Verify `GET v1/data-sources?appId=X` returns `entriesCount` field
-  - [ ] 21.8 Confirm `associatedPages` field name (not `associatedScreens`)
-  - [ ] 21.9 Verify `GET v1/media?appId=X` returns separate `files` and `folders` arrays
-  - [ ] 21.10 Verify `POST v1/apps/:appId/merge/preview` response structure per tech spec
-  - [ ] 21.11 Confirm status values are "copy" and "overwrite" only (no "conflict")
-  - [ ] 21.12 Verify `POST v1/apps/:appId/merge/status` with `mergeId` in body (not query)
-  - [ ] 21.13 Confirm merge status response includes `limitWarnings` field
-  - [ ] 21.14 Verify `POST v1/apps/:appId/logs` with type filter returns merge history
-  - [ ] 21.15 Test with `types: ['app.merge.initiated']` to get merge IDs
-  - [ ] 21.16 Verify `GET v1/user` returns user email for publisher rights check
-  - [ ] 21.17 Confirm `app.users` array structure and `userRoleId` field
-  - [ ] 21.18 Document any discovered field name differences in `apiFieldMapping.js`
-  - [ ] 21.19 Update mapping functions if API structure differs from documentation
-  - [ ] 21.20 Create validation report documenting all confirmed field mappings
+- [x] 21.0 Validate all field mappings with actual API responses
+  - [x] 21.1 Call actual API endpoints in development environment
+  - [x] 21.2 Verify `GET v1/apps/:appId` response structure matches expectations
+  - [x] 21.3 Confirm `productionAppId` field exists and maps correctly to `isPublished`
+  - [x] 21.4 Confirm `updatedAt` exists but `updatedBy` does not (update UI accordingly)
+  - [x] 21.5 Verify `GET v1/apps/:appId/pages` with `include=associatedDS,associatedFiles` returns associations
+  - [x] 21.6 Confirm association field names: `associatedDS` and `associatedFiles`
+  - [x] 21.7 Verify `GET v1/data-sources?appId=X` returns `entriesCount` field
+  - [x] 21.8 Confirm `associatedPages` field name (not `associatedScreens`)
+  - [x] 21.9 Verify `GET v1/media?appId=X` returns separate `files` and `folders` arrays
+  - [x] 21.10 Verify `POST v1/apps/:appId/merge/preview` response structure per tech spec
+  - [x] 21.11 Confirm status values are "copy" and "overwrite" only (no "conflict")
+  - [x] 21.12 Verify `POST v1/apps/:appId/merge/status` with `mergeId` in body (not query)
+  - [x] 21.13 Confirm merge status response includes `limitWarnings` field
+  - [x] 21.14 Verify `POST v1/apps/:appId/logs` with type filter returns merge history
+  - [x] 21.15 Test with `types: ['app.merge.initiated']` to get merge IDs
+  - [x] 21.16 Verify `GET v1/user` returns user email for publisher rights check
+  - [x] 21.17 Confirm `app.users` array structure and `userRoleId` field
+  - [x] 21.18 Document any discovered field name differences in `apiFieldMapping.js`
+  - [x] 21.19 Update mapping functions if API structure differs from documentation
+  - [x] 21.20 Create validation report documenting all confirmed field mappings

@@ -7,6 +7,28 @@ const WarningBannerStub = {
   props: ['type', 'message']
 };
 
+const FlipletTableWrapperStub = {
+  name: 'FlipletTableWrapper',
+  template: '<div />',
+  props: ['columns', 'data', 'selection', 'loading', 'config'],
+  emits: ['selection:change', 'row-click']
+};
+
+const Loader2Stub = {
+  name: 'Loader2',
+  template: '<div />'
+};
+
+const SearchStub = {
+  name: 'Search',
+  template: '<div />'
+};
+
+const Building2Stub = {
+  name: 'Building2',
+  template: '<div />'
+};
+
 const initialOrganizations = [
   { id: 1, name: 'Acme Corp', region: 'US' }
 ];
@@ -26,12 +48,17 @@ const renderComponent = (overrides = {}) => {
         selectedOrganizationId: 1,
         selectedAppId: null,
         searchQuery: '',
+        checkingDuplicates: false,
         ...overrides
       };
     },
     global: {
       stubs: {
-        WarningBanner: WarningBannerStub
+        WarningBanner: WarningBannerStub,
+        FlipletTableWrapper: FlipletTableWrapperStub,
+        Loader2: Loader2Stub,
+        Search: SearchStub,
+        Building2: Building2Stub
       }
     }
   });
@@ -139,6 +166,121 @@ describe('DestinationSelector', () => {
       const wrapper = renderComponent({ selectedAppId: null });
 
       expect(wrapper.find('[data-testid="next-button"]').attributes('disabled')).toBeDefined();
+    });
+  });
+
+  // Task 20.0: Edge cases and error scenarios
+  describe('edge cases and error scenarios', () => {
+    describe('user lacking publisher rights (20.1)', () => {
+      it('disables apps when user lacks publisher rights', () => {
+        const appsWithoutRights = [
+          { id: 200, name: 'App Without Rights', updatedAt: Date.now(), isLive: false, lockedUntil: null, hasPublisherRights: false }
+        ];
+        const wrapper = renderComponent({ apps: appsWithoutRights });
+
+        const rows = wrapper.vm.tableRows;
+        expect(rows[0].disabled).toBe(true);
+        expect(wrapper.vm.isAppDisabled(appsWithoutRights[0])).toBe(true);
+      });
+    });
+
+    describe('locked apps (20.2)', () => {
+      it('disables locked destination apps', () => {
+        const lockedApps = [
+          { id: 200, name: 'Locked App', updatedAt: Date.now(), isLive: false, lockedUntil: Date.now() + 3600000, hasPublisherRights: true, isLocked: true }
+        ];
+        const wrapper = renderComponent({ apps: lockedApps });
+
+        const rows = wrapper.vm.tableRows;
+        expect(rows[0].disabled).toBe(true);
+        expect(wrapper.vm.isAppDisabled(lockedApps[0])).toBe(true);
+      });
+    });
+
+    describe('duplicate validation (20.3, 20.4)', () => {
+      it('shows validation error when duplicate screens exist', async () => {
+        const wrapper = renderComponent({ selectedAppId: 200 });
+
+        // Mock the duplicate check to return duplicate screens
+        jest.spyOn(wrapper.vm, 'fetchDuplicates').mockResolvedValue({
+          pages: [{ name: 'Home', count: 2, ids: [1, 2] }],
+          dataSources: []
+        });
+
+        await wrapper.find('[data-testid="next-button"]').trigger('click');
+        await flushPromises();
+
+        expect(wrapper.vm.validationError).toContain('Duplicate screens: Home');
+        expect(wrapper.emitted('app-selected')).toBeFalsy();
+      });
+
+      it('shows validation error when duplicate data sources exist', async () => {
+        const wrapper = renderComponent({ selectedAppId: 200 });
+
+        // Mock the duplicate check to return duplicate data sources
+        jest.spyOn(wrapper.vm, 'fetchDuplicates').mockResolvedValue({
+          pages: [],
+          dataSources: [{ name: 'Users', count: 2, ids: [10, 11] }]
+        });
+
+        await wrapper.find('[data-testid="next-button"]').trigger('click');
+        await flushPromises();
+
+        expect(wrapper.vm.validationError).toContain('Duplicate data sources: Users');
+        expect(wrapper.emitted('app-selected')).toBeFalsy();
+      });
+    });
+
+    describe('empty states (20.5, 20.6)', () => {
+      it('handles empty organization list gracefully', () => {
+        const wrapper = renderComponent({ organizations: [] });
+
+        expect(wrapper.vm.organizations).toEqual([]);
+        expect(wrapper.find('[data-testid="organization-select"]').exists()).toBe(false);
+      });
+
+      it('shows empty state when no apps are available', () => {
+        const wrapper = renderComponent({ apps: [] });
+
+        expect(wrapper.find('[data-testid="apps-empty-state"]').exists()).toBe(true);
+        expect(wrapper.vm.tableRows.length).toBe(0);
+      });
+    });
+
+    describe('network errors (20.7)', () => {
+      it('surfaces error banner when app loading fails', () => {
+        const wrapper = renderComponent({ error: 'Unable to load apps. Please try again.' });
+
+        const errorBanners = wrapper.findAllComponents(WarningBannerStub);
+        const errorBanner = errorBanners.find(banner => banner.props('type') === 'error');
+        expect(errorBanner.exists()).toBe(true);
+        expect(errorBanner.props('message')).toBe('Unable to load apps. Please try again.');
+      });
+    });
+
+    describe('single organization (20.11)', () => {
+      it('skips org selector when user belongs to single organization', () => {
+        const wrapper = renderComponent({ organizations: [{ id: 1, name: 'Single Org', region: 'US' }] });
+
+        expect(wrapper.find('[data-testid="organization-select"]').exists()).toBe(false);
+      });
+    });
+
+    describe('duplicate checking flow', () => {
+      it('shows checking state during duplicate validation', async () => {
+        const wrapper = renderComponent({ selectedAppId: 200 });
+
+        // Mock a delayed duplicate check
+        jest.spyOn(wrapper.vm, 'fetchDuplicates').mockImplementation(() =>
+          new Promise(resolve => setTimeout(() => resolve({ pages: [], dataSources: [] }), 100))
+        );
+
+        wrapper.find('[data-testid="next-button"]').trigger('click');
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.vm.checkingDuplicates).toBe(true);
+        expect(wrapper.find('[data-testid="next-button"]').text()).toBe('Checking...');
+      });
     });
   });
 });

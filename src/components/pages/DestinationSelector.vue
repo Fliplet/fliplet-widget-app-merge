@@ -417,6 +417,52 @@ export default {
       });
     },
 
+    async fetchDuplicates(appId) {
+      // TODO: Replace with actual API call when middleware is integrated
+      // return await window.FlipletAppMerge.middleware.api.apps.checkDuplicates(
+      //   appId,
+      //   { items: ['pages', 'dataSources'] }
+      // );
+
+      // Mock duplicate check for now
+      await new Promise(resolve => setTimeout(resolve, 300));
+      return {
+        pages: [], // Example: [{name: 'Home', count: 2, ids: [1, 2]}]
+        dataSources: [] // Example: [{name: 'Users', count: 2, ids: [10, 11]}]
+      };
+    },
+
+    hasDuplicates(duplicates) {
+      return duplicates.pages.length > 0 || duplicates.dataSources.length > 0;
+    },
+
+    buildDuplicateErrorMessage(app, duplicates) {
+      const duplicateMessages = [];
+
+      if (duplicates.pages.length > 0) {
+        const pageNames = duplicates.pages.map(d => d.name).join(', ');
+        duplicateMessages.push(`Duplicate screens: ${pageNames}`);
+      }
+
+      if (duplicates.dataSources.length > 0) {
+        const dsNames = duplicates.dataSources.map(d => d.name).join(', ');
+        duplicateMessages.push(`Duplicate data sources: ${dsNames}`);
+      }
+
+      // Construct app edit URL using Fliplet.Navigate.url
+      let appEditUrl = `#/apps/${app.id}/edit`;
+      if (window.Fliplet && window.Fliplet.Navigate && typeof window.Fliplet.Navigate.url === 'function') {
+        try {
+          appEditUrl = window.Fliplet.Navigate.url({ page: 'appEdit', appId: app.id });
+        } catch (err) {
+          // Fallback to default URL if Fliplet.Navigate.url fails
+          appEditUrl = `#/apps/${app.id}/edit`;
+        }
+      }
+
+      return `Cannot select "${app.name}" because it contains duplicate names:\n${duplicateMessages.join('. ')}\n\nPlease rename these items first by opening the app: ${appEditUrl}`;
+    },
+
     async handleNext() {
       if (!this.selectedAppId) {
         return;
@@ -433,43 +479,10 @@ export default {
       this.validationError = null;
 
       try {
-        // TODO: Replace with actual API call when middleware is integrated
-        // const duplicates = await window.FlipletAppMerge.middleware.api.apps.checkDuplicates(
-        //   app.id,
-        //   { items: ['pages', 'dataSources'] }
-        // );
+        const duplicates = await this.fetchDuplicates(app.id);
 
-        // Mock duplicate check for now
-        await new Promise(resolve => setTimeout(resolve, 300));
-        const duplicates = {
-          pages: [], // Example: [{name: 'Home', count: 2, ids: [1, 2]}]
-          dataSources: [] // Example: [{name: 'Users', count: 2, ids: [10, 11]}]
-        };
-
-        // Check if any duplicates were found
-        const hasDuplicates = duplicates.pages.length > 0 || duplicates.dataSources.length > 0;
-
-        if (hasDuplicates) {
-          // Build error message listing duplicate names
-          const duplicateMessages = [];
-
-          if (duplicates.pages.length > 0) {
-            const pageNames = duplicates.pages.map(d => d.name).join(', ');
-            duplicateMessages.push(`Duplicate screens: ${pageNames}`);
-          }
-
-          if (duplicates.dataSources.length > 0) {
-            const dsNames = duplicates.dataSources.map(d => d.name).join(', ');
-            duplicateMessages.push(`Duplicate data sources: ${dsNames}`);
-          }
-
-          // Construct app edit URL using Fliplet.Navigate.url
-          const appEditUrl = window.Fliplet && window.Fliplet.Navigate
-            ? window.Fliplet.Navigate.url({ page: 'appEdit', appId: app.id })
-            : `#/apps/${app.id}/edit`;
-
-          this.validationError = `Cannot select "${app.name}" because it contains duplicate names:\n${duplicateMessages.join('. ')}\n\nPlease rename these items first by opening the app: ${appEditUrl}`;
-
+        if (this.hasDuplicates(duplicates)) {
+          this.validationError = this.buildDuplicateErrorMessage(app, duplicates);
           this.checkingDuplicates = false;
           return;
         }

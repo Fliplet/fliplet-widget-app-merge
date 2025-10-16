@@ -51,19 +51,44 @@ const dataSourcesFixture = [
   }
 ];
 
-const renderComponent = () => {
+const renderComponent = (overrides = {}) => {
   return shallowMount(DataSourcesTab, {
     propsData: {
       sourceAppId: 1,
       destinationAppId: 2,
       selection: [],
       selectedScreens: [],
-      selectedFiles: []
+      selectedFiles: [],
+      ...overrides
     },
     global: {
       stubs: baseStubConfig
     }
   });
+};
+
+const renderComponentWithMockedLoadDataSources = (overrides = {}) => {
+  // Mock the loadDataSources method on the component prototype before mounting
+  const originalLoadDataSources = DataSourcesTab.methods.loadDataSources;
+  DataSourcesTab.methods.loadDataSources = jest.fn().mockResolvedValue();
+
+  const wrapper = shallowMount(DataSourcesTab, {
+    propsData: {
+      sourceAppId: 1,
+      destinationAppId: 2,
+      selection: [],
+      selectedScreens: [],
+      selectedFiles: [],
+      ...overrides
+    },
+    global: {
+      stubs: baseStubConfig
+    }
+  });
+
+  // Restore the original method
+  DataSourcesTab.methods.loadDataSources = originalLoadDataSources;
+  return wrapper;
 };
 
 const setDataSources = async (wrapper) => {
@@ -250,6 +275,252 @@ describe('DataSourcesTab', () => {
       await wrapper.vm.$nextTick();
 
       expect(wrapper.text()).toContain('Failed to load data sources.');
+    });
+  });
+
+  // Task 20.0: Edge cases and error scenarios
+  describe('edge cases and error scenarios', () => {
+    describe('data source with zero entries (20.14)', () => {
+      it('handles data source with zero entries gracefully', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 4,
+          name: 'Empty Data Source',
+          lastModified: Date.now(),
+          entryCount: 0,
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 4: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        expect(rows[0].entryCount).toBe(0);
+        expect(rows[0].name).toBe('Empty Data Source');
+      });
+
+      it('displays zero entry count correctly in UI', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 4,
+          name: 'Empty Data Source',
+          lastModified: Date.now(),
+          entryCount: 0,
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 4: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows[0].entryCount).toBe(0);
+        // Check that the component renders without errors and the data is correctly processed
+        expect(wrapper.exists()).toBe(true);
+        expect(rows[0].name).toBe('Empty Data Source');
+      });
+    });
+
+    describe('data source with null/undefined entry count', () => {
+      it('handles missing entry count field', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 5,
+          name: 'No Entry Count',
+          lastModified: Date.now(),
+          // entryCount is missing
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 5: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        expect(rows[0].entryCount).toBe(0); // The component defaults to 0
+      });
+    });
+
+    describe('data source with very large entry count', () => {
+      it('handles large entry counts without performance issues', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 6,
+          name: 'Large Data Source',
+          lastModified: Date.now(),
+          entryCount: 1000000, // 1 million entries
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 6: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        expect(rows[0].entryCount).toBe(1000000);
+      });
+    });
+
+    describe('data source with special characters in name', () => {
+      it('handles data source names with special characters', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 7,
+          name: 'Data Source with "quotes" & symbols!',
+          lastModified: Date.now(),
+          entryCount: 10,
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 7: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        expect(rows[0].name).toBe('Data Source with "quotes" & symbols!');
+      });
+    });
+
+    describe('data source with very long name', () => {
+      it('handles data source names with very long text', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const longName = 'This is a very long data source name that might cause layout issues in the table and should be handled gracefully by the UI components';
+
+        const testDataSources = [{
+          id: 8,
+          name: longName,
+          lastModified: Date.now(),
+          entryCount: 5,
+          isGlobalDependency: false,
+          associatedScreens: [],
+          associatedFiles: []
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 8: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        expect(rows[0].name).toBe(longName);
+      });
+    });
+
+    describe('empty data sources list', () => {
+      it('handles empty data sources list gracefully', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: [],
+          selectedIds: [],
+          copyModes: {},
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(0);
+        expect(wrapper.vm.selectedIds).toEqual([]);
+      });
+    });
+
+    describe('data source with malformed associations', () => {
+      it('handles data source with null associations', async () => {
+        const wrapper = renderComponentWithMockedLoadDataSources();
+
+        const testDataSources = [{
+          id: 9,
+          name: 'Malformed Data Source',
+          lastModified: Date.now(),
+          entryCount: 10,
+          isGlobalDependency: false,
+          associatedScreens: null,
+          associatedFiles: null
+        }];
+
+        await wrapper.setData({
+          loading: false,
+          error: null,
+          dataSources: testDataSources,
+          selectedIds: [],
+          copyModes: { 9: 'structure' },
+          expandedIds: [],
+          nestedSelections: {}
+        });
+        await wrapper.vm.$nextTick();
+
+        const rows = wrapper.vm.dataSourceRows;
+        expect(rows).toHaveLength(1);
+        // The component should handle null associations gracefully
+        expect(wrapper.vm.dataSources[0].associatedScreens).toBeNull();
+        expect(wrapper.vm.dataSources[0].associatedFiles).toBeNull();
+      });
     });
   });
 });
