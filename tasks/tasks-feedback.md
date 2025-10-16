@@ -128,21 +128,21 @@
   - [x] 7.10 Remove mock data (lines 260-284)
   - [x] 7.11 Test folder expansion and folder options dropdown with real data
 
-- [ ] 8.0 Integrate MergeReview with real API preview endpoint
-  - [ ] 8.1 Import `MergeApiService` in MergeReview.vue
-  - [ ] 8.2 Build merge config object from Application.vue state (get selectedPages, selectedDataSources, etc.)
-  - [ ] 8.3 Replace mock data in `loadMergePreview()` with `mergeApiService.previewMerge(sourceAppId, mergeConfig)`
-  - [ ] 8.4 Parse preview response structure per `docs/05-api-tech-spec.md`
-  - [ ] 8.5 Map status values: verify API uses "copy" and "overwrite" (no "conflict" status exists per feedback)
-  - [ ] 8.6 Remove all conflict-related UI logic (lines 407-416, 42-45) - conflicts don't exist in Fliplet merge
-  - [ ] 8.7 Remove `hasConflicts` computed property entirely
-  - [ ] 8.8 Remove conflict row styling (`.bg-error/5` for conflict status)
-  - [ ] 8.9 Parse warnings array for each item type and display appropriately
-  - [ ] 8.10 Get plan limit warnings from merge status endpoint instead of preview (per feedback: check `POST /v1/apps/:sourceAppId/merge/status` for `limitWarnings`)
-  - [ ] 8.11 Update `canStartMerge` computed to only check plan limits (remove conflict check)
-  - [ ] 8.12 Update status label mapping: remove "Conflict" label (line 561)
-  - [ ] 8.13 Remove mock data (lines 484-545)
-  - [ ] 8.14 Test preview with various merge configurations
+- [x] 8.0 Integrate MergeReview with real API preview endpoint
+  - [x] 8.1 Import `MergeApiService` in MergeReview.vue
+  - [x] 8.2 Build merge config object from Application.vue state (get selectedPages, selectedDataSources, etc.)
+  - [x] 8.3 Replace mock data in `loadMergePreview()` with `mergeApiService.previewMerge(sourceAppId, mergeConfig)`
+  - [x] 8.4 Parse preview response structure per `docs/05-api-tech-spec.md`
+  - [x] 8.5 Map status values: verify API uses "copy" and "overwrite" (no "conflict" status exists per feedback)
+  - [x] 8.6 Remove all conflict-related UI logic (lines 407-416, 42-45) - conflicts don't exist in Fliplet merge
+  - [x] 8.7 Remove `hasConflicts` computed property entirely
+  - [x] 8.8 Remove conflict row styling (`.bg-error/5` for conflict status)
+  - [x] 8.9 Parse warnings array for each item type and display appropriately
+  - [x] 8.10 Get plan limit warnings from merge status endpoint instead of preview (per feedback: check `POST /v1/apps/:sourceAppId/merge/status` for `limitWarnings`)
+  - [x] 8.11 Update `canStartMerge` computed to only check plan limits (remove conflict check)
+  - [x] 8.12 Update status label mapping: remove "Conflict" label (line 561)
+  - [x] 8.13 Remove mock data (lines 484-545)
+  - [x] 8.14 Test preview with various merge configurations
 
 - [ ] 9.0 Integrate MergeProgress with real API status polling
   - [ ] 9.1 Import `MergeApiService` in MergeProgress.vue

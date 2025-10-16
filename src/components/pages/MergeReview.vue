@@ -32,17 +32,9 @@
           Review your merge configuration
         </h2>
         <p class="mt-2 text-sm text-gray-600">
-          Please review the items that will be merged. Items marked with a conflict indicator cannot be merged and must be addressed first.
+          Please review the items that will be merged. You can edit settings or proceed with the merge.
         </p>
       </div>
-
-      <!-- Conflict warning (if any) -->
-      <WarningBanner
-        v-if="hasConflicts"
-        type="error"
-        message="Conflicts detected. You must resolve all conflicts before starting the merge."
-        data-testid="conflicts-warning"
-      />
 
       <!-- Plan limit warning (if applicable) -->
       <WarningBanner
@@ -84,7 +76,6 @@
                 <tr
                   v-for="screen in preview.screens"
                   :key="screen.id"
-                  :class="{ 'bg-error/5': screen.status === 'conflict' }"
                 >
                   <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                     {{ screen.name }}
@@ -149,7 +140,6 @@
                 <tr
                   v-for="ds in preview.dataSources"
                   :key="ds.id"
-                  :class="{ 'bg-error/5': ds.status === 'conflict' }"
                 >
                   <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                     {{ ds.name }}
@@ -217,7 +207,6 @@
                 <tr
                   v-for="file in preview.files"
                   :key="file.id"
-                  :class="{ 'bg-error/5': file.status === 'conflict' }"
                 >
                   <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                     {{ file.name }}
@@ -265,7 +254,6 @@
               v-for="config in preview.configurations"
               :key="config.type"
               class="flex items-center justify-between rounded border border-gray-200 p-4"
-              :class="{ 'border-error bg-error/5': config.status === 'conflict' }"
             >
               <div>
                 <p class="font-medium text-gray-900">
@@ -380,6 +368,21 @@ export default {
     WarningBanner
   },
 
+  props: {
+    sourceAppId: {
+      type: Number,
+      required: true
+    },
+    destinationAppId: {
+      type: Number,
+      required: true
+    },
+    mergeConfig: {
+      type: Object,
+      required: true
+    }
+  },
+
   emits: ['start-merge', 'edit-settings', 'cancel'],
 
   data() {
@@ -401,20 +404,6 @@ export default {
   },
 
   computed: {
-    /**
-     * Check if there are any conflicts
-     */
-    hasConflicts() {
-      const allItems = [
-        ...(this.preview.screens || []),
-        ...(this.preview.dataSources || []),
-        ...(this.preview.files || []),
-        ...(this.preview.configurations || [])
-      ];
-
-      return allItems.some(item => item.status === 'conflict');
-    },
-
     /**
      * Check if plan limits are exceeded
      */
@@ -460,7 +449,7 @@ export default {
      * Check if merge can be started
      */
     canStartMerge() {
-      return !this.hasConflicts && !this.hasPlanLimitWarning;
+      return !this.hasPlanLimitWarning;
     }
   },
 
@@ -477,72 +466,75 @@ export default {
         this.loading = true;
         this.error = null;
 
-        // Mock data for now - will be replaced with actual API call
-        // TODO: Integrate with middleware preview API
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.preview = {
-          screens: [
-            {
-              id: 1,
-              name: 'Home Screen',
-              status: 'copy',
-              warnings: []
-            },
-            {
-              id: 2,
-              name: 'Profile Screen',
-              status: 'overwrite',
-              warnings: ['Contains non-copyable components']
-            }
-          ],
-          dataSources: [
-            {
-              id: 10,
-              name: 'Users',
-              copyMode: 'structure-only',
-              status: 'copy',
-              warnings: []
-            },
-            {
-              id: 11,
-              name: 'Products',
-              copyMode: 'structure-and-data',
-              status: 'overwrite',
-              warnings: ['This will overwrite existing data']
-            }
-          ],
-          files: [
-            {
-              id: 100,
-              name: 'logo.png',
-              path: '/assets/logo.png',
-              type: 'image',
-              status: 'copy',
-              warnings: []
-            }
-          ],
-          configurations: [
-            {
-              type: 'app-settings',
-              label: 'App Settings',
-              description: 'General app configuration',
-              status: 'overwrite'
-            },
-            {
-              type: 'menu-settings',
-              label: 'Menu Settings',
-              description: 'Navigation menu configuration',
-              status: 'copy'
-            }
-          ]
-        };
+          // Call preview endpoint with merge config
+          const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/preview`, this.mergeConfig);
 
-        this.planLimits = {
-          screensLimit: null,
-          dataSourcesLimit: null,
-          filesLimit: null
-        };
+          this.preview = response.preview || response || {
+            screens: [],
+            dataSources: [],
+            files: [],
+            configurations: []
+          };
+
+          // Get plan limits from merge status endpoint
+          const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {});
+          const limitWarnings = statusResponse.limitWarnings || {};
+
+          this.planLimits = {
+            screensLimit: limitWarnings.screensLimit || null,
+            dataSourcesLimit: limitWarnings.dataSourcesLimit || null,
+            filesLimit: limitWarnings.filesLimit || null
+          };
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.preview = {
+            screens: [
+              {
+                id: 1,
+                name: 'Home Screen',
+                status: 'copy',
+                warnings: []
+              },
+              {
+                id: 2,
+                name: 'Profile Screen',
+                status: 'overwrite',
+                warnings: ['Contains non-copyable components']
+              }
+            ],
+            dataSources: [
+              {
+                id: 10,
+                name: 'Users',
+                copyMode: 'structure-only',
+                status: 'copy',
+                warnings: []
+              }
+            ],
+            files: [
+              {
+                id: 100,
+                name: 'logo.png',
+                path: '/assets/logo.png',
+                type: 'image',
+                status: 'copy',
+                warnings: []
+              }
+            ],
+            configurations: []
+          };
+
+          this.planLimits = {
+            screensLimit: null,
+            dataSourcesLimit: null,
+            filesLimit: null
+          };
+        }
       } catch (err) {
         this.error = 'Unable to load merge preview. Please try again.';
         console.error('Failed to load merge preview:', err);
@@ -557,8 +549,7 @@ export default {
     getStatusLabel(status) {
       const labels = {
         'copy': 'New',
-        'overwrite': 'Update',
-        'conflict': 'Conflict'
+        'overwrite': 'Update'
       };
 
       return labels[status] || status;
