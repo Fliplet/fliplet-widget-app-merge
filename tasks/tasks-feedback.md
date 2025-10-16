@@ -91,17 +91,17 @@
   - [x] 4.10 Update `tableRows` computed property to use mapped field names
   - [x] 4.11 Remove all mock data (lines 241-275)
 
-- [ ] 5.0 Integrate ScreensTab with real API data
-  - [ ] 5.1 Import `PagesApiService` in ScreensTab.vue
-  - [ ] 5.2 Replace mock data in `loadScreens()` with `pagesApiService.fetchPages(this.sourceAppId, { include: ['associatedDS', 'associatedFiles'] })`
-  - [ ] 5.3 Map API field names: `associatedDS` → `associatedDataSources`, `associatedFiles` (verify naming)
-  - [ ] 5.4 Remove `hasNonCopyableComponents` field and related UI logic (API doesn't provide this, will show global info banner instead)
-  - [ ] 5.5 Update status column to remove "Limited copy support" status (line 170)
-  - [ ] 5.6 Verify association structure matches expected format: `[{id, name}]` for both data sources and files
-  - [ ] 5.7 Handle case where associations are returned as IDs only vs full objects (transform if needed)
-  - [ ] 5.8 Update `screenRows` computed property to handle real API data structure
-  - [ ] 5.9 Remove mock data and setTimeout (lines 238-278)
-  - [ ] 5.10 Test expandable rows and nested selection with real data
+- [x] 5.0 Integrate ScreensTab with real API data
+  - [x] 5.1 Import `PagesApiService` in ScreensTab.vue
+  - [x] 5.2 Replace mock data in `loadScreens()` with `pagesApiService.fetchPages(this.sourceAppId, { include: ['associatedDS', 'associatedFiles'] })`
+  - [x] 5.3 Map API field names: `associatedDS` → `associatedDataSources`, `associatedFiles` (verify naming)
+  - [x] 5.4 Remove `hasNonCopyableComponents` field and related UI logic (API doesn't provide this, will show global info banner instead)
+  - [x] 5.5 Update status column to remove "Limited copy support" status (line 170)
+  - [x] 5.6 Verify association structure matches expected format: `[{id, name}]` for both data sources and files
+  - [x] 5.7 Handle case where associations are returned as IDs only vs full objects (transform if needed)
+  - [x] 5.8 Update `screenRows` computed property to handle real API data structure
+  - [x] 5.9 Remove mock data and setTimeout (lines 238-278)
+  - [x] 5.10 Test expandable rows and nested selection with real data
 
 - [ ] 6.0 Integrate DataSourcesTab with real API data
   - [ ] 6.1 Import `DataSourcesApiService` in DataSourcesTab.vue

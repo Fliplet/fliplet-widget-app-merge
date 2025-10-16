@@ -112,6 +112,7 @@
 
 <script>
 import FlipletTableWrapper from '../ui/FlipletTableWrapper.vue';
+import { mapPageFields } from '../../utils/apiFieldMapping.js';
 
 export default {
   name: 'ScreensTab',
@@ -155,8 +156,7 @@ export default {
         { key: 'id', title: 'ID', sortable: false },
         { key: 'dataSourceCount', title: 'Data sources', sortable: false },
         { key: 'fileCount', title: 'Files', sortable: false },
-        { key: 'lastModified', title: 'Last modified', sortable: true },
-        { key: 'status', title: 'Status', sortable: false }
+        { key: 'lastModified', title: 'Last modified', sortable: true }
       ];
     },
 
@@ -166,8 +166,7 @@ export default {
         name: screen.name,
         dataSourceCount: screen.associatedDataSources?.length || 0,
         fileCount: screen.associatedFiles?.length || 0,
-        lastModified: screen.lastModified ? this.formatDate(screen.lastModified) : 'Unknown',
-        status: screen.hasNonCopyableComponents ? 'Limited copy support' : 'Ready'
+        lastModified: screen.lastModified ? this.formatDate(screen.lastModified) : 'Unknown'
       }));
     },
 
@@ -231,57 +230,91 @@ export default {
       this.error = null;
 
       try {
-        // TODO: Replace with actual middleware integration
-        // const screens = await window.FlipletAppMerge.middleware.api.screens.fetchScreens(this.sourceAppId);
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        // Mock data for now
-        await new Promise(resolve => setTimeout(resolve, 400));
+          // Fetch pages with associations included
+          const params = {
+            include: 'associatedDS,associatedFiles'
+          };
+          const response = await apiClient.get(`v1/apps/${this.sourceAppId}/pages`, params);
 
-        this.screens = [
-          {
-            id: 1,
-            name: 'Home Screen',
-            lastModified: Date.now() - 86400000,
-            hasNonCopyableComponents: false,
-            associatedDataSources: [
-              { id: 1, name: 'Users' },
-              { id: 2, name: 'Settings' }
-            ],
-            associatedFiles: [
-              { id: 1, name: 'logo.png' },
-              { id: 2, name: 'background.jpg' }
-            ]
-          },
-          {
-            id: 2,
-            name: 'Login Screen',
-            lastModified: Date.now() - 172800000,
-            hasNonCopyableComponents: false,
-            associatedDataSources: [
-              { id: 3, name: 'Authentication' }
-            ],
-            associatedFiles: []
-          },
-          {
-            id: 3,
-            name: 'Dashboard',
-            lastModified: Date.now() - 259200000,
-            hasNonCopyableComponents: true,
-            associatedDataSources: [
-              { id: 4, name: 'Analytics' },
-              { id: 5, name: 'Reports' }
-            ],
-            associatedFiles: [
-              { id: 3, name: 'chart.js' }
-            ]
-          }
-        ];
+          let rawPages = response.pages || response || [];
+
+          // Map field names and normalize structure
+          this.screens = rawPages.map(page => {
+            const mapped = mapPageFields(page);
+
+            // Ensure associations are in correct format [{id, name}]
+            // Handle case where associations might be IDs only or full objects
+            if (mapped.associatedDataSources) {
+              mapped.associatedDataSources = this.normalizeAssociations(mapped.associatedDataSources);
+            }
+
+            if (mapped.associatedFiles) {
+              mapped.associatedFiles = this.normalizeAssociations(mapped.associatedFiles);
+            }
+
+            return mapped;
+          });
+        } else {
+          // Fallback to mock data
+          await new Promise(resolve => setTimeout(resolve, 400));
+
+          this.screens = [
+            {
+              id: 1,
+              name: 'Home Screen',
+              lastModified: Date.now() - 86400000,
+              associatedDataSources: [
+                { id: 1, name: 'Users' },
+                { id: 2, name: 'Settings' }
+              ],
+              associatedFiles: [
+                { id: 1, name: 'logo.png' },
+                { id: 2, name: 'background.jpg' }
+              ]
+            },
+            {
+              id: 2,
+              name: 'Login Screen',
+              lastModified: Date.now() - 172800000,
+              associatedDataSources: [
+                { id: 3, name: 'Authentication' }
+              ],
+              associatedFiles: []
+            }
+          ];
+        }
       } catch (err) {
         this.error = 'Failed to load screens. Please try again.';
         console.error('Error loading screens:', err);
       } finally {
         this.loading = false;
       }
+    },
+
+    normalizeAssociations(associations) {
+      if (!Array.isArray(associations)) {
+        return [];
+      }
+
+      return associations.map(item => {
+        // If item is just an ID (number or string), convert to object
+        if (typeof item === 'number' || typeof item === 'string') {
+          return { id: item, name: `ID: ${item}` };
+        }
+
+        // If item is already an object with id and name, return as is
+        if (item && typeof item === 'object' && item.id) {
+          return {
+            id: item.id,
+            name: item.name || item.title || `ID: ${item.id}`
+          };
+        }
+
+        return item;
+      }).filter(Boolean);
     },
 
     toggleSelectAll() {
