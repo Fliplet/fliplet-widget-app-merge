@@ -171,6 +171,13 @@ export default {
 
   emits: ['merge-complete', 'merge-error'],
 
+  inject: {
+    injectedMergeService: {
+      from: 'mergeService',
+      default: null
+    }
+  },
+
   data() {
     return {
       progressPercentage: 0,
@@ -179,7 +186,8 @@ export default {
       isComplete: false,
       hasError: false,
       eventUnsubscribe: null,
-      pollingInterval: null
+      pollingInterval: null,
+      mergeService: null
     };
   },
 
@@ -204,6 +212,7 @@ export default {
   },
 
   mounted() {
+    this.mergeService = this.injectedMergeService || new (require('../../middleware/api/MergeApiService'))();
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -223,11 +232,16 @@ export default {
      * Start the merge process
      */
     async startMerge() {
-      // Start polling for merge status at 5-second intervals
+      if (this.mergeService.startMerge) {
+        await this.mergeService.startMerge(this.sourceAppId, {
+          mergeId: this.mergeId
+        });
+      }
+
       this.pollMergeStatus();
       this.pollingInterval = setInterval(() => {
         this.pollMergeStatus();
-      }, 5000); // 5 seconds
+      }, 5000);
     },
 
     /**
@@ -243,50 +257,45 @@ export default {
       }
 
       try {
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        const statusResponse = await this.mergeService.getMergeStatus?.(this.sourceAppId, {
+          mergeId: this.mergeId
+        });
 
-          // Fetch merge status (mergeId in request body, not query param)
-          const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {
-            mergeId: this.mergeId
+        if (!statusResponse) {
+          return;
+        }
+
+        this.progressPercentage = statusResponse.progress || statusResponse.percentage || 0;
+        this.currentPhase = statusResponse.phase || this.currentPhase;
+
+        const logsResponse = await this.mergeService.fetchMergeLogs?.(this.sourceAppId, {
+          mergeId: this.mergeId
+        });
+
+        const logs = logsResponse?.logs || logsResponse || [];
+
+        if (logs.length > 0) {
+          const latestLog = logs[logs.length - 1];
+          this.currentPhase = this.determinePhaseFromLogType(latestLog.type);
+
+          logs.forEach(log => {
+            const existingMessage = this.messages.find(m => m.logId === log.id);
+
+            if (!existingMessage) {
+              this.addMessage({
+                logId: log.id,
+                text: log.message || this.getDefaultMessageForType(log.type),
+                status: this.getStatusFromLogType(log.type),
+                timestamp: log.createdAt || Date.now()
+              });
+            }
           });
+        }
 
-          // Update progress percentage
-          this.progressPercentage = statusResponse.percentage || 0;
-
-          // Fetch logs separately
-          const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
-            mergeId: this.mergeId
-          });
-
-          const logs = logsResponse.logs || logsResponse || [];
-
-          // Parse logs to determine current phase based on latest log type
-          if (logs.length > 0) {
-            const latestLog = logs[logs.length - 1];
-            this.currentPhase = this.determinePhaseFromLogType(latestLog.type);
-
-            // Add new log entries as messages
-            logs.forEach(log => {
-              const existingMessage = this.messages.find(m => m.logId === log.id);
-
-              if (!existingMessage) {
-                this.addMessage({
-                  logId: log.id,
-                  text: log.message || this.getDefaultMessageForType(log.type),
-                  status: this.getStatusFromLogType(log.type),
-                  timestamp: log.createdAt || Date.now()
-                });
-              }
-            });
-          }
-
-          // Check if merge is completed or errored
-          if (statusResponse.status === 'completed') {
-            this.handleMergeComplete();
-          } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
-            this.handleMergeError({ message: statusResponse.error || 'Merge failed' });
-          }
+        if (statusResponse.status === 'completed') {
+          this.handleMergeComplete();
+        } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
+          this.handleMergeError({ message: statusResponse.error || 'Merge failed' });
         }
       } catch (err) {
         console.error('Failed to poll merge status:', err);

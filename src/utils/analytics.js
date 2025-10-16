@@ -7,35 +7,76 @@
 
 const EVENT_CATEGORIES = {
   APP_MERGE: 'app_merge',
-  UI_INTERACTION: 'ui_interaction',
-  WORKFLOW: 'workflow'
+  WORKFLOW: 'workflow',
+  UI_INTERACTION: 'ui_interaction'
 };
+
+let analyticsEnabled = true;
 
 /**
  * Track generic event
  */
-const trackEvent = (category, action, label = null, value = null) => {
-  try {
-    if (typeof window !== 'undefined' && window.Fliplet && window.Fliplet.App && window.Fliplet.App.Analytics) {
-      window.Fliplet.App.Analytics.event({
-        category,
-        action,
-        label,
-        value
-      });
-    } else {
-      console.log('[Analytics] Event:', { category, action, label, value });
-    }
-  } catch (error) {
-    console.error('[Analytics] Failed to track event:', error);
+const trackEvent = (category, action, label, value) => {
+  if (!analyticsEnabled) {
+    return null;
   }
+
+  const analyticsInstance = getAnalyticsInstance();
+
+  if (!analyticsInstance) {
+    return null;
+  }
+
+  const payload = {
+    category,
+    action,
+    label,
+    value
+  };
+
+  try {
+    analyticsInstance.event(payload);
+    return payload;
+  } catch (error) {
+    return null;
+  }
+};
+
+const resolveFliplet = () => {
+  if (typeof window !== 'undefined' && window && window.Fliplet) {
+    return window.Fliplet;
+  }
+
+  if (typeof globalThis !== 'undefined' && globalThis.Fliplet) {
+    return globalThis.Fliplet;
+  }
+
+  if (typeof global !== 'undefined' && global.Fliplet) {
+    return global.Fliplet;
+  }
+
+  return null;
+};
+
+const getAnalyticsInstance = () => {
+  const fliplet = resolveFliplet();
+
+  if (!fliplet || !fliplet.App || !fliplet.App.Analytics || typeof fliplet.App.Analytics.event !== 'function') {
+    return null;
+  }
+
+  return fliplet.App.Analytics;
+};
+
+const setAnalyticsEnabled = (enabled) => {
+  analyticsEnabled = enabled;
 };
 
 /**
  * Track dashboard viewed
  */
 const trackDashboardViewed = (appId) => {
-  trackEvent(
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'dashboard_viewed',
     `App ${appId}`,
@@ -46,34 +87,35 @@ const trackDashboardViewed = (appId) => {
 /**
  * Track destination selected
  */
-const trackDestinationSelected = (sourceAppId, targetAppId) => {
-  trackEvent(
+const trackDestinationSelected = (sourceAppId, destinationAppId) => {
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'destination_selected',
-    `From ${sourceAppId} to ${targetAppId}`,
-    targetAppId
+    `From ${sourceAppId} to ${destinationAppId}`,
+    destinationAppId
   );
 };
 
 /**
  * Track tab switched in configuration
  */
-const trackTabSwitched = (tabName) => {
-  trackEvent(
+const trackTabSwitched = (tabId) => {
+  return trackEvent(
     EVENT_CATEGORIES.UI_INTERACTION,
     'tab_switched',
-    tabName
+    tabId,
+    null
   );
 };
 
 /**
  * Track items selected in configuration
  */
-const trackItemsSelected = (category, count) => {
-  trackEvent(
+const trackItemsSelected = (itemType, count) => {
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'items_selected',
-    category,
+    itemType,
     count
   );
 };
@@ -81,11 +123,11 @@ const trackItemsSelected = (category, count) => {
 /**
  * Track review viewed
  */
-const trackReviewViewed = (sourceAppId, targetAppId, itemCount) => {
-  trackEvent(
+const trackReviewViewed = (sourceAppId, destinationAppId, itemCount) => {
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'review_viewed',
-    `From ${sourceAppId} to ${targetAppId}`,
+    `From ${sourceAppId} to ${destinationAppId}`,
     itemCount
   );
 };
@@ -94,7 +136,10 @@ const trackReviewViewed = (sourceAppId, targetAppId, itemCount) => {
  * Track conflict detected
  */
 const trackConflictDetected = (conflictType, count) => {
-  trackEvent(
+  if (!analyticsEnabled) {
+    return null;
+  }
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'conflict_detected',
     conflictType,
@@ -105,11 +150,11 @@ const trackConflictDetected = (conflictType, count) => {
 /**
  * Track merge initiated
  */
-const trackMergeInitiated = (sourceAppId, targetAppId, itemCount) => {
-  trackEvent(
+const trackMergeInitiated = (sourceAppId, destinationAppId, itemCount) => {
+  return trackEvent(
     EVENT_CATEGORIES.WORKFLOW,
     'merge_initiated',
-    `From ${sourceAppId} to ${targetAppId}`,
+    `From ${sourceAppId} to ${destinationAppId}`,
     itemCount
   );
 };
@@ -118,7 +163,7 @@ const trackMergeInitiated = (sourceAppId, targetAppId, itemCount) => {
  * Track merge progress updated
  */
 const trackMergeProgressUpdated = (phase, percentage) => {
-  trackEvent(
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'merge_progress_updated',
     phase,
@@ -129,11 +174,11 @@ const trackMergeProgressUpdated = (phase, percentage) => {
 /**
  * Track merge completed
  */
-const trackMergeCompleted = (sourceAppId, targetAppId, duration, itemCount) => {
+const trackMergeCompleted = (sourceAppId, destinationAppId, duration, itemCount) => {
   trackEvent(
     EVENT_CATEGORIES.WORKFLOW,
     'merge_completed',
-    `From ${sourceAppId} to ${targetAppId}`,
+    `From ${sourceAppId} to ${destinationAppId}`,
     duration
   );
 
@@ -141,7 +186,7 @@ const trackMergeCompleted = (sourceAppId, targetAppId, duration, itemCount) => {
   trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'merge_completed_items',
-    `From ${sourceAppId} to ${targetAppId}`,
+    `From ${sourceAppId} to ${destinationAppId}`,
     itemCount
   );
 };
@@ -149,23 +194,24 @@ const trackMergeCompleted = (sourceAppId, targetAppId, duration, itemCount) => {
 /**
  * Track merge failed
  */
-const trackMergeFailed = (sourceAppId, targetAppId, errorMessage) => {
-  trackEvent(
+const trackMergeFailed = (sourceAppId, destinationAppId, reason) => {
+  return trackEvent(
     EVENT_CATEGORIES.WORKFLOW,
     'merge_failed',
-    `From ${sourceAppId} to ${targetAppId}: ${errorMessage}`
+    `From ${sourceAppId} to ${destinationAppId}: ${reason}`,
+    null
   );
 };
 
 /**
  * Track destination app opened
  */
-const trackDestinationAppOpened = (targetAppId) => {
-  trackEvent(
+const trackDestinationAppOpened = (destinationAppId) => {
+  return trackEvent(
     EVENT_CATEGORIES.UI_INTERACTION,
     'destination_app_opened',
-    `App ${targetAppId}`,
-    targetAppId
+    `App ${destinationAppId}`,
+    destinationAppId
   );
 };
 
@@ -185,10 +231,11 @@ const trackAuditLogViewed = (appId) => {
  * Track merge cancelled
  */
 const trackMergeCancelled = (stage) => {
-  trackEvent(
+  return trackEvent(
     EVENT_CATEGORIES.WORKFLOW,
     'merge_cancelled',
-    stage
+    stage,
+    null
   );
 };
 
@@ -196,10 +243,11 @@ const trackMergeCancelled = (stage) => {
  * Track lock extended
  */
 const trackLockExtended = (sourceAppId, targetAppId) => {
-  trackEvent(
+  return trackEvent(
     EVENT_CATEGORIES.APP_MERGE,
     'lock_extended',
-    `From ${sourceAppId} to ${targetAppId}`
+    `From ${sourceAppId} to ${targetAppId}`,
+    null
   );
 };
 
@@ -207,16 +255,28 @@ const trackLockExtended = (sourceAppId, targetAppId) => {
  * Track button click
  */
 const trackButtonClick = (buttonName, context) => {
-  trackEvent(
+  return trackEvent(
     EVENT_CATEGORIES.UI_INTERACTION,
     'button_click',
-    `${buttonName} - ${context}`
+    `${buttonName} - ${context}`,
+    null
+  );
+};
+
+const trackPreviewViewed = (sourceAppId, destinationAppId, itemCount) => {
+  return trackEvent(
+    EVENT_CATEGORIES.APP_MERGE,
+    'preview_viewed',
+    `From ${sourceAppId} to ${destinationAppId}`,
+    itemCount
   );
 };
 
 module.exports = {
   EVENT_CATEGORIES,
   trackEvent,
+  getAnalyticsInstance,
+  setAnalyticsEnabled,
   trackDashboardViewed,
   trackDestinationSelected,
   trackTabSwitched,
@@ -231,6 +291,7 @@ module.exports = {
   trackAuditLogViewed,
   trackMergeCancelled,
   trackLockExtended,
-  trackButtonClick
+  trackButtonClick,
+  trackPreviewViewed
 };
 

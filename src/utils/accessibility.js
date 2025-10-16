@@ -107,6 +107,8 @@ const announceToScreenReader = (message, priority = 'polite') => {
     });
 
     document.body.appendChild(liveRegion);
+  } else if (priority && priority !== liveRegion.getAttribute('aria-live')) {
+    liveRegion.setAttribute('aria-live', priority);
   }
 
   // Update the message
@@ -161,6 +163,10 @@ const addSkipLink = (targetId, linkText = 'Skip to main content') => {
   const existingSkipLink = document.getElementById('skip-to-main');
 
   if (existingSkipLink) {
+    if (linkText && existingSkipLink.textContent !== linkText) {
+      existingSkipLink.textContent = linkText;
+    }
+
     return existingSkipLink;
   }
 

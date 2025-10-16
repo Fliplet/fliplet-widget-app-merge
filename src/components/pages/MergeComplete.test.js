@@ -39,6 +39,10 @@ const defaultResults = {
 
 const renderComponent = (resultsOverrides = {}, dataOverrides = {}) => {
   return shallowMount(MergeComplete, {
+    propsData: {
+      sourceAppId: 123,
+      mergeId: 'merge-1'
+    },
     data() {
       return {
         loading: false,
@@ -56,6 +60,10 @@ const renderComponent = (resultsOverrides = {}, dataOverrides = {}) => {
 
 const renderLoadingComponent = () => {
   return shallowMount(MergeComplete, {
+    propsData: {
+      sourceAppId: 123,
+      mergeId: 'merge-1'
+    },
     data() {
       return {
         loading: true,
@@ -97,6 +105,10 @@ describe('MergeComplete', () => {
 
     it('displays error message when error present', () => {
       const wrapper = shallowMount(MergeComplete, {
+        propsData: {
+          sourceAppId: 123,
+          mergeId: 'merge-1'
+        },
         data() {
           return {
             loading: false,

@@ -4,22 +4,39 @@ describe('analytics', () => {
   let mockFlipletAnalytics;
 
   beforeEach(() => {
-    // Mock Fliplet.App.Analytics.event
     mockFlipletAnalytics = jest.fn();
-    global.window = {
-      Fliplet: {
+
+    if (!global.Fliplet) {
+      global.Fliplet = {
         App: {
           Analytics: {
             event: mockFlipletAnalytics
           }
         }
-      }
-    };
+      };
+    } else {
+      global.Fliplet.App = global.Fliplet.App || {};
+      global.Fliplet.App.Analytics = global.Fliplet.App.Analytics || {};
+      global.Fliplet.App.Analytics.event = mockFlipletAnalytics;
+    }
+
+    if (global.window) {
+      global.window.Fliplet = global.Fliplet;
+    }
+
+    globalThis.Fliplet = global.Fliplet;
+
+    analytics.setAnalyticsEnabled(true);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    delete global.window;
+
+    if (global.window && global.window.Fliplet) {
+      delete global.window.Fliplet;
+    }
+
+    delete globalThis.Fliplet;
   });
 
   describe('trackEvent', () => {
@@ -40,6 +57,14 @@ describe('analytics', () => {
       expect(() => {
         analytics.trackEvent('test_category', 'test_action');
       }).not.toThrow();
+    });
+
+    it('handles disabled analytics gracefully', () => {
+      analytics.setAnalyticsEnabled(false);
+
+      analytics.trackEvent('test_category', 'test_action');
+
+      expect(mockFlipletAnalytics).not.toHaveBeenCalled();
     });
 
     it('handles errors gracefully', () => {

@@ -1,5 +1,37 @@
 const { shallowMount } = require('@vue/test-utils');
 const MergeProgress = require('./MergeProgress.vue').default;
+const MergeApiService = require('../../middleware/api/MergeApiService');
+const analytics = require('../../utils/analytics');
+
+jest.mock('../../middleware/api/MergeApiService');
+jest.mock('../../utils/analytics');
+
+const flushPromises = () => Promise.resolve();
+
+const createMergeService = () => {
+  const mocks = {
+    getMergeStatus: jest.fn(),
+    fetchMergeLogs: jest.fn(),
+    cancelMerge: jest.fn(),
+    startMerge: jest.fn()
+  };
+
+  MergeApiService.mockImplementation(() => mocks);
+
+  return mocks;
+};
+
+let mergeApiMocks;
+
+const mockGetMergeStatus = (statusOverrides = {}) => {
+  mergeApiMocks.getMergeStatus.mockResolvedValue({
+    status: 'in-progress',
+    progress: 25,
+    phase: 'copying-screens',
+    logs: [],
+    ...statusOverrides
+  });
+};
 
 const createIconStub = (name) => ({
   name,
@@ -21,10 +53,17 @@ const baseStubConfig = {
 };
 
 const renderComponent = (dataOverrides = {}) => {
+  const componentMergeService = createMergeService();
+
+  mergeApiMocks = componentMergeService;
+
   return shallowMount(MergeProgress, {
     propsData: {
       sourceAppId: 1,
       mergeId: 'test-merge'
+    },
+    provide: {
+      mergeService: componentMergeService
     },
     data() {
       return {
@@ -45,6 +84,17 @@ const renderComponent = (dataOverrides = {}) => {
 };
 
 describe('MergeProgress', () => {
+  beforeEach(() => {
+    analytics.trackMergeProgressUpdated.mockClear();
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+    jest.clearAllMocks();
+  });
+
   describe('rendering', () => {
     it('renders progress bar with initial state', () => {
       const wrapper = renderComponent();
@@ -287,6 +337,67 @@ describe('MergeProgress', () => {
       expect(() => {
         wrapper.unmount();
       }).not.toThrow();
+    });
+  });
+
+  describe('polling', () => {
+    it('polls merge status every 5 seconds and updates progress', async () => {
+      const wrapper = renderComponent();
+
+      mockGetMergeStatus({
+        status: 'in-progress',
+        progress: 40,
+        currentPhase: 'copying-data-sources'
+      });
+
+      await wrapper.vm.pollMergeStatus();
+      jest.advanceTimersByTime(5000);
+      await wrapper.vm.pollMergeStatus();
+
+      expect(mergeApiMocks.getMergeStatus).toHaveBeenCalledWith(1, { mergeId: 'test-merge' });
+      expect(wrapper.vm.progressPercentage).toBe(40);
+      expect(wrapper.vm.currentPhase).toBe('copying-screens');
+    });
+
+    it('stops polling when merge completes', async () => {
+      const wrapper = renderComponent();
+
+      mockGetMergeStatus({ status: 'completed', progress: 100 });
+
+      await wrapper.vm.pollMergeStatus();
+      jest.advanceTimersByTime(5000);
+      await wrapper.vm.pollMergeStatus();
+
+      expect(wrapper.vm.isComplete).toBe(true);
+      expect(mergeApiMocks.getMergeStatus).toHaveBeenCalledTimes(2);
+      expect(wrapper.emitted('merge-complete')).toBeTruthy();
+    });
+
+    it('stops polling when merge fails', async () => {
+      const wrapper = renderComponent();
+
+      mockGetMergeStatus({ status: 'error', progress: 42 });
+
+      await wrapper.vm.pollMergeStatus();
+      jest.advanceTimersByTime(5000);
+      await wrapper.vm.pollMergeStatus();
+
+      expect(wrapper.vm.hasError).toBe(true);
+      expect(wrapper.emitted('merge-error')).toBeTruthy();
+    });
+  });
+
+  describe('start merge', () => {
+    it('calls startMerge with correct payload when performStartMerge invoked', async () => {
+      mergeApiMocks.startMerge.mockResolvedValue({ mergeId: 'test-merge' });
+      mockGetMergeStatus();
+
+      const wrapper = renderComponent();
+
+      await flushPromises();
+
+      expect(mergeApiMocks.startMerge).toHaveBeenCalledWith(1, { mergeId: 'test-merge' });
+      expect(mergeApiMocks.getMergeStatus).toHaveBeenCalled();
     });
   });
 });

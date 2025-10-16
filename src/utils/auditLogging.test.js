@@ -1,14 +1,15 @@
 const auditLogging = require('./auditLogging');
 
+const mockConsoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+
 describe('auditLogging', () => {
   let mockFlipletLogs;
-  let originalEnableFlag;
+
+  afterAll(() => {
+    mockConsoleError.mockRestore();
+  });
 
   beforeEach(() => {
-    // Save original enable flag
-    originalEnableFlag = auditLogging.ENABLE_AUDIT_LOGS;
-
-    // Mock Fliplet.App.Logs.create
     mockFlipletLogs = jest.fn().mockResolvedValue();
     global.window = {
       Fliplet: {
@@ -19,6 +20,8 @@ describe('auditLogging', () => {
         }
       }
     };
+
+    auditLogging.setAuditLogsEnabled(true);
   });
 
   afterEach(() => {
@@ -28,12 +31,7 @@ describe('auditLogging', () => {
 
   describe('when ENABLE_AUDIT_LOGS is false', () => {
     beforeEach(() => {
-      // Ensure flag is false
-      Object.defineProperty(auditLogging, 'ENABLE_AUDIT_LOGS', {
-        value: false,
-        writable: true,
-        configurable: true
-      });
+      auditLogging.setAuditLogsEnabled(false);
     });
 
     it('does not call Fliplet.App.Logs.create for logMergeInitiated', async () => {
@@ -62,7 +60,7 @@ describe('auditLogging', () => {
     it('returns resolved promise without calling API', async () => {
       const result = await auditLogging.logMergeInitiated(123, 456, 1, 'John Doe');
 
-      expect(result).toBeUndefined();
+      expect(result).toBeNull();
       expect(mockFlipletLogs).not.toHaveBeenCalled();
     });
 
@@ -73,12 +71,7 @@ describe('auditLogging', () => {
 
   describe('when ENABLE_AUDIT_LOGS is true', () => {
     beforeEach(() => {
-      // Enable audit logging for these tests
-      Object.defineProperty(auditLogging, 'ENABLE_AUDIT_LOGS', {
-        value: true,
-        writable: true,
-        configurable: true
-      });
+      auditLogging.setAuditLogsEnabled(true);
     });
 
     describe('logMergeInitiated', () => {
@@ -255,19 +248,24 @@ describe('auditLogging', () => {
     });
 
     it('handles missing Fliplet API gracefully', async () => {
-      delete global.window;
+      delete global.window.Fliplet;
 
       await expect(
         auditLogging.logMergeInitiated(123, 456, 1, 'John Doe')
-      ).resolves.not.toThrow();
+      ).resolves.toBeNull();
     });
 
-    it('handles API errors gracefully', async () => {
+    it('handles API errors by logging and rethrowing', async () => {
       mockFlipletLogs.mockRejectedValue(new Error('API error'));
 
       await expect(
         auditLogging.logMergeInitiated(123, 456, 1, 'John Doe')
       ).rejects.toThrow('API error');
+
+      expect(mockConsoleError).toHaveBeenCalledWith(
+        'Failed to create audit log entry:',
+        expect.any(Error)
+      );
     });
 
     it('isEnabled returns true', () => {

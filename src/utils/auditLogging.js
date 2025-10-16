@@ -10,7 +10,48 @@
  */
 
 // Feature flag - set to true to enable audit logging
-const ENABLE_AUDIT_LOGS = false;
+let ENABLE_AUDIT_LOGS = false;
+
+const getAuditLogsEnabled = () => ENABLE_AUDIT_LOGS;
+
+const getLogsInstance = () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  const fliplet = window.Fliplet || {}; // Allow tests to stub Fliplet
+
+  if (!fliplet.App || !fliplet.App.Logs || typeof fliplet.App.Logs.create !== 'function') {
+    return null;
+  }
+
+  return fliplet.App.Logs;
+};
+
+const createLogEntry = async (type, data) => {
+  if (!ENABLE_AUDIT_LOGS) {
+    return null;
+  }
+
+  const logsInstance = getLogsInstance();
+
+  if (!logsInstance) {
+    return null;
+  }
+
+  try {
+    return await logsInstance.create({
+      type,
+      data: {
+        timestamp: new Date().toISOString(),
+        ...data
+      }
+    });
+  } catch (error) {
+    console.error('Failed to create audit log entry:', error);
+    throw error;
+  }
+};
 
 /**
  * Log types for audit logging
@@ -25,38 +66,10 @@ const LOG_TYPES = {
 };
 
 /**
- * Create audit log entry
- */
-const createAuditLog = (type, data) => {
-  if (!ENABLE_AUDIT_LOGS) {
-    // Audit logging is disabled
-    return Promise.resolve();
-  }
-
-  try {
-    if (typeof window !== 'undefined' && window.Fliplet && window.Fliplet.App && window.Fliplet.App.Logs) {
-      return window.Fliplet.App.Logs.create({
-        type,
-        data: {
-          ...data,
-          timestamp: new Date().toISOString()
-        }
-      });
-    }
-
-    console.log('[Audit Log] Would create log:', { type, data });
-    return Promise.resolve();
-  } catch (error) {
-    console.error('[Audit Log] Failed to create log:', error);
-    return Promise.reject(error);
-  }
-};
-
-/**
  * Log merge initiated
  */
 const logMergeInitiated = (sourceAppId, targetAppId, userId, userName) => {
-  return createAuditLog(LOG_TYPES.MERGE_INITIATED, {
+  return createLogEntry(LOG_TYPES.MERGE_INITIATED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -69,7 +82,7 @@ const logMergeInitiated = (sourceAppId, targetAppId, userId, userName) => {
  * Log merge completed
  */
 const logMergeCompleted = (sourceAppId, targetAppId, userId, userName, summary) => {
-  return createAuditLog(LOG_TYPES.MERGE_COMPLETED, {
+  return createLogEntry(LOG_TYPES.MERGE_COMPLETED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -89,7 +102,7 @@ const logMergeCompleted = (sourceAppId, targetAppId, userId, userName, summary) 
  * Log merge failed
  */
 const logMergeFailed = (sourceAppId, targetAppId, userId, userName, error) => {
-  return createAuditLog(LOG_TYPES.MERGE_FAILED, {
+  return createLogEntry(LOG_TYPES.MERGE_FAILED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -107,7 +120,7 @@ const logMergeFailed = (sourceAppId, targetAppId, userId, userName, error) => {
  * Log lock acquired
  */
 const logLockAcquired = (sourceAppId, targetAppId, userId, userName, lockDuration) => {
-  return createAuditLog(LOG_TYPES.LOCK_ACQUIRED, {
+  return createLogEntry(LOG_TYPES.LOCK_ACQUIRED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -121,7 +134,7 @@ const logLockAcquired = (sourceAppId, targetAppId, userId, userName, lockDuratio
  * Log lock released
  */
 const logLockReleased = (sourceAppId, targetAppId, userId, userName, reason) => {
-  return createAuditLog(LOG_TYPES.LOCK_RELEASED, {
+  return createLogEntry(LOG_TYPES.LOCK_RELEASED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -135,7 +148,7 @@ const logLockReleased = (sourceAppId, targetAppId, userId, userName, reason) => 
  * Log lock extended
  */
 const logLockExtended = (sourceAppId, targetAppId, userId, userName, newDuration) => {
-  return createAuditLog(LOG_TYPES.LOCK_EXTENDED, {
+  return createLogEntry(LOG_TYPES.LOCK_EXTENDED, {
     sourceAppId,
     targetAppId,
     userId,
@@ -152,8 +165,11 @@ const isEnabled = () => {
   return ENABLE_AUDIT_LOGS;
 };
 
+const setAuditLogsEnabled = (enabled) => {
+  ENABLE_AUDIT_LOGS = enabled;
+};
+
 module.exports = {
-  ENABLE_AUDIT_LOGS,
   LOG_TYPES,
   logMergeInitiated,
   logMergeCompleted,
@@ -161,6 +177,9 @@ module.exports = {
   logLockAcquired,
   logLockReleased,
   logLockExtended,
-  isEnabled
+  createLogEntry,
+  isEnabled,
+  setAuditLogsEnabled,
+  getAuditLogsEnabled
 };
 

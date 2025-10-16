@@ -265,31 +265,31 @@
 
 ### Phase 3: Testing & Validation
 
-- [ ] 19.0 Add integration tests for API data flow
-  - [ ] 19.1 Create test file `src/components/pages/MergeDashboard.test.js`
-  - [ ] 19.2 Mock `AppsApiService` and `OrganizationsApiService`
-  - [ ] 19.3 Test MergeDashboard loads and displays app data correctly
-  - [ ] 19.4 Test field mappings: verify `productionAppId` → `isPublished` conversion
-  - [ ] 19.5 Test computed fields: verify `isLocked` and `hasPublisherRights` calculations
-  - [ ] 19.6 Create test file `src/components/pages/DestinationSelector.test.js`
-  - [ ] 19.7 Test duplicate checking only happens on "Next" click, not on initial load
-  - [ ] 19.8 Test validation error displays when duplicates found
-  - [ ] 19.9 Create test file `src/components/tabs/ScreensTab.test.js`
-  - [ ] 19.10 Test association data mapping and display
-  - [ ] 19.11 Create test file `src/components/tabs/DataSourcesTab.test.js`
-  - [ ] 19.12 Test `entriesCount` → `entryCount` mapping
-  - [ ] 19.13 Test global dependency detection (`associatedPages.length === 0`)
-  - [ ] 19.14 Create test file `src/components/tabs/FilesTab.test.js`
-  - [ ] 19.15 Test files/folders array merging
-  - [ ] 19.16 Create test file `src/components/pages/MergeReview.test.js`
-  - [ ] 19.17 Test conflict-related code is removed (should not render conflict states)
-  - [ ] 19.18 Test cancel warning modal appears on cancel click
-  - [ ] 19.19 Create test file `src/components/pages/MergeProgress.test.js`
-  - [ ] 19.20 Test polling mechanism with 5-second interval
-  - [ ] 19.21 Test mergeId passed as request body, not query param
-  - [ ] 19.22 Create test file `src/components/pages/MergeComplete.test.js`
-  - [ ] 19.23 Test merge history fetch and display
-  - [ ] 19.24 Run all tests: `npm test`
+- [x] 19.0 Add integration tests for API data flow
+  - [x] 19.1 Create test file `src/components/pages/MergeDashboard.test.js`
+  - [x] 19.2 Mock `AppsApiService` and `OrganizationsApiService`
+  - [x] 19.3 Test MergeDashboard loads and displays app data correctly
+  - [x] 19.4 Test field mappings: verify `productionAppId` → `isPublished` conversion
+  - [x] 19.5 Test computed fields: verify `isLocked` and `hasPublisherRights` calculations
+  - [x] 19.6 Create test file `src/components/pages/DestinationSelector.test.js`
+  - [x] 19.7 Test duplicate checking only happens on "Next" click, not on initial load
+  - [x] 19.8 Test validation error displays when duplicates found
+  - [x] 19.9 Create test file `src/components/tabs/ScreensTab.test.js`
+  - [x] 19.10 Test association data mapping and display
+  - [x] 19.11 Create test file `src/components/tabs/DataSourcesTab.test.js`
+  - [x] 19.12 Test `entriesCount` → `entryCount` mapping
+  - [x] 19.13 Test global dependency detection (`associatedPages.length === 0`)
+  - [x] 19.14 Create test file `src/components/tabs/FilesTab.test.js`
+  - [x] 19.15 Test files/folders array merging
+  - [x] 19.16 Create test file `src/components/pages/MergeReview.test.js`
+  - [x] 19.17 Test conflict-related code is removed (should not render conflict states)
+  - [x] 19.18 Test cancel warning modal appears on cancel click
+  - [x] 19.19 Create test file `src/components/pages/MergeProgress.test.js`
+  - [x] 19.20 Test polling mechanism with 5-second interval
+  - [x] 19.21 Test mergeId passed as request body, not query param
+  - [x] 19.22 Create test file `src/components/pages/MergeComplete.test.js`
+  - [x] 19.23 Test merge history fetch and display
+  - [x] 19.24 Run all tests: `npm test`
 
 - [ ] 20.0 Test edge cases and error scenarios
   - [ ] 20.1 Test with user lacking publisher rights (should disable destination apps)

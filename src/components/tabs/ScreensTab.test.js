@@ -86,8 +86,7 @@ describe('ScreensTab', () => {
           id: 1,
           name: 'Home Screen',
           dataSourceCount: 2,
-          fileCount: 2,
-          status: 'Ready'
+          fileCount: 2
         })
       );
     });

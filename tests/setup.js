@@ -22,11 +22,41 @@ global.TextDecoder = TextDecoder;
 global.requestAnimationFrame = (callback) => setTimeout(callback, 0);
 global.cancelAnimationFrame = (id) => clearTimeout(id);
 
-global.Fliplet = {
-  API: {
+if (!global.Fliplet) {
+  global.Fliplet = {};
+}
+
+if (!global.Fliplet.API) {
+  global.Fliplet.API = {
     request: jest.fn()
-  },
-  Env: {
+  };
+}
+
+if (!global.Fliplet.App) {
+  global.Fliplet.App = {
+    Analytics: {
+      event: jest.fn()
+    },
+    Logs: {
+      create: jest.fn()
+    }
+  };
+}
+
+if (!global.Fliplet.App.Analytics) {
+  global.Fliplet.App.Analytics = {
+    event: jest.fn()
+  };
+}
+
+if (!global.Fliplet.App.Logs) {
+  global.Fliplet.App.Logs = {
+    create: jest.fn()
+  };
+}
+
+if (!global.Fliplet.Env) {
+  global.Fliplet.Env = {
     get: jest.fn((key) => {
       if (key === 'apiUrl') {
         return 'https://api.fliplet.test/';
@@ -34,16 +64,60 @@ global.Fliplet = {
 
       return null;
     })
-  },
-  Navigate: {
+  };
+}
+
+if (!global.Fliplet.Navigate) {
+  global.Fliplet.Navigate = {
     query: {}
-  }
-};
+  };
+}
+
+global.window.Fliplet = global.Fliplet;
 
 beforeEach(() => {
   jest.clearAllMocks();
 
-  global.Fliplet.Navigate.query = {};
+  if (!global.Fliplet) {
+    global.Fliplet = {};
+  }
+
+  if (!global.Fliplet.API) {
+    global.Fliplet.API = {
+      request: jest.fn()
+    };
+  }
+
+  if (!global.Fliplet.App) {
+    global.Fliplet.App = {};
+  }
+
+  if (!global.Fliplet.App.Analytics) {
+    global.Fliplet.App.Analytics = {
+      event: jest.fn()
+    };
+  }
+
+  if (!global.Fliplet.App.Logs) {
+    global.Fliplet.App.Logs = {
+      create: jest.fn()
+    };
+  }
+
+  if (!global.Fliplet.Env) {
+    global.Fliplet.Env = {
+      get: jest.fn()
+    };
+  }
+
+  if (!global.Fliplet.Navigate) {
+    global.Fliplet.Navigate = {
+      query: {}
+    };
+  }
+
+  global.Fliplet.App.Analytics.event.mockClear();
+  global.Fliplet.App.Logs.create.mockClear();
 
   global.Fliplet.Env.get.mockImplementation((key) => {
     if (key === 'apiUrl') {
@@ -52,5 +126,13 @@ beforeEach(() => {
 
     return null;
   });
+
+  global.Fliplet.Navigate.query = {};
+
+  if (typeof global.window === 'undefined') {
+    global.window = { Fliplet: global.Fliplet };
+  } else {
+    global.window.Fliplet = global.Fliplet;
+  }
 });
 

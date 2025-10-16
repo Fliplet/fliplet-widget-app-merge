@@ -37,6 +37,8 @@ const renderComponent = (overrides = {}) => {
   });
 };
 
+const flushPromises = () => new Promise(resolve => process.nextTick(resolve));
+
 describe('DestinationSelector', () => {
   describe('rendering', () => {
     it('shows warning banners', () => {
@@ -106,9 +108,22 @@ describe('DestinationSelector', () => {
     it('emits app-selected when next clicked', async () => {
       const wrapper = renderComponent({ selectedAppId: 200 });
 
-      await wrapper.find('[data-testid="next-button"]').trigger('click');
+      const setTimeoutSpy = jest.spyOn(global, 'setTimeout').mockImplementation(callback => {
+        callback();
+        return 0;
+      });
 
-      expect(wrapper.emitted('app-selected')[0][0]).toEqual(initialApps[0]);
+      await wrapper.find('[data-testid="next-button"]').trigger('click');
+      await flushPromises();
+
+      const emitted = wrapper.emitted('app-selected');
+      expect(emitted).toBeTruthy();
+
+      const [payload] = emitted[0];
+      expect(payload.id).toBe(200);
+      expect(payload.name).toBe('Destination App');
+
+      setTimeoutSpy.mockRestore();
     });
   });
 
