@@ -165,6 +165,8 @@
 <script>
 import { AlertTriangle } from 'lucide-vue-next';
 import FlipletTableWrapper from '../ui/FlipletTableWrapper.vue';
+import { mapDataSourceFields } from '../../utils/apiFieldMapping.js';
+import { isGlobalDependency } from '../../utils/computedFields.js';
 
 export default {
   name: 'DataSourcesTab',
@@ -292,46 +294,68 @@ export default {
       this.error = null;
 
       try {
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.dataSources = [
-          {
-            id: 1,
-            name: 'Users',
-            lastModified: Date.now() - 86400000,
-            entryCount: 150,
-            isGlobalDependency: false,
-            associatedScreens: [
-              { id: 1, name: 'Home Screen' },
-              { id: 2, name: 'Login Screen' }
-            ],
-            associatedFiles: []
-          },
-          {
-            id: 2,
-            name: 'Settings',
-            lastModified: Date.now() - 172800000,
-            entryCount: 25,
-            isGlobalDependency: true,
-            associatedScreens: [
-              { id: 1, name: 'Home Screen' }
-            ],
-            associatedFiles: [
-              { id: 1, name: 'config.json' }
-            ]
-          },
-          {
-            id: 3,
-            name: 'Authentication',
-            lastModified: Date.now() - 259200000,
-            entryCount: 5,
-            isGlobalDependency: false,
-            associatedScreens: [
-              { id: 2, name: 'Login Screen' }
-            ],
-            associatedFiles: []
-          }
-        ];
+          // Fetch data sources with associations included
+          const params = {
+            appId: this.sourceAppId,
+            include: 'associatedPages,associatedFiles'
+          };
+          const response = await apiClient.get('v1/data-sources', params);
+
+          let rawDataSources = response.dataSources || response || [];
+
+          // Map field names and normalize structure
+          this.dataSources = rawDataSources.map(ds => {
+            const mapped = mapDataSourceFields(ds);
+
+            // Calculate isGlobalDependency
+            mapped.isGlobalDependency = isGlobalDependency(ds);
+
+            // Ensure associations are in correct format
+            if (mapped.associatedScreens) {
+              mapped.associatedScreens = this.normalizeAssociations(mapped.associatedScreens);
+            }
+
+            if (mapped.associatedFiles) {
+              mapped.associatedFiles = this.normalizeAssociations(mapped.associatedFiles);
+            }
+
+            return mapped;
+          });
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.dataSources = [
+            {
+              id: 1,
+              name: 'Users',
+              lastModified: Date.now() - 86400000,
+              entryCount: 150,
+              isGlobalDependency: false,
+              associatedScreens: [
+                { id: 1, name: 'Home Screen' },
+                { id: 2, name: 'Login Screen' }
+              ],
+              associatedFiles: []
+            },
+            {
+              id: 2,
+              name: 'Settings',
+              lastModified: Date.now() - 172800000,
+              entryCount: 25,
+              isGlobalDependency: true,
+              associatedScreens: [
+                { id: 1, name: 'Home Screen' }
+              ],
+              associatedFiles: [
+                { id: 1, name: 'config.json' }
+              ]
+            }
+          ];
+        }
 
         // Initialize all copy modes to 'structure' by default
         this.dataSources.forEach(ds => {
@@ -343,6 +367,29 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    normalizeAssociations(associations) {
+      if (!Array.isArray(associations)) {
+        return [];
+      }
+
+      return associations.map(item => {
+        // If item is just an ID (number or string), convert to object
+        if (typeof item === 'number' || typeof item === 'string') {
+          return { id: item, name: `ID: ${item}` };
+        }
+
+        // If item is already an object with id and name, return as is
+        if (item && typeof item === 'object' && item.id) {
+          return {
+            id: item.id,
+            name: item.name || item.title || `ID: ${item.id}`
+          };
+        }
+
+        return item;
+      }).filter(Boolean);
     },
 
     isSelected(dataSourceId) {

@@ -103,17 +103,17 @@
   - [x] 5.9 Remove mock data and setTimeout (lines 238-278)
   - [x] 5.10 Test expandable rows and nested selection with real data
 
-- [ ] 6.0 Integrate DataSourcesTab with real API data
-  - [ ] 6.1 Import `DataSourcesApiService` in DataSourcesTab.vue
-  - [ ] 6.2 Replace mock data in `loadDataSources()` with `dataSourcesApiService.fetchDataSources(this.sourceAppId, { include: ['associatedPages', 'associatedFiles'] })`
-  - [ ] 6.3 Map field name: `entriesCount` (API) → `entryCount` (UI) in component data
-  - [ ] 6.4 Map field name: `associatedPages` → `associatedScreens` for UI consistency
-  - [ ] 6.5 Calculate `isGlobalDependency` using computed helper: `computedFields.isGlobalDependency(dataSource)`
-  - [ ] 6.6 Update status display to show "Global dependency" when `isGlobalDependency === true`
-  - [ ] 6.7 Verify association structures match expected format
-  - [ ] 6.8 Update `dataSourceRows` computed property for real API data
-  - [ ] 6.9 Remove mock data (lines 297-334)
-  - [ ] 6.10 Test copy mode dropdown and nested associations with real data
+- [x] 6.0 Integrate DataSourcesTab with real API data
+  - [x] 6.1 Import `DataSourcesApiService` in DataSourcesTab.vue
+  - [x] 6.2 Replace mock data in `loadDataSources()` with `dataSourcesApiService.fetchDataSources(this.sourceAppId, { include: ['associatedPages', 'associatedFiles'] })`
+  - [x] 6.3 Map field name: `entriesCount` (API) → `entryCount` (UI) in component data
+  - [x] 6.4 Map field name: `associatedPages` → `associatedScreens` for UI consistency
+  - [x] 6.5 Calculate `isGlobalDependency` using computed helper: `computedFields.isGlobalDependency(dataSource)`
+  - [x] 6.6 Update status display to show "Global dependency" when `isGlobalDependency === true`
+  - [x] 6.7 Verify association structures match expected format
+  - [x] 6.8 Update `dataSourceRows` computed property for real API data
+  - [x] 6.9 Remove mock data (lines 297-334)
+  - [x] 6.10 Test copy mode dropdown and nested associations with real data
 
 - [ ] 7.0 Integrate FilesTab with real API data
   - [ ] 7.1 Import `MediaApiService` in FilesTab.vue
