@@ -41,17 +41,17 @@
 
 ### Phase 1: API Integration & Data Mapping
 
-- [ ] 1.0 Create API field mapping utilities
-  - [ ] 1.1 Create `src/utils/apiFieldMapping.js` with mapping functions for common field name mismatches
-  - [ ] 1.2 Add `mapAppFields()` function to handle: `productionAppId` → `isPublished` (boolean), `organizationId` → fetch org name if needed
-  - [ ] 1.3 Add `mapDataSourceFields()` function to handle: `entriesCount` → `entryCount`, `associatedPages` → `associatedScreens`
-  - [ ] 1.4 Add `mapPageFields()` function to handle: API pages → UI screens terminology
-  - [ ] 1.5 Add `mapMediaFields()` function to handle: separate files/folders arrays → flat array with type field
-  - [ ] 1.6 Create `src/utils/computedFields.js` for client-side derived fields
-  - [ ] 1.7 Add `isLocked(lockedUntil)` function to check if `lockedUntil > Date.now()`
-  - [ ] 1.8 Add `hasPublisherRights(app, currentUser)` function to check `userRoleId === 1` for matching user email
-  - [ ] 1.9 Add `isGlobalDependency(dataSource)` function to check if `associatedPages.length === 0`
-  - [ ] 1.10 Export all mapping and computed functions for use in components
+- [x] 1.0 Create API field mapping utilities
+  - [x] 1.1 Create `src/utils/apiFieldMapping.js` with mapping functions for common field name mismatches
+  - [x] 1.2 Add `mapAppFields()` function to handle: `productionAppId` → `isPublished` (boolean), `organizationId` → fetch org name if needed
+  - [x] 1.3 Add `mapDataSourceFields()` function to handle: `entriesCount` → `entryCount`, `associatedPages` → `associatedScreens`
+  - [x] 1.4 Add `mapPageFields()` function to handle: API pages → UI screens terminology
+  - [x] 1.5 Add `mapMediaFields()` function to handle: separate files/folders arrays → flat array with type field
+  - [x] 1.6 Create `src/utils/computedFields.js` for client-side derived fields
+  - [x] 1.7 Add `isLocked(lockedUntil)` function to check if `lockedUntil > Date.now()`
+  - [x] 1.8 Add `hasPublisherRights(app, currentUser)` function to check `userRoleId === 1` for matching user email
+  - [x] 1.9 Add `isGlobalDependency(dataSource)` function to check if `associatedPages.length === 0`
+  - [x] 1.10 Export all mapping and computed functions for use in components
 
 - [ ] 2.0 Fix DestinationSelector N+1 query performance issue
   - [ ] 2.1 Remove `isDuplicate` field from mock data in DestinationSelector.vue (line 273)
