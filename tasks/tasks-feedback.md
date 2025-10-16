@@ -115,18 +115,18 @@
   - [x] 6.9 Remove mock data (lines 297-334)
   - [x] 6.10 Test copy mode dropdown and nested associations with real data
 
-- [ ] 7.0 Integrate FilesTab with real API data
-  - [ ] 7.1 Import `MediaApiService` in FilesTab.vue
-  - [ ] 7.2 Replace mock data in `loadFiles()` with `mediaApiService.fetchMedia(this.sourceAppId, { include: ['associatedPages', 'associatedDS'] })`
-  - [ ] 7.3 Handle response structure: API returns `{ files: [], folders: [] }` - merge into single array for UI
-  - [ ] 7.4 Add `type` field to each item based on source array (files vs folders)
-  - [ ] 7.5 Map `associatedDS` → `associatedDataSources` and `associatedPages` → `associatedScreens`
-  - [ ] 7.6 Remove `isGlobalLibrary` status display (API doesn't provide this field, not needed per feedback)
-  - [ ] 7.7 Verify folder `children` structure - flatten if needed or handle nested display
-  - [ ] 7.8 Update `fileRows` computed property to handle merged files/folders array
-  - [ ] 7.9 Remove status column display of "Global library" and "Unused" (line 194)
-  - [ ] 7.10 Remove mock data (lines 260-284)
-  - [ ] 7.11 Test folder expansion and folder options dropdown with real data
+- [x] 7.0 Integrate FilesTab with real API data
+  - [x] 7.1 Import `MediaApiService` in FilesTab.vue
+  - [x] 7.2 Replace mock data in `loadFiles()` with `mediaApiService.fetchMedia(this.sourceAppId, { include: ['associatedPages', 'associatedDS'] })`
+  - [x] 7.3 Handle response structure: API returns `{ files: [], folders: [] }` - merge into single array for UI
+  - [x] 7.4 Add `type` field to each item based on source array (files vs folders)
+  - [x] 7.5 Map `associatedDS` → `associatedDataSources` and `associatedPages` → `associatedScreens`
+  - [x] 7.6 Remove `isGlobalLibrary` status display (API doesn't provide this field, not needed per feedback)
+  - [x] 7.7 Verify folder `children` structure - flatten if needed or handle nested display
+  - [x] 7.8 Update `fileRows` computed property to handle merged files/folders array
+  - [x] 7.9 Remove status column display of "Global library" and "Unused" (line 194)
+  - [x] 7.10 Remove mock data (lines 260-284)
+  - [x] 7.11 Test folder expansion and folder options dropdown with real data
 
 - [ ] 8.0 Integrate MergeReview with real API preview endpoint
   - [ ] 8.1 Import `MergeApiService` in MergeReview.vue

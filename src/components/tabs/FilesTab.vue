@@ -127,6 +127,7 @@
 <script>
 import FlipletTableWrapper from '../ui/FlipletTableWrapper.vue';
 import { Folder, File, Image as ImageIcon, FileText } from 'lucide-vue-next';
+import { mapMediaFields } from '../../utils/apiFieldMapping.js';
 
 export default {
   name: 'FilesTab',
@@ -179,8 +180,7 @@ export default {
         { key: 'id', title: 'ID', sortable: false },
         { key: 'type', title: 'Type', sortable: false },
         { key: 'path', title: 'Path', sortable: false },
-        { key: 'added', title: 'Added', sortable: false },
-        { key: 'status', title: 'Status', sortable: false }
+        { key: 'added', title: 'Added', sortable: false }
       ];
     },
 
@@ -190,8 +190,7 @@ export default {
         name: file.name,
         type: file.type,
         path: file.path || '',
-        added: file.addedAt ? this.formatDate(file.addedAt) : 'Unknown',
-        status: file.isGlobalLibrary ? 'Global library' : file.associatedScreens?.length || file.associatedDataSources?.length ? '' : 'Unused'
+        added: file.addedAt ? this.formatDate(file.addedAt) : 'Unknown'
       }));
     },
 
@@ -255,34 +254,62 @@ export default {
       this.error = null;
 
       try {
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.files = [
-          {
-            id: 1,
-            name: 'Marketing assets',
-            type: 'folder',
-            path: '/assets/',
-            addedAt: Date.now() - 86400000,
-            isGlobalLibrary: false,
-            associatedScreens: [{ id: 10, name: 'Home Screen' }],
-            associatedDataSources: [],
-            children: [
-              { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', addedAt: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Home Screen' }], associatedDataSources: [] }
-            ]
-          },
-          {
-            id: 3,
-            name: 'reports.csv',
-            type: 'file',
-            path: '/data/reports.csv',
-            addedAt: Date.now() - 172800000,
-            isGlobalLibrary: false,
-            associatedScreens: [],
-            associatedDataSources: [{ id: 20, name: 'Sales data' }]
-          }
-        ];
+          // Fetch media with associations included
+          const params = {
+            appId: this.sourceAppId,
+            include: 'associatedPages,associatedDS'
+          };
+          const response = await apiClient.get('v1/media', params);
 
+          // API returns { files: [], folders: [] } - merge into single array
+          const mappedMedia = mapMediaFields(response);
+
+          // Normalize associations for all items
+          this.files = mappedMedia.map(item => {
+            // Ensure associations are in correct format
+            if (item.associatedScreens) {
+              item.associatedScreens = this.normalizeAssociations(item.associatedScreens);
+            }
+
+            if (item.associatedDataSources) {
+              item.associatedDataSources = this.normalizeAssociations(item.associatedDataSources);
+            }
+
+            return item;
+          });
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.files = [
+            {
+              id: 1,
+              name: 'Marketing assets',
+              type: 'folder',
+              path: '/assets/',
+              addedAt: Date.now() - 86400000,
+              associatedScreens: [{ id: 10, name: 'Home Screen' }],
+              associatedDataSources: [],
+              children: [
+                { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', addedAt: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Home Screen' }], associatedDataSources: [] }
+              ]
+            },
+            {
+              id: 3,
+              name: 'reports.csv',
+              type: 'file',
+              path: '/data/reports.csv',
+              addedAt: Date.now() - 172800000,
+              associatedScreens: [],
+              associatedDataSources: [{ id: 20, name: 'Sales data' }]
+            }
+          ];
+        }
+
+        // Initialize folder options
         this.files.forEach(file => {
           if (file.type === 'folder') {
             this.folderOptions[file.id] = 'folder-only';
@@ -294,6 +321,29 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+
+    normalizeAssociations(associations) {
+      if (!Array.isArray(associations)) {
+        return [];
+      }
+
+      return associations.map(item => {
+        // If item is just an ID (number or string), convert to object
+        if (typeof item === 'number' || typeof item === 'string') {
+          return { id: item, name: `ID: ${item}` };
+        }
+
+        // If item is already an object with id and name, return as is
+        if (item && typeof item === 'object' && item.id) {
+          return {
+            id: item.id,
+            name: item.name || item.title || `ID: ${item.id}`
+          };
+        }
+
+        return item;
+      }).filter(Boolean);
     },
 
     handleTableSelectionChange(rows = []) {
