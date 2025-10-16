@@ -78,18 +78,18 @@
   - [x] 3.10 Update error handling to show user-friendly messages
   - [x] 3.11 Remove mock data and TODO comments (lines 235-247)
 
-- [ ] 4.0 Integrate DestinationSelector with real API data
-  - [ ] 4.1 Import `AppsApiService` and `OrganizationsApiService`
-  - [ ] 4.2 Replace mock organizations data in `loadOrganizations()` with real API call to `organizationsApiService.fetchOrganizations()`
-  - [ ] 4.3 Replace mock apps data in `loadApps()` with `appsApiService.fetchApps()` using filters: `{ publisher: true, mergeable: true }`
-  - [ ] 4.4 Apply field mappings to each app in the list
-  - [ ] 4.5 Map `productionAppId` to `isLive` for display: `isLive: !!app.productionAppId`
-  - [ ] 4.6 Calculate `isLocked` for each app using computed field helper
-  - [ ] 4.7 Fetch current user and calculate `hasPublisherRights` for each app
-  - [ ] 4.8 Filter out source app from destination list: `apps.filter(app => app.id !== this.sourceAppId)`
-  - [ ] 4.9 Remove apps where user lacks publisher rights or app is locked from selectable list
-  - [ ] 4.10 Update `tableRows` computed property to use mapped field names
-  - [ ] 4.11 Remove all mock data (lines 241-275)
+- [x] 4.0 Integrate DestinationSelector with real API data
+  - [x] 4.1 Import `AppsApiService` and `OrganizationsApiService`
+  - [x] 4.2 Replace mock organizations data in `loadOrganizations()` with real API call to `organizationsApiService.fetchOrganizations()`
+  - [x] 4.3 Replace mock apps data in `loadApps()` with `appsApiService.fetchApps()` using filters: `{ publisher: true, mergeable: true }`
+  - [x] 4.4 Apply field mappings to each app in the list
+  - [x] 4.5 Map `productionAppId` to `isLive` for display: `isLive: !!app.productionAppId`
+  - [x] 4.6 Calculate `isLocked` for each app using computed field helper
+  - [x] 4.7 Fetch current user and calculate `hasPublisherRights` for each app
+  - [x] 4.8 Filter out source app from destination list: `apps.filter(app => app.id !== this.sourceAppId)`
+  - [x] 4.9 Remove apps where user lacks publisher rights or app is locked from selectable list
+  - [x] 4.10 Update `tableRows` computed property to use mapped field names
+  - [x] 4.11 Remove all mock data (lines 241-275)
 
 - [ ] 5.0 Integrate ScreensTab with real API data
   - [ ] 5.1 Import `PagesApiService` in ScreensTab.vue

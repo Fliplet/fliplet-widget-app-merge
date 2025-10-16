@@ -155,6 +155,8 @@ import {
 } from 'lucide-vue-next';
 import WarningBanner from '../feedback/WarningBanner.vue';
 import FlipletTableWrapper from '../ui/FlipletTableWrapper.vue';
+import { mapAppFields } from '../../utils/apiFieldMapping.js';
+import { isLocked, hasPublisherRights } from '../../utils/computedFields.js';
 
 export default {
   name: 'DestinationSelector',
@@ -179,7 +181,8 @@ export default {
       selectedAppId: null,
       searchQuery: '',
       validationError: null,
-      sourceAppId: 123,
+      sourceAppId: null,
+      currentUser: null,
       checkingDuplicates: false
     };
   },
@@ -230,6 +233,21 @@ export default {
   },
 
   mounted() {
+    // Get sourceAppId from widget instance data or URL query params
+    if (window.Fliplet && window.Fliplet.Widget && window.Fliplet.Widget.getData) {
+      const widgetData = window.Fliplet.Widget.getData();
+
+      this.sourceAppId = widgetData.sourceAppId || widgetData.appId;
+    }
+
+    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Env && window.Fliplet.Env.get('appId')) {
+      this.sourceAppId = window.Fliplet.Env.get('appId');
+    }
+
+    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Navigate && window.Fliplet.Navigate.query) {
+      this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
+    }
+
     this.loadOrganizations();
   },
 
@@ -239,13 +257,35 @@ export default {
         this.loading = true;
         this.error = null;
 
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.organizations = [
-          { id: 1, name: 'Acme Corp', region: 'EU' }
-        ];
+          // Fetch current user
+          const userResponse = await apiClient.get('v1/user');
 
-        this.selectedOrganizationId = this.organizations[0].id;
+          this.currentUser = userResponse.user || userResponse;
+
+          // Fetch organizations
+          const orgsResponse = await apiClient.get('v1/organizations');
+
+          this.organizations = orgsResponse.organizations || orgsResponse || [];
+
+          if (this.organizations.length > 0) {
+            this.selectedOrganizationId = this.organizations[0].id;
+          }
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.currentUser = { email: 'user@example.com' };
+
+          this.organizations = [
+            { id: 1, name: 'Acme Corp', region: 'EU' }
+          ];
+
+          this.selectedOrganizationId = this.organizations[0].id;
+        }
+
         await this.loadApps();
       } catch (err) {
         this.error = 'Unable to load organizations. Please try again.';
@@ -260,21 +300,56 @@ export default {
         this.loading = true;
         this.error = null;
 
-        await Promise.resolve();
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
 
-        this.apps = [
-          {
-            id: 200,
-            name: 'Destination App',
-            organizationId: 1,
-            updatedAt: Date.now() - 86400000,
-            isLive: false,
-            isLocked: false,
-            hasPublisherRights: true
-          }
-        ];
+          // Fetch apps with filters: publisher: true, mergeable: true
+          const params = {
+            organizationId: this.selectedOrganizationId,
+            publisher: true,
+            mergeable: true
+          };
+          const appsResponse = await apiClient.get('v1/apps', params);
 
-        this.apps = this.apps.filter(app => app.id !== this.sourceAppId);
+          let rawApps = appsResponse.apps || appsResponse || [];
+
+          // Filter out source app
+          rawApps = rawApps.filter(app => app.id !== this.sourceAppId);
+
+          // Map and filter apps
+          this.apps = rawApps.map(app => {
+            const mappedApp = mapAppFields(app);
+
+            // Calculate computed fields
+            mappedApp.isLocked = isLocked(app.lockedUntil);
+            mappedApp.hasPublisherRights = hasPublisherRights(app, this.currentUser);
+
+            // Map isPublished to isLive for display
+            mappedApp.isLive = mappedApp.isPublished;
+
+            return mappedApp;
+          });
+        } else {
+          // Fallback to mock data
+          await Promise.resolve();
+
+          this.apps = [
+            {
+              id: 200,
+              name: 'Destination App',
+              organizationId: 1,
+              updatedAt: Date.now() - 86400000,
+              isLive: false,
+              isLocked: false,
+              hasPublisherRights: true,
+              users: [
+                { email: 'user@example.com', userRoleId: 1 }
+              ]
+            }
+          ];
+
+          this.apps = this.apps.filter(app => app.id !== this.sourceAppId);
+        }
       } catch (err) {
         this.error = 'Unable to load apps. Please try again.';
         console.error('Failed to load apps:', err);
