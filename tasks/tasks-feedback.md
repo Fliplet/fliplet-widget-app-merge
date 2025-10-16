@@ -198,15 +198,15 @@
   - [x] 12.6 Test visual hierarchy looks correct: names prominent, descriptions secondary
   - [x] 12.7 Verify consistent styling across all 4 setting cards
 
-- [ ] 13.0 Fix spacing/margin inconsistencies
-  - [ ] 13.1 Review feedback line 19: containers touching without proper spacing in MergeReview
-  - [ ] 13.2 Check `.space-y-6` usage in MergeReview.vue
-  - [ ] 13.3 Add proper spacing between "Review your merge configuration" container and "Screens" container
-  - [ ] 13.4 Add proper spacing around "Summary" box container
-  - [ ] 13.5 Ensure all child containers of `.space-y-6` have consistent margins
-  - [ ] 13.6 Check for any other spacing issues in MergeReview summary sections
-  - [ ] 13.7 Test responsive behavior to ensure spacing works on all screen sizes
-  - [ ] 13.8 Consider creating utility class or CSS variable for consistent container spacing
+- [x] 13.0 Fix spacing/margin inconsistencies
+  - [x] 13.1 Review feedback line 19: containers touching without proper spacing in MergeReview
+  - [x] 13.2 Check `.space-y-6` usage in MergeReview.vue
+  - [x] 13.3 Add proper spacing between "Review your merge configuration" container and "Screens" container
+  - [x] 13.4 Add proper spacing around "Summary" box container
+  - [x] 13.5 Ensure all child containers of `.space-y-6` have consistent margins
+  - [x] 13.6 Check for any other spacing issues in MergeReview summary sections
+  - [x] 13.7 Test responsive behavior to ensure spacing works on all screen sizes
+  - [x] 13.8 Consider creating utility class or CSS variable for consistent container spacing
 
 - [ ] 14.0 Add "Contains non-copyable components" info banner
   - [ ] 14.1 Remove per-screen `hasNonCopyableComponents` checking (already removed in task 5.0)

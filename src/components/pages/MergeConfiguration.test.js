@@ -28,6 +28,12 @@ const createStubbedTabs = () => {
   };
 };
 
+const WarningBannerStub = {
+  name: 'WarningBanner',
+  template: '<div class="warning-banner" />',
+  props: ['type', 'message', 'dismissable']
+};
+
 const renderWrapper = (props = {}) => {
   const stubbedTabs = createStubbedTabs();
 
@@ -49,6 +55,7 @@ const renderWrapper = (props = {}) => {
           template: '<div />',
           emits: ['extend-lock', 'lock-expired']
         },
+        WarningBanner: WarningBannerStub,
         ...stubbedTabs
       }
     }
@@ -92,6 +99,7 @@ describe('MergeConfiguration', () => {
             template: '<div />',
             emits: ['extend-lock', 'lock-expired']
           },
+          WarningBanner: WarningBannerStub,
           ScreensTab: stubComponent('ScreensTab'),
           DataSourcesTab: stubComponent('DataSourcesTab'),
           FilesTab: stubComponent('FilesTab'),
@@ -149,6 +157,13 @@ describe('MergeConfiguration', () => {
 
     it('renders the current tab component (ScreensTab by default)', () => {
       expect(wrapper.findComponent({ name: 'ScreensTab' }).exists()).toBe(true);
+    });
+
+    it('renders learn more link for non-copyable components info', () => {
+      const infoBanner = wrapper.findComponent(WarningBannerStub);
+
+      expect(infoBanner.exists()).toBe(true);
+      expect(infoBanner.props('type')).toBe('info');
     });
   });
 

@@ -1,5 +1,21 @@
 <template>
   <div class="space-y-6">
+    <WarningBanner
+      type="info"
+      message="Some components such as SAML2 authentication or certain integrations cannot be copied during a merge."
+      :dismissable="false"
+    >
+      <template #actions>
+        <button
+          type="button"
+          class="text-sm font-medium text-primary hover:text-primary/80"
+          @click="handleNonCopyablesHelp"
+        >
+          Learn more
+        </button>
+      </template>
+    </WarningBanner>
+
     <!-- App Direction Indicator -->
     <div class="rounded-lg border border-secondary/50 bg-secondary/10 p-4">
       <div class="flex items-center justify-between">
@@ -159,6 +175,7 @@ import ScreensTab from '../tabs/ScreensTab.vue';
 import DataSourcesTab from '../tabs/DataSourcesTab.vue';
 import FilesTab from '../tabs/FilesTab.vue';
 import SettingsTab from '../tabs/SettingsTab.vue';
+import WarningBanner from '../feedback/WarningBanner.vue';
 
 export default {
   name: 'MergeConfiguration',
@@ -167,6 +184,7 @@ export default {
     ArrowRight,
     Lock,
     LockCountdown,
+    WarningBanner,
     ScreensTab,
     DataSourcesTab,
     FilesTab,
@@ -310,6 +328,12 @@ export default {
         this.$emit('review', {
           selections: this.selections
         });
+      }
+    },
+
+    handleNonCopyablesHelp() {
+      if (window.Fliplet && window.Fliplet.Navigate && typeof window.Fliplet.Navigate.url === 'function') {
+        window.Fliplet.Navigate.url('https://help.fliplet.com/article/non-copyable-components');
       }
     }
   }

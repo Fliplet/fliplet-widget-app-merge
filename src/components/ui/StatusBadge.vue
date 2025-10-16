@@ -37,13 +37,13 @@ export default {
   props: {
     /**
      * Status type
-     * @type {'copy'|'overwrite'|'conflict'|'success'|'error'|'in-progress'}
+     * @type {'copy'|'overwrite'|'success'|'error'|'in-progress'}
      */
     status: {
       type: String,
       required: true,
       validator: (value) => {
-        return ['copy', 'overwrite', 'conflict', 'success', 'error', 'in-progress'].includes(value);
+        return ['copy', 'overwrite', 'success', 'error', 'in-progress'].includes(value);
       }
     },
 
@@ -64,7 +64,6 @@ export default {
       const classes = {
         'copy': 'bg-success/10 text-success border border-success/20',
         'overwrite': 'bg-warning/10 text-warning border border-warning/20',
-        'conflict': 'bg-error/10 text-error border border-error/20',
         'success': 'bg-success/10 text-success border border-success/20',
         'error': 'bg-error/10 text-error border border-error/20',
         'in-progress': 'bg-primary/10 text-primary border border-primary/20'
@@ -80,7 +79,6 @@ export default {
       const icons = {
         'copy': 'Copy',
         'overwrite': 'RefreshCw',
-        'conflict': 'AlertCircle',
         'success': 'CheckCircle2',
         'error': 'AlertCircle',
         'in-progress': 'Clock'
@@ -98,11 +96,10 @@ export default {
       }
 
       const defaultLabels = {
-        'copy': 'Copy',
-        'overwrite': 'Overwrite',
-        'conflict': 'Conflict',
-        'success': 'Success',
-        'error': 'Error',
+        copy: 'Copy',
+        overwrite: 'Overwrite',
+        success: 'Success',
+        error: 'Error',
         'in-progress': 'In Progress'
       };
 

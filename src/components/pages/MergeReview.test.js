@@ -18,12 +18,19 @@ const WarningBannerStub = {
   props: ['type', 'message']
 };
 
+const ModalDialogStub = {
+  name: 'ModalDialog',
+  template: '<div class="modal-stub" />',
+  props: ['title', 'message', 'confirmLabel', 'cancelLabel', 'confirmVariant']
+};
+
 const baseStubConfig = {
   AlertTriangle: createIconStub('AlertTriangle'),
   AlertCircle: createIconStub('AlertCircle'),
   Loader2: createIconStub('Loader2'),
   StatusBadge: StatusBadgeStub,
-  WarningBanner: WarningBannerStub
+  WarningBanner: WarningBannerStub,
+  ModalDialog: ModalDialogStub
 };
 
 const defaultPreview = {
@@ -70,8 +77,23 @@ const defaultPreview = {
   ]
 };
 
+const baseProps = {
+  sourceAppId: 1,
+  destinationAppId: 2,
+  mergeConfig: {
+    destinationAppId: 2,
+    destinationOrganizationId: 1,
+    pageIds: [1, 2],
+    dataSources: [10],
+    fileIds: [100],
+    folderIds: [],
+    mergeAppSettings: true
+  }
+};
+
 const renderComponent = (previewOverrides = {}, dataOverrides = {}) => {
   return shallowMount(MergeReview, {
+    propsData: baseProps,
     data() {
       return {
         loading: false,
@@ -93,6 +115,7 @@ const renderComponent = (previewOverrides = {}, dataOverrides = {}) => {
 
 const renderLoadingComponent = () => {
   return shallowMount(MergeReview, {
+    propsData: baseProps,
     data() {
       return {
         loading: true,
@@ -121,6 +144,7 @@ describe('MergeReview', () => {
     it('displays preview correctly', () => {
       const wrapper = renderComponent();
 
+      expect(wrapper.text()).toContain('Review your merge configuration');
       expect(wrapper.text()).toContain('Home Screen');
       expect(wrapper.text()).toContain('Profile Screen');
       expect(wrapper.text()).toContain('Users');
@@ -136,6 +160,7 @@ describe('MergeReview', () => {
 
     it('displays error message when error present', () => {
       const wrapper = shallowMount(MergeReview, {
+        propsData: baseProps,
         data() {
           return {
             loading: false,
@@ -162,61 +187,8 @@ describe('MergeReview', () => {
     });
   });
 
-  describe('conflict detection', () => {
-    it('identifies conflicts correctly', () => {
-      const conflictPreview = {
-        screens: [
-          {
-            id: 1,
-            name: 'Screen 1',
-            status: 'conflict',
-            warnings: ['Duplicate name']
-          }
-        ],
-        dataSources: [],
-        files: [],
-        configurations: []
-      };
-
-      const wrapper = renderComponent(conflictPreview);
-
-      expect(wrapper.vm.hasConflicts).toBe(true);
-      expect(wrapper.find('[data-testid="conflicts-warning"]').exists()).toBe(true);
-    });
-
-    it('shows no conflicts when all items are copy or overwrite', () => {
-      const wrapper = renderComponent();
-
-      expect(wrapper.vm.hasConflicts).toBe(false);
-      expect(wrapper.find('[data-testid="conflicts-warning"]').exists()).toBe(false);
-    });
-
-    it('disables start button when conflicts exist', () => {
-      const conflictPreview = {
-        screens: [
-          {
-            id: 1,
-            name: 'Screen 1',
-            status: 'conflict',
-            warnings: ['Duplicate name']
-          }
-        ],
-        dataSources: [],
-        files: [],
-        configurations: []
-      };
-
-      const wrapper = renderComponent(conflictPreview);
-
-      expect(wrapper.vm.canStartMerge).toBe(false);
-
-      const button = wrapper.find('[data-testid="start-merge-button"]');
-      expect(button.attributes('disabled')).toBeDefined();
-    });
-  });
-
-  describe('plan limit warnings', () => {
-    it('shows plan limit warnings when limits exceeded', () => {
+  describe('plan limits', () => {
+    it('shows plan limit warning when limits exceeded', () => {
       const wrapper = renderComponent({}, {
         planLimits: {
           screensLimit: 1,
@@ -225,24 +197,20 @@ describe('MergeReview', () => {
         }
       });
 
-      expect(wrapper.vm.hasPlanLimitWarning).toBe(true);
-      expect(wrapper.find('[data-testid="plan-limit-warning"]').exists()).toBe(true);
+      const warningBanner = wrapper.findComponent(WarningBannerStub);
+
+      expect(warningBanner.exists()).toBe(true);
+      expect(warningBanner.props('message')).toBe('Plan limits exceeded: Screens: 2/1. Some items may not be merged.');
     });
 
-    it('shows no warnings when limits not exceeded', () => {
-      const wrapper = renderComponent({}, {
-        planLimits: {
-          screensLimit: 10,
-          dataSourcesLimit: 10,
-          filesLimit: 10
-        }
-      });
+    it('does not disable start merge button when within limits', () => {
+      const wrapper = renderComponent();
 
-      expect(wrapper.vm.hasPlanLimitWarning).toBe(false);
-      expect(wrapper.find('[data-testid="plan-limit-warning"]').exists()).toBe(false);
+      expect(wrapper.vm.canStartMerge).toBe(true);
+      expect(wrapper.find('[data-testid="start-merge-button"]').attributes('disabled')).toBeUndefined();
     });
 
-    it('disables start button when plan limits exceeded', () => {
+    it('disables start merge button when limits exceeded', () => {
       const wrapper = renderComponent({}, {
         planLimits: {
           screensLimit: 1,
@@ -252,21 +220,11 @@ describe('MergeReview', () => {
       });
 
       expect(wrapper.vm.canStartMerge).toBe(false);
-
-      const button = wrapper.find('[data-testid="start-merge-button"]');
-      expect(button.attributes('disabled')).toBeDefined();
+      expect(wrapper.find('[data-testid="start-merge-button"]').attributes('disabled')).toBeDefined();
     });
   });
 
-  describe('event emissions', () => {
-    it('emits start-merge event when start merge button clicked', () => {
-      const wrapper = renderComponent();
-
-      wrapper.find('[data-testid="start-merge-button"]').trigger('click');
-
-      expect(wrapper.emitted('start-merge')).toBeTruthy();
-    });
-
+  describe('actions', () => {
     it('emits edit-settings event when edit settings button clicked', () => {
       const wrapper = renderComponent();
 
@@ -275,10 +233,36 @@ describe('MergeReview', () => {
       expect(wrapper.emitted('edit-settings')).toBeTruthy();
     });
 
-    it('emits cancel event when cancel button clicked', () => {
+    it('emits start-merge event when start merge button clicked', () => {
       const wrapper = renderComponent();
 
-      wrapper.find('[data-testid="cancel-button"]').trigger('click');
+      wrapper.find('[data-testid="start-merge-button"]').trigger('click');
+
+      expect(wrapper.emitted('start-merge')).toBeTruthy();
+    });
+
+    it('shows cancel confirmation modal when cancel clicked', async () => {
+      const wrapper = renderComponent();
+
+      await wrapper.find('[data-testid="cancel-button"]').trigger('click');
+
+      expect(wrapper.findComponent(ModalDialogStub).exists()).toBe(true);
+    });
+
+    it('hides cancel confirmation modal when keep editing selected', async () => {
+      const wrapper = renderComponent();
+
+      await wrapper.find('[data-testid="cancel-button"]').trigger('click');
+      await wrapper.vm.dismissCancelWarning();
+
+      expect(wrapper.findComponent(ModalDialogStub).exists()).toBe(false);
+    });
+
+    it('emits cancel only after confirmation', async () => {
+      const wrapper = renderComponent();
+
+      await wrapper.find('[data-testid="cancel-button"]').trigger('click');
+      await wrapper.vm.confirmCancel();
 
       expect(wrapper.emitted('cancel')).toBeTruthy();
     });
@@ -292,6 +276,17 @@ describe('MergeReview', () => {
       expect(wrapper.text()).toContain('1'); // data sources count
       expect(wrapper.text()).toContain('1'); // files count
       expect(wrapper.text()).toContain('1'); // configurations count
+    });
+
+    it('displays summary counts for each category', () => {
+      const wrapper = renderComponent();
+
+      expect(wrapper.text()).toContain('Review your merge configuration');
+      expect(wrapper.text()).toContain('Summary');
+      expect(wrapper.text()).toContain('Screens');
+      expect(wrapper.text()).toContain('Data Sources');
+      expect(wrapper.text()).toContain('Files');
+      expect(wrapper.text()).toContain('Configurations');
     });
   });
 

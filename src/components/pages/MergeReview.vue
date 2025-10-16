@@ -26,304 +26,309 @@
 
     <!-- Content -->
     <div v-if="!loading && !error">
-      <!-- Instructions -->
-      <div class="rounded-lg bg-white p-6 shadow">
-        <h2 class="text-lg font-semibold text-gray-900">
-          Review your merge configuration
-        </h2>
-        <p class="mt-2 text-sm text-gray-600">
-          Please review the items that will be merged. You can edit settings or proceed with the merge.
-        </p>
-      </div>
-
-      <!-- Plan limit warning (if applicable) -->
-      <WarningBanner
-        v-if="hasPlanLimitWarning"
-        type="warning"
-        :message="planLimitWarningMessage"
-        data-testid="plan-limit-warning"
-      />
-
-      <!-- Summary sections -->
       <div class="space-y-6">
-        <!-- Screens section -->
-        <div
-          v-if="preview.screens && preview.screens.length > 0"
-          class="rounded-lg bg-white p-6 shadow"
-        >
-          <h3 class="mb-4 text-base font-semibold text-gray-900">
-            Screens ({{ preview.screens.length }})
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Name
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    ID
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Status
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Warnings
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr
-                  v-for="screen in preview.screens"
-                  :key="screen.id"
-                >
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
-                    {{ screen.name }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
-                    {{ screen.id }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3">
-                    <StatusBadge
-                      :status="screen.status"
-                      :label="getStatusLabel(screen.status)"
-                    />
-                  </td>
-                  <td class="px-4 py-3 text-sm text-gray-600">
-                    <div
-                      v-if="screen.warnings && screen.warnings.length > 0"
-                      class="flex items-start gap-1.5"
-                    >
-                      <AlertTriangle
-                        class="h-4 w-4 flex-shrink-0 text-warning"
-                        aria-hidden="true"
-                      />
-                      <span>{{ screen.warnings.join(', ') }}</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="rounded-lg border border-gray-200 bg-white p-6 shadow">
+          <h2 class="text-lg font-semibold text-gray-900">
+            Review your merge configuration
+          </h2>
+          <p class="mt-2 text-sm text-gray-600">
+            Please review the items that will be merged. You can edit settings or proceed with the merge.
+          </p>
         </div>
 
-        <!-- Data Sources section -->
-        <div
-          v-if="preview.dataSources && preview.dataSources.length > 0"
-          class="rounded-lg bg-white p-6 shadow"
-        >
-          <h3 class="mb-4 text-base font-semibold text-gray-900">
-            Data Sources ({{ preview.dataSources.length }})
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Name
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    ID
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Copy Mode
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Status
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Warnings
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr
-                  v-for="ds in preview.dataSources"
-                  :key="ds.id"
-                >
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
-                    {{ ds.name }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
-                    {{ ds.id }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
-                    {{ ds.copyMode === 'structure-only' ? 'Structure only' : 'Structure and data' }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3">
-                    <StatusBadge
-                      :status="ds.status"
-                      :label="getStatusLabel(ds.status)"
-                    />
-                  </td>
-                  <td class="px-4 py-3 text-sm text-gray-600">
-                    <div
-                      v-if="ds.warnings && ds.warnings.length > 0"
-                      class="flex items-start gap-1.5"
-                    >
-                      <AlertTriangle
-                        class="h-4 w-4 flex-shrink-0 text-warning"
-                        aria-hidden="true"
-                      />
-                      <span>{{ ds.warnings.join(', ') }}</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <WarningBanner
+          v-if="hasPlanLimitWarning"
+          type="warning"
+          :message="planLimitWarningMessage"
+          data-testid="plan-limit-warning"
+        />
 
-        <!-- Files section -->
-        <div
-          v-if="preview.files && preview.files.length > 0"
-          class="rounded-lg bg-white p-6 shadow"
-        >
-          <h3 class="mb-4 text-base font-semibold text-gray-900">
-            Files ({{ preview.files.length }})
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Name
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Path
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Type
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Status
-                  </th>
-                  <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                    Warnings
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr
-                  v-for="file in preview.files"
-                  :key="file.id"
-                >
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
-                    {{ file.name }}
-                  </td>
-                  <td class="px-4 py-3 text-sm text-gray-500">
-                    {{ file.path }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
-                    {{ file.type }}
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3">
-                    <StatusBadge
-                      :status="file.status"
-                      :label="getStatusLabel(file.status)"
-                    />
-                  </td>
-                  <td class="px-4 py-3 text-sm text-gray-600">
-                    <div
-                      v-if="file.warnings && file.warnings.length > 0"
-                      class="flex items-start gap-1.5"
-                    >
-                      <AlertTriangle
-                        class="h-4 w-4 flex-shrink-0 text-warning"
-                        aria-hidden="true"
+        <div class="space-y-6">
+          <div
+            v-if="preview.screens && preview.screens.length > 0"
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow"
+          >
+            <h3 class="mb-4 text-base font-semibold text-gray-900">
+              Screens ({{ preview.screens.length }})
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Name
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      ID
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Status
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Warnings
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr
+                    v-for="screen in preview.screens"
+                    :key="screen.id"
+                  >
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+                      {{ screen.name }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
+                      {{ screen.id }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3">
+                      <StatusBadge
+                        :status="screen.status"
+                        :label="getStatusLabel(screen.status)"
                       />
-                      <span>{{ file.warnings.join(', ') }}</span>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">
+                      <div
+                        v-if="screen.warnings && screen.warnings.length > 0"
+                        class="flex items-start gap-1.5"
+                      >
+                        <AlertTriangle
+                          class="h-4 w-4 flex-shrink-0 text-warning"
+                          aria-hidden="true"
+                        />
+                        <span>{{ screen.warnings.join(', ') }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
 
-        <!-- App-Level Configurations section -->
-        <div
-          v-if="preview.configurations && preview.configurations.length > 0"
-          class="rounded-lg bg-white p-6 shadow"
-        >
-          <h3 class="mb-4 text-base font-semibold text-gray-900">
-            App-Level Configurations ({{ preview.configurations.length }})
-          </h3>
-          <div class="space-y-3">
-            <div
-              v-for="config in preview.configurations"
-              :key="config.type"
-              class="flex items-center justify-between rounded border border-gray-200 p-4"
-            >
-              <div>
-                <p class="font-medium text-gray-900">
-                  {{ config.label }}
-                </p>
-                <p
-                  v-if="config.description"
-                  class="mt-1 text-sm text-gray-600"
-                >
-                  {{ config.description }}
-                </p>
+          <div
+            v-if="preview.dataSources && preview.dataSources.length > 0"
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow"
+          >
+            <h3 class="mb-4 text-base font-semibold text-gray-900">
+              Data Sources ({{ preview.dataSources.length }})
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Name
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      ID
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Copy Mode
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Status
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Warnings
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr
+                    v-for="ds in preview.dataSources"
+                    :key="ds.id"
+                  >
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+                      {{ ds.name }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
+                      {{ ds.id }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
+                      {{ ds.copyMode === 'structure-only' ? 'Structure only' : 'Structure and data' }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3">
+                      <StatusBadge
+                        :status="ds.status"
+                        :label="getStatusLabel(ds.status)"
+                      />
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">
+                      <div
+                        v-if="ds.warnings && ds.warnings.length > 0"
+                        class="flex items-start gap-1.5"
+                      >
+                        <AlertTriangle
+                          class="h-4 w-4 flex-shrink-0 text-warning"
+                          aria-hidden="true"
+                        />
+                        <span>{{ ds.warnings.join(', ') }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            v-if="preview.files && preview.files.length > 0"
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow"
+          >
+            <h3 class="mb-4 text-base font-semibold text-gray-900">
+              Files ({{ preview.files.length }})
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead>
+                  <tr>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Name
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Path
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Type
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Status
+                    </th>
+                    <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                      Warnings
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr
+                    v-for="file in preview.files"
+                    :key="file.id"
+                  >
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+                      {{ file.name }}
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-500">
+                      {{ file.path }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">
+                      {{ file.type }}
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3">
+                      <StatusBadge
+                        :status="file.status"
+                        :label="getStatusLabel(file.status)"
+                      />
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">
+                      <div
+                        v-if="file.warnings && file.warnings.length > 0"
+                        class="flex items-start gap-1.5"
+                      >
+                        <AlertTriangle
+                          class="h-4 w-4 flex-shrink-0 text-warning"
+                          aria-hidden="true"
+                        />
+                        <span>{{ file.warnings.join(', ') }}</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            v-if="preview.configurations && preview.configurations.length > 0"
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow"
+          >
+            <h3 class="mb-4 text-base font-semibold text-gray-900">
+              App-Level Configurations ({{ preview.configurations.length }})
+            </h3>
+            <div class="space-y-3">
+              <div
+                v-for="config in preview.configurations"
+                :key="config.type"
+                class="flex items-center justify-between rounded border border-gray-200 p-4"
+              >
+                <div>
+                  <p class="font-medium text-gray-900">
+                    {{ config.label }}
+                  </p>
+                  <p
+                    v-if="config.description"
+                    class="mt-1 text-sm text-gray-600"
+                  >
+                    {{ config.description }}
+                  </p>
+                </div>
+                <StatusBadge
+                  :status="config.status"
+                  :label="getStatusLabel(config.status)"
+                />
               </div>
-              <StatusBadge
-                :status="config.status"
-                :label="getStatusLabel(config.status)"
-              />
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-lg bg-primary/5 p-6">
+          <h3 class="text-base font-semibold text-gray-900">
+            Summary
+          </h3>
+          <div class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div>
+              <p class="text-2xl font-bold text-primary">
+                {{ preview.screens?.length || 0 }}
+              </p>
+              <p class="text-sm text-gray-600">
+                Screens
+              </p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-primary">
+                {{ preview.dataSources?.length || 0 }}
+              </p>
+              <p class="text-sm text-gray-600">
+                Data Sources
+              </p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-primary">
+                {{ preview.files?.length || 0 }}
+              </p>
+              <p class="text-sm text-gray-600">
+                Files
+              </p>
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-primary">
+                {{ preview.configurations?.length || 0 }}
+              </p>
+              <p class="text-sm text-gray-600">
+                Configurations
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Summary counts -->
-      <div class="rounded-lg bg-primary/5 p-6">
-        <h3 class="text-base font-semibold text-gray-900">
-          Summary
-        </h3>
-        <div class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div>
-            <p class="text-2xl font-bold text-primary">
-              {{ preview.screens?.length || 0 }}
-            </p>
-            <p class="text-sm text-gray-600">
-              Screens
-            </p>
-          </div>
-          <div>
-            <p class="text-2xl font-bold text-primary">
-              {{ preview.dataSources?.length || 0 }}
-            </p>
-            <p class="text-sm text-gray-600">
-              Data Sources
-            </p>
-          </div>
-          <div>
-            <p class="text-2xl font-bold text-primary">
-              {{ preview.files?.length || 0 }}
-            </p>
-            <p class="text-sm text-gray-600">
-              Files
-            </p>
-          </div>
-          <div>
-            <p class="text-2xl font-bold text-primary">
-              {{ preview.configurations?.length || 0 }}
-            </p>
-            <p class="text-sm text-gray-600">
-              Configurations
-            </p>
-          </div>
-        </div>
-      </div>
+      <ModalDialog
+        v-if="showCancelWarning"
+        title="Discard merge configuration?"
+        message="If you cancel now, you will lose your merge configuration."
+        confirm-label="Discard & Cancel"
+        cancel-label="Keep Editing"
+        confirm-variant="danger"
+        @confirm="confirmCancel"
+        @cancel="dismissCancelWarning"
+      />
 
       <!-- Actions -->
-      <div class="flex justify-between">
+      <div class="mt-8 flex justify-between border-t border-gray-200 pt-6">
         <div class="flex gap-3">
           <button
             type="button"
             class="rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
             data-testid="cancel-button"
-            @click="handleCancel"
+            @click="promptCancel"
           >
             Cancel
           </button>
@@ -357,6 +362,7 @@ import {
 } from 'lucide-vue-next';
 import StatusBadge from '../ui/StatusBadge.vue';
 import WarningBanner from '../feedback/WarningBanner.vue';
+import ModalDialog from '../feedback/ModalDialog.vue';
 
 export default {
   name: 'MergeReview',
@@ -365,7 +371,8 @@ export default {
     AlertTriangle,
     Loader2,
     StatusBadge,
-    WarningBanner
+    WarningBanner,
+    ModalDialog
   },
 
   props: {
@@ -399,7 +406,8 @@ export default {
         screensLimit: null,
         dataSourcesLimit: null,
         filesLimit: null
-      }
+      },
+      showCancelWarning: false
     };
   },
 
@@ -548,8 +556,11 @@ export default {
      */
     getStatusLabel(status) {
       const labels = {
-        'copy': 'New',
-        'overwrite': 'Update'
+        copy: 'New',
+        overwrite: 'Update',
+        success: 'Completed',
+        error: 'Error',
+        'in-progress': 'In Progress'
       };
 
       return labels[status] || status;
@@ -573,6 +584,19 @@ export default {
      * Handle cancel button click
      */
     handleCancel() {
+      this.$emit('cancel');
+    },
+
+    promptCancel() {
+      this.showCancelWarning = true;
+    },
+
+    dismissCancelWarning() {
+      this.showCancelWarning = false;
+    },
+
+    confirmCancel() {
+      this.showCancelWarning = false;
       this.$emit('cancel');
     }
   }
