@@ -8,7 +8,7 @@ alwaysApply: false
 
 ## Process
 
-See the feedback on the UI produced in /docs/FEEDBACK.md
+See the feedback on the provided.
 
 I want you to assess why these happened and what should be improved about the process or documentation. I want to focus on a process and standard-oriented solution that can be the most effective for the long run. That means based on the process outlined in @/.cursor/rules/README.md we can capture the problems upstream and early instead of waiting for the middleware/UI to be built to spot the problem.
 
