@@ -36,8 +36,25 @@ const defaultAppDetails = {
   lastPublishedAt: Date.now() - 86400000,
   lastPublishedBy: 'John Smith',
   lockedUntil: null,
-  lockOwner: null
+  lockOwner: null,
+  users: [
+    { email: 'user@example.com', userRoleId: 1 }
+  ]
 };
+
+const defaultCurrentUser = {
+  email: 'user@example.com'
+};
+
+const defaultMergeHistory = [
+  {
+    id: 1001,
+    completedAt: new Date('2025-01-20T10:00:00Z').getTime(),
+    destinationAppName: 'Destination App',
+    itemsCount: 12,
+    status: 'success'
+  }
+];
 
 const renderComponent = (overrides = {}) => {
   return shallowMount(MergeDashboard, {
@@ -45,7 +62,10 @@ const renderComponent = (overrides = {}) => {
       return {
         loading: false,
         error: null,
-        appDetails: { ...defaultAppDetails, ...overrides }
+        currentUser: defaultCurrentUser,
+        appDetails: { ...defaultAppDetails, ...overrides },
+        mergeHistory: defaultMergeHistory,
+        mergeHistoryLoading: false
       };
     },
     global: {
@@ -132,7 +152,6 @@ describe('MergeDashboard', () => {
   describe('configure merge button', () => {
     it('enables button when user has rights and app unlocked', () => {
       const wrapper = renderComponent({ lockedUntil: null });
-      wrapper.setData({ hasPublisherRights: true });
 
       const button = wrapper.find('[data-testid="configure-merge-button"]');
       expect(button.attributes('disabled')).toBeUndefined();
@@ -140,25 +159,20 @@ describe('MergeDashboard', () => {
 
     it('disables button when app locked', () => {
       const wrapper = renderComponent({ lockedUntil: Date.now() + 600000 });
-      wrapper.setData({ hasPublisherRights: true });
 
       const button = wrapper.find('[data-testid="configure-merge-button"]');
       expect(button.attributes('disabled')).toBeDefined();
     });
 
     it('disables button when user lacks publisher rights', async () => {
-      const wrapper = renderComponent();
-      await wrapper.vm.$nextTick();
-      await wrapper.setData({ hasPublisherRights: false });
+      const wrapper = renderComponent({ users: [] });
 
       const button = wrapper.find('[data-testid="configure-merge-button"]');
-      expect(wrapper.vm.canConfigureMerge).toBe(false);
       expect(button.attributes('disabled')).toBeDefined();
     });
 
     it('emits configure-merge event on click', () => {
       const wrapper = renderComponent();
-      wrapper.setData({ hasPublisherRights: true });
 
       wrapper.find('[data-testid="configure-merge-button"]').trigger('click');
 
@@ -205,14 +219,60 @@ describe('MergeDashboard', () => {
     it('computes canConfigureMerge based on rights and lock state', () => {
       const wrapper = renderComponent({ lockedUntil: null });
 
-      wrapper.setData({ hasPublisherRights: true });
       expect(wrapper.vm.canConfigureMerge).toBe(true);
 
-      wrapper.setData({ hasPublisherRights: false });
+      wrapper.setData({ currentUser: { email: 'someone-else@example.com' } });
       expect(wrapper.vm.canConfigureMerge).toBe(false);
 
-      wrapper.setData({ hasPublisherRights: true, appDetails: { ...defaultAppDetails, lockedUntil: Date.now() + 600000 } });
+      wrapper.setData({
+        currentUser: defaultCurrentUser,
+        appDetails: { ...defaultAppDetails, lockedUntil: Date.now() + 600000 }
+      });
       expect(wrapper.vm.canConfigureMerge).toBe(false);
+    });
+  });
+
+  describe('merge history', () => {
+    it('renders merge history table when entries are available', () => {
+      const wrapper = renderComponent();
+
+      const historySection = wrapper.find('[data-testid="merge-history-section"]');
+      expect(historySection.exists()).toBe(true);
+      expect(historySection.text()).toContain('Destination App');
+      expect(historySection.text()).toContain('12');
+    });
+
+    it('shows empty state when merge history is empty', () => {
+      const wrapper = shallowMount(MergeDashboard, {
+        data() {
+          return {
+            loading: false,
+            error: null,
+            currentUser: defaultCurrentUser,
+            appDetails: { ...defaultAppDetails },
+            mergeHistory: [],
+            mergeHistoryLoading: false
+          };
+        },
+        global: {
+          stubs: baseStubConfig
+        }
+      });
+
+      const emptyState = wrapper.find('[data-testid="merge-history-empty"]');
+      expect(emptyState.exists()).toBe(true);
+    });
+
+    it('emits view-merge-results when user requests merge details', () => {
+      const wrapper = renderComponent();
+
+      const button = wrapper.find('[data-testid="view-merge-details-button-1001"]');
+      button.trigger('click');
+
+      expect(wrapper.emitted('view-merge-results')).toBeTruthy();
+      expect(wrapper.emitted('view-merge-results')[0][0]).toEqual({
+        id: 1001
+      });
     });
   });
 });

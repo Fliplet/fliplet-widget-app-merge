@@ -104,6 +104,122 @@
         </div>
       </div>
 
+      <!-- Merge history section -->
+      <div
+        class="rounded-lg bg-white p-6 shadow"
+        data-testid="merge-history-section"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">
+              Recent merge history
+            </h3>
+            <p class="mt-1 text-sm text-gray-600">
+              Review the most recent merge operations for this app.
+            </p>
+          </div>
+          <button
+            v-if="mergeHistory.length > 0"
+            type="button"
+            class="flex items-center gap-2 text-sm font-medium text-primary transition hover:text-primary/80"
+            data-testid="view-full-history-button"
+            @click="handleViewAuditLog"
+          >
+            View full history
+            <ExternalLink
+              class="h-3.5 w-3.5"
+              aria-hidden="true"
+            />
+          </button>
+        </div>
+
+        <div
+          v-if="mergeHistoryLoading"
+          class="mt-4 flex items-center gap-3 text-sm text-gray-600"
+          data-testid="merge-history-loading"
+        >
+          <Loader2
+            class="h-4 w-4 animate-spin text-primary"
+            aria-hidden="true"
+          />
+          Loading merge history...
+        </div>
+
+        <div
+          v-else-if="mergeHistory.length === 0"
+          class="mt-4 rounded-lg border border-dashed border-gray-200 p-6 text-center"
+          data-testid="merge-history-empty"
+        >
+          <p class="text-sm text-gray-600">
+            No merge history is available yet. Start by configuring your first merge.
+          </p>
+        </div>
+
+        <div v-else class="mt-4 overflow-hidden rounded-lg border border-gray-200">
+          <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-50">
+              <tr class="text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                <th scope="col" class="px-4 py-3">
+                  Date
+                </th>
+                <th scope="col" class="px-4 py-3">
+                  Destination app
+                </th>
+                <th scope="col" class="px-4 py-3">
+                  Items merged
+                </th>
+                <th scope="col" class="px-4 py-3">
+                  Status
+                </th>
+                <th
+                  scope="col"
+                  class="px-4 py-3"
+                >
+                  <span class="sr-only">View details</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+              <tr
+                v-for="merge in mergeHistory"
+                :key="merge.id"
+                class="hover:bg-gray-50"
+              >
+                <td class="whitespace-nowrap px-4 py-3 text-gray-900">
+                  {{ formatDate(merge.completedAt) }}
+                </td>
+                <td class="whitespace-nowrap px-4 py-3 text-gray-600">
+                  {{ merge.destinationAppName }}
+                </td>
+                <td class="whitespace-nowrap px-4 py-3 text-gray-600">
+                  {{ merge.itemsCount }}
+                </td>
+                <td class="whitespace-nowrap px-4 py-3">
+                  <StatusBadge
+                    :status="merge.status"
+                    :label="getStatusLabel(merge.status)"
+                  />
+                </td>
+                <td class="whitespace-nowrap px-4 py-3 text-right">
+                  <button
+                    type="button"
+                    class="flex items-center gap-1 text-sm font-medium text-primary transition hover:text-primary/80"
+                    :data-testid="`view-merge-details-button-${merge.id}`"
+                    @click="handleViewMergeResults(merge)"
+                  >
+                    View details
+                    <ExternalLink
+                      class="h-3.5 w-3.5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- Audit log link -->
       <div class="flex justify-between">
         <button
@@ -172,7 +288,7 @@ export default {
     WarningBanner
   },
 
-  emits: ['configure-merge', 'view-audit-log', 'cancel'],
+  emits: ['configure-merge', 'view-audit-log', 'cancel', 'view-merge-results'],
 
   data() {
     return {
@@ -188,7 +304,9 @@ export default {
         isPublished: false,
         updatedAt: null,
         lockedUntil: null
-      }
+      },
+      mergeHistory: [],
+      mergeHistoryLoading: false
     };
   },
 
@@ -223,6 +341,10 @@ export default {
         hour: '2-digit',
         minute: '2-digit'
       });
+    },
+
+    hasMergeHistory() {
+      return this.mergeHistory && this.mergeHistory.length > 0;
     }
   },
 
@@ -260,21 +382,16 @@ export default {
 
           this.currentUser = userResponse.user || userResponse;
 
-          // Fetch app details
-          const appResponse = await apiClient.get(`v1/apps/${this.sourceAppId}`);
-          const rawApp = appResponse.app || appResponse;
-
-          // Fetch organization name if organizationId is present
-          let organization = null;
-
-          if (rawApp.organizationId) {
-            const orgResponse = await apiClient.get(`v1/organizations/${rawApp.organizationId}`);
-
-            organization = orgResponse.organization || orgResponse;
-          }
+          const [appData, organization, mergeHistory] = await Promise.all([
+            this.fetchAppDetails(apiClient),
+            this.fetchOrganization(apiClient),
+            this.fetchMergeHistory(apiClient)
+          ]);
 
           // Apply field mapping
-          this.appDetails = mapAppFields(rawApp, { organization });
+          this.appDetails = mapAppFields(appData, { organization });
+
+          this.mergeHistory = mergeHistory;
 
           // Ensure region is set
           if (!this.appDetails.region && organization) {
@@ -298,12 +415,59 @@ export default {
               { email: 'user@example.com', userRoleId: 1 }
             ]
           };
+
+          this.mergeHistory = [];
         }
       } catch (err) {
         this.error = 'Unable to load app details. Please try again.';
         console.error('Failed to load app details:', err);
       } finally {
         this.loading = false;
+      }
+    },
+
+    async fetchAppDetails(apiClient) {
+      const response = await apiClient.get(`v1/apps/${this.sourceAppId}`);
+      return response.app || response;
+    },
+
+    async fetchOrganization(apiClient) {
+      if (!this.sourceAppId) {
+        return null;
+      }
+
+      const appData = await this.fetchAppDetails(apiClient);
+
+      if (!appData.organizationId) {
+        return null;
+      }
+
+      const orgResponse = await apiClient.get(`v1/organizations/${appData.organizationId}`);
+      return orgResponse.organization || orgResponse;
+    },
+
+    async fetchMergeHistory(apiClient) {
+      try {
+        this.mergeHistoryLoading = true;
+
+        const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
+          types: ['app.merge.initiated']
+        });
+
+        const logs = logsResponse.logs || logsResponse || [];
+
+        return logs.slice(0, 5).map(log => ({
+          id: log.mergeId || log.id,
+          completedAt: log.createdAt || log.completedAt || Date.now(),
+          destinationAppName: log.targetAppName || log.destinationAppName || 'Unknown',
+          itemsCount: log.itemsCount || 0,
+          status: log.status === 'error' ? 'error' : 'success'
+        }));
+      } catch (error) {
+        console.error('Failed to fetch merge history:', error);
+        return [];
+      } finally {
+        this.mergeHistoryLoading = false;
       }
     },
 
@@ -317,6 +481,35 @@ export default {
 
     handleCancel() {
       this.$emit('cancel');
+    },
+
+    handleViewMergeResults(merge) {
+      this.$emit('view-merge-results', { id: merge.id });
+    },
+
+    formatDate(timestamp) {
+      if (!timestamp) {
+        return 'Unknown';
+      }
+
+      const date = new Date(timestamp);
+
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    },
+
+    getStatusLabel(status) {
+      const labels = {
+        success: 'Completed',
+        error: 'Failed'
+      };
+
+      return labels[status] || status;
     }
   }
 };

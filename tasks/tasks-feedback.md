@@ -177,26 +177,26 @@
 
 ### Phase 2: UI Design Feedback Implementation
 
-- [ ] 11.0 Add merge history to MergeDashboard
-  - [ ] 11.1 Import `MergeApiService` in MergeDashboard.vue
-  - [ ] 11.2 Add `mergeHistory` data property to component
-  - [ ] 11.3 Create `loadMergeHistory()` method to fetch logs with type filter: `['app.merge.initiated']`
-  - [ ] 11.4 Parse logs to extract merge operations for the source app
-  - [ ] 11.5 Display merge history table in dashboard (reuse table structure from MergeComplete.vue)
-  - [ ] 11.6 Show columns: Date, Destination App, Items Merged, Status
-  - [ ] 11.7 Add click handler to view detailed merge results (navigate or show modal)
-  - [ ] 11.8 Handle empty state when no merge history exists
-  - [ ] 11.9 Add loading state for history fetch
-  - [ ] 11.10 Per feedback line 3: Users should see merge history when interface initially loads
+- [x] 11.0 Add merge history to MergeDashboard
+  - [x] 11.1 Import `MergeApiService` in MergeDashboard.vue
+  - [x] 11.2 Add `mergeHistory` data property to component
+  - [x] 11.3 Create `loadMergeHistory()` method to fetch logs with type filter: `['app.merge.initiated']`
+  - [x] 11.4 Parse logs to extract merge operations for the source app
+  - [x] 11.5 Display merge history table in dashboard (reuse table structure from MergeComplete.vue)
+  - [x] 11.6 Show columns: Date, Destination App, Items Merged, Status
+  - [x] 11.7 Add click handler to view detailed merge results (navigate or show modal)
+  - [x] 11.8 Handle empty state when no merge history exists
+  - [x] 11.9 Add loading state for history fetch
+  - [x] 11.10 Per feedback line 3: Users should see merge history when interface initially loads
 
-- [ ] 12.0 Fix visual hierarchy in SettingsTab
-  - [ ] 12.1 Update SettingsTab.vue to make setting names bold (currently non-bold per feedback line 17)
-  - [ ] 12.2 Make descriptions normal weight (currently bold, should be lighter)
-  - [ ] 12.3 Locate setting name display (likely in template around setting cards)
-  - [ ] 12.4 Add `font-semibold` or `font-bold` class to setting name element
-  - [ ] 12.5 Remove any bold styling from description text
-  - [ ] 12.6 Test visual hierarchy looks correct: names prominent, descriptions secondary
-  - [ ] 12.7 Verify consistent styling across all 4 setting cards
+- [x] 12.0 Fix visual hierarchy in SettingsTab
+  - [x] 12.1 Update SettingsTab.vue to make setting names bold (currently non-bold per feedback line 17)
+  - [x] 12.2 Make descriptions normal weight (currently bold, should be lighter)
+  - [x] 12.3 Locate setting name display (likely in template around setting cards)
+  - [x] 12.4 Add `font-semibold` or `font-bold` class to setting name element
+  - [x] 12.5 Remove any bold styling from description text
+  - [x] 12.6 Test visual hierarchy looks correct: names prominent, descriptions secondary
+  - [x] 12.7 Verify consistent styling across all 4 setting cards
 
 - [ ] 13.0 Fix spacing/margin inconsistencies
   - [ ] 13.1 Review feedback line 19: containers touching without proper spacing in MergeReview

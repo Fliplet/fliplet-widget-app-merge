@@ -23,9 +23,9 @@
               class="h-5 w-5 text-accent/60"
               aria-hidden="true"
             />
-            <h3 class="font-medium text-accent">App settings</h3>
+            <h3 class="text-base font-semibold text-accent">App settings</h3>
           </div>
-          <p class="mt-1 text-sm text-accent/70">
+          <p class="mt-1 text-sm font-normal text-accent/70">
             Copy app name, description, icon, splash screens, and other app-level settings.
           </p>
           <a
@@ -56,9 +56,9 @@
               class="h-5 w-5 text-accent/60"
               aria-hidden="true"
             />
-            <h3 class="font-medium text-accent">Menu settings</h3>
+            <h3 class="text-base font-semibold text-accent">Menu settings</h3>
           </div>
-          <p class="mt-1 text-sm text-accent/70">
+          <p class="mt-1 text-sm font-normal text-accent/70">
             Copy menu structure, items, icons, and visibility settings.
           </p>
         </div>
@@ -78,9 +78,9 @@
               class="h-5 w-5 text-accent/60"
               aria-hidden="true"
             />
-            <h3 class="font-medium text-accent">Global appearance settings</h3>
+            <h3 class="text-base font-semibold text-accent">Global appearance settings</h3>
           </div>
-          <p class="mt-1 text-sm text-accent/70">
+          <p class="mt-1 text-sm font-normal text-accent/70">
             Copy theme colors, fonts, and global styling preferences.
           </p>
         </div>
@@ -100,9 +100,9 @@
               class="h-5 w-5 text-accent/60"
               aria-hidden="true"
             />
-            <h3 class="font-medium text-accent">Global code customizations</h3>
+            <h3 class="text-base font-semibold text-accent">Global code customizations</h3>
           </div>
-          <p class="mt-1 text-sm text-accent/70">
+          <p class="mt-1 text-sm font-normal text-accent/70">
             Copy custom JavaScript, CSS, and HTML code applied globally to the app.
           </p>
           <div
