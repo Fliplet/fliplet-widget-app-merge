@@ -137,11 +137,11 @@
       <button
         type="button"
         class="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
-        :disabled="!selectedAppId || validationError"
+        :disabled="!selectedAppId || validationError || checkingDuplicates"
         data-testid="next-button"
         @click="handleNext"
       >
-        Next
+        {{ checkingDuplicates ? 'Checking...' : 'Next' }}
       </button>
     </div>
   </div>
@@ -179,7 +179,8 @@ export default {
       selectedAppId: null,
       searchQuery: '',
       validationError: null,
-      sourceAppId: 123
+      sourceAppId: 123,
+      checkingDuplicates: false
     };
   },
 
@@ -269,8 +270,7 @@ export default {
             updatedAt: Date.now() - 86400000,
             isLive: false,
             isLocked: false,
-            hasPublisherRights: true,
-            isDuplicate: false
+            hasPublisherRights: true
           }
         ];
 
@@ -290,7 +290,7 @@ export default {
     },
 
     isAppDisabled(app) {
-      return app.isLocked || !app.hasPublisherRights || app.isDuplicate;
+      return app.isLocked || !app.hasPublisherRights;
     },
 
     handleSelectionChange(rows = []) {
@@ -323,11 +323,6 @@ export default {
 
       this.selectedAppId = app.id;
       this.validationError = null;
-
-      if (app.isDuplicate) {
-        this.validationError = `Cannot select "${app.name}" because it contains duplicate screen or data source names. Please rename these items first.`;
-        this.selectedAppId = null;
-      }
     },
 
     handleBack() {
@@ -347,15 +342,70 @@ export default {
       });
     },
 
-    handleNext() {
+    async handleNext() {
       if (!this.selectedAppId) {
         return;
       }
 
       const app = this.apps.find(item => item.id === this.selectedAppId);
 
-      if (app) {
+      if (!app) {
+        return;
+      }
+
+      // Check for duplicates only for the selected app
+      this.checkingDuplicates = true;
+      this.validationError = null;
+
+      try {
+        // TODO: Replace with actual API call when middleware is integrated
+        // const duplicates = await window.FlipletAppMerge.middleware.api.apps.checkDuplicates(
+        //   app.id,
+        //   { items: ['pages', 'dataSources'] }
+        // );
+
+        // Mock duplicate check for now
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const duplicates = {
+          pages: [], // Example: [{name: 'Home', count: 2, ids: [1, 2]}]
+          dataSources: [] // Example: [{name: 'Users', count: 2, ids: [10, 11]}]
+        };
+
+        // Check if any duplicates were found
+        const hasDuplicates = duplicates.pages.length > 0 || duplicates.dataSources.length > 0;
+
+        if (hasDuplicates) {
+          // Build error message listing duplicate names
+          const duplicateMessages = [];
+
+          if (duplicates.pages.length > 0) {
+            const pageNames = duplicates.pages.map(d => d.name).join(', ');
+            duplicateMessages.push(`Duplicate screens: ${pageNames}`);
+          }
+
+          if (duplicates.dataSources.length > 0) {
+            const dsNames = duplicates.dataSources.map(d => d.name).join(', ');
+            duplicateMessages.push(`Duplicate data sources: ${dsNames}`);
+          }
+
+          // Construct app edit URL using Fliplet.Navigate.url
+          const appEditUrl = window.Fliplet && window.Fliplet.Navigate
+            ? window.Fliplet.Navigate.url({ page: 'appEdit', appId: app.id })
+            : `#/apps/${app.id}/edit`;
+
+          this.validationError = `Cannot select "${app.name}" because it contains duplicate names:\n${duplicateMessages.join('. ')}\n\nPlease rename these items first by opening the app: ${appEditUrl}`;
+
+          this.checkingDuplicates = false;
+          return;
+        }
+
+        // No duplicates found, proceed with selection
         this.$emit('app-selected', app);
+      } catch (err) {
+        this.validationError = 'Unable to check for duplicates. Please try again.';
+        console.error('Failed to check duplicates:', err);
+      } finally {
+        this.checkingDuplicates = false;
       }
     }
   }

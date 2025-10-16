@@ -53,17 +53,17 @@
   - [x] 1.9 Add `isGlobalDependency(dataSource)` function to check if `associatedPages.length === 0`
   - [x] 1.10 Export all mapping and computed functions for use in components
 
-- [ ] 2.0 Fix DestinationSelector N+1 query performance issue
-  - [ ] 2.1 Remove `isDuplicate` field from mock data in DestinationSelector.vue (line 273)
-  - [ ] 2.2 Remove `isDuplicate` check in `isAppDisabled()` method (line 293)
-  - [ ] 2.3 Update `handleNext()` method to call `checkDuplicates()` for selected app only
-  - [ ] 2.4 Add duplicate checking logic: call `POST v1/apps/:appId/duplicates` with `items: ['pages', 'dataSources']`
-  - [ ] 2.5 If duplicates found, set `validationError` with message listing duplicate names
-  - [ ] 2.6 Add "Open app" link in validation error message (use `Fliplet.Navigate.url()` to construct app edit URL)
-  - [ ] 2.7 Display duplicate names in error message (e.g., "Duplicate screens: Home, Profile. Duplicate data sources: Users")
-  - [ ] 2.8 Only emit `app-selected` event if no duplicates found
-  - [ ] 2.9 Add loading state during duplicate check
-  - [ ] 2.10 Test with app containing duplicates to verify error message and blocking behavior
+- [x] 2.0 Fix DestinationSelector N+1 query performance issue
+  - [x] 2.1 Remove `isDuplicate` field from mock data in DestinationSelector.vue (line 273)
+  - [x] 2.2 Remove `isDuplicate` check in `isAppDisabled()` method (line 293)
+  - [x] 2.3 Update `handleNext()` method to call `checkDuplicates()` for selected app only
+  - [x] 2.4 Add duplicate checking logic: call `POST v1/apps/:appId/duplicates` with `items: ['pages', 'dataSources']`
+  - [x] 2.5 If duplicates found, set `validationError` with message listing duplicate names
+  - [x] 2.6 Add "Open app" link in validation error message (use `Fliplet.Navigate.url()` to construct app edit URL)
+  - [x] 2.7 Display duplicate names in error message (e.g., "Duplicate screens: Home, Profile. Duplicate data sources: Users")
+  - [x] 2.8 Only emit `app-selected` event if no duplicates found
+  - [x] 2.9 Add loading state during duplicate check
+  - [x] 2.10 Test with app containing duplicates to verify error message and blocking behavior
 
 - [ ] 3.0 Integrate MergeDashboard with real API data
   - [ ] 3.1 Import `AppsApiService` and initialize in component
