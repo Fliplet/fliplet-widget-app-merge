@@ -46,6 +46,8 @@
       <!-- Merge Progress view -->
       <MergeProgress
         v-if="currentView === 'progress'"
+        :source-app-id="sourceApp.id"
+        :merge-id="mergeId"
         @merge-complete="handleMergeComplete"
         @merge-error="handleMergeError"
       />
@@ -103,7 +105,8 @@ export default {
         configurations: []
       },
       isAppsLocked: false,
-      globalError: null
+      globalError: null,
+      mergeId: null
     };
   },
 
@@ -236,6 +239,9 @@ export default {
      * Handle start merge
      */
     async handleStartMerge() {
+      // Generate a unique merge ID
+      this.mergeId = `merge-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
       // Navigate to progress view
       this.goToProgress();
 
@@ -381,6 +387,7 @@ export default {
         configurations: []
       };
       this.isAppsLocked = false;
+      this.mergeId = null;
     },
 
     /**

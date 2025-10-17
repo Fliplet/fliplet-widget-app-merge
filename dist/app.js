@@ -12871,9 +12871,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onCancel: $options.handleCancel
       }, null, 8 /* PROPS */, ["onStartMerge", "onEditSettings", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Progress view "), $data.currentView === 'progress' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeProgress, {
         key: 4,
+        "source-app-id": $data.sourceApp.id,
+        "merge-id": $data.mergeId,
         onMergeComplete: $options.handleMergeComplete,
         onMergeError: $options.handleMergeError
-      }, null, 8 /* PROPS */, ["onMergeComplete", "onMergeError"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Complete view "), $data.currentView === 'complete' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeComplete, {
+      }, null, 8 /* PROPS */, ["source-app-id", "merge-id", "onMergeComplete", "onMergeError"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Complete view "), $data.currentView === 'complete' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeComplete, {
         key: 5,
         onOpenApp: $options.handleOpenApp,
         onViewAuditLog: $options.handleViewAuditLog
@@ -12954,7 +12956,8 @@ __webpack_require__.r(__webpack_exports__);
         configurations: []
       },
       isAppsLocked: false,
-      globalError: null
+      globalError: null,
+      mergeId: null
     };
   },
   computed: {
@@ -13088,6 +13091,9 @@ __webpack_require__.r(__webpack_exports__);
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              // Generate a unique merge ID
+              _this2.mergeId = "merge-".concat(Date.now(), "-").concat(Math.random().toString(36).substr(2, 9));
+
               // Navigate to progress view
               _this2.goToProgress();
 
@@ -13279,6 +13285,7 @@ __webpack_require__.r(__webpack_exports__);
         configurations: []
       };
       this.isAppsLocked = false;
+      this.mergeId = null;
     },
     /**
      * Handle global errors
@@ -22088,6 +22095,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    console.log('[MergeProgress] Component mounted');
+    console.log('[MergeProgress] Props:', {
+      sourceAppId: this.sourceAppId,
+      mergeId: this.mergeId
+    });
+    console.log('[MergeProgress] Middleware available:', !!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api));
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -22106,35 +22119,49 @@ __webpack_require__.r(__webpack_exports__);
     startMerge: function startMerge() {
       var _this = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
-        var apiClient, _t;
+        var apiClient, response, _t;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
+              console.log('[MergeProgress] Starting merge...');
               if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
-                _context.next = 4;
+                _context.next = 5;
                 break;
               }
               apiClient = window.FlipletAppMerge.middleware.api;
+              console.log('[MergeProgress] Middleware API available, initiating merge...');
               _context.prev = 1;
               _context.next = 2;
               return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge"), {
                 mergeId: _this.mergeId
               });
             case 2:
+              response = _context.sent;
+              console.log('[MergeProgress] Merge initiated successfully:', response);
               _context.next = 4;
               break;
             case 3:
               _context.prev = 3;
               _t = _context["catch"](1);
-              console.error('Failed to start merge:', _t);
+              console.error('[MergeProgress] Failed to start merge:', _t);
               _this.handleMergeError(_t);
               return _context.abrupt("return");
             case 4:
+              _context.next = 6;
+              break;
+            case 5:
+              console.warn('[MergeProgress] Middleware API not available - merge cannot start');
+              _this.handleMergeError({
+                message: 'Merge service is not available. Please ensure the middleware is properly loaded.'
+              });
+              return _context.abrupt("return");
+            case 6:
+              console.log('[MergeProgress] Starting polling...');
               _this.pollMergeStatus();
               _this.pollingInterval = setInterval(function () {
                 _this.pollMergeStatus();
               }, 5000);
-            case 5:
+            case 7:
             case "end":
               return _context.stop();
           }
@@ -22151,10 +22178,12 @@ __webpack_require__.r(__webpack_exports__);
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
+              console.log('[MergeProgress] Polling merge status...');
               if (!(_this2.isComplete || _this2.hasError)) {
                 _context2.next = 1;
                 break;
               }
+              console.log('[MergeProgress] Merge already complete or has error, stopping poll');
               if (_this2.pollingInterval) {
                 clearInterval(_this2.pollingInterval);
               }
@@ -22168,12 +22197,17 @@ __webpack_require__.r(__webpack_exports__);
                 break;
               }
               apiClient = window.FlipletAppMerge.middleware.api; // Get merge status
+              console.log('[MergeProgress] Fetching merge status...');
               _context2.next = 2;
               return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/merge/status"), {
                 mergeId: _this2.mergeId
               });
             case 2:
               statusResponse = _context2.sent;
+              console.log('[MergeProgress] Status response:', statusResponse);
+
+              // Get merge logs
+              console.log('[MergeProgress] Fetching merge logs...');
               _context2.next = 3;
               return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/logs"), {
                 mergeId: _this2.mergeId,
@@ -22181,15 +22215,22 @@ __webpack_require__.r(__webpack_exports__);
               });
             case 3:
               logsResponse = _context2.sent;
+              console.log('[MergeProgress] Logs response:', logsResponse);
+              _context2.next = 5;
+              break;
             case 4:
+              console.warn('[MergeProgress] Middleware API not available during poll');
+            case 5:
               if (statusResponse) {
-                _context2.next = 5;
+                _context2.next = 6;
                 break;
               }
+              console.warn('[MergeProgress] No status response received');
               return _context2.abrupt("return");
-            case 5:
+            case 6:
               _this2.progressPercentage = statusResponse.progress || statusResponse.percentage || 0;
               _this2.currentPhase = statusResponse.phase || _this2.currentPhase;
+              console.log('[MergeProgress] Updated progress:', _this2.progressPercentage, 'phase:', _this2.currentPhase);
               logs = ((_logsResponse = logsResponse) === null || _logsResponse === void 0 ? void 0 : _logsResponse.logs) || logsResponse || [];
               if (logs.length > 0) {
                 latestLog = logs[logs.length - 1];
@@ -22210,23 +22251,25 @@ __webpack_require__.r(__webpack_exports__);
               }
               _this2.handleProgressUpdate(statusResponse);
               if (statusResponse.status === 'completed') {
+                console.log('[MergeProgress] Merge completed!');
                 _this2.handleMergeComplete();
               } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
+                console.error('[MergeProgress] Merge failed:', statusResponse.error);
                 _this2.handleMergeError({
                   message: statusResponse.error || 'Merge failed'
                 });
               }
-              _context2.next = 7;
+              _context2.next = 8;
               break;
-            case 6:
-              _context2.prev = 6;
-              _t2 = _context2["catch"](1);
-              console.error('Failed to poll merge status:', _t2);
             case 7:
+              _context2.prev = 7;
+              _t2 = _context2["catch"](1);
+              console.error('[MergeProgress] Failed to poll merge status:', _t2);
+            case 8:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[1, 6]]);
+        }, _callee2, null, [[1, 7]]);
       }))();
     },
     /**

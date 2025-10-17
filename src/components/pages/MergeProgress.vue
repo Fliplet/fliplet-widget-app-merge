@@ -205,6 +205,13 @@ export default {
   },
 
   mounted() {
+    console.log('[MergeProgress] Component mounted');
+    console.log('[MergeProgress] Props:', {
+      sourceAppId: this.sourceAppId,
+      mergeId: this.mergeId
+    });
+    console.log('[MergeProgress] Middleware available:', !!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api));
+
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -224,20 +231,29 @@ export default {
      * Start the merge process
      */
     async startMerge() {
+      console.log('[MergeProgress] Starting merge...');
+
       if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
         const apiClient = window.FlipletAppMerge.middleware.api;
+        console.log('[MergeProgress] Middleware API available, initiating merge...');
 
         try {
-          await apiClient.post(`v1/apps/${this.sourceAppId}/merge`, {
+          const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge`, {
             mergeId: this.mergeId
           });
+          console.log('[MergeProgress] Merge initiated successfully:', response);
         } catch (error) {
-          console.error('Failed to start merge:', error);
+          console.error('[MergeProgress] Failed to start merge:', error);
           this.handleMergeError(error);
           return;
         }
+      } else {
+        console.warn('[MergeProgress] Middleware API not available - merge cannot start');
+        this.handleMergeError({ message: 'Merge service is not available. Please ensure the middleware is properly loaded.' });
+        return;
       }
 
+      console.log('[MergeProgress] Starting polling...');
       this.pollMergeStatus();
       this.pollingInterval = setInterval(() => {
         this.pollMergeStatus();
@@ -248,7 +264,10 @@ export default {
      * Poll merge status from API
      */
     async pollMergeStatus() {
+      console.log('[MergeProgress] Polling merge status...');
+
       if (this.isComplete || this.hasError) {
+        console.log('[MergeProgress] Merge already complete or has error, stopping poll');
         if (this.pollingInterval) {
           clearInterval(this.pollingInterval);
         }
@@ -264,23 +283,31 @@ export default {
           const apiClient = window.FlipletAppMerge.middleware.api;
 
           // Get merge status
+          console.log('[MergeProgress] Fetching merge status...');
           statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {
             mergeId: this.mergeId
           });
+          console.log('[MergeProgress] Status response:', statusResponse);
 
           // Get merge logs
+          console.log('[MergeProgress] Fetching merge logs...');
           logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
             mergeId: this.mergeId,
             types: ['app.merge.initiated', 'app.merge.progress', 'app.merge.completed', 'app.merge.error']
           });
+          console.log('[MergeProgress] Logs response:', logsResponse);
+        } else {
+          console.warn('[MergeProgress] Middleware API not available during poll');
         }
 
         if (!statusResponse) {
+          console.warn('[MergeProgress] No status response received');
           return;
         }
 
         this.progressPercentage = statusResponse.progress || statusResponse.percentage || 0;
         this.currentPhase = statusResponse.phase || this.currentPhase;
+        console.log('[MergeProgress] Updated progress:', this.progressPercentage, 'phase:', this.currentPhase);
 
         const logs = logsResponse?.logs || logsResponse || [];
 
@@ -305,12 +332,14 @@ export default {
         this.handleProgressUpdate(statusResponse);
 
         if (statusResponse.status === 'completed') {
+          console.log('[MergeProgress] Merge completed!');
           this.handleMergeComplete();
         } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
+          console.error('[MergeProgress] Merge failed:', statusResponse.error);
           this.handleMergeError({ message: statusResponse.error || 'Merge failed' });
         }
       } catch (err) {
-        console.error('Failed to poll merge status:', err);
+        console.error('[MergeProgress] Failed to poll merge status:', err);
       }
     },
 
