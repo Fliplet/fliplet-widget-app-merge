@@ -158,6 +158,8 @@ export default {
     WarningBanner
   },
 
+  inject: ['middleware'],
+
   props: {
     sourceAppId: {
       type: Number,
@@ -210,7 +212,9 @@ export default {
       sourceAppId: this.sourceAppId,
       mergeId: this.mergeId
     });
-    console.log('[MergeProgress] Middleware available:', !!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api));
+    console.log('[MergeProgress] Middleware:', this.middleware);
+    console.log('[MergeProgress] ApiClient:', this.middleware?.core?.apiClient);
+    console.log('[MergeProgress] ApiClient.get type:', typeof this.middleware?.core?.apiClient?.get);
 
     this.startMerge();
     this.subscribeToMergeEvents();
@@ -233,8 +237,8 @@ export default {
     async startMerge() {
       console.log('[MergeProgress] Starting merge...');
 
-      if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-        const apiClient = window.FlipletAppMerge.middleware.api;
+      if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+        const apiClient = this.middleware.core.apiClient;
         console.log('[MergeProgress] Middleware API available, initiating merge...');
 
         try {
@@ -279,8 +283,8 @@ export default {
         let statusResponse = null;
         let logsResponse = null;
 
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Get merge status
           console.log('[MergeProgress] Fetching merge status...');

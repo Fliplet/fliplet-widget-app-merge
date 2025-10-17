@@ -156,8 +156,5 @@ class DataSourcesApiService {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = DataSourcesApiService;
-}
+export default DataSourcesApiService;
 

@@ -355,8 +355,5 @@ class AppLockController {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AppLockController;
-}
+export default AppLockController;
 

@@ -2,6 +2,26 @@
 /******/ 	var __webpack_modules__ = ([
 /* 0 */,
 /* 1 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _typeof)
+/* harmony export */ });
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+
+
+/***/ }),
+/* 2 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -177,8 +197,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   withModifiers: () => (/* reexport safe */ _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__.withModifiers),
 /* harmony export */   withScopeId: () => (/* reexport safe */ _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__.withScopeId)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var _vue_runtime_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /**
 * vue v3.5.22
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
@@ -204,7 +224,7 @@ const compile = () => {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -379,9 +399,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   withModifiers: () => (/* binding */ withModifiers),
 /* harmony export */   withScopeId: () => (/* reexport safe */ _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__.withScopeId)
 /* harmony export */ });
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
-/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _vue_runtime_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
 /**
 * @vue/runtime-dom v3.5.22
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
@@ -2208,7 +2228,7 @@ const initDirectivesForSSR = () => {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2361,8 +2381,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   withMemo: () => (/* binding */ withMemo),
 /* harmony export */   withScopeId: () => (/* binding */ withScopeId)
 /* harmony export */ });
-/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _vue_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
+/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _vue_shared__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
 /**
 * @vue/runtime-core v3.5.22
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
@@ -10286,7 +10306,7 @@ const DeprecationTypes = null;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10343,7 +10363,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   unref: () => (/* binding */ unref),
 /* harmony export */   watch: () => (/* binding */ watch)
 /* harmony export */ });
-/* harmony import */ var _vue_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
+/* harmony import */ var _vue_shared__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /**
 * @vue/reactivity v3.5.22
 * (c) 2018-present Yuxi (Evan) You and Vue contributors
@@ -12167,7 +12187,7 @@ function traverse(value, depth = Infinity, seen) {
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12782,7 +12802,7 @@ function normalizeCssVarValue(value) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12790,9 +12810,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Application_vue_vue_type_template_id_44b1e432__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
-/* harmony import */ var _Application_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _Application_vue_vue_type_template_id_44b1e432__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _Application_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(10);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -12807,7 +12827,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12815,11 +12835,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_template_id_44b1e432__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_template_id_44b1e432__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_template_id_44b1e432__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12827,8 +12847,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
+var _hoisted_1 = {
+  key: 6,
+  "class": "flex flex-col items-center justify-center p-12 text-center"
+};
+var _hoisted_2 = {
+  "class": "mb-6 text-sm text-gray-600"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MergeDashboard = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MergeDashboard");
   var _component_DestinationSelector = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("DestinationSelector");
@@ -12854,7 +12881,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onAppSelected: $options.handleDestinationSelected,
         onBack: $options.goToDashboard,
         onCancel: $options.handleCancel
-      }, null, 8 /* PROPS */, ["onAppSelected", "onBack", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge configuration view "), $data.currentView === 'configuration' && $data.selectedDestinationApp ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeConfiguration, {
+      }, null, 8 /* PROPS */, ["onAppSelected", "onBack", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge configuration view "), $data.currentView === 'configuration' && $data.selectedDestinationApp && $data.sourceApp.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeConfiguration, {
         key: 2,
         "source-app-id": $data.sourceApp.id,
         "source-app-name": $data.sourceApp.name,
@@ -12864,12 +12891,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onBack: $options.goToDestinationSelector,
         onCancel: $options.handleCancel,
         onExtendLock: $options.handleExtendLock
-      }, null, 8 /* PROPS */, ["source-app-id", "source-app-name", "destination-app-id", "destination-app-name", "onReview", "onBack", "onCancel", "onExtendLock"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Review view "), $data.currentView === 'review' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeReview, {
+      }, null, 8 /* PROPS */, ["source-app-id", "source-app-name", "destination-app-id", "destination-app-name", "onReview", "onBack", "onCancel", "onExtendLock"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Review view "), $data.currentView === 'review' && $data.sourceApp.id && $data.selectedDestinationApp ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeReview, {
         key: 3,
+        "source-app-id": $data.sourceApp.id,
+        "destination-app-id": $data.selectedDestinationApp.id,
+        "merge-config": $data.mergeConfiguration,
         onStartMerge: $options.handleStartMerge,
         onEditSettings: $options.goToConfiguration,
         onCancel: $options.handleCancel
-      }, null, 8 /* PROPS */, ["onStartMerge", "onEditSettings", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Progress view "), $data.currentView === 'progress' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeProgress, {
+      }, null, 8 /* PROPS */, ["source-app-id", "destination-app-id", "merge-config", "onStartMerge", "onEditSettings", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Progress view "), $data.currentView === 'progress' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeProgress, {
         key: 4,
         "source-app-id": $data.sourceApp.id,
         "merge-id": $data.mergeId,
@@ -12879,7 +12909,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         key: 5,
         onOpenApp: $options.handleOpenApp,
         onViewAuditLog: $options.handleViewAuditLog
-      }, null, 8 /* PROPS */, ["onOpenApp", "onViewAuditLog"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
+      }, null, 8 /* PROPS */, ["onOpenApp", "onViewAuditLog"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Error view "), $data.currentView === 'error' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+        "class": "mb-4 rounded-full bg-red-100 p-3"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+        "class": "h-6 w-6 text-red-600",
+        fill: "none",
+        stroke: "currentColor",
+        viewBox: "0 0 24 24"
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        "stroke-width": "2",
+        d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+      })])], -1 /* CACHED */)), _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
+        "class": "mb-2 text-lg font-semibold text-gray-900"
+      }, " Configuration Error ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.error), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        type: "button",
+        "class": "rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90",
+        onClick: _cache[0] || (_cache[0] = function () {
+          return $options.handleRetry && $options.handleRetry.apply($options, arguments);
+        })
+      }, " Try Again ")])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     actions: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "actions")];
@@ -12889,7 +12939,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12897,11 +12947,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_Application_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
  
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12909,11 +12959,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_layout_AppShell_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(23);
-/* harmony import */ var _components_pages_MergeDashboard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45);
+/* harmony import */ var _components_layout_AppShell_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
+/* harmony import */ var _components_pages_MergeDashboard_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
 /* harmony import */ var _components_pages_DestinationSelector_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(87);
 /* harmony import */ var _components_pages_MergeConfiguration_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(99);
 /* harmony import */ var _components_pages_MergeReview_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(138);
@@ -12945,8 +12995,9 @@ __webpack_require__.r(__webpack_exports__);
       currentStep: 0,
       totalSteps: 5,
       selectedDestinationApp: null,
+      error: null,
       sourceApp: {
-        id: 123,
+        id: null,
         name: 'Source App'
       },
       mergeConfiguration: {
@@ -12977,8 +13028,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    // Initialize middleware when component is created
-    this.initializeMiddleware();
+    this.initializeApp();
   },
   beforeUnmount: function beforeUnmount() {
     // Clean up: unlock apps if they are locked
@@ -12996,6 +13046,39 @@ __webpack_require__.r(__webpack_exports__);
     return false;
   },
   methods: {
+    /**
+     * Handle application errors
+     */
+    handleError: function handleError(message) {
+      this.error = message;
+      this.currentView = 'error';
+    },
+    /**
+     * Handle retry button click
+     */
+    handleRetry: function handleRetry() {
+      this.error = null;
+      this.currentView = 'dashboard';
+
+      // Re-initialize the app
+      this.initializeApp();
+    },
+    /**
+     * Initialize the application
+     */
+    initializeApp: function initializeApp() {
+      // Initialize source app ID from URL query parameter
+      var appId = parseInt(window.Fliplet.Navigate.query.appId, 10);
+      if (!appId || isNaN(appId)) {
+        console.error('App Merge: Invalid or missing appId in URL query parameters');
+        this.handleError('Invalid app ID. Please ensure you are accessing this widget from within an app.');
+        return;
+      }
+      this.sourceApp.id = appId;
+
+      // Initialize middleware when component is created
+      this.initializeMiddleware();
+    },
     /**
      * Initialize middleware
      */
@@ -13356,7 +13439,7 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13392,12 +13475,12 @@ function _asyncToGenerator(n) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 // TODO(Babel 8): Remove this file.
 
-var runtime = __webpack_require__(13)();
+var runtime = __webpack_require__(14)();
 module.exports = runtime;
 
 // Copied from https://github.com/facebook/regenerator/blob/main/packages/runtime/runtime.js#L736=
@@ -13413,16 +13496,16 @@ try {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var OverloadYield = __webpack_require__(14);
-var regenerator = __webpack_require__(15);
-var regeneratorAsync = __webpack_require__(17);
-var regeneratorAsyncGen = __webpack_require__(18);
-var regeneratorAsyncIterator = __webpack_require__(19);
-var regeneratorKeys = __webpack_require__(20);
-var regeneratorValues = __webpack_require__(21);
+var OverloadYield = __webpack_require__(15);
+var regenerator = __webpack_require__(16);
+var regeneratorAsync = __webpack_require__(18);
+var regeneratorAsyncGen = __webpack_require__(19);
+var regeneratorAsyncIterator = __webpack_require__(20);
+var regeneratorKeys = __webpack_require__(21);
+var regeneratorValues = __webpack_require__(22);
 function _regeneratorRuntime() {
   "use strict";
 
@@ -13495,7 +13578,7 @@ function _regeneratorRuntime() {
 module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ ((module) => {
 
 function _OverloadYield(e, d) {
@@ -13504,10 +13587,10 @@ function _OverloadYield(e, d) {
 module.exports = _OverloadYield, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var regeneratorDefine = __webpack_require__(16);
+var regeneratorDefine = __webpack_require__(17);
 function _regenerator() {
   /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */
   var e,
@@ -13598,7 +13681,7 @@ function _regenerator() {
 module.exports = _regenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ ((module) => {
 
 function _regeneratorDefine(e, r, n, t) {
@@ -13625,10 +13708,10 @@ function _regeneratorDefine(e, r, n, t) {
 module.exports = _regeneratorDefine, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var regeneratorAsyncGen = __webpack_require__(18);
+var regeneratorAsyncGen = __webpack_require__(19);
 function _regeneratorAsync(n, e, r, t, o) {
   var a = regeneratorAsyncGen(n, e, r, t, o);
   return a.next().then(function (n) {
@@ -13638,22 +13721,22 @@ function _regeneratorAsync(n, e, r, t, o) {
 module.exports = _regeneratorAsync, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var regenerator = __webpack_require__(15);
-var regeneratorAsyncIterator = __webpack_require__(19);
+var regenerator = __webpack_require__(16);
+var regeneratorAsyncIterator = __webpack_require__(20);
 function _regeneratorAsyncGen(r, e, t, o, n) {
   return new regeneratorAsyncIterator(regenerator().w(r, e, t, o), n || Promise);
 }
 module.exports = _regeneratorAsyncGen, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var OverloadYield = __webpack_require__(14);
-var regeneratorDefine = __webpack_require__(16);
+var OverloadYield = __webpack_require__(15);
+var regeneratorDefine = __webpack_require__(17);
 function AsyncIterator(t, e) {
   function n(r, o, i, f) {
     try {
@@ -13687,7 +13770,7 @@ function AsyncIterator(t, e) {
 module.exports = AsyncIterator, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ ((module) => {
 
 function _regeneratorKeys(e) {
@@ -13702,10 +13785,10 @@ function _regeneratorKeys(e) {
 module.exports = _regeneratorKeys, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-var _typeof = (__webpack_require__(22)["default"]);
+var _typeof = (__webpack_require__(23)["default"]);
 function _regeneratorValues(e) {
   if (null != e) {
     var t = e["function" == typeof Symbol && Symbol.iterator || "@@iterator"],
@@ -13726,7 +13809,7 @@ function _regeneratorValues(e) {
 module.exports = _regeneratorValues, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ ((module) => {
 
 function _typeof(o) {
@@ -13741,7 +13824,7 @@ function _typeof(o) {
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13749,10 +13832,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _AppShell_vue_vue_type_template_id_2e857bd8_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(24);
-/* harmony import */ var _AppShell_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(26);
-/* harmony import */ var _AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(33);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(44);
+/* harmony import */ var _AppShell_vue_vue_type_template_id_2e857bd8_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _AppShell_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
+/* harmony import */ var _AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(34);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45);
 
 
 
@@ -13769,7 +13852,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13777,11 +13860,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_template_id_2e857bd8_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_template_id_2e857bd8_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(25);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_template_id_2e857bd8_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13789,7 +13872,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = ["aria-labelledby"];
 var _hoisted_2 = {
@@ -13852,7 +13935,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13860,11 +13943,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
  
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13872,7 +13955,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(28);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'AppShell',
@@ -13912,7 +13995,7 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13920,7 +14003,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Layers)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -13959,7 +14042,7 @@ const Layers = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -13967,8 +14050,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ createLucideIcon)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(30);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _Icon_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -13995,7 +14078,7 @@ const createLucideIcon = (iconName, iconNode) => (props, { slots, attrs }) => (0
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14003,9 +14086,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Icon)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
-/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _shared_src_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
+/* harmony import */ var _defaultAttributes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(33);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -14052,7 +14135,7 @@ const Icon = ({
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14090,7 +14173,7 @@ const isEmptyString = (value) => value === "";
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14122,16 +14205,16 @@ var defaultAttributes = {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(34);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14139,19 +14222,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(38);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(40);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(41);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_node_modules_sass_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_AppShell_vue_vue_type_style_index_0_id_2e857bd8_scoped_true_lang_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(42);
 
       
       
@@ -14180,7 +14263,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ ((module) => {
 
 "use strict";
@@ -14270,7 +14353,7 @@ module.exports = function (list, options) {
 };
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ ((module) => {
 
 "use strict";
@@ -14337,7 +14420,7 @@ function domAPI(options) {
 module.exports = domAPI;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ ((module) => {
 
 "use strict";
@@ -14377,7 +14460,7 @@ function insertBySelector(insert, style) {
 module.exports = insertBySelector;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -14393,7 +14476,7 @@ function setAttributesWithoutAttributes(styleElement) {
 module.exports = setAttributesWithoutAttributes;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ ((module) => {
 
 "use strict";
@@ -14409,7 +14492,7 @@ function insertStyleElement(options) {
 module.exports = insertStyleElement;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ ((module) => {
 
 "use strict";
@@ -14429,7 +14512,7 @@ function styleTagTransform(css, styleElement) {
 module.exports = styleTagTransform;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14437,9 +14520,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(44);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
 // Imports
 
@@ -14454,7 +14537,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.max-w-5xl[data-v-2e857bd8] {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ ((module) => {
 
 "use strict";
@@ -14465,7 +14548,7 @@ module.exports = function (i) {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ ((module) => {
 
 "use strict";
@@ -14556,7 +14639,7 @@ module.exports = function (cssWithMappingToString) {
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -14574,7 +14657,7 @@ exports["default"] = (sfc, props) => {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14582,9 +14665,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _MergeDashboard_vue_vue_type_template_id_3b437f97__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(46);
-/* harmony import */ var _MergeDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(54);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _MergeDashboard_vue_vue_type_template_id_3b437f97__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(47);
+/* harmony import */ var _MergeDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(55);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -14599,7 +14682,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14607,11 +14690,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_template_id_3b437f97__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_template_id_3b437f97__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(47);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_template_id_3b437f97__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14619,8 +14702,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 var _hoisted_1 = {
@@ -14856,7 +14939,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14864,10 +14947,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _toConsumableArray)
 /* harmony export */ });
-/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
-/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
-/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52);
-/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(53);
+/* harmony import */ var _arrayWithoutHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _iterableToArray_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(52);
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
+/* harmony import */ var _nonIterableSpread_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(54);
 
 
 
@@ -14878,7 +14961,7 @@ function _toConsumableArray(r) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14886,7 +14969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _arrayWithoutHoles)
 /* harmony export */ });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
 
 function _arrayWithoutHoles(r) {
   if (Array.isArray(r)) return (0,_arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r);
@@ -14894,7 +14977,7 @@ function _arrayWithoutHoles(r) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14910,7 +14993,7 @@ function _arrayLikeToArray(r, a) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14924,7 +15007,7 @@ function _iterableToArray(r) {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14932,7 +15015,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _unsupportedIterableToArray)
 /* harmony export */ });
-/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(50);
+/* harmony import */ var _arrayLikeToArray_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(51);
 
 function _unsupportedIterableToArray(r, a) {
   if (r) {
@@ -14944,7 +15027,7 @@ function _unsupportedIterableToArray(r, a) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14958,7 +15041,7 @@ function _nonIterableSpread() {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14966,11 +15049,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(55);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeDashboard_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56);
  
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -14978,17 +15061,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(60);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(61);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63);
-/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(64);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(73);
-/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(81);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(61);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(64);
+/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(65);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
+/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(82);
 /* harmony import */ var _utils_computedFields_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(86);
 
 
@@ -15008,6 +15091,7 @@ __webpack_require__.r(__webpack_exports__);
     StatusBadge: _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
+  inject: ['middleware'],
   emits: ['configure-merge', 'view-audit-log', 'cancel', 'view-merge-results'],
   data: function data() {
     return {
@@ -15076,11 +15160,11 @@ __webpack_require__.r(__webpack_exports__);
               _this.error = null;
 
               // Fetch current user for publisher rights check
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
                 _context.next = 3;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch current user
+              apiClient = _this.middleware.core.apiClient; // Fetch current user
               _context.next = 1;
               return apiClient.get('v1/user');
             case 1:
@@ -15121,10 +15205,9 @@ __webpack_require__.r(__webpack_exports__);
                 isPublished: true,
                 updatedAt: '2025-01-15T10:30:00Z',
                 lockedUntil: null,
-                users: [{
-                  email: 'user@example.com',
-                  userRoleId: 1
-                }]
+                appUser: {
+                  appRoleId: 1 // Publisher role
+                }
               };
               _this.mergeHistory = [];
             case 5:
@@ -15279,7 +15362,7 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15287,10 +15370,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _slicedToArray)
 /* harmony export */ });
-/* harmony import */ var _arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
-/* harmony import */ var _iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
-/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(52);
-/* harmony import */ var _nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(59);
+/* harmony import */ var _arrayWithHoles_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+/* harmony import */ var _iterableToArrayLimit_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59);
+/* harmony import */ var _unsupportedIterableToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(53);
+/* harmony import */ var _nonIterableRest_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(60);
 
 
 
@@ -15301,7 +15384,7 @@ function _slicedToArray(r, e) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15315,7 +15398,7 @@ function _arrayWithHoles(r) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15353,7 +15436,7 @@ function _iterableToArrayLimit(r, l) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15367,7 +15450,7 @@ function _nonIterableRest() {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15375,7 +15458,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ CircleAlert)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15396,7 +15479,7 @@ const CircleAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15404,7 +15487,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ LoaderCircle)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15423,7 +15506,7 @@ const LoaderCircle = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defau
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15431,7 +15514,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ExternalLink)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15452,7 +15535,7 @@ const ExternalLink = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defau
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15460,7 +15543,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ FileText)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15483,7 +15566,7 @@ const FileText = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15491,9 +15574,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _StatusBadge_vue_vue_type_template_id_6904dec6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(65);
-/* harmony import */ var _StatusBadge_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _StatusBadge_vue_vue_type_template_id_6904dec6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _StatusBadge_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(68);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -15508,7 +15591,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15516,11 +15599,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_template_id_6904dec6__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_template_id_6904dec6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_template_id_6904dec6__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15528,7 +15611,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = ["data-testid"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -15543,7 +15626,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15551,11 +15634,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_StatusBadge_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
  
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15563,11 +15646,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(72);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(72);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(73);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'StatusBadge',
@@ -15645,7 +15728,7 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15653,7 +15736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ CircleCheck)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15673,7 +15756,7 @@ const CircleCheck = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15681,7 +15764,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Clock)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15701,7 +15784,7 @@ const Clock = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15709,7 +15792,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Copy)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15729,7 +15812,7 @@ const Copy = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("c
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15737,7 +15820,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ RefreshCw)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -15759,7 +15842,7 @@ const RefreshCw = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15767,9 +15850,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _WarningBanner_vue_vue_type_template_id_98ed5864__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
-/* harmony import */ var _WarningBanner_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _WarningBanner_vue_vue_type_template_id_98ed5864__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
+/* harmony import */ var _WarningBanner_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -15784,7 +15867,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15792,11 +15875,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_template_id_98ed5864__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_template_id_98ed5864__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(75);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_template_id_98ed5864__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(76);
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15804,7 +15887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = ["data-testid"];
 var _hoisted_2 = {
@@ -15845,7 +15928,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15853,11 +15936,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(77);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_WarningBanner_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(78);
  
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -15865,10 +15948,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(80);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(79);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(80);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(81);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'WarningBanner',
@@ -15998,7 +16081,7 @@ __webpack_require__.r(__webpack_exports__);
 });
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16006,7 +16089,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ TriangleAlert)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -16033,7 +16116,7 @@ const TriangleAlert = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defa
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16041,7 +16124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Info)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -16062,7 +16145,7 @@ const Info = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("i
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16070,7 +16153,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ X)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -16090,7 +16173,7 @@ const X = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("x", 
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16103,7 +16186,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   mapOrganizationFields: () => (/* binding */ mapOrganizationFields),
 /* harmony export */   mapPageFields: () => (/* binding */ mapPageFields)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -16132,6 +16215,9 @@ function mapAppFields(app) {
     updatedAt: app.updatedAt,
     lockedUntil: app.lockedUntil,
     users: app.users,
+    // Keep for backward compatibility
+    appUser: app.appUser,
+    // New field for publisher rights
     // Map productionAppId to isPublished boolean
     isPublished: !!app.productionAppId,
     productionAppId: app.productionAppId
@@ -16290,7 +16376,7 @@ function mapArray(items, mapFn) {
 }
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16298,7 +16384,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ _defineProperty)
 /* harmony export */ });
-/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
 
 function _defineProperty(e, r, t) {
   return (r = (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(r)) in e ? Object.defineProperty(e, r, {
@@ -16311,7 +16397,7 @@ function _defineProperty(e, r, t) {
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -16319,33 +16405,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ toPropertyKey)
 /* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(85);
 
 
 function toPropertyKey(t) {
   var i = (0,_toPrimitive_js__WEBPACK_IMPORTED_MODULE_1__["default"])(t, "string");
   return "symbol" == (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(i) ? i : i + "";
-}
-
-
-/***/ }),
-/* 84 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ _typeof)
-/* harmony export */ });
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
 }
 
 
@@ -16358,7 +16424,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ toPrimitive)
 /* harmony export */ });
-/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
+/* harmony import */ var _typeof_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 
 function toPrimitive(t, r) {
   if ("object" != (0,_typeof_js__WEBPACK_IMPORTED_MODULE_0__["default"])(t) || !t) return t;
@@ -16408,22 +16474,32 @@ function isLocked(lockedUntil) {
 
 /**
  * Check if current user has publisher rights on an app
- * @param {Object} app - App object with users array
- * @param {Object} currentUser - Current user object with email
- * @returns {boolean} True if user has publisher rights (userRoleId === 1)
+ * @param {Object} app - App object with appUser object or users array
+ * @param {Object} currentUser - Current user object
+ * @returns {boolean} True if user has publisher rights
  */
 function hasPublisherRights(app, currentUser) {
-  if (!app || !currentUser || !currentUser.email) return false;
-  if (!Array.isArray(app.users) || app.users.length === 0) return false;
+  if (!app) return false;
 
-  // Find the current user in the app's users array
-  var userInApp = app.users.find(function (u) {
-    return u.email === currentUser.email;
-  });
-  if (!userInApp) return false;
+  // New API format: check appUser.appRoleId
+  if (app.appUser && typeof app.appUser.appRoleId === 'number') {
+    return app.appUser.appRoleId === 1;
+  }
 
-  // userRoleId of 1 means publisher
-  return userInApp.userRoleId === 1;
+  // Legacy API format: check users array
+  if (app.users && Array.isArray(app.users) && currentUser && currentUser.email) {
+    var userInApp = app.users.find(function (u) {
+      return u.email === currentUser.email;
+    });
+    if (userInApp && typeof userInApp.userRoleId === 'number') {
+      return userInApp.userRoleId === 1;
+    }
+  }
+
+  // Fallback: if no permission data is available, assume user has rights
+  // This handles cases where the API doesn't return permission data
+  console.warn('[hasPublisherRights] No permission data found, assuming publisher rights');
+  return true;
 }
 
 /**
@@ -16546,7 +16622,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DestinationSelector_vue_vue_type_template_id_2e148e42__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(88);
 /* harmony import */ var _DestinationSelector_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(90);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -16581,7 +16657,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-6",
@@ -16730,15 +16806,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(61);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(62);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(92);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(93);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74);
 /* harmony import */ var _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(94);
-/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81);
+/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(82);
 /* harmony import */ var _utils_computedFields_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86);
 
 
@@ -16756,6 +16832,7 @@ __webpack_require__.r(__webpack_exports__);
     WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     FlipletTableWrapper: _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
+  inject: ['middleware'],
   emits: ['app-selected', 'back', 'cancel'],
   data: function data() {
     return {
@@ -16844,11 +16921,11 @@ __webpack_require__.r(__webpack_exports__);
               _context.prev = 0;
               _this2.loading = true;
               _this2.error = null;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this2.middleware && _this2.middleware.core && _this2.middleware.core.apiClient)) {
                 _context.next = 3;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch current user
+              apiClient = _this2.middleware.core.apiClient; // Fetch current user
               _context.next = 1;
               return apiClient.get('v1/user');
             case 1:
@@ -16911,11 +16988,11 @@ __webpack_require__.r(__webpack_exports__);
               _context2.prev = 0;
               _this3.loading = true;
               _this3.error = null;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this3.middleware && _this3.middleware.core && _this3.middleware.core.apiClient)) {
                 _context2.next = 2;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch apps with filters: publisher: true, mergeable: true
+              apiClient = _this3.middleware.core.apiClient; // Fetch apps with filters: publisher: true, mergeable: true
               params = {
                 organizationId: _this3.selectedOrganizationId,
                 publisher: true,
@@ -16936,6 +17013,8 @@ __webpack_require__.r(__webpack_exports__);
 
                 // Calculate computed fields
                 mappedApp.isLocked = (0,_utils_computedFields_js__WEBPACK_IMPORTED_MODULE_8__.isLocked)(app.lockedUntil);
+
+                // Check publisher rights using appUser.appRoleId
                 mappedApp.hasPublisherRights = (0,_utils_computedFields_js__WEBPACK_IMPORTED_MODULE_8__.hasPublisherRights)(app, _this3.currentUser);
 
                 // Map isPublished to isLive for display
@@ -16956,10 +17035,9 @@ __webpack_require__.r(__webpack_exports__);
                 isLive: false,
                 isLocked: false,
                 hasPublisherRights: true,
-                users: [{
-                  email: 'user@example.com',
-                  userRoleId: 1
-                }]
+                appUser: {
+                  appRoleId: 1 // Publisher role
+                }
               }];
               _this3.apps = _this3.apps.filter(function (app) {
                 return app.id !== _this3.sourceAppId;
@@ -17160,7 +17238,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Building2)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -17197,7 +17275,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Search)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -17227,7 +17305,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _FlipletTableWrapper_vue_vue_type_template_id_13bcb888__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(95);
 /* harmony import */ var _FlipletTableWrapper_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(97);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -17262,7 +17340,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   key: 0,
@@ -17307,9 +17385,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(82);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(61);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(62);
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
@@ -17672,7 +17750,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _MergeConfiguration_vue_vue_type_template_id_4359db79__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(100);
 /* harmony import */ var _MergeConfiguration_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(102);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -17707,7 +17785,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-6"
@@ -17880,7 +17958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(104);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(105);
 /* harmony import */ var _ui_LockCountdown_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(106);
@@ -17888,7 +17966,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tabs_DataSourcesTab_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(116);
 /* harmony import */ var _tabs_FilesTab_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(121);
 /* harmony import */ var _tabs_SettingsTab_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(129);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(73);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
 
 
 
@@ -18050,7 +18128,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ArrowRight)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -18078,7 +18156,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Lock)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -18108,7 +18186,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _LockCountdown_vue_vue_type_template_id_5843e77b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(107);
 /* harmony import */ var _LockCountdown_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(109);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -18143,7 +18221,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "data-testid": "lock-countdown"
@@ -18247,8 +18325,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(78);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(70);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(79);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'LockCountdown',
@@ -18391,7 +18469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ScreensTab_vue_vue_type_template_id_7769b27f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(112);
 /* harmony import */ var _ScreensTab_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(114);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -18426,8 +18504,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 var _hoisted_1 = {
@@ -18542,14 +18620,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(94);
-/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(81);
+/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(82);
 
 
 
@@ -18561,6 +18639,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ScreensTab',
+  inject: ['middleware'],
   components: {
     FlipletTableWrapper: _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
@@ -18710,11 +18789,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _this4.loading = true;
               _this4.error = null;
               _context2.prev = 1;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this4.middleware && _this4.middleware.core && _this4.middleware.core.apiClient)) {
                 _context2.next = 3;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch pages with associations included
+              apiClient = _this4.middleware.core.apiClient; // Fetch pages with associations included
               params = {
                 include: 'associatedDS,associatedFiles'
               };
@@ -18952,7 +19031,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DataSourcesTab_vue_vue_type_template_id_a10f1e10__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(117);
 /* harmony import */ var _DataSourcesTab_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(119);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -18987,8 +19066,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 var _hoisted_1 = {
@@ -19160,15 +19239,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(78);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79);
 /* harmony import */ var _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(94);
-/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81);
+/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(82);
 /* harmony import */ var _utils_computedFields_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(86);
 
 
@@ -19183,6 +19262,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'DataSourcesTab',
+  inject: ['middleware'],
   components: {
     AlertTriangle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__["default"],
     FlipletTableWrapper: _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -19340,14 +19420,15 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _this4.loading = true;
               _this4.error = null;
               _context2.prev = 1;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this4.middleware && _this4.middleware.core && _this4.middleware.core.apiClient)) {
                 _context2.next = 3;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch data sources with associations included
+              apiClient = _this4.middleware.core.apiClient; // Fetch data sources with associations included
               params = {
                 appId: _this4.sourceAppId,
-                include: 'associatedPages,associatedFiles'
+                include: 'associatedPages,associatedFiles',
+                excludeTypes: 'bookmarks,likes,comments,menu,conversation'
               };
               _context2.next = 2;
               return apiClient.get('v1/data-sources', params);
@@ -19628,7 +19709,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _FilesTab_vue_vue_type_template_id_66d8cc62__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(122);
 /* harmony import */ var _FilesTab_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(124);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -19663,8 +19744,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 
 
 var _hoisted_1 = {
@@ -19794,18 +19875,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(82);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(84);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(48);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(94);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(64);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(126);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(127);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(128);
-/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(81);
+/* harmony import */ var _utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(82);
 
 
 
@@ -19818,6 +19899,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'FilesTab',
+  inject: ['middleware'],
   components: {
     FlipletTableWrapper: _ui_FlipletTableWrapper_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
@@ -19975,18 +20057,24 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
               _this4.loading = true;
               _this4.error = null;
               _context2.prev = 1;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
-                _context2.next = 3;
+              if (_this4.sourceAppId) {
+                _context2.next = 2;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch media with associations included
+              throw new Error('Source app ID is required to load files');
+            case 2:
+              if (!(_this4.middleware && _this4.middleware.core && _this4.middleware.core.apiClient)) {
+                _context2.next = 4;
+                break;
+              }
+              apiClient = _this4.middleware.core.apiClient; // Fetch media with associations included
               params = {
                 appId: _this4.sourceAppId,
                 include: 'associatedPages,associatedDS'
               };
-              _context2.next = 2;
+              _context2.next = 3;
               return apiClient.get('v1/media', params);
-            case 2:
+            case 3:
               response = _context2.sent;
               // API returns { files: [], folders: [] } - merge into single array
               mappedFiles = (0,_utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_10__.mapMediaFields)(response); // Normalize associations for all items
@@ -20002,12 +20090,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                   children: file.children || []
                 };
               });
-              _context2.next = 5;
+              _context2.next = 6;
               break;
-            case 3:
-              _context2.next = 4;
-              return Promise.resolve();
             case 4:
+              _context2.next = 5;
+              return Promise.resolve();
+            case 5:
               _this4.files = [{
                 id: 1,
                 name: 'Marketing assets',
@@ -20043,29 +20131,29 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                   name: 'Sales data'
                 }]
               }];
-            case 5:
+            case 6:
               // Initialize folder options
               _this4.files.forEach(function (file) {
                 if (file.type === 'folder') {
                   _this4.folderOptions[file.id] = 'folder-only';
                 }
               });
-              _context2.next = 7;
+              _context2.next = 8;
               break;
-            case 6:
-              _context2.prev = 6;
+            case 7:
+              _context2.prev = 7;
               _t = _context2["catch"](1);
               _this4.error = 'Failed to load files. Please try again.';
               console.error('Error loading files:', _t);
-            case 7:
-              _context2.prev = 7;
-              _this4.loading = false;
-              return _context2.finish(7);
             case 8:
+              _context2.prev = 8;
+              _this4.loading = false;
+              return _context2.finish(8);
+            case 9:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[1, 6, 7, 8]]);
+        }, _callee2, null, [[1, 7, 8, 9]]);
       }))();
     },
     normalizeAssociations: function normalizeAssociations(associations) {
@@ -20259,7 +20347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ File)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20287,7 +20375,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Folder)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20320,7 +20408,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Image)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20351,7 +20439,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SettingsTab_vue_vue_type_template_id_6021aa5e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(130);
 /* harmony import */ var _SettingsTab_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(132);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -20386,7 +20474,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-4"
@@ -20561,16 +20649,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(78);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(134);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(63);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(135);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(136);
 /* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(137);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(73);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
 
 
 
@@ -20705,7 +20793,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Code)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20733,7 +20821,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Menu)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20762,7 +20850,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Palette)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20799,7 +20887,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Settings)
 /* harmony export */ });
-/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(29);
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(30);
 /**
  * @license lucide-vue-next v0.545.0 - ISC
  *
@@ -20835,7 +20923,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _MergeReview_vue_vue_type_template_id_79db4165__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(139);
 /* harmony import */ var _MergeReview_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(141);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -20870,7 +20958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-6",
@@ -21193,13 +21281,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(61);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(78);
-/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(64);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(79);
+/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(65);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74);
 /* harmony import */ var _feedback_ModalDialog_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(143);
 
 
@@ -21209,6 +21297,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MergeReview',
+  inject: ['middleware'],
   components: {
     AlertTriangle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__["default"],
     Loader2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -21302,14 +21391,28 @@ __webpack_require__.r(__webpack_exports__);
               _context.prev = 0;
               _this.loading = true;
               _this.error = null;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
-                _context.next = 3;
+
+              // Validate required props
+              if (_this.sourceAppId) {
+                _context.next = 1;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Call preview endpoint with merge config
-              _context.next = 1;
-              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/preview"), _this.mergeConfig);
+              throw new Error('Source app ID is required to load merge preview');
             case 1:
+              if (_this.destinationAppId) {
+                _context.next = 2;
+                break;
+              }
+              throw new Error('Destination app ID is required to load merge preview');
+            case 2:
+              if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
+                _context.next = 5;
+                break;
+              }
+              apiClient = _this.middleware.core.apiClient; // Call preview endpoint with merge config
+              _context.next = 3;
+              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/preview"), _this.mergeConfig);
+            case 3:
               response = _context.sent;
               _this.preview = response.preview || response || {
                 screens: [],
@@ -21319,9 +21422,9 @@ __webpack_require__.r(__webpack_exports__);
               };
 
               // Get plan limits from merge status endpoint
-              _context.next = 2;
+              _context.next = 4;
               return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/status"), {});
-            case 2:
+            case 4:
               statusResponse = _context.sent;
               limitWarnings = statusResponse.limitWarnings || {};
               _this.planLimits = {
@@ -21329,12 +21432,12 @@ __webpack_require__.r(__webpack_exports__);
                 dataSourcesLimit: limitWarnings.dataSourcesLimit || null,
                 filesLimit: limitWarnings.filesLimit || null
               };
-              _context.next = 5;
+              _context.next = 7;
               break;
-            case 3:
-              _context.next = 4;
+            case 5:
+              _context.next = 6;
               return Promise.resolve();
-            case 4:
+            case 6:
               _this.preview = {
                 screens: [{
                   id: 1,
@@ -21369,23 +21472,23 @@ __webpack_require__.r(__webpack_exports__);
                 dataSourcesLimit: null,
                 filesLimit: null
               };
-            case 5:
-              _context.next = 7;
+            case 7:
+              _context.next = 9;
               break;
-            case 6:
-              _context.prev = 6;
+            case 8:
+              _context.prev = 8;
               _t = _context["catch"](0);
               _this.error = 'Unable to load merge preview. Please try again.';
               console.error('Failed to load merge preview:', _t);
-            case 7:
-              _context.prev = 7;
+            case 9:
+              _context.prev = 9;
               _this.loading = false;
-              return _context.finish(7);
-            case 8:
+              return _context.finish(9);
+            case 10:
             case "end":
               return _context.stop();
           }
-        }, _callee, null, [[0, 6, 7, 8]]);
+        }, _callee, null, [[0, 8, 9, 10]]);
       }))();
     },
     /**
@@ -21444,7 +21547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModalDialog_vue_vue_type_template_id_9c3d6d8a_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(144);
 /* harmony import */ var _ModalDialog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(146);
 /* harmony import */ var _ModalDialog_vue_vue_type_style_index_0_id_9c3d6d8a_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(148);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45);
 
 
 
@@ -21481,7 +21584,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = ["aria-labelledby"];
 var _hoisted_2 = {
@@ -21586,7 +21689,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(80);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(81);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ModalDialog',
@@ -21763,17 +21866,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(36);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(36);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(37);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(37);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(38);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(39);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(39);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(40);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(40);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(41);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_ModalDialog_vue_vue_type_style_index_0_id_9c3d6d8a_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(150);
 
@@ -21812,9 +21915,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(42);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(43);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(44);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
 // Imports
 
@@ -21855,7 +21958,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _MergeProgress_vue_vue_type_template_id_1d72907a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(152);
 /* harmony import */ var _MergeProgress_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -21890,7 +21993,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-6",
@@ -22033,14 +22136,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(60);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(69);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(61);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(61);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(70);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(71);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(74);
+
 
 
 
@@ -22048,12 +22153,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MergeProgress',
   components: {
-    CheckCircle2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__["default"],
-    AlertCircle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Loader2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__["default"],
-    Clock: lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__["default"],
-    WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    CheckCircle2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__["default"],
+    AlertCircle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Loader2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__["default"],
+    Clock: lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__["default"],
+    WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
+  inject: ['middleware'],
   props: {
     sourceAppId: {
       type: Number,
@@ -22095,12 +22201,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this$middleware, _this$middleware2;
     console.log('[MergeProgress] Component mounted');
     console.log('[MergeProgress] Props:', {
       sourceAppId: this.sourceAppId,
       mergeId: this.mergeId
     });
-    console.log('[MergeProgress] Middleware available:', !!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api));
+    console.log('[MergeProgress] Middleware:', this.middleware);
+    console.log('[MergeProgress] ApiClient:', (_this$middleware = this.middleware) === null || _this$middleware === void 0 || (_this$middleware = _this$middleware.core) === null || _this$middleware === void 0 ? void 0 : _this$middleware.apiClient);
+    console.log('[MergeProgress] ApiClient.get type:', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])((_this$middleware2 = this.middleware) === null || _this$middleware2 === void 0 || (_this$middleware2 = _this$middleware2.core) === null || _this$middleware2 === void 0 || (_this$middleware2 = _this$middleware2.apiClient) === null || _this$middleware2 === void 0 ? void 0 : _this$middleware2.get));
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -22118,17 +22227,17 @@ __webpack_require__.r(__webpack_exports__);
      */
     startMerge: function startMerge() {
       var _this = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
         var apiClient, response, _t;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               console.log('[MergeProgress] Starting merge...');
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
                 _context.next = 5;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api;
+              apiClient = _this.middleware.core.apiClient;
               console.log('[MergeProgress] Middleware API available, initiating merge...');
               _context.prev = 1;
               _context.next = 2;
@@ -22173,9 +22282,9 @@ __webpack_require__.r(__webpack_exports__);
      */
     pollMergeStatus: function pollMergeStatus() {
       var _this2 = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
         var _logsResponse, statusResponse, logsResponse, apiClient, logs, latestLog, _t2;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               console.log('[MergeProgress] Polling merge status...');
@@ -22192,11 +22301,11 @@ __webpack_require__.r(__webpack_exports__);
               _context2.prev = 1;
               statusResponse = null;
               logsResponse = null;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this2.middleware && _this2.middleware.core && _this2.middleware.core.apiClient)) {
                 _context2.next = 4;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Get merge status
+              apiClient = _this2.middleware.core.apiClient; // Get merge status
               console.log('[MergeProgress] Fetching merge status...');
               _context2.next = 2;
               return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/merge/status"), {
@@ -22418,7 +22527,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(157);
 /* harmony import */ var _MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(159);
-/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
+/* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(45);
 
 
 
@@ -22453,7 +22562,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* binding */ render)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
 var _hoisted_1 = {
   "class": "space-y-6",
@@ -22670,16 +22779,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(61);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(78);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(63);
-/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(64);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(73);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(79);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(63);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(64);
+/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(65);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
 
 
 
@@ -22687,6 +22796,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'MergeComplete',
+  inject: ['middleware'],
   components: {
     CheckCircle2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__["default"],
     AlertTriangle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -22762,11 +22872,11 @@ __webpack_require__.r(__webpack_exports__);
               _context.prev = 0;
               _this.loading = true;
               _this.error = null;
-              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+              if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
                 _context.next = 3;
                 break;
               }
-              apiClient = window.FlipletAppMerge.middleware.api; // Fetch final merge status with results
+              apiClient = _this.middleware.core.apiClient; // Fetch final merge status with results
               _context.next = 1;
               return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/status"), {
                 mergeId: _this.mergeId
@@ -22874,6 +22984,6836 @@ __webpack_require__.r(__webpack_exports__);
   }
 });
 
+/***/ }),
+/* 161 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _core_ApiClient__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(164);
+/* harmony import */ var _core_StateManager__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(165);
+/* harmony import */ var _core_ValidationEngine__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(167);
+/* harmony import */ var _core_ErrorHandler__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(168);
+/* harmony import */ var _api_AppsApiService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(169);
+/* harmony import */ var _api_OrganizationsApiService__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(170);
+/* harmony import */ var _api_PagesApiService__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(171);
+/* harmony import */ var _api_DataSourcesApiService__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(172);
+/* harmony import */ var _api_MediaApiService__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(173);
+/* harmony import */ var _api_MergeApiService__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(174);
+/* harmony import */ var _controllers_ValidationController__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(175);
+/* harmony import */ var _controllers_AppLockController__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(176);
+/* harmony import */ var _controllers_MergeConfigurationController__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(177);
+/* harmony import */ var _controllers_MergeExecutionController__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(178);
+/* harmony import */ var _utils_EventEmitter__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(166);
+/* harmony import */ var _utils_DataMapper__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(179);
+/* harmony import */ var _utils_CacheManager__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(180);
+/* harmony import */ var _config_defaults__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(181);
+
+
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+// src/middleware/middleware.js
+
+/**
+ * AppMergeMiddleware - Main middleware entry point
+ *
+ * Initializes and provides access to all middleware services and controllers
+ * for the App Merge Widget.
+ *
+ * @class AppMergeMiddleware
+ *
+ * @example
+ * const middleware = new AppMergeMiddleware({ cache: { enabled: true } });
+ * await middleware.initialize();
+ *
+ * // Start configuration
+ * await middleware.startConfiguration(sourceAppId);
+ *
+ * // Update configuration
+ * middleware.updateConfiguration({ destinationAppId: 456 });
+ *
+ * // Initiate merge
+ * const result = await middleware.initiateMerge(sourceAppId, mergeConfig);
+ */
+
+// Import core classes (using dynamic import since they're CommonJS)
+
+
+
+
+
+// Import API services
+
+
+
+
+
+
+
+// Import controllers
+
+
+
+
+
+// Import utilities
+
+
+
+
+// Import configuration
+
+var AppMergeMiddleware = /*#__PURE__*/function () {
+  /**
+   * Create AppMergeMiddleware instance
+   *
+   * @param {Object} [userConfig={}] - User configuration
+   */
+  function AppMergeMiddleware() {
+    var userConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, AppMergeMiddleware);
+    this.userConfig = userConfig;
+    this.config = null;
+    this.initialized = false;
+
+    // Will be initialized in initialize()
+    this.core = {};
+    this.api = {};
+    this.controllers = {};
+    this.utils = {};
+  }
+
+  /**
+   * Initialize middleware with configuration
+   *
+   * @param {Object} [config={}] - Additional configuration
+   * @returns {Promise<void>}
+   *
+   * @example
+   * await middleware.initialize({ api: { timeout: 60000 } });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(AppMergeMiddleware, [{
+    key: "initialize",
+    value: (function () {
+      var _initialize = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee() {
+        var config,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              config = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+              if (!this.initialized) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Middleware already initialized');
+            case 1:
+              // Merge configurations
+              this.config = (0,_config_defaults__WEBPACK_IMPORTED_MODULE_23__.getMergedConfig)(_objectSpread(_objectSpread({}, this.userConfig), config));
+
+              // Debug: Check imports
+              console.log('[Middleware] EventEmitter type:', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_utils_EventEmitter__WEBPACK_IMPORTED_MODULE_20__["default"]));
+              console.log('[Middleware] EventEmitter:', _utils_EventEmitter__WEBPACK_IMPORTED_MODULE_20__["default"]);
+              console.log('[Middleware] ApiClient type:', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_core_ApiClient__WEBPACK_IMPORTED_MODULE_6__["default"]));
+              console.log('[Middleware] ApiClient:', _core_ApiClient__WEBPACK_IMPORTED_MODULE_6__["default"]);
+              console.log('[Middleware] StateManager type:', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_core_StateManager__WEBPACK_IMPORTED_MODULE_7__["default"]));
+              console.log('[Middleware] CacheManager type:', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(_utils_CacheManager__WEBPACK_IMPORTED_MODULE_22__["default"]));
+
+              // Initialize utilities
+              this.utils.eventEmitter = new _utils_EventEmitter__WEBPACK_IMPORTED_MODULE_20__["default"]();
+              console.log('[Middleware] eventEmitter instance:', this.utils.eventEmitter);
+              console.log('[Middleware] eventEmitter has .on?', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.utils.eventEmitter.on));
+              this.utils.cacheManager = new _utils_CacheManager__WEBPACK_IMPORTED_MODULE_22__["default"]({
+                maxSize: this.config.cache.maxSize,
+                defaultTTL: this.config.cache.defaultTTL
+              });
+              this.utils.dataMapper = _utils_DataMapper__WEBPACK_IMPORTED_MODULE_21__["default"];
+
+              // Initialize core foundation
+              this.core.apiClient = new _core_ApiClient__WEBPACK_IMPORTED_MODULE_6__["default"]();
+              console.log('[Middleware] apiClient instance:', this.core.apiClient);
+              console.log('[Middleware] apiClient has .get?', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.core.apiClient.get));
+              console.log('[Middleware] apiClient has .post?', (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(this.core.apiClient.post));
+              this.core.stateManager = new _core_StateManager__WEBPACK_IMPORTED_MODULE_7__["default"](this.utils.eventEmitter);
+              this.core.validationEngine = new _core_ValidationEngine__WEBPACK_IMPORTED_MODULE_8__["default"]();
+              this.core.errorHandler = new _core_ErrorHandler__WEBPACK_IMPORTED_MODULE_9__["default"]();
+
+              // Initialize API services
+              this.api.apps = new _api_AppsApiService__WEBPACK_IMPORTED_MODULE_10__["default"](this.core.apiClient);
+              this.api.organizations = new _api_OrganizationsApiService__WEBPACK_IMPORTED_MODULE_11__["default"](this.core.apiClient);
+              this.api.pages = new _api_PagesApiService__WEBPACK_IMPORTED_MODULE_12__["default"](this.core.apiClient);
+              this.api.dataSources = new _api_DataSourcesApiService__WEBPACK_IMPORTED_MODULE_13__["default"](this.core.apiClient);
+              this.api.media = new _api_MediaApiService__WEBPACK_IMPORTED_MODULE_14__["default"](this.core.apiClient);
+              this.api.merge = new _api_MergeApiService__WEBPACK_IMPORTED_MODULE_15__["default"](this.core.apiClient);
+
+              // Initialize controllers
+              this.controllers.validation = new _controllers_ValidationController__WEBPACK_IMPORTED_MODULE_16__["default"](this.api.apps, this.core.validationEngine);
+              this.controllers.appLock = new _controllers_AppLockController__WEBPACK_IMPORTED_MODULE_17__["default"](this.api.merge, this.core.stateManager, this.utils.eventEmitter);
+              this.controllers.configuration = new _controllers_MergeConfigurationController__WEBPACK_IMPORTED_MODULE_18__["default"]({
+                appsApiService: this.api.apps,
+                pagesApiService: this.api.pages,
+                dataSourcesApiService: this.api.dataSources,
+                mediaApiService: this.api.media,
+                stateManager: this.core.stateManager,
+                validationController: this.controllers.validation,
+                appLockController: this.controllers.appLock,
+                eventEmitter: this.utils.eventEmitter
+              });
+              this.controllers.execution = new _controllers_MergeExecutionController__WEBPACK_IMPORTED_MODULE_19__["default"](this.api.merge, this.core.stateManager, this.utils.eventEmitter);
+              this.initialized = true;
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function initialize() {
+        return _initialize.apply(this, arguments);
+      }
+      return initialize;
+    }()
+    /**
+     * Start configuration workflow
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} [options={}] - Configuration options
+     * @returns {Promise<Object>} Configuration result
+     */
+    )
+  }, {
+    key: "startConfiguration",
+    value: (function () {
+      var _startConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee2(sourceAppId) {
+        var options,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              this.ensureInitialized();
+              return _context2.abrupt("return", this.controllers.configuration.startConfiguration(sourceAppId, options));
+            case 1:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function startConfiguration(_x) {
+        return _startConfiguration.apply(this, arguments);
+      }
+      return startConfiguration;
+    }()
+    /**
+     * Update configuration
+     *
+     * @param {Object} updates - Configuration updates
+     * @returns {Object} Updated configuration
+     */
+    )
+  }, {
+    key: "updateConfiguration",
+    value: function updateConfiguration(updates) {
+      this.ensureInitialized();
+      return this.controllers.configuration.updateConfiguration(updates);
+    }
+
+    /**
+     * Get current configuration
+     *
+     * @param {Object} [options={}] - Get options
+     * @returns {Object} Current configuration
+     */
+  }, {
+    key: "getConfiguration",
+    value: function getConfiguration() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      this.ensureInitialized();
+      return this.controllers.configuration.getConfiguration(options);
+    }
+
+    /**
+     * Proceed to next step
+     *
+     * @param {Object} [options={}] - Options
+     * @returns {Promise<Object>} Result
+     */
+  }, {
+    key: "proceedToNextStep",
+    value: (function () {
+      var _proceedToNextStep = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee3() {
+        var options,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 0 && _args3[0] !== undefined ? _args3[0] : {};
+              this.ensureInitialized();
+              return _context3.abrupt("return", this.controllers.configuration.proceedToNextStep(options));
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function proceedToNextStep() {
+        return _proceedToNextStep.apply(this, arguments);
+      }
+      return proceedToNextStep;
+    }()
+    /**
+     * Return to previous step
+     *
+     * @param {Object} [options={}] - Options
+     * @returns {Promise<Object>} Result
+     */
+    )
+  }, {
+    key: "returnToPreviousStep",
+    value: (function () {
+      var _returnToPreviousStep = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee4() {
+        var options,
+          _args4 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              options = _args4.length > 0 && _args4[0] !== undefined ? _args4[0] : {};
+              this.ensureInitialized();
+              return _context4.abrupt("return", this.controllers.configuration.returnToPreviousStep(options));
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function returnToPreviousStep() {
+        return _returnToPreviousStep.apply(this, arguments);
+      }
+      return returnToPreviousStep;
+    }()
+    /**
+     * Cancel configuration
+     *
+     * @param {Object} [options={}] - Options
+     * @returns {Promise<Object>} Result
+     */
+    )
+  }, {
+    key: "cancelConfiguration",
+    value: (function () {
+      var _cancelConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee5() {
+        var options,
+          _args5 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              options = _args5.length > 0 && _args5[0] !== undefined ? _args5[0] : {};
+              this.ensureInitialized();
+              return _context5.abrupt("return", this.controllers.configuration.cancelConfiguration(options));
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function cancelConfiguration() {
+        return _cancelConfiguration.apply(this, arguments);
+      }
+      return cancelConfiguration;
+    }()
+    /**
+     * Initiate merge
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} mergeConfig - Merge configuration
+     * @param {Object} [options={}] - Execution options
+     * @returns {Promise<Object>} Merge result
+     */
+    )
+  }, {
+    key: "initiateMerge",
+    value: (function () {
+      var _initiateMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee6(sourceAppId, mergeConfig) {
+        var options,
+          _args6 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 2 && _args6[2] !== undefined ? _args6[2] : {};
+              this.ensureInitialized();
+              return _context6.abrupt("return", this.controllers.execution.initiateMerge(sourceAppId, mergeConfig, options));
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function initiateMerge(_x2, _x3) {
+        return _initiateMerge.apply(this, arguments);
+      }
+      return initiateMerge;
+    }()
+    /**
+     * Get merge result
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {number} mergeId - Merge ID
+     * @returns {Promise<Object>} Merge result
+     */
+    )
+  }, {
+    key: "getMergeResult",
+    value: (function () {
+      var _getMergeResult = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee7(sourceAppId, mergeId) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              this.ensureInitialized();
+              return _context7.abrupt("return", this.controllers.execution.getMergeResult(sourceAppId, mergeId));
+            case 1:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
+      }));
+      function getMergeResult(_x4, _x5) {
+        return _getMergeResult.apply(this, arguments);
+      }
+      return getMergeResult;
+    }()
+    /**
+     * Subscribe to event
+     *
+     * @param {string} event - Event name
+     * @param {Function} handler - Event handler
+     * @returns {void}
+     */
+    )
+  }, {
+    key: "on",
+    value: function on(event, handler) {
+      this.ensureInitialized();
+      this.utils.eventEmitter.on(event, handler);
+    }
+
+    /**
+     * Unsubscribe from event
+     *
+     * @param {string} event - Event name
+     * @param {Function} handler - Event handler
+     * @returns {void}
+     */
+  }, {
+    key: "off",
+    value: function off(event, handler) {
+      this.ensureInitialized();
+      this.utils.eventEmitter.off(event, handler);
+    }
+
+    /**
+     * Clean up middleware resources
+     *
+     * @returns {void}
+     */
+  }, {
+    key: "cleanup",
+    value: function cleanup() {
+      if (this.controllers.appLock) {
+        this.controllers.appLock.cleanup();
+      }
+      if (this.controllers.execution) {
+        this.controllers.execution.cleanup();
+      }
+      if (this.utils.cacheManager) {
+        this.utils.cacheManager.clear();
+      }
+      if (this.core.stateManager) {
+        this.core.stateManager.clearState();
+      }
+    }
+
+    /**
+     * Ensure middleware is initialized
+     *
+     * @throws {Error} If not initialized
+     */
+  }, {
+    key: "ensureInitialized",
+    value: function ensureInitialized() {
+      if (!this.initialized) {
+        throw new Error('Middleware not initialized. Call initialize() first.');
+      }
+    }
+  }]);
+}(); // ES6 export
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppMergeMiddleware);
+
+/***/ }),
+/* 162 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _classCallCheck)
+/* harmony export */ });
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+
+
+/***/ }),
+/* 163 */
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ _createClass)
+/* harmony export */ });
+/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(84);
+
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+
+
+/***/ }),
+/* 164 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+// src/middleware/core/ApiClient.js
+/**
+ * ApiClient - HTTP communication layer using Fliplet.API.request()
+ *
+ * Handles all HTTP requests to the Fliplet API with automatic retry logic,
+ * authentication, and error handling.
+ *
+ * IMPORTANT: This class uses Fliplet.API.request() as documented at:
+ * https://developers.fliplet.com/API/core/api.html
+ *
+ * @class ApiClient
+ */
+var ApiClient = /*#__PURE__*/function () {
+  /**
+   * Create ApiClient instance
+   *
+   * Checks for custom apiUrl and auth_token from Fliplet.Navigate.query
+   * and uses them if provided.
+   */
+  function ApiClient() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, ApiClient);
+    this.config = {
+      timeout: 30000,
+      retryAttempts: 3,
+      retryDelay: 1000
+    };
+
+    // Check for overrides from Fliplet.Navigate.query
+    this.apiUrl = null; // Only set if custom apiUrl provided
+    this.authToken = null;
+    if (typeof Fliplet !== 'undefined' && Fliplet.Navigate && Fliplet.Navigate.query) {
+      if (Fliplet.Navigate.query.apiUrl) {
+        this.apiUrl = Fliplet.Navigate.query.apiUrl;
+      }
+      if (Fliplet.Navigate.query.auth_token) {
+        this.authToken = Fliplet.Navigate.query.auth_token;
+      }
+    }
+  }
+
+  /**
+   * Make an HTTP request
+   *
+   * @param {string} method - HTTP method (GET, POST, PUT, DELETE, etc.)
+   * @param {string} endpoint - API endpoint (e.g., 'v1/apps' or '/v1/apps')
+   * @param {*} [data=null] - Request payload for POST/PUT requests
+   * @param {Object} [options={}] - Additional request options
+   * @param {Object} [options.headers={}] - Custom headers to include
+   * @param {number} [options.timeout] - Request timeout in milliseconds
+   * @returns {Promise<*>} Response data from API
+   *
+   * @example
+   * const apps = await apiClient.request('GET', 'v1/apps', null, {
+   *   headers: { 'Custom-Header': 'value' }
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(ApiClient, [{
+    key: "request",
+    value: (function () {
+      var _request = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee(method, endpoint) {
+        var data,
+          options,
+          requestConfig,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              data = _args.length > 2 && _args[2] !== undefined ? _args[2] : null;
+              options = _args.length > 3 && _args[3] !== undefined ? _args[3] : {};
+              requestConfig = {
+                url: this.buildRequestUrl(endpoint),
+                method: method.toUpperCase(),
+                headers: this.buildRequestHeaders(options.headers)
+              }; // Add custom apiUrl only if provided
+              if (this.apiUrl) {
+                requestConfig.apiUrl = this.apiUrl;
+              }
+
+              // Add timeout if specified
+              if (options.timeout || this.config.timeout) {
+                requestConfig.timeout = options.timeout || this.config.timeout;
+              }
+
+              // Add data for POST/PUT/PATCH requests
+              if (data && ['POST', 'PUT', 'PATCH'].includes(requestConfig.method)) {
+                requestConfig.data = data;
+              }
+
+              // Add query params for GET requests
+              if (data && requestConfig.method === 'GET') {
+                requestConfig.url = this.buildUrlWithQueryParams(requestConfig.url, data);
+              }
+              return _context.abrupt("return", this.executeWithRetry(requestConfig));
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function request(_x, _x2) {
+        return _request.apply(this, arguments);
+      }
+      return request;
+    }()
+    /**
+     * Build request URL from endpoint
+     *
+     * Handles both custom apiUrl and default cases.
+     * - No custom apiUrl: return 'v1/apps' (Fliplet.API.request() adds base URL)
+     * - Custom apiUrl: return full URL
+     *
+     * @param {string} endpoint - API endpoint
+     * @returns {string} Properly formatted request URL
+     *
+     * @private
+     */
+    )
+  }, {
+    key: "buildRequestUrl",
+    value: function buildRequestUrl(endpoint) {
+      // Remove leading slash if present
+      var cleanEndpoint = endpoint.startsWith('/') ? endpoint.slice(1) : endpoint;
+      if (this.apiUrl) {
+        // Custom apiUrl: ensure it ends with / and combine with endpoint
+        var baseUrl = this.apiUrl.endsWith('/') ? this.apiUrl : "".concat(this.apiUrl, "/");
+        return "".concat(baseUrl).concat(cleanEndpoint);
+      }
+
+      // Default: Fliplet.API.request() will add the base URL
+      return cleanEndpoint;
+    }
+
+    /**
+     * Build URL with query parameters
+     *
+     * @param {string} url - Base URL
+     * @param {Object} params - Query parameters object
+     * @returns {string} URL with query parameters
+     *
+     * @private
+     */
+  }, {
+    key: "buildUrlWithQueryParams",
+    value: function buildUrlWithQueryParams(url, params) {
+      if (!params || (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(params) !== 'object') {
+        return url;
+      }
+      var queryString = Object.keys(params).filter(function (key) {
+        return params[key] !== null && params[key] !== undefined;
+      }).map(function (key) {
+        return "".concat(encodeURIComponent(key), "=").concat(encodeURIComponent(params[key]));
+      }).join('&');
+      if (queryString) {
+        var separator = url.includes('?') ? '&' : '?';
+        return "".concat(url).concat(separator).concat(queryString);
+      }
+      return url;
+    }
+
+    /**
+     * Build request headers
+     *
+     * Adds custom auth token if provided via Fliplet.Navigate.query.auth_token
+     *
+     * @param {Object} [customHeaders={}] - Additional headers to include
+     * @returns {Object} Complete headers object
+     *
+     * @private
+     */
+  }, {
+    key: "buildRequestHeaders",
+    value: function buildRequestHeaders() {
+      var customHeaders = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var headers = _objectSpread({}, customHeaders);
+      if (this.authToken) {
+        headers['Auth-token'] = this.authToken;
+      }
+      return headers;
+    }
+
+    /**
+     * Execute request with exponential backoff retry logic
+     *
+     * Retries on network errors and 5xx server errors.
+     * Does NOT retry on 4xx client errors.
+     *
+     * @param {Object} requestConfig - Request configuration for Fliplet.API.request()
+     * @returns {Promise<*>} Response data from API
+     *
+     * @private
+     */
+  }, {
+    key: "executeWithRetry",
+    value: (function () {
+      var _executeWithRetry = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee2(requestConfig) {
+        var lastError, attempt, response, delay, _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              attempt = 0;
+            case 1:
+              if (!(attempt < this.config.retryAttempts)) {
+                _context2.next = 7;
+                break;
+              }
+              _context2.prev = 2;
+              _context2.next = 3;
+              return Fliplet.API.request(requestConfig);
+            case 3:
+              response = _context2.sent;
+              return _context2.abrupt("return", response);
+            case 4:
+              _context2.prev = 4;
+              _t = _context2["catch"](2);
+              lastError = _t;
+
+              // Don't retry on client errors (4xx)
+              if (!(_t.status >= 400 && _t.status < 500)) {
+                _context2.next = 5;
+                break;
+              }
+              throw _t;
+            case 5:
+              if (!(attempt < this.config.retryAttempts - 1)) {
+                _context2.next = 6;
+                break;
+              }
+              delay = this.config.retryDelay * Math.pow(2, attempt);
+              _context2.next = 6;
+              return this.delay(delay);
+            case 6:
+              attempt++;
+              _context2.next = 1;
+              break;
+            case 7:
+              throw lastError;
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[2, 4]]);
+      }));
+      function executeWithRetry(_x3) {
+        return _executeWithRetry.apply(this, arguments);
+      }
+      return executeWithRetry;
+    }()
+    /**
+     * Delay execution for specified milliseconds
+     *
+     * Used for retry backoff delays.
+     *
+     * @param {number} ms - Milliseconds to delay
+     * @returns {Promise<void>} Promise that resolves after delay
+     *
+     * @private
+     */
+    )
+  }, {
+    key: "delay",
+    value: function delay(ms) {
+      return new Promise(function (resolve) {
+        return setTimeout(resolve, ms);
+      });
+    }
+
+    /**
+     * GET request helper
+     *
+     * @param {string} endpoint - API endpoint
+     * @param {Object} [params=null] - Query parameters
+     * @param {Object} [options={}] - Additional request options
+     * @returns {Promise<*>} Response data
+     *
+     * @example
+     * const apps = await apiClient.get('v1/apps', { organizationId: 123 });
+     */
+  }, {
+    key: "get",
+    value: (function () {
+      var _get = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee3(endpoint) {
+        var params,
+          options,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              params = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : null;
+              options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
+              return _context3.abrupt("return", this.request('GET', endpoint, params, options));
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function get(_x4) {
+        return _get.apply(this, arguments);
+      }
+      return get;
+    }()
+    /**
+     * POST request helper
+     *
+     * @param {string} endpoint - API endpoint
+     * @param {*} [data=null] - Request payload
+     * @param {Object} [options={}] - Additional request options
+     * @returns {Promise<*>} Response data
+     *
+     * @example
+     * const result = await apiClient.post('v1/apps/123/lock', { duration: 600 });
+     */
+    )
+  }, {
+    key: "post",
+    value: (function () {
+      var _post = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee4(endpoint) {
+        var data,
+          options,
+          _args4 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              data = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : null;
+              options = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : {};
+              return _context4.abrupt("return", this.request('POST', endpoint, data, options));
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function post(_x5) {
+        return _post.apply(this, arguments);
+      }
+      return post;
+    }()
+    /**
+     * PUT request helper
+     *
+     * @param {string} endpoint - API endpoint
+     * @param {*} [data=null] - Request payload
+     * @param {Object} [options={}] - Additional request options
+     * @returns {Promise<*>} Response data
+     */
+    )
+  }, {
+    key: "put",
+    value: (function () {
+      var _put = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee5(endpoint) {
+        var data,
+          options,
+          _args5 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              data = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : null;
+              options = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : {};
+              return _context5.abrupt("return", this.request('PUT', endpoint, data, options));
+            case 1:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function put(_x6) {
+        return _put.apply(this, arguments);
+      }
+      return put;
+    }()
+    /**
+     * DELETE request helper
+     *
+     * @param {string} endpoint - API endpoint
+     * @param {Object} [options={}] - Additional request options
+     * @returns {Promise<*>} Response data
+     */
+    )
+  }, {
+    key: "delete",
+    value: (function () {
+      var _delete2 = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee6(endpoint) {
+        var options,
+          _args6 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 1 && _args6[1] !== undefined ? _args6[1] : {};
+              return _context6.abrupt("return", this.request('DELETE', endpoint, null, options));
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function _delete(_x7) {
+        return _delete2.apply(this, arguments);
+      }
+      return _delete;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ApiClient);
+
+/***/ }),
+/* 165 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(163);
+/* harmony import */ var _utils_EventEmitter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(166);
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+// src/middleware/core/StateManager.js
+
+
+
+/**
+ * StateManager - Temporary merge configuration state management
+ *
+ * Manages in-memory state for the merge configuration process.
+ * State is NOT persisted and is cleared on cancellation or completion.
+ *
+ * @class StateManager
+ */
+var StateManager = /*#__PURE__*/function () {
+  /**
+   * Create StateManager instance
+   *
+   * Initializes state schema and event emitter for state change notifications.
+   */
+  function StateManager() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, StateManager);
+    this.eventEmitter = new _utils_EventEmitter__WEBPACK_IMPORTED_MODULE_4__["default"]();
+    this.state = this.getInitialState();
+
+    // Valid state transitions map
+    this.validTransitions = {
+      not_started: ['destination_selected', 'cancelled'],
+      destination_selected: ['configuring_resources', 'not_started', 'cancelled'],
+      configuring_resources: ['reviewing_preview', 'destination_selected', 'cancelled'],
+      reviewing_preview: ['merge_in_progress', 'configuring_resources', 'cancelled'],
+      merge_in_progress: ['completed', 'error', 'cancelled'],
+      completed: ['not_started'],
+      error: ['not_started', 'cancelled'],
+      cancelled: ['not_started']
+    };
+  }
+
+  /**
+   * Get initial state structure
+   *
+   * @returns {Object} Initial state object
+   *
+   * @private
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(StateManager, [{
+    key: "getInitialState",
+    value: function getInitialState() {
+      return {
+        mergeConfiguration: {
+          sourceApp: {
+            id: null,
+            name: null,
+            organizationId: null,
+            region: null
+          },
+          destinationApp: {
+            id: null,
+            name: null,
+            organizationId: null,
+            region: null
+          },
+          selectedPages: [],
+          selectedDataSources: [],
+          selectedFiles: [],
+          selectedFolders: [],
+          appLevelSettings: {
+            mergeAppSettings: false,
+            mergeMenuSettings: false,
+            mergeAppearanceSettings: false,
+            mergeGlobalCode: false
+          },
+          customDataSourcesInUse: []
+        },
+        lockStatus: {
+          sourceAppLockedUntil: null,
+          destinationAppLockedUntil: null,
+          lockOwner: null
+        },
+        mergeStatus: {
+          mergeId: null,
+          status: 'not_started',
+          currentStage: null,
+          progress: 0,
+          logs: []
+        },
+        validationState: {
+          sourceAppDuplicates: {
+            pages: [],
+            dataSources: []
+          },
+          destinationAppDuplicates: {
+            pages: [],
+            dataSources: []
+          },
+          hasErrors: false,
+          errors: []
+        },
+        cache: {}
+      };
+    }
+
+    /**
+     * Get state by path
+     *
+     * Supports dot-notation paths like 'mergeConfiguration.sourceApp.id'
+     *
+     * @param {string} [path] - Dot-notation path to state property
+     * @returns {*} State value at path, or entire state if no path provided
+     *
+     * @example
+     * const sourceAppId = stateManager.getState('mergeConfiguration.sourceApp.id');
+     * const allState = stateManager.getState();
+     */
+  }, {
+    key: "getState",
+    value: function getState(path) {
+      if (!path) {
+        // Return deep clone of entire state
+        return JSON.parse(JSON.stringify(this.state));
+      }
+      var keys = path.split('.');
+      var value = this.state;
+      var _iterator = _createForOfIteratorHelper(keys),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var key = _step.value;
+          if (value === null || value === undefined) {
+            return undefined;
+          }
+          value = value[key];
+        }
+
+        // Return deep clone to prevent external mutations
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(value) === 'object' && value !== null) {
+        return JSON.parse(JSON.stringify(value));
+      }
+      return value;
+    }
+
+    /**
+     * Set state by path
+     *
+     * Updates state immutably and emits 'state:change' event.
+     *
+     * @param {string} path - Dot-notation path to state property
+     * @param {*} value - New value to set
+     * @returns {StateManager} Returns this for chaining
+     *
+     * @example
+     * stateManager.setState('mergeConfiguration.sourceApp.id', 123);
+     * stateManager.setState('mergeStatus.status', 'in_progress');
+     */
+  }, {
+    key: "setState",
+    value: function setState(path, value) {
+      var keys = path.split('.');
+      var lastKey = keys.pop();
+
+      // Navigate to parent object
+      var current = this.state;
+      var _iterator2 = _createForOfIteratorHelper(keys),
+        _step2;
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var key = _step2.value;
+          if (current[key] === null || current[key] === undefined) {
+            current[key] = {};
+          }
+          current = current[key];
+        }
+
+        // Store old value for comparison
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+      var oldValue = current[lastKey];
+
+      // Set new value
+      current[lastKey] = value;
+
+      // Emit state change event
+      this.eventEmitter.emit('state:change', {
+        path: path,
+        oldValue: oldValue,
+        newValue: value,
+        timestamp: new Date().toISOString()
+      });
+      return this;
+    }
+
+    /**
+     * Clear all state
+     *
+     * Resets state to initial values and emits 'state:cleared' event.
+     *
+     * @returns {StateManager} Returns this for chaining
+     *
+     * @example
+     * stateManager.clearState();
+     */
+  }, {
+    key: "clearState",
+    value: function clearState() {
+      this.state = this.getInitialState();
+      this.eventEmitter.emit('state:cleared', {
+        timestamp: new Date().toISOString()
+      });
+      return this;
+    }
+
+    /**
+     * Validate state transition
+     *
+     * Checks if transition from current status to new status is valid.
+     *
+     * @param {string} fromStatus - Current status
+     * @param {string} toStatus - Desired status
+     * @returns {boolean} True if transition is valid
+     *
+     * @example
+     * const isValid = stateManager.validateStateTransition('not_started', 'destination_selected');
+     */
+  }, {
+    key: "validateStateTransition",
+    value: function validateStateTransition(fromStatus, toStatus) {
+      if (!this.validTransitions[fromStatus]) {
+        return false;
+      }
+      return this.validTransitions[fromStatus].includes(toStatus);
+    }
+
+    /**
+     * Get current merge status
+     *
+     * @returns {string} Current merge status
+     */
+  }, {
+    key: "getCurrentStatus",
+    value: function getCurrentStatus() {
+      return this.state.mergeStatus.status;
+    }
+
+    /**
+     * Update merge status with validation
+     *
+     * Validates transition before updating status.
+     *
+     * @param {string} newStatus - New status to set
+     * @param {Object} [additionalData={}] - Additional data to update with status
+     * @returns {boolean} True if update succeeded, false if transition invalid
+     *
+     * @example
+     * stateManager.updateMergeStatus('in_progress', {
+     *   currentStage: 'screens',
+     *   progress: 45
+     * });
+     */
+  }, {
+    key: "updateMergeStatus",
+    value: function updateMergeStatus(newStatus) {
+      var _this = this;
+      var additionalData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var currentStatus = this.getCurrentStatus();
+
+      // Validate transition
+      if (!this.validateStateTransition(currentStatus, newStatus)) {
+        console.warn("Invalid state transition from ".concat(currentStatus, " to ").concat(newStatus));
+        return false;
+      }
+
+      // Update status
+      this.setState('mergeStatus.status', newStatus);
+
+      // Update additional fields
+      Object.keys(additionalData).forEach(function (key) {
+        _this.setState("mergeStatus.".concat(key), additionalData[key]);
+      });
+
+      // Emit status change event
+      this.eventEmitter.emit('merge:status:change', {
+        from: currentStatus,
+        to: newStatus,
+        data: additionalData,
+        timestamp: new Date().toISOString()
+      });
+      return true;
+    }
+
+    /**
+     * Subscribe to state changes
+     *
+     * @param {string} event - Event name to listen for
+     * @param {Function} callback - Callback function
+     * @returns {StateManager} Returns this for chaining
+     *
+     * @example
+     * stateManager.on('state:change', (data) => {
+     *   console.log('State changed:', data.path, data.newValue);
+     * });
+     */
+  }, {
+    key: "on",
+    value: function on(event, callback) {
+      this.eventEmitter.on(event, callback);
+      return this;
+    }
+
+    /**
+     * Unsubscribe from state changes
+     *
+     * @param {string} event - Event name to stop listening for
+     * @param {Function} [callback] - Specific callback to remove
+     * @returns {StateManager} Returns this for chaining
+     */
+  }, {
+    key: "off",
+    value: function off(event, callback) {
+      this.eventEmitter.off(event, callback);
+      return this;
+    }
+
+    /**
+     * Subscribe to state changes once
+     *
+     * @param {string} event - Event name to listen for
+     * @param {Function} callback - Callback function
+     * @returns {StateManager} Returns this for chaining
+     */
+  }, {
+    key: "once",
+    value: function once(event, callback) {
+      this.eventEmitter.once(event, callback);
+      return this;
+    }
+
+    /**
+     * Get validation errors
+     *
+     * @returns {Array} List of validation errors
+     */
+  }, {
+    key: "getValidationErrors",
+    value: function getValidationErrors() {
+      return this.getState('validationState.errors') || [];
+    }
+
+    /**
+     * Add validation error
+     *
+     * @param {Object} error - Error object with field, message, type
+     * @returns {StateManager} Returns this for chaining
+     */
+  }, {
+    key: "addValidationError",
+    value: function addValidationError(error) {
+      var errors = this.getValidationErrors();
+      errors.push(_objectSpread(_objectSpread({}, error), {}, {
+        timestamp: new Date().toISOString()
+      }));
+      this.setState('validationState.errors', errors);
+      this.setState('validationState.hasErrors', true);
+      return this;
+    }
+
+    /**
+     * Clear validation errors
+     *
+     * @returns {StateManager} Returns this for chaining
+     */
+  }, {
+    key: "clearValidationErrors",
+    value: function clearValidationErrors() {
+      this.setState('validationState.errors', []);
+      this.setState('validationState.hasErrors', false);
+      return this;
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StateManager);
+
+/***/ }),
+/* 166 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+
+
+
+// src/middleware/utils/EventEmitter.js
+/**
+ * EventEmitter - Simple event system for component communication
+ *
+ * Provides a publish-subscribe pattern for decoupled communication between
+ * middleware components and the UI layer.
+ *
+ * @class EventEmitter
+ */
+var EventEmitter = /*#__PURE__*/function () {
+  function EventEmitter() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, EventEmitter);
+    this.events = {};
+  }
+
+  /**
+   * Register an event listener
+   *
+   * @param {string} event - Event name to listen for
+   * @param {Function} callback - Function to call when event is emitted
+   * @returns {EventEmitter} Returns this for chaining
+   *
+   * @example
+   * emitter.on('merge:progress', (data) => {
+   *   console.log('Progress:', data.progress);
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(EventEmitter, [{
+    key: "on",
+    value: function on(event, callback) {
+      if (typeof callback !== 'function') {
+        throw new TypeError('Callback must be a function');
+      }
+      if (!this.events[event]) {
+        this.events[event] = [];
+      }
+      this.events[event].push(callback);
+      return this;
+    }
+
+    /**
+     * Register a one-time event listener
+     *
+     * The listener will be automatically removed after it's called once.
+     *
+     * @param {string} event - Event name to listen for
+     * @param {Function} callback - Function to call when event is emitted
+     * @returns {EventEmitter} Returns this for chaining
+     *
+     * @example
+     * emitter.once('merge:complete', (data) => {
+     *   console.log('Merge completed:', data.mergeId);
+     * });
+     */
+  }, {
+    key: "once",
+    value: function once(event, callback) {
+      var _this = this;
+      if (typeof callback !== 'function') {
+        throw new TypeError('Callback must be a function');
+      }
+      var _onceWrapper = function onceWrapper() {
+        callback.apply(void 0, arguments);
+        _this.off(event, _onceWrapper);
+      };
+      return this.on(event, _onceWrapper);
+    }
+
+    /**
+     * Unregister an event listener
+     *
+     * If no callback is provided, removes all listeners for the event.
+     * If callback is provided, removes only that specific listener.
+     *
+     * @param {string} event - Event name to stop listening for
+     * @param {Function} [callback] - Specific callback to remove (optional)
+     * @returns {EventEmitter} Returns this for chaining
+     *
+     * @example
+     * // Remove all listeners for an event
+     * emitter.off('merge:progress');
+     *
+     * // Remove specific listener
+     * emitter.off('merge:progress', myCallback);
+     */
+  }, {
+    key: "off",
+    value: function off(event, callback) {
+      if (!this.events[event]) {
+        return this;
+      }
+
+      // If no callback specified, remove all listeners for this event
+      if (!callback) {
+        delete this.events[event];
+        return this;
+      }
+
+      // Remove specific callback
+      this.events[event] = this.events[event].filter(function (cb) {
+        return cb !== callback;
+      });
+
+      // Clean up empty event arrays
+      if (this.events[event].length === 0) {
+        delete this.events[event];
+      }
+      return this;
+    }
+
+    /**
+     * Emit an event to all registered listeners
+     *
+     * All registered listeners will be called with the provided data.
+     *
+     * @param {string} event - Event name to emit
+     * @param {*} data - Data to pass to listeners
+     * @returns {EventEmitter} Returns this for chaining
+     *
+     * @example
+     * emitter.emit('merge:progress', {
+     *   mergeId: 123,
+     *   progress: 45,
+     *   stage: 'screens'
+     * });
+     */
+  }, {
+    key: "emit",
+    value: function emit(event, data) {
+      if (!this.events[event]) {
+        return this;
+      }
+
+      // Create a copy of the listeners array to avoid issues if listeners
+      // are removed during emission
+      var listeners = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.events[event]);
+      listeners.forEach(function (callback) {
+        try {
+          callback(data);
+        } catch (error) {
+          // Log error but don't stop other listeners from executing
+          console.error("Error in event listener for \"".concat(event, "\":"), error);
+        }
+      });
+      return this;
+    }
+
+    /**
+     * Remove all event listeners
+     *
+     * Useful for cleanup when destroying components.
+     *
+     * @returns {EventEmitter} Returns this for chaining
+     *
+     * @example
+     * emitter.removeAllListeners();
+     */
+  }, {
+    key: "removeAllListeners",
+    value: function removeAllListeners() {
+      this.events = {};
+      return this;
+    }
+
+    /**
+     * Get count of listeners for an event
+     *
+     * @param {string} event - Event name to check
+     * @returns {number} Number of listeners for the event
+     *
+     * @example
+     * const count = emitter.listenerCount('merge:progress');
+     */
+  }, {
+    key: "listenerCount",
+    value: function listenerCount(event) {
+      return this.events[event] ? this.events[event].length : 0;
+    }
+
+    /**
+     * Get list of events with listeners
+     *
+     * @returns {string[]} Array of event names that have listeners
+     *
+     * @example
+     * const events = emitter.eventNames();
+     * // ['merge:progress', 'merge:complete']
+     */
+  }, {
+    key: "eventNames",
+    value: function eventNames() {
+      return Object.keys(this.events);
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EventEmitter);
+
+/***/ }),
+/* 167 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(163);
+
+
+
+
+// src/middleware/core/ValidationEngine.js
+/**
+ * ValidationEngine - Client-side validation before API calls
+ *
+ * Provides validation logic for merge configuration including app selection,
+ * resource selection, and business rule validation.
+ *
+ * @class ValidationEngine
+ */
+var ValidationEngine = /*#__PURE__*/function () {
+  function ValidationEngine() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ValidationEngine);
+    this.validationErrors = [];
+  }
+
+  /**
+   * Validate app selection
+   *
+   * Ensures source and destination apps are different and valid.
+   *
+   * @param {number|null} sourceAppId - Source app ID
+   * @param {number|null} destinationAppId - Destination app ID
+   * @returns {Object} Validation result
+   *
+   * @example
+   * const result = validationEngine.validateAppSelection(123, 456);
+   * if (!result.valid) {
+   *   console.log('Errors:', result.errors);
+   * }
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ValidationEngine, [{
+    key: "validateAppSelection",
+    value: function validateAppSelection(sourceAppId, destinationAppId) {
+      this.clearErrors();
+
+      // Check if both IDs are provided
+      if (!sourceAppId) {
+        this.addError('sourceAppId', 'Source app is required', 'required');
+      }
+      if (!destinationAppId) {
+        this.addError('destinationAppId', 'Destination app is required', 'required');
+      }
+
+      // Check if IDs are numbers
+      if (sourceAppId && typeof sourceAppId !== 'number') {
+        this.addError('sourceAppId', 'Source app ID must be a number', 'type');
+      }
+      if (destinationAppId && typeof destinationAppId !== 'number') {
+        this.addError('destinationAppId', 'Destination app ID must be a number', 'type');
+      }
+
+      // Check if source and destination are different
+      if (sourceAppId && destinationAppId && sourceAppId === destinationAppId) {
+        this.addError('destinationAppId', 'Source and destination apps cannot be the same', 'constraint');
+      }
+      return this.getValidationResult();
+    }
+
+    /**
+     * Validate resource selection
+     *
+     * Ensures at least one resource is selected for merge.
+     *
+     * @param {Object} config - Merge configuration
+     * @param {Array} [config.selectedPages=[]] - Selected pages
+     * @param {Array} [config.selectedDataSources=[]] - Selected data sources
+     * @param {Array} [config.selectedFiles=[]] - Selected files
+     * @param {Array} [config.selectedFolders=[]] - Selected folders
+     * @param {Object} [config.appLevelSettings={}] - App-level settings
+     * @returns {Object} Validation result
+     *
+     * @example
+     * const result = validationEngine.validateResourceSelection({
+     *   selectedPages: [1, 2, 3],
+     *   selectedDataSources: []
+     * });
+     */
+  }, {
+    key: "validateResourceSelection",
+    value: function validateResourceSelection(config) {
+      this.clearErrors();
+      var _config$selectedPages = config.selectedPages,
+        selectedPages = _config$selectedPages === void 0 ? [] : _config$selectedPages,
+        _config$selectedDataS = config.selectedDataSources,
+        selectedDataSources = _config$selectedDataS === void 0 ? [] : _config$selectedDataS,
+        _config$selectedFiles = config.selectedFiles,
+        selectedFiles = _config$selectedFiles === void 0 ? [] : _config$selectedFiles,
+        _config$selectedFolde = config.selectedFolders,
+        selectedFolders = _config$selectedFolde === void 0 ? [] : _config$selectedFolde,
+        _config$appLevelSetti = config.appLevelSettings,
+        appLevelSettings = _config$appLevelSetti === void 0 ? {} : _config$appLevelSetti;
+
+      // Check if at least one resource is selected
+      var hasPages = selectedPages.length > 0;
+      var hasDataSources = selectedDataSources.length > 0;
+      var hasFiles = selectedFiles.length > 0;
+      var hasFolders = selectedFolders.length > 0;
+      var hasAppLevelSettings = Object.values(appLevelSettings).some(function (value) {
+        return value === true;
+      });
+      var hasAnySelection = hasPages || hasDataSources || hasFiles || hasFolders || hasAppLevelSettings;
+      if (!hasAnySelection) {
+        this.addError('selection', 'You must select at least one screen, data source, file, folder, or app-level setting', 'required');
+      }
+      return this.getValidationResult();
+    }
+
+    /**
+     * Validate data types in configuration
+     *
+     * Checks that all IDs are numbers and arrays are valid.
+     *
+     * @param {Object} config - Merge configuration to validate
+     * @returns {Object} Validation result
+     */
+  }, {
+    key: "validateDataTypes",
+    value: function validateDataTypes(config) {
+      this.clearErrors();
+
+      // Validate source app
+      if (config.sourceApp) {
+        if (config.sourceApp.id && typeof config.sourceApp.id !== 'number') {
+          this.addError('sourceApp.id', 'Source app ID must be a number', 'type');
+        }
+        if (config.sourceApp.organizationId && typeof config.sourceApp.organizationId !== 'number') {
+          this.addError('sourceApp.organizationId', 'Organization ID must be a number', 'type');
+        }
+      }
+
+      // Validate destination app
+      if (config.destinationApp) {
+        if (config.destinationApp.id && typeof config.destinationApp.id !== 'number') {
+          this.addError('destinationApp.id', 'Destination app ID must be a number', 'type');
+        }
+        if (config.destinationApp.organizationId && typeof config.destinationApp.organizationId !== 'number') {
+          this.addError('destinationApp.organizationId', 'Organization ID must be a number', 'type');
+        }
+      }
+
+      // Validate selected pages
+      if (config.selectedPages && !Array.isArray(config.selectedPages)) {
+        this.addError('selectedPages', 'Selected pages must be an array', 'type');
+      }
+
+      // Validate selected data sources
+      if (config.selectedDataSources && !Array.isArray(config.selectedDataSources)) {
+        this.addError('selectedDataSources', 'Selected data sources must be an array', 'type');
+      }
+
+      // Validate selected files
+      if (config.selectedFiles && !Array.isArray(config.selectedFiles)) {
+        this.addError('selectedFiles', 'Selected files must be an array', 'type');
+      }
+
+      // Validate app-level settings
+      if (config.appLevelSettings && (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(config.appLevelSettings) !== 'object') {
+        this.addError('appLevelSettings', 'App-level settings must be an object', 'type');
+      }
+      return this.getValidationResult();
+    }
+
+    /**
+     * Validate business constraints
+     *
+     * Validates business rules like duplicate names, permissions, etc.
+     *
+     * @param {Object} config - Configuration with validation state
+     * @returns {Object} Validation result
+     */
+  }, {
+    key: "validateConstraints",
+    value: function validateConstraints(config) {
+      this.clearErrors();
+
+      // Check for duplicate pages in source app
+      if (config.validationState && config.validationState.sourceAppDuplicates) {
+        var _config$validationSta = config.validationState.sourceAppDuplicates,
+          _config$validationSta2 = _config$validationSta.pages,
+          pages = _config$validationSta2 === void 0 ? [] : _config$validationSta2,
+          _config$validationSta3 = _config$validationSta.dataSources,
+          dataSources = _config$validationSta3 === void 0 ? [] : _config$validationSta3;
+        if (pages.length > 0) {
+          var pageNames = pages.map(function (p) {
+            return p.title || p.name;
+          }).join(', ');
+          this.addError('sourceApp.duplicates', "Source app contains duplicate screen names: ".concat(pageNames), 'constraint');
+        }
+        if (dataSources.length > 0) {
+          var dsNames = dataSources.map(function (ds) {
+            return ds.name;
+          }).join(', ');
+          this.addError('sourceApp.duplicates', "Source app contains duplicate data source names: ".concat(dsNames), 'constraint');
+        }
+      }
+
+      // Check for duplicate pages in destination app
+      if (config.validationState && config.validationState.destinationAppDuplicates) {
+        var _config$validationSta4 = config.validationState.destinationAppDuplicates,
+          _config$validationSta5 = _config$validationSta4.pages,
+          _pages = _config$validationSta5 === void 0 ? [] : _config$validationSta5,
+          _config$validationSta6 = _config$validationSta4.dataSources,
+          _dataSources = _config$validationSta6 === void 0 ? [] : _config$validationSta6;
+        if (_pages.length > 0) {
+          var _pageNames = _pages.map(function (p) {
+            return p.title || p.name;
+          }).join(', ');
+          this.addError('destinationApp.duplicates', "Destination app contains duplicate screen names: ".concat(_pageNames), 'constraint');
+        }
+        if (_dataSources.length > 0) {
+          var _dsNames = _dataSources.map(function (ds) {
+            return ds.name;
+          }).join(', ');
+          this.addError('destinationApp.duplicates', "Destination app contains duplicate data source names: ".concat(_dsNames), 'constraint');
+        }
+      }
+      return this.getValidationResult();
+    }
+
+    /**
+     * Get all validation errors
+     *
+     * @returns {Array} List of validation errors
+     */
+  }, {
+    key: "getValidationErrors",
+    value: function getValidationErrors() {
+      return this.validationErrors;
+    }
+
+    /**
+     * Get validation result
+     *
+     * @returns {Object} Validation result with valid flag and errors
+     *
+     * @private
+     */
+  }, {
+    key: "getValidationResult",
+    value: function getValidationResult() {
+      return {
+        valid: this.validationErrors.length === 0,
+        errors: this.validationErrors
+      };
+    }
+
+    /**
+     * Add a validation error
+     *
+     * @param {string} field - Field name with error
+     * @param {string} message - Error message
+     * @param {string} type - Error type (required, type, constraint, etc.)
+     *
+     * @private
+     */
+  }, {
+    key: "addError",
+    value: function addError(field, message, type) {
+      this.validationErrors.push({
+        field: field,
+        message: message,
+        type: type
+      });
+    }
+
+    /**
+     * Clear all validation errors
+     *
+     * @private
+     */
+  }, {
+    key: "clearErrors",
+    value: function clearErrors() {
+      this.validationErrors = [];
+    }
+
+    /**
+     * Validate complete merge configuration
+     *
+     * Runs all validation checks on the configuration.
+     *
+     * @param {Object} config - Complete merge configuration
+     * @returns {Object} Validation result
+     *
+     * @example
+     * const result = validationEngine.validateConfiguration({
+     *   sourceApp: { id: 123 },
+     *   destinationApp: { id: 456 },
+     *   selectedPages: [1, 2, 3]
+     * });
+     */
+  }, {
+    key: "validateConfiguration",
+    value: function validateConfiguration(config) {
+      // Collect all errors in a local array
+      var allErrors = [];
+
+      // Validate app selection
+      var sourceAppId = config.sourceApp ? config.sourceApp.id : null;
+      var destinationAppId = config.destinationApp ? config.destinationApp.id : null;
+      var appSelectionResult = this.validateAppSelection(sourceAppId, destinationAppId);
+      allErrors.push.apply(allErrors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(appSelectionResult.errors));
+
+      // Validate resource selection (only if app selection is valid)
+      if (appSelectionResult.valid) {
+        var resourceResult = this.validateResourceSelection(config);
+        allErrors.push.apply(allErrors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(resourceResult.errors));
+      }
+
+      // Validate data types
+      var dataTypeResult = this.validateDataTypes(config);
+      allErrors.push.apply(allErrors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(dataTypeResult.errors));
+
+      // Validate constraints
+      var constraintsResult = this.validateConstraints(config);
+      allErrors.push.apply(allErrors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(constraintsResult.errors));
+
+      // Set all collected errors at once
+      this.validationErrors = allErrors;
+      return this.getValidationResult();
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ValidationEngine);
+
+/***/ }),
+/* 168 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+// src/middleware/core/ErrorHandler.js
+/**
+ * ErrorHandler - Standardize error transformation and user-friendly messaging
+ *
+ * Transforms technical errors into user-friendly formats and provides
+ * consistent error handling across the middleware layer.
+ *
+ * @class ErrorHandler
+ */
+var ErrorHandler = /*#__PURE__*/function () {
+  function ErrorHandler() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, ErrorHandler);
+    // Error category constants
+    this.ERROR_CATEGORIES = {
+      VALIDATION: 'validation',
+      API: 'api',
+      NETWORK: 'network',
+      PERMISSION: 'permission',
+      CONFLICT: 'conflict',
+      UNKNOWN: 'unknown'
+    };
+
+    // Default error messages
+    this.defaultMessages = {
+      NETWORK_ERROR: 'Connection error. Please check your internet connection and try again.',
+      SERVER_ERROR: 'Server error. Please try again later.',
+      NOT_FOUND: 'The requested resource was not found.',
+      UNAUTHORIZED: 'You are not authorized to perform this action.',
+      FORBIDDEN: 'You don\'t have permission to access this resource.',
+      VALIDATION_ERROR: 'The provided data is invalid.',
+      UNKNOWN_ERROR: 'An unexpected error occurred. Please try again.'
+    };
+  }
+
+  /**
+   * Transform an error into user-friendly format
+   *
+   * @param {Error|Object} error - Error object from API or application
+   * @param {Object} [options={}] - Transformation options
+   * @param {boolean} [options.includeDetails=true] - Include technical details
+   * @param {boolean} [options.suggestAction=true] - Suggest remediation action
+   * @param {string} [options.context] - Context of the error (what user was doing)
+   * @returns {Object} Transformed error object
+   *
+   * @example
+   * const friendlyError = errorHandler.transformError(apiError, {
+   *   context: 'merging apps',
+   *   includeDetails: true
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(ErrorHandler, [{
+    key: "transformError",
+    value: function transformError(error) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var _options$includeDetai = options.includeDetails,
+        includeDetails = _options$includeDetai === void 0 ? true : _options$includeDetai,
+        _options$suggestActio = options.suggestAction,
+        suggestAction = _options$suggestActio === void 0 ? true : _options$suggestActio,
+        _options$context = options.context,
+        context = _options$context === void 0 ? null : _options$context;
+      var category = this.categorizeError(error);
+      var message = this.getErrorMessage(error.code || error.status, {
+        error: error,
+        category: category
+      });
+      var transformedError = {
+        category: category,
+        message: message,
+        code: error.code || error.status || 'UNKNOWN',
+        timestamp: new Date().toISOString()
+      };
+
+      // Add context if provided
+      if (context) {
+        transformedError.context = context;
+      }
+
+      // Add technical details if requested
+      if (includeDetails && error) {
+        transformedError.details = {
+          originalMessage: error.message,
+          status: error.status,
+          statusText: error.statusText,
+          data: error.data
+        };
+      }
+
+      // Add suggested action if requested
+      if (suggestAction) {
+        transformedError.suggestedAction = this.getSuggestedAction(category, error);
+      }
+
+      // Add retryable flag
+      transformedError.retryable = this.isRetryable(error);
+      return transformedError;
+    }
+
+    /**
+     * Categorize an error by type
+     *
+     * @param {Error|Object} error - Error to categorize
+     * @returns {string} Error category
+     *
+     * @private
+     */
+  }, {
+    key: "categorizeError",
+    value: function categorizeError(error) {
+      if (!error) {
+        return this.ERROR_CATEGORIES.UNKNOWN;
+      }
+
+      // Network errors (status 0 or no status)
+      if (error.status === 0 || error.message === 'Network error') {
+        return this.ERROR_CATEGORIES.NETWORK;
+      }
+
+      // Permission errors
+      if (error.status === 401 || error.status === 403) {
+        return this.ERROR_CATEGORIES.PERMISSION;
+      }
+
+      // Validation errors
+      if (error.status === 400 || error.category === 'validation') {
+        return this.ERROR_CATEGORIES.VALIDATION;
+      }
+
+      // Conflict errors
+      if (error.status === 409) {
+        return this.ERROR_CATEGORIES.CONFLICT;
+      }
+
+      // API errors
+      if (error.status >= 500) {
+        return this.ERROR_CATEGORIES.API;
+      }
+
+      // 404 errors
+      if (error.status === 404) {
+        return this.ERROR_CATEGORIES.API;
+      }
+      return this.ERROR_CATEGORIES.UNKNOWN;
+    }
+
+    /**
+     * Get user-friendly error message
+     *
+     * @param {string|number} errorCode - Error code or HTTP status
+     * @param {Object} [context={}] - Additional context
+     * @param {Object} [context.error] - Original error object
+     * @param {string} [context.category] - Error category
+     * @returns {string} User-friendly error message
+     *
+     * @example
+     * const message = errorHandler.getErrorMessage(404, { category: 'api' });
+     */
+  }, {
+    key: "getErrorMessage",
+    value: function getErrorMessage(errorCode) {
+      var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var error = context.error,
+        category = context.category;
+
+      // If error.data has a message, use it first (most specific)
+      if (error && error.data && error.data.message) {
+        return error.data.message;
+      }
+
+      // If error has a user-friendly message, use it
+      if (error && error.message && !this.isTechnicalMessage(error.message)) {
+        return error.message;
+      }
+
+      // Use status-based messages
+      switch (errorCode) {
+        case 0:
+        case 'NETWORK_ERROR':
+          return this.defaultMessages.NETWORK_ERROR;
+        case 401:
+        case 'UNAUTHORIZED':
+          return this.defaultMessages.UNAUTHORIZED;
+        case 403:
+        case 'FORBIDDEN':
+          return this.defaultMessages.FORBIDDEN;
+        case 404:
+        case 'NOT_FOUND':
+          return this.defaultMessages.NOT_FOUND;
+        case 400:
+        case 'VALIDATION_ERROR':
+          return this.defaultMessages.VALIDATION_ERROR;
+        case 409:
+        case 'CONFLICT':
+          return 'This operation conflicts with the current state. Please refresh and try again.';
+        case 500:
+        case 502:
+        case 503:
+        case 504:
+        case 'SERVER_ERROR':
+          return this.defaultMessages.SERVER_ERROR;
+        default:
+          return this.defaultMessages.UNKNOWN_ERROR;
+      }
+    }
+
+    /**
+     * Get suggested action for recovery
+     *
+     * @param {string} category - Error category
+     * @param {Object} error - Original error object
+     * @returns {string} Suggested action
+     *
+     * @private
+     */
+  }, {
+    key: "getSuggestedAction",
+    value: function getSuggestedAction(category, error) {
+      switch (category) {
+        case this.ERROR_CATEGORIES.NETWORK:
+          return 'Check your internet connection and try again.';
+        case this.ERROR_CATEGORIES.PERMISSION:
+          if (error.status === 401) {
+            return 'Please log in again.';
+          }
+          return 'Contact your administrator for access.';
+        case this.ERROR_CATEGORIES.VALIDATION:
+          return 'Please check the highlighted fields and try again.';
+        case this.ERROR_CATEGORIES.CONFLICT:
+          return 'Refresh the page and try again.';
+        case this.ERROR_CATEGORIES.API:
+          if (error.status === 404) {
+            return 'The item may have been deleted. Please refresh.';
+          }
+          return 'Please try again later or contact support if the issue persists.';
+        default:
+          return 'Please try again or contact support if the issue persists.';
+      }
+    }
+
+    /**
+     * Check if error message is technical
+     *
+     * @param {string} message - Error message
+     * @returns {boolean} True if message appears technical
+     *
+     * @private
+     */
+  }, {
+    key: "isTechnicalMessage",
+    value: function isTechnicalMessage(message) {
+      var technicalPatterns = [/^Error:/i, /^TypeError:/i, /^ReferenceError:/i, /^SyntaxError:/i, /stack trace/i, /at line \d+/i, /undefined is not/i, /cannot read property/i];
+      return technicalPatterns.some(function (pattern) {
+        return pattern.test(message);
+      });
+    }
+
+    /**
+     * Check if error is retryable
+     *
+     * @param {Object} error - Error object
+     * @returns {boolean} True if error can be retried
+     *
+     * @private
+     */
+  }, {
+    key: "isRetryable",
+    value: function isRetryable(error) {
+      // Network errors are retryable
+      if (error.status === 0) {
+        return true;
+      }
+
+      // 5xx server errors are retryable
+      if (error.status >= 500) {
+        return true;
+      }
+
+      // 429 (rate limit) is retryable
+      if (error.status === 429) {
+        return true;
+      }
+
+      // 4xx client errors are not retryable
+      if (error.status >= 400 && error.status < 500) {
+        return false;
+      }
+      return false;
+    }
+
+    /**
+     * Log error to console or external service
+     *
+     * @param {Error|Object} error - Error to log
+     * @param {Object} [options={}] - Logging options
+     * @param {string} [options.level='error'] - Log level
+     * @param {boolean} [options.notify=false] - Send to error tracking service
+     * @param {Object} [options.metadata={}] - Additional metadata
+     *
+     * @example
+     * errorHandler.logError(error, {
+     *   level: 'warning',
+     *   metadata: { userId: 123, action: 'merge' }
+     * });
+     */
+  }, {
+    key: "logError",
+    value: function logError(error) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var _options$level = options.level,
+        level = _options$level === void 0 ? 'error' : _options$level,
+        _options$notify = options.notify,
+        notify = _options$notify === void 0 ? false : _options$notify,
+        _options$metadata = options.metadata,
+        metadata = _options$metadata === void 0 ? {} : _options$metadata;
+      var transformedError = this.transformError(error, {
+        includeDetails: true,
+        suggestAction: false
+      });
+      var logEntry = _objectSpread(_objectSpread({}, transformedError), {}, {
+        level: level,
+        metadata: metadata
+      });
+
+      // Log to console based on level
+      switch (level) {
+        case 'error':
+          console.error('[ErrorHandler]', logEntry);
+          break;
+        case 'warning':
+          console.warn('[ErrorHandler]', logEntry);
+          break;
+        case 'info':
+          console.info('[ErrorHandler]', logEntry);
+          break;
+        default:
+          console.log('[ErrorHandler]', logEntry);
+      }
+
+      // Send to external error tracking service if notify is true
+      if (notify && typeof Fliplet !== 'undefined' && Fliplet.Analytics) {
+        // Send to Fliplet Analytics or error tracking service
+        Fliplet.Analytics.trackError(error, metadata);
+      }
+      return logEntry;
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorHandler);
+
+/***/ }),
+/* 169 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/AppsApiService.js
+/**
+ * AppsApiService - Wrapper for app-related API endpoints
+ *
+ * Provides methods to interact with app endpoints including fetching apps,
+ * checking for duplicates, and managing app locks.
+ *
+ * @class AppsApiService
+ */
+var AppsApiService = /*#__PURE__*/function () {
+  /**
+   * Create AppsApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function AppsApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, AppsApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetch apps with filtering and pagination
+   *
+   * @param {Object} [options={}] - Fetch options
+   * @param {number} [options.organizationId] - Filter by organization ID
+   * @param {number} [options.userId] - Filter by user ID
+   * @param {Object} [options.filters={}] - Additional filters
+   * @param {boolean} [options.filters.publisher] - Only apps where user has publisher role
+   * @param {boolean} [options.filters.mergeable] - Only apps that can be merged
+   * @param {boolean|null} [options.filters.locked] - Filter by lock status
+   * @param {Array<string>} [options.fields=[]] - Fields to return
+   * @param {Object} [options.sort] - Sort configuration
+   * @param {string} [options.sort.field='name'] - Field to sort by
+   * @param {string} [options.sort.order='asc'] - Sort order (asc/desc)
+   * @param {Object} [options.pagination] - Pagination configuration
+   * @param {number} [options.pagination.page=1] - Page number
+   * @param {number} [options.pagination.limit=50] - Items per page
+   * @param {string} [options.cache='default'] - Cache strategy
+   * @returns {Promise<Array>} Array of app objects
+   *
+   * @example
+   * const apps = await appsApiService.fetchApps({
+   *   organizationId: 123,
+   *   filters: { publisher: true },
+   *   fields: ['id', 'name', 'organizationId']
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(AppsApiService, [{
+    key: "fetchApps",
+    value: (function () {
+      var _fetchApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
+        var options,
+          organizationId,
+          userId,
+          _options$filters,
+          filters,
+          _options$fields,
+          fields,
+          _options$sort,
+          sort,
+          _options$pagination,
+          pagination,
+          _options$cache,
+          cache,
+          params,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+              organizationId = options.organizationId, userId = options.userId, _options$filters = options.filters, filters = _options$filters === void 0 ? {} : _options$filters, _options$fields = options.fields, fields = _options$fields === void 0 ? [] : _options$fields, _options$sort = options.sort, sort = _options$sort === void 0 ? {
+                field: 'name',
+                order: 'asc'
+              } : _options$sort, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
+                page: 1,
+                limit: 50
+              } : _options$pagination, _options$cache = options.cache, cache = _options$cache === void 0 ? 'default' : _options$cache; // Build query parameters
+              params = {};
+              if (organizationId) {
+                params.organizationId = organizationId;
+              }
+              if (userId) {
+                params.userId = userId;
+              }
+
+              // Add filters
+              if (filters.publisher !== undefined) {
+                params.publisher = filters.publisher;
+              }
+              if (filters.mergeable !== undefined) {
+                params.mergeable = filters.mergeable;
+              }
+              if (filters.locked !== undefined && filters.locked !== null) {
+                params.locked = filters.locked;
+              }
+
+              // Add fields
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+
+              // Add sorting
+              if (sort && sort.field) {
+                params.sortBy = sort.field;
+                params.sortOrder = sort.order || 'asc';
+              }
+
+              // Add pagination
+              if (pagination) {
+                params.page = pagination.page || 1;
+                params.limit = pagination.limit || 50;
+              }
+              _context.next = 1;
+              return this.apiClient.get('v1/apps', params);
+            case 1:
+              response = _context.sent;
+              return _context.abrupt("return", response.apps || response);
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function fetchApps() {
+        return _fetchApps.apply(this, arguments);
+      }
+      return fetchApps;
+    }()
+    /**
+     * Fetch single app details
+     *
+     * @param {number} appId - App ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} App object
+     *
+     * @example
+     * const app = await appsApiService.fetchApp(123, {
+     *   fields: ['id', 'name', 'settings', 'lockedUntil']
+     * });
+     */
+    )
+  }, {
+    key: "fetchApp",
+    value: (function () {
+      var _fetchApp = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(appId) {
+        var options,
+          _options$fields2,
+          fields,
+          _options$cache2,
+          cache,
+          params,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$fields2 = options.fields, fields = _options$fields2 === void 0 ? [] : _options$fields2, _options$cache2 = options.cache, cache = _options$cache2 === void 0 ? 'default' : _options$cache2;
+              params = {};
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context2.next = 2;
+              return this.apiClient.get("v1/apps/".concat(appId), params);
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.app || response);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function fetchApp(_x) {
+        return _fetchApp.apply(this, arguments);
+      }
+      return fetchApp;
+    }()
+    /**
+     * Check for duplicate names in an app
+     *
+     * @param {number} appId - App ID to check
+     * @param {Object} [options={}] - Check options
+     * @param {Array<string>} [options.items=['pages', 'dataSources']] - Items to check
+     * @returns {Promise<Object>} Duplicate check results
+     *
+     * @example
+     * const duplicates = await appsApiService.checkDuplicates(123, {
+     *   items: ['pages', 'dataSources']
+     * });
+     * // Returns: { pages: [{title: 'Home', count: 2, ids: [1,2]}], dataSources: [] }
+     */
+    )
+  }, {
+    key: "checkDuplicates",
+    value: (function () {
+      var _checkDuplicates = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(appId) {
+        var options,
+          _options$items,
+          items,
+          response,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$items = options.items, items = _options$items === void 0 ? ['pages', 'dataSources'] : _options$items;
+              _context3.next = 2;
+              return this.apiClient.post("v1/apps/".concat(appId, "/duplicates"), {
+                items: items
+              });
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", response.duplicates || response);
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function checkDuplicates(_x2) {
+        return _checkDuplicates.apply(this, arguments);
+      }
+      return checkDuplicates;
+    }()
+    /**
+     * Lock an app for merge operations
+     *
+     * @param {number} appId - App ID to lock
+     * @param {Object} [options={}] - Lock options
+     * @param {number} [options.duration=600] - Lock duration in seconds
+     * @returns {Promise<Object>} Lock result with lockedUntil timestamp
+     *
+     * @example
+     * const lockResult = await appsApiService.lockApp(123, { duration: 600 });
+     */
+    )
+  }, {
+    key: "lockApp",
+    value: (function () {
+      var _lockApp = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee4(appId) {
+        var options,
+          _options$duration,
+          duration,
+          response,
+          _args4 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              options = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context4.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$duration = options.duration, duration = _options$duration === void 0 ? 600 : _options$duration;
+              _context4.next = 2;
+              return this.apiClient.post("v1/apps/".concat(appId, "/lock"), {
+                duration: duration
+              });
+            case 2:
+              response = _context4.sent;
+              return _context4.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function lockApp(_x3) {
+        return _lockApp.apply(this, arguments);
+      }
+      return lockApp;
+    }()
+    /**
+     * Unlock an app
+     *
+     * @param {number} appId - App ID to unlock
+     * @param {Object} [options={}] - Unlock options
+     * @returns {Promise<Object>} Unlock result
+     *
+     * @example
+     * await appsApiService.unlockApp(123);
+     */
+    )
+  }, {
+    key: "unlockApp",
+    value: (function () {
+      var _unlockApp = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee5(appId) {
+        var options,
+          response,
+          _args5 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              options = _args5.length > 1 && _args5[1] !== undefined ? _args5[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context5.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _context5.next = 2;
+              return this.apiClient.post("v1/apps/".concat(appId, "/unlock"));
+            case 2:
+              response = _context5.sent;
+              return _context5.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function unlockApp(_x4) {
+        return _unlockApp.apply(this, arguments);
+      }
+      return unlockApp;
+    }()
+    /**
+     * Extend lock duration
+     *
+     * @param {number} appId - App ID to extend lock for
+     * @param {Object} [options={}] - Extend options
+     * @param {number} [options.duration=300] - Additional duration in seconds
+     * @returns {Promise<Object>} Extended lock result
+     *
+     * @example
+     * await appsApiService.extendLock(123, { duration: 300 });
+     */
+    )
+  }, {
+    key: "extendLock",
+    value: (function () {
+      var _extendLock = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee6(appId) {
+        var options,
+          _options$duration2,
+          duration,
+          response,
+          _args6 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 1 && _args6[1] !== undefined ? _args6[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context6.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$duration2 = options.duration, duration = _options$duration2 === void 0 ? 300 : _options$duration2;
+              _context6.next = 2;
+              return this.apiClient.post("v1/apps/".concat(appId, "/lock/extend"), {
+                duration: duration
+              });
+            case 2:
+              response = _context6.sent;
+              return _context6.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function extendLock(_x5) {
+        return _extendLock.apply(this, arguments);
+      }
+      return extendLock;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppsApiService);
+
+/***/ }),
+/* 170 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/OrganizationsApiService.js
+/**
+ * OrganizationsApiService - Wrapper for organization-related API endpoints
+ *
+ * Provides methods to interact with organization endpoints.
+ *
+ * @class OrganizationsApiService
+ */
+var OrganizationsApiService = /*#__PURE__*/function () {
+  /**
+   * Create OrganizationsApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function OrganizationsApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, OrganizationsApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetch user's organizations
+   *
+   * @param {Object} [options={}] - Fetch options
+   * @param {number} [options.userId] - Filter by user ID (defaults to current user)
+   * @param {Array<string>} [options.fields=[]] - Fields to return
+   * @param {Object} [options.sort] - Sort configuration
+   * @param {string} [options.sort.field='name'] - Field to sort by
+   * @param {string} [options.sort.order='asc'] - Sort order
+   * @param {string} [options.cache='default'] - Cache strategy
+   * @returns {Promise<Array>} Array of organization objects
+   *
+   * @example
+   * const orgs = await organizationsApiService.fetchOrganizations({
+   *   fields: ['id', 'name']
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(OrganizationsApiService, [{
+    key: "fetchOrganizations",
+    value: (function () {
+      var _fetchOrganizations = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee() {
+        var options,
+          userId,
+          _options$fields,
+          fields,
+          _options$sort,
+          sort,
+          _options$cache,
+          cache,
+          params,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+              userId = options.userId, _options$fields = options.fields, fields = _options$fields === void 0 ? [] : _options$fields, _options$sort = options.sort, sort = _options$sort === void 0 ? {
+                field: 'name',
+                order: 'asc'
+              } : _options$sort, _options$cache = options.cache, cache = _options$cache === void 0 ? 'default' : _options$cache;
+              params = {};
+              if (userId) {
+                params.userId = userId;
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              if (sort && sort.field) {
+                params.sortBy = sort.field;
+                params.sortOrder = sort.order || 'asc';
+              }
+              _context.next = 1;
+              return this.apiClient.get('v1/organizations', params);
+            case 1:
+              response = _context.sent;
+              return _context.abrupt("return", response.organizations || response);
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function fetchOrganizations() {
+        return _fetchOrganizations.apply(this, arguments);
+      }
+      return fetchOrganizations;
+    }()
+    /**
+     * Fetch organization details
+     *
+     * @param {number} organizationId - Organization ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} Organization object
+     *
+     * @example
+     * const org = await organizationsApiService.fetchOrganization(123);
+     */
+    )
+  }, {
+    key: "fetchOrganization",
+    value: (function () {
+      var _fetchOrganization = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(organizationId) {
+        var options,
+          _options$fields2,
+          fields,
+          _options$cache2,
+          cache,
+          params,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              if (!(!organizationId || typeof organizationId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid organization ID is required');
+            case 1:
+              _options$fields2 = options.fields, fields = _options$fields2 === void 0 ? [] : _options$fields2, _options$cache2 = options.cache, cache = _options$cache2 === void 0 ? 'default' : _options$cache2;
+              params = {};
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context2.next = 2;
+              return this.apiClient.get("v1/organizations/".concat(organizationId), params);
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.organization || response);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function fetchOrganization(_x) {
+        return _fetchOrganization.apply(this, arguments);
+      }
+      return fetchOrganization;
+    }()
+    /**
+     * Fetch user's apps in an organization
+     *
+     * @param {number} organizationId - Organization ID
+     * @param {number} userId - User ID
+     * @param {Object} [options={}] - Fetch options
+     * @param {Object} [options.filters={}] - App filters
+     * @param {boolean} [options.filters.publisher] - Only publisher apps
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Array>} Array of app objects
+     *
+     * @example
+     * const apps = await organizationsApiService.fetchUserApps(123, 456, {
+     *   filters: { publisher: true }
+     * });
+     */
+    )
+  }, {
+    key: "fetchUserApps",
+    value: (function () {
+      var _fetchUserApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(organizationId, userId) {
+        var options,
+          _options$filters,
+          filters,
+          _options$fields3,
+          fields,
+          _options$cache3,
+          cache,
+          params,
+          response,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
+              if (!(!organizationId || typeof organizationId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid organization ID is required');
+            case 1:
+              if (!(!userId || typeof userId !== 'number')) {
+                _context3.next = 2;
+                break;
+              }
+              throw new Error('Valid user ID is required');
+            case 2:
+              _options$filters = options.filters, filters = _options$filters === void 0 ? {} : _options$filters, _options$fields3 = options.fields, fields = _options$fields3 === void 0 ? [] : _options$fields3, _options$cache3 = options.cache, cache = _options$cache3 === void 0 ? 'default' : _options$cache3;
+              params = {};
+              if (filters.publisher !== undefined) {
+                params.publisher = filters.publisher;
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context3.next = 3;
+              return this.apiClient.get("v1/organizations/".concat(organizationId, "/users/").concat(userId, "/apps"), params);
+            case 3:
+              response = _context3.sent;
+              return _context3.abrupt("return", response.apps || response);
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function fetchUserApps(_x2, _x3) {
+        return _fetchUserApps.apply(this, arguments);
+      }
+      return fetchUserApps;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OrganizationsApiService);
+
+/***/ }),
+/* 171 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/PagesApiService.js
+/**
+ * PagesApiService - Wrapper for screen/page-related API endpoints
+ *
+ * Provides methods to interact with page endpoints including fetching pages
+ * with their associations to data sources and files.
+ *
+ * @class PagesApiService
+ */
+var PagesApiService = /*#__PURE__*/function () {
+  /**
+   * Create PagesApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function PagesApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, PagesApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetch app pages with associations
+   *
+   * @param {number} appId - App ID to fetch pages for
+   * @param {Object} [options={}] - Fetch options
+   * @param {Array<string>} [options.include=[]] - Associations to include ('associatedDS', 'associatedFiles')
+   * @param {Array<string>} [options.fields=[]] - Page fields to return
+   * @param {Object} [options.filters={}] - Custom filters
+   * @param {Object} [options.sort] - Sort configuration
+   * @param {string} [options.sort.field='title'] - Field to sort by
+   * @param {string} [options.sort.order='asc'] - Sort order
+   * @param {Object} [options.pagination] - Pagination configuration
+   * @param {number} [options.pagination.page=1] - Page number
+   * @param {number} [options.pagination.limit=50] - Items per page
+   * @param {string} [options.cache='default'] - Cache strategy
+   * @returns {Promise<Array>} Array of page objects
+   *
+   * @example
+   * const pages = await pagesApiService.fetchPages(123, {
+   *   include: ['associatedDS', 'associatedFiles'],
+   *   fields: ['id', 'title', 'order']
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(PagesApiService, [{
+    key: "fetchPages",
+    value: (function () {
+      var _fetchPages = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(appId) {
+        var options,
+          _options$include,
+          include,
+          _options$fields,
+          fields,
+          _options$filters,
+          filters,
+          _options$sort,
+          sort,
+          _options$pagination,
+          pagination,
+          _options$cache,
+          cache,
+          params,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$include = options.include, include = _options$include === void 0 ? [] : _options$include, _options$fields = options.fields, fields = _options$fields === void 0 ? [] : _options$fields, _options$filters = options.filters, filters = _options$filters === void 0 ? {} : _options$filters, _options$sort = options.sort, sort = _options$sort === void 0 ? {
+                field: 'title',
+                order: 'asc'
+              } : _options$sort, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
+                page: 1,
+                limit: 50
+              } : _options$pagination, _options$cache = options.cache, cache = _options$cache === void 0 ? 'default' : _options$cache;
+              params = {}; // Add include parameter
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+
+              // Add fields
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+
+              // Add any custom filters
+              Object.keys(filters).forEach(function (key) {
+                params[key] = filters[key];
+              });
+
+              // Add sorting
+              if (sort && sort.field) {
+                params.sortBy = sort.field;
+                params.sortOrder = sort.order || 'asc';
+              }
+
+              // Add pagination
+              if (pagination) {
+                params.page = pagination.page || 1;
+                params.limit = pagination.limit || 50;
+              }
+              _context.next = 2;
+              return this.apiClient.get("v1/apps/".concat(appId, "/pages"), params);
+            case 2:
+              response = _context.sent;
+              return _context.abrupt("return", response.pages || response);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function fetchPages(_x) {
+        return _fetchPages.apply(this, arguments);
+      }
+      return fetchPages;
+    }()
+    /**
+     * Fetch single page details
+     *
+     * @param {number} appId - App ID
+     * @param {number} pageId - Page ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {Array<string>} [options.include=[]] - Associations to include
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} Page object
+     *
+     * @example
+     * const page = await pagesApiService.fetchPage(123, 456, {
+     *   include: ['associatedDS']
+     * });
+     */
+    )
+  }, {
+    key: "fetchPage",
+    value: (function () {
+      var _fetchPage = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(appId, pageId) {
+        var options,
+          _options$include2,
+          include,
+          _options$fields2,
+          fields,
+          _options$cache2,
+          cache,
+          params,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 2 && _args2[2] !== undefined ? _args2[2] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              if (!(!pageId || typeof pageId !== 'number')) {
+                _context2.next = 2;
+                break;
+              }
+              throw new Error('Valid page ID is required');
+            case 2:
+              _options$include2 = options.include, include = _options$include2 === void 0 ? [] : _options$include2, _options$fields2 = options.fields, fields = _options$fields2 === void 0 ? [] : _options$fields2, _options$cache2 = options.cache, cache = _options$cache2 === void 0 ? 'default' : _options$cache2;
+              params = {};
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context2.next = 3;
+              return this.apiClient.get("v1/apps/".concat(appId, "/pages/").concat(pageId), params);
+            case 3:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.page || response);
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function fetchPage(_x2, _x3) {
+        return _fetchPage.apply(this, arguments);
+      }
+      return fetchPage;
+    }()
+    /**
+     * Fetch page preview
+     *
+     * @param {number} appId - App ID
+     * @param {number} pageId - Page ID
+     * @param {Object} [options={}] - Preview options
+     * @param {string} [options.format='html'] - Preview format ('html' or 'json')
+     * @returns {Promise<Object>} Preview data
+     *
+     * @example
+     * const preview = await pagesApiService.fetchPagePreview(123, 456);
+     */
+    )
+  }, {
+    key: "fetchPagePreview",
+    value: (function () {
+      var _fetchPagePreview = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(appId, pageId) {
+        var options,
+          _options$format,
+          format,
+          params,
+          response,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              if (!(!pageId || typeof pageId !== 'number')) {
+                _context3.next = 2;
+                break;
+              }
+              throw new Error('Valid page ID is required');
+            case 2:
+              _options$format = options.format, format = _options$format === void 0 ? 'html' : _options$format;
+              params = {
+                format: format
+              };
+              _context3.next = 3;
+              return this.apiClient.get("v1/apps/".concat(appId, "/pages/").concat(pageId, "/preview"), params);
+            case 3:
+              response = _context3.sent;
+              return _context3.abrupt("return", response);
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function fetchPagePreview(_x4, _x5) {
+        return _fetchPagePreview.apply(this, arguments);
+      }
+      return fetchPagePreview;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PagesApiService);
+
+/***/ }),
+/* 172 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/DataSourcesApiService.js
+/**
+ * DataSourcesApiService - Wrapper for data source-related API endpoints
+ *
+ * Provides methods to interact with data source endpoints.
+ *
+ * @class DataSourcesApiService
+ */
+var DataSourcesApiService = /*#__PURE__*/function () {
+  /**
+   * Create DataSourcesApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function DataSourcesApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, DataSourcesApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetch app data sources with associations
+   *
+   * @param {number} appId - App ID to fetch data sources for
+   * @param {Object} [options={}] - Fetch options
+   * @param {Array<string>} [options.include=[]] - Associations to include
+   * @param {boolean} [options.includeInUse=false] - Include usage information
+   * @param {Object} [options.filters={}] - Additional filters
+   * @param {null|string} [options.filters.type=null] - Filter by type (null for standard data sources)
+   * @param {boolean} [options.filters.hasGlobalDependency] - Filter by global dependency
+   * @param {Array<string>} [options.fields=[]] - Fields to return
+   * @param {Object} [options.sort] - Sort configuration
+   * @param {string} [options.sort.field='name'] - Field to sort by
+   * @param {string} [options.sort.order='asc'] - Sort order
+   * @param {Object} [options.pagination] - Pagination configuration
+   * @param {number} [options.pagination.page=1] - Page number
+   * @param {number} [options.pagination.limit=50] - Items per page
+   * @param {string} [options.cache='default'] - Cache strategy
+   * @returns {Promise<Array>} Array of data source objects
+   *
+   * @example
+   * const dataSources = await dataSourcesApiService.fetchDataSources(123, {
+   *   filters: { type: null },
+   *   include: ['associatedPages']
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(DataSourcesApiService, [{
+    key: "fetchDataSources",
+    value: (function () {
+      var _fetchDataSources = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(appId) {
+        var options,
+          _options$include,
+          include,
+          _options$includeInUse,
+          includeInUse,
+          _options$filters,
+          filters,
+          _options$fields,
+          fields,
+          _options$sort,
+          sort,
+          _options$pagination,
+          pagination,
+          _options$cache,
+          cache,
+          params,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$include = options.include, include = _options$include === void 0 ? [] : _options$include, _options$includeInUse = options.includeInUse, includeInUse = _options$includeInUse === void 0 ? false : _options$includeInUse, _options$filters = options.filters, filters = _options$filters === void 0 ? {} : _options$filters, _options$fields = options.fields, fields = _options$fields === void 0 ? [] : _options$fields, _options$sort = options.sort, sort = _options$sort === void 0 ? {
+                field: 'name',
+                order: 'asc'
+              } : _options$sort, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
+                page: 1,
+                limit: 50
+              } : _options$pagination, _options$cache = options.cache, cache = _options$cache === void 0 ? 'default' : _options$cache;
+              params = {
+                appId: appId
+              }; // Add include parameter
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+
+              // Add includeInUse
+              if (includeInUse) {
+                params.includeInUse = true;
+              }
+
+              // Add filters
+              if (filters.type !== undefined) {
+                params.type = filters.type;
+              }
+              if (filters.hasGlobalDependency !== undefined) {
+                params.hasGlobalDependency = filters.hasGlobalDependency;
+              }
+
+              // Add fields
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+
+              // Add sorting
+              if (sort && sort.field) {
+                params.sortBy = sort.field;
+                params.sortOrder = sort.order || 'asc';
+              }
+
+              // Add pagination
+              if (pagination) {
+                params.page = pagination.page || 1;
+                params.limit = pagination.limit || 50;
+              }
+              _context.next = 2;
+              return this.apiClient.get('v1/data-sources', params);
+            case 2:
+              response = _context.sent;
+              return _context.abrupt("return", response.dataSources || response);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function fetchDataSources(_x) {
+        return _fetchDataSources.apply(this, arguments);
+      }
+      return fetchDataSources;
+    }()
+    /**
+     * Fetch single data source details
+     *
+     * @param {number} dataSourceId - Data source ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {number} [options.appId] - App ID (required for association queries)
+     * @param {Array<string>} [options.include=[]] - Associations to include
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} Data source object
+     *
+     * @example
+     * const dataSource = await dataSourcesApiService.fetchDataSource(789, {
+     *   appId: 123,
+     *   include: ['associatedPages']
+     * });
+     */
+    )
+  }, {
+    key: "fetchDataSource",
+    value: (function () {
+      var _fetchDataSource = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(dataSourceId) {
+        var options,
+          appId,
+          _options$include2,
+          include,
+          _options$fields2,
+          fields,
+          _options$cache2,
+          cache,
+          params,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              if (!(!dataSourceId || typeof dataSourceId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid data source ID is required');
+            case 1:
+              appId = options.appId, _options$include2 = options.include, include = _options$include2 === void 0 ? [] : _options$include2, _options$fields2 = options.fields, fields = _options$fields2 === void 0 ? [] : _options$fields2, _options$cache2 = options.cache, cache = _options$cache2 === void 0 ? 'default' : _options$cache2;
+              params = {};
+              if (appId) {
+                params.appId = appId;
+              }
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context2.next = 2;
+              return this.apiClient.get("v1/data-sources/".concat(dataSourceId), params);
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.dataSource || response);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function fetchDataSource(_x2) {
+        return _fetchDataSource.apply(this, arguments);
+      }
+      return fetchDataSource;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataSourcesApiService);
+
+/***/ }),
+/* 173 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/MediaApiService.js
+/**
+ * MediaApiService - Wrapper for file and folder-related API endpoints
+ *
+ * Provides methods to interact with media endpoints.
+ *
+ * @class MediaApiService
+ */
+var MediaApiService = /*#__PURE__*/function () {
+  /**
+   * Create MediaApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function MediaApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MediaApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Fetch app media (files and folders)
+   *
+   * @param {number} appId - App ID to fetch media for
+   * @param {Object} [options={}] - Fetch options
+   * @param {Array<string>} [options.include=[]] - Associations to include
+   * @param {Object} [options.filters={}] - Additional filters
+   * @param {string} [options.filters.type] - Filter by file type
+   * @param {boolean} [options.filters.hasAssociations] - Filter by association existence
+   * @param {boolean} [options.filters.isUnused] - Filter unused files
+   * @param {boolean} [options.filters.isGlobalLibrary] - Filter global libraries
+   * @param {Array<string>} [options.fields=[]] - Fields to return
+   * @param {Object} [options.sort] - Sort configuration
+   * @param {string} [options.sort.field='name'] - Field to sort by
+   * @param {string} [options.sort.order='asc'] - Sort order
+   * @param {Object} [options.pagination] - Pagination configuration
+   * @param {number} [options.pagination.page=1] - Page number
+   * @param {number} [options.pagination.limit=50] - Items per page
+   * @param {string} [options.cache='default'] - Cache strategy
+   * @returns {Promise<Object>} Object with files and folders arrays
+   *
+   * @example
+   * const media = await mediaApiService.fetchMedia(123, {
+   *   include: ['associatedPages'],
+   *   filters: { isUnused: false }
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MediaApiService, [{
+    key: "fetchMedia",
+    value: (function () {
+      var _fetchMedia = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(appId) {
+        var options,
+          _options$include,
+          include,
+          _options$filters,
+          filters,
+          _options$fields,
+          fields,
+          _options$sort,
+          sort,
+          _options$pagination,
+          pagination,
+          _options$cache,
+          cache,
+          params,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              _options$include = options.include, include = _options$include === void 0 ? [] : _options$include, _options$filters = options.filters, filters = _options$filters === void 0 ? {} : _options$filters, _options$fields = options.fields, fields = _options$fields === void 0 ? [] : _options$fields, _options$sort = options.sort, sort = _options$sort === void 0 ? {
+                field: 'name',
+                order: 'asc'
+              } : _options$sort, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
+                page: 1,
+                limit: 50
+              } : _options$pagination, _options$cache = options.cache, cache = _options$cache === void 0 ? 'default' : _options$cache;
+              params = {
+                appId: appId
+              }; // Add include parameter
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+
+              // Add filters
+              if (filters.type) {
+                params.type = filters.type;
+              }
+              if (filters.hasAssociations !== undefined) {
+                params.hasAssociations = filters.hasAssociations;
+              }
+              if (filters.isUnused !== undefined) {
+                params.isUnused = filters.isUnused;
+              }
+              if (filters.isGlobalLibrary !== undefined) {
+                params.isGlobalLibrary = filters.isGlobalLibrary;
+              }
+
+              // Add fields
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+
+              // Add sorting
+              if (sort && sort.field) {
+                params.sortBy = sort.field;
+                params.sortOrder = sort.order || 'asc';
+              }
+
+              // Add pagination
+              if (pagination) {
+                params.page = pagination.page || 1;
+                params.limit = pagination.limit || 50;
+              }
+              _context.next = 2;
+              return this.apiClient.get('v1/media', params);
+            case 2:
+              response = _context.sent;
+              return _context.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function fetchMedia(_x) {
+        return _fetchMedia.apply(this, arguments);
+      }
+      return fetchMedia;
+    }()
+    /**
+     * Fetch single file details
+     *
+     * @param {number} fileId - File ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {number} [options.appId] - App ID (required for association queries)
+     * @param {Array<string>} [options.include=[]] - Associations to include
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} File object
+     *
+     * @example
+     * const file = await mediaApiService.fetchFile(100, {
+     *   appId: 123,
+     *   include: ['associatedPages']
+     * });
+     */
+    )
+  }, {
+    key: "fetchFile",
+    value: (function () {
+      var _fetchFile = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(fileId) {
+        var options,
+          appId,
+          _options$include2,
+          include,
+          _options$fields2,
+          fields,
+          _options$cache2,
+          cache,
+          params,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              if (!(!fileId || typeof fileId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid file ID is required');
+            case 1:
+              appId = options.appId, _options$include2 = options.include, include = _options$include2 === void 0 ? [] : _options$include2, _options$fields2 = options.fields, fields = _options$fields2 === void 0 ? [] : _options$fields2, _options$cache2 = options.cache, cache = _options$cache2 === void 0 ? 'default' : _options$cache2;
+              params = {};
+              if (appId) {
+                params.appId = appId;
+              }
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context2.next = 2;
+              return this.apiClient.get("v1/media/files/".concat(fileId), params);
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response.file || response);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function fetchFile(_x2) {
+        return _fetchFile.apply(this, arguments);
+      }
+      return fetchFile;
+    }()
+    /**
+     * Fetch single folder details
+     *
+     * @param {number} folderId - Folder ID to fetch
+     * @param {Object} [options={}] - Fetch options
+     * @param {number} [options.appId] - App ID (required for association queries)
+     * @param {Array<string>} [options.include=[]] - Associations to include
+     * @param {Array<string>} [options.fields=[]] - Fields to return
+     * @param {string} [options.cache='default'] - Cache strategy
+     * @returns {Promise<Object>} Folder object
+     *
+     * @example
+     * const folder = await mediaApiService.fetchFolder(200, {
+     *   appId: 123
+     * });
+     */
+    )
+  }, {
+    key: "fetchFolder",
+    value: (function () {
+      var _fetchFolder = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(folderId) {
+        var options,
+          appId,
+          _options$include3,
+          include,
+          _options$fields3,
+          fields,
+          _options$cache3,
+          cache,
+          params,
+          response,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+              if (!(!folderId || typeof folderId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid folder ID is required');
+            case 1:
+              appId = options.appId, _options$include3 = options.include, include = _options$include3 === void 0 ? [] : _options$include3, _options$fields3 = options.fields, fields = _options$fields3 === void 0 ? [] : _options$fields3, _options$cache3 = options.cache, cache = _options$cache3 === void 0 ? 'default' : _options$cache3;
+              params = {};
+              if (appId) {
+                params.appId = appId;
+              }
+              if (include.length > 0) {
+                params.include = include.join(',');
+              }
+              if (fields.length > 0) {
+                params.fields = fields.join(',');
+              }
+              _context3.next = 2;
+              return this.apiClient.get("v1/media/folders/".concat(folderId), params);
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", response.folder || response);
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function fetchFolder(_x3) {
+        return _fetchFolder.apply(this, arguments);
+      }
+      return fetchFolder;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MediaApiService);
+
+/***/ }),
+/* 174 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+// src/middleware/api/MergeApiService.js
+/**
+ * MergeApiService - Wrapper for merge-related API endpoints
+ *
+ * Provides methods to interact with merge operation endpoints.
+ *
+ * @class MergeApiService
+ */
+var MergeApiService = /*#__PURE__*/function () {
+  /**
+   * Create MergeApiService instance
+   *
+   * @param {Object} apiClient - ApiClient instance for making requests
+   */
+  function MergeApiService(apiClient) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MergeApiService);
+    if (!apiClient) {
+      throw new Error('ApiClient is required');
+    }
+    this.apiClient = apiClient;
+  }
+
+  /**
+   * Lock apps for merge configuration
+   *
+   * @param {number} sourceAppId - Source app ID to lock
+   * @param {Object} [options={}] - Lock options
+   * @param {Object} [options.targetApp] - Target app configuration
+   * @param {number} [options.targetApp.id] - Target app ID
+   * @param {string} [options.targetApp.region] - Target app region
+   * @param {number} [options.lockDuration=600] - Lock duration in seconds
+   * @returns {Promise<Object>} Lock result
+   *
+   * @example
+   * const result = await mergeApiService.lockApps(123, {
+   *   targetApp: { id: 456, region: 'eu' },
+   *   lockDuration: 600
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MergeApiService, [{
+    key: "lockApps",
+    value: (function () {
+      var _lockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(sourceAppId) {
+        var options,
+          _options$targetApp,
+          targetApp,
+          _options$lockDuration,
+          lockDuration,
+          response,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              _options$targetApp = options.targetApp, targetApp = _options$targetApp === void 0 ? {} : _options$targetApp, _options$lockDuration = options.lockDuration, lockDuration = _options$lockDuration === void 0 ? 600 : _options$lockDuration;
+              _context.next = 2;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/lock"), {
+                targetApp: targetApp,
+                lockDuration: lockDuration
+              });
+            case 2:
+              response = _context.sent;
+              return _context.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function lockApps(_x) {
+        return _lockApps.apply(this, arguments);
+      }
+      return lockApps;
+    }()
+    /**
+     * Unlock apps
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} [options={}] - Unlock options
+     * @param {Object} [options.targetApp] - Target app configuration
+     * @returns {Promise<Object>} Unlock result
+     *
+     * @example
+     * await mergeApiService.unlockApps(123, {
+     *   targetApp: { id: 456 }
+     * });
+     */
+    )
+  }, {
+    key: "unlockApps",
+    value: (function () {
+      var _unlockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(sourceAppId) {
+        var options,
+          _options$targetApp2,
+          targetApp,
+          response,
+          _args2 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              _options$targetApp2 = options.targetApp, targetApp = _options$targetApp2 === void 0 ? {} : _options$targetApp2;
+              _context2.next = 2;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/unlock"), {
+                targetApp: targetApp
+              });
+            case 2:
+              response = _context2.sent;
+              return _context2.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function unlockApps(_x2) {
+        return _unlockApps.apply(this, arguments);
+      }
+      return unlockApps;
+    }()
+    /**
+     * Extend lock duration
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} [options={}] - Extend options
+     * @param {Object} [options.targetApp] - Target app configuration
+     * @param {number} [options.extendDuration=300] - Duration to add in seconds
+     * @returns {Promise<Object>} Extended lock result
+     *
+     * @example
+     * await mergeApiService.extendLock(123, {
+     *   targetApp: { id: 456 },
+     *   extendDuration: 300
+     * });
+     */
+    )
+  }, {
+    key: "extendLock",
+    value: (function () {
+      var _extendLock = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(sourceAppId) {
+        var options,
+          _options$targetApp3,
+          targetApp,
+          _options$extendDurati,
+          extendDuration,
+          response,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              _options$targetApp3 = options.targetApp, targetApp = _options$targetApp3 === void 0 ? {} : _options$targetApp3, _options$extendDurati = options.extendDuration, extendDuration = _options$extendDurati === void 0 ? 300 : _options$extendDurati;
+              _context3.next = 2;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/lock/extend"), {
+                targetApp: targetApp,
+                extendDuration: extendDuration
+              });
+            case 2:
+              response = _context3.sent;
+              return _context3.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function extendLock(_x3) {
+        return _extendLock.apply(this, arguments);
+      }
+      return extendLock;
+    }()
+    /**
+     * Preview merge results
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} mergeConfig - Merge configuration
+     * @param {number} mergeConfig.destinationAppId - Destination app ID
+     * @param {number} mergeConfig.destinationOrganizationId - Destination org ID
+     * @param {Array|string} mergeConfig.pageIds - Page IDs to merge or 'all'
+     * @param {Array|string} mergeConfig.dataSources - Data sources to merge or 'all'
+     * @param {Array|string} mergeConfig.fileIds - File IDs to merge or 'all'
+     * @param {Array|string} mergeConfig.folderIds - Folder IDs to merge or 'all'
+     * @param {boolean} [mergeConfig.mergeAppSettings=false] - Merge app settings
+     * @param {boolean} [mergeConfig.mergeMenuSettings=false] - Merge menu settings
+     * @param {boolean} [mergeConfig.mergeAppearanceSettings=false] - Merge appearance
+     * @param {boolean} [mergeConfig.mergeGlobalCode=false] - Merge global code
+     * @param {Array} [mergeConfig.customDataSourcesInUse=[]] - Custom data sources in use
+     * @returns {Promise<Object>} Preview results
+     *
+     * @example
+     * const preview = await mergeApiService.previewMerge(123, {
+     *   destinationAppId: 456,
+     *   destinationOrganizationId: 100,
+     *   pageIds: [1, 2, 3],
+     *   dataSources: [],
+     *   fileIds: 'all',
+     *   folderIds: []
+     * });
+     */
+    )
+  }, {
+    key: "previewMerge",
+    value: (function () {
+      var _previewMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee4(sourceAppId, mergeConfig) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context4.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!mergeConfig || !mergeConfig.destinationAppId)) {
+                _context4.next = 2;
+                break;
+              }
+              throw new Error('Valid merge configuration with destinationAppId is required');
+            case 2:
+              _context4.next = 3;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/preview"), mergeConfig);
+            case 3:
+              response = _context4.sent;
+              return _context4.abrupt("return", response);
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this);
+      }));
+      function previewMerge(_x4, _x5) {
+        return _previewMerge.apply(this, arguments);
+      }
+      return previewMerge;
+    }()
+    /**
+     * Initiate merge
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} mergeConfig - Merge configuration (same structure as previewMerge)
+     * @returns {Promise<Object>} Merge initiation result with mergeId
+     *
+     * @example
+     * const result = await mergeApiService.initiateMerge(123, mergeConfig);
+     */
+    )
+  }, {
+    key: "initiateMerge",
+    value: (function () {
+      var _initiateMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee5(sourceAppId, mergeConfig) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context5.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!mergeConfig || !mergeConfig.destinationAppId)) {
+                _context5.next = 2;
+                break;
+              }
+              throw new Error('Valid merge configuration with destinationAppId is required');
+            case 2:
+              _context5.next = 3;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge"), mergeConfig);
+            case 3:
+              response = _context5.sent;
+              return _context5.abrupt("return", response);
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function initiateMerge(_x6, _x7) {
+        return _initiateMerge.apply(this, arguments);
+      }
+      return initiateMerge;
+    }()
+    /**
+     * Get merge status
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {Object} [options={}] - Status options
+     * @param {number} [options.mergeId] - Merge ID to check
+     * @returns {Promise<Object>} Merge status
+     *
+     * @example
+     * const status = await mergeApiService.getMergeStatus(123, { mergeId: 5000 });
+     */
+    )
+  }, {
+    key: "getMergeStatus",
+    value: (function () {
+      var _getMergeStatus = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee6(sourceAppId) {
+        var options,
+          mergeId,
+          data,
+          response,
+          _args6 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 1 && _args6[1] !== undefined ? _args6[1] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context6.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              mergeId = options.mergeId;
+              data = mergeId ? {
+                mergeId: mergeId
+              } : {};
+              _context6.next = 2;
+              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/status"), data);
+            case 2:
+              response = _context6.sent;
+              return _context6.abrupt("return", response);
+            case 3:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function getMergeStatus(_x8) {
+        return _getMergeStatus.apply(this, arguments);
+      }
+      return getMergeStatus;
+    }()
+    /**
+     * Fetch merge logs
+     *
+     * @param {number} appId - App ID
+     * @param {Object} [options={}] - Fetch options
+     * @param {number} [options.mergeId] - Filter by merge ID
+     * @param {Array<string>} [options.types=[]] - Filter by log types
+     * @param {Object} [options.pagination] - Pagination configuration
+     * @param {number} [options.pagination.page=1] - Page number
+     * @param {number} [options.pagination.limit=50] - Items per page
+     * @returns {Promise<Array>} Array of log entries
+     *
+     * @example
+     * const logs = await mergeApiService.fetchMergeLogs(123, {
+     *   mergeId: 5000,
+     *   types: ['info', 'error']
+     * });
+     */
+    )
+  }, {
+    key: "fetchMergeLogs",
+    value: (function () {
+      var _fetchMergeLogs = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee7(appId) {
+        var options,
+          mergeId,
+          _options$types,
+          types,
+          _options$pagination,
+          pagination,
+          data,
+          response,
+          _args7 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              options = _args7.length > 1 && _args7[1] !== undefined ? _args7[1] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context7.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              mergeId = options.mergeId, _options$types = options.types, types = _options$types === void 0 ? [] : _options$types, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
+                page: 1,
+                limit: 50
+              } : _options$pagination;
+              data = {};
+              if (mergeId) {
+                data.mergeId = mergeId;
+              }
+              if (types.length > 0) {
+                data.types = types;
+              }
+              if (pagination) {
+                data.page = pagination.page || 1;
+                data.limit = pagination.limit || 50;
+              }
+              _context7.next = 2;
+              return this.apiClient.post("v1/apps/".concat(appId, "/logs"), data);
+            case 2:
+              response = _context7.sent;
+              return _context7.abrupt("return", response.logs || response);
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
+      }));
+      function fetchMergeLogs(_x9) {
+        return _fetchMergeLogs.apply(this, arguments);
+      }
+      return fetchMergeLogs;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MergeApiService);
+
+/***/ }),
+/* 175 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+// src/middleware/controllers/ValidationController.js
+/**
+ * ValidationController - Centralized validation logic for merge operations
+ *
+ * Orchestrates validation across multiple services including app validation,
+ * duplicate checking, configuration validation, permissions, and plan limits.
+ *
+ * @class ValidationController
+ */
+var ValidationController = /*#__PURE__*/function () {
+  /**
+   * Create ValidationController instance
+   *
+   * @param {Object} appsApiService - AppsApiService instance
+   * @param {Object} validationEngine - ValidationEngine instance
+   */
+  function ValidationController(appsApiService, validationEngine) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, ValidationController);
+    if (!appsApiService) {
+      throw new Error('AppsApiService is required');
+    }
+    if (!validationEngine) {
+      throw new Error('ValidationEngine is required');
+    }
+    this.appsApiService = appsApiService;
+    this.validationEngine = validationEngine;
+  }
+
+  /**
+   * Validate app for merge operations
+   *
+   * Orchestrates multiple validation checks including duplicates, permissions, and constraints.
+   *
+   * @param {number} appId - App ID to validate
+   * @param {Object} [options={}] - Validation options
+   * @param {boolean} [options.checkDuplicates=true] - Check for duplicate names
+   * @param {boolean} [options.checkPermissions=true] - Check user permissions
+   * @param {boolean} [options.checkLock=true] - Check lock status
+   * @param {Array<string>} [options.duplicateItems=['pages', 'dataSources']] - Items to check for duplicates
+   * @returns {Promise<Object>} Validation result with isValid flag and errors array
+   *
+   * @example
+   * const result = await validationController.validateAppForMerge(123, {
+   *   checkDuplicates: true,
+   *   duplicateItems: ['pages', 'dataSources']
+   * });
+   * // Returns: { isValid: true, errors: [] }
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(ValidationController, [{
+    key: "validateAppForMerge",
+    value: (function () {
+      var _validateAppForMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(appId) {
+        var options,
+          _options$checkDuplica,
+          checkDuplicates,
+          _options$checkPermiss,
+          checkPermissions,
+          _options$checkLock,
+          checkLock,
+          _options$duplicateIte,
+          duplicateItems,
+          errors,
+          duplicateResult,
+          permissionResult,
+          lockResult,
+          _args = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              _options$checkDuplica = options.checkDuplicates, checkDuplicates = _options$checkDuplica === void 0 ? true : _options$checkDuplica, _options$checkPermiss = options.checkPermissions, checkPermissions = _options$checkPermiss === void 0 ? true : _options$checkPermiss, _options$checkLock = options.checkLock, checkLock = _options$checkLock === void 0 ? true : _options$checkLock, _options$duplicateIte = options.duplicateItems, duplicateItems = _options$duplicateIte === void 0 ? ['pages', 'dataSources'] : _options$duplicateIte;
+              errors = []; // Check for duplicates if requested
+              if (!checkDuplicates) {
+                _context.next = 2;
+                break;
+              }
+              _context.next = 1;
+              return this.checkDuplicates(appId, {
+                items: duplicateItems
+              });
+            case 1:
+              duplicateResult = _context.sent;
+              if (!duplicateResult.isValid) {
+                errors.push.apply(errors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(duplicateResult.errors));
+              }
+            case 2:
+              if (!checkPermissions) {
+                _context.next = 4;
+                break;
+              }
+              _context.next = 3;
+              return this.validatePermissions(appId);
+            case 3:
+              permissionResult = _context.sent;
+              if (!permissionResult.isValid) {
+                errors.push.apply(errors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(permissionResult.errors));
+              }
+            case 4:
+              if (!checkLock) {
+                _context.next = 6;
+                break;
+              }
+              _context.next = 5;
+              return this.checkLockStatus(appId);
+            case 5:
+              lockResult = _context.sent;
+              if (!lockResult.isValid) {
+                errors.push.apply(errors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(lockResult.errors));
+              }
+            case 6:
+              return _context.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 7:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this);
+      }));
+      function validateAppForMerge(_x) {
+        return _validateAppForMerge.apply(this, arguments);
+      }
+      return validateAppForMerge;
+    }()
+    /**
+     * Check for duplicate names in app
+     *
+     * @param {number} appId - App ID to check
+     * @param {Object} [options={}] - Check options
+     * @param {Array<string>} [options.items=['pages', 'dataSources']] - Items to check
+     * @returns {Promise<Object>} Result with isValid flag, errors, and duplicates data
+     *
+     * @example
+     * const result = await validationController.checkDuplicates(123);
+     */
+    )
+  }, {
+    key: "checkDuplicates",
+    value: (function () {
+      var _checkDuplicates = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2(appId) {
+        var options,
+          _options$items,
+          items,
+          duplicates,
+          errors,
+          hasDuplicates,
+          _args2 = arguments,
+          _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              _options$items = options.items, items = _options$items === void 0 ? ['pages', 'dataSources'] : _options$items;
+              _context2.prev = 1;
+              _context2.next = 2;
+              return this.appsApiService.checkDuplicates(appId, {
+                items: items
+              });
+            case 2:
+              duplicates = _context2.sent;
+              errors = [];
+              hasDuplicates = Object.keys(duplicates).some(function (key) {
+                return duplicates[key] && duplicates[key].length > 0;
+              });
+              if (hasDuplicates) {
+                Object.keys(duplicates).forEach(function (itemType) {
+                  var itemDuplicates = duplicates[itemType] || [];
+                  itemDuplicates.forEach(function (duplicate) {
+                    errors.push({
+                      type: 'DUPLICATE_NAME',
+                      category: 'duplicate',
+                      itemType: itemType,
+                      message: "Duplicate ".concat(itemType, " name \"").concat(duplicate.name || duplicate.title, "\" found (").concat(duplicate.count, " instances)"),
+                      data: duplicate
+                    });
+                  });
+                });
+              }
+              return _context2.abrupt("return", {
+                isValid: !hasDuplicates,
+                errors: errors,
+                duplicates: duplicates
+              });
+            case 3:
+              _context2.prev = 3;
+              _t = _context2["catch"](1);
+              return _context2.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  type: 'DUPLICATE_CHECK_FAILED',
+                  category: 'api',
+                  message: 'Failed to check for duplicates',
+                  originalError: _t
+                }]
+              });
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[1, 3]]);
+      }));
+      function checkDuplicates(_x2) {
+        return _checkDuplicates.apply(this, arguments);
+      }
+      return checkDuplicates;
+    }()
+    /**
+     * Validate merge configuration
+     *
+     * @param {Object} mergeConfig - Merge configuration to validate
+     * @param {Object} [options={}] - Validation options
+     * @param {string} [options.validationLevel='strict'] - Validation strictness level
+     * @returns {Promise<Object>} Validation result
+     *
+     * @example
+     * const result = await validationController.validateConfiguration({
+     *   sourceAppId: 123,
+     *   destinationAppId: 456,
+     *   pageIds: [1, 2, 3]
+     * });
+     */
+    )
+  }, {
+    key: "validateConfiguration",
+    value: (function () {
+      var _validateConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3(mergeConfig) {
+        var options,
+          _options$validationLe,
+          validationLevel,
+          errors,
+          configErrors,
+          _args3 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+              _options$validationLe = options.validationLevel, validationLevel = _options$validationLe === void 0 ? 'strict' : _options$validationLe;
+              errors = []; // Use ValidationEngine for configuration validation
+              configErrors = this.validationEngine.validateConfiguration(mergeConfig);
+              if (configErrors.length > 0) {
+                errors.push.apply(errors, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(configErrors.map(function (error) {
+                  return {
+                    type: 'CONFIGURATION_INVALID',
+                    category: 'validation',
+                    message: error.message || error,
+                    field: error.field
+                  };
+                })));
+              }
+              return _context3.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this);
+      }));
+      function validateConfiguration(_x3) {
+        return _validateConfiguration.apply(this, arguments);
+      }
+      return validateConfiguration;
+    }()
+    /**
+     * Validate user permissions for app
+     *
+     * @param {number} appId - App ID to check permissions for
+     * @param {Object} [options={}] - Validation options
+     * @param {string} [options.requiredRole='publisher'] - Required user role
+     * @returns {Promise<Object>} Validation result
+     *
+     * @example
+     * const result = await validationController.validatePermissions(123);
+     */
+    )
+  }, {
+    key: "validatePermissions",
+    value: (function () {
+      var _validatePermissions = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee4(appId) {
+        var options,
+          _options$requiredRole,
+          requiredRole,
+          app,
+          errors,
+          _args4 = arguments,
+          _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              options = _args4.length > 1 && _args4[1] !== undefined ? _args4[1] : {};
+              _options$requiredRole = options.requiredRole, requiredRole = _options$requiredRole === void 0 ? 'publisher' : _options$requiredRole;
+              _context4.prev = 1;
+              _context4.next = 2;
+              return this.appsApiService.fetchApp(appId, {
+                fields: ['id', 'name', 'userRole', 'permissions']
+              });
+            case 2:
+              app = _context4.sent;
+              errors = []; // Check if user has required role
+              if (!app.userRole || app.userRole !== requiredRole) {
+                errors.push({
+                  type: 'INSUFFICIENT_PERMISSIONS',
+                  category: 'permission',
+                  message: "User must have ".concat(requiredRole, " role to perform merge operations"),
+                  requiredRole: requiredRole,
+                  currentRole: app.userRole
+                });
+              }
+              return _context4.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 3:
+              _context4.prev = 3;
+              _t2 = _context4["catch"](1);
+              return _context4.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  type: 'PERMISSION_CHECK_FAILED',
+                  category: 'api',
+                  message: 'Failed to check permissions',
+                  originalError: _t2
+                }]
+              });
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this, [[1, 3]]);
+      }));
+      function validatePermissions(_x4) {
+        return _validatePermissions.apply(this, arguments);
+      }
+      return validatePermissions;
+    }()
+    /**
+     * Check plan limits for destination app
+     *
+     * @param {number} destinationAppId - Destination app ID
+     * @param {Object} mergeConfig - Merge configuration
+     * @param {Object} [options={}] - Check options
+     * @returns {Promise<Object>} Validation result
+     *
+     * @example
+     * const result = await validationController.checkPlanLimits(456, mergeConfig);
+     */
+    )
+  }, {
+    key: "checkPlanLimits",
+    value: (function () {
+      var _checkPlanLimits = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee5(destinationAppId, mergeConfig) {
+        var options,
+          app,
+          errors,
+          _app$currentUsage,
+          newPageCount,
+          totalPages,
+          _app$currentUsage2,
+          _app$currentUsage3,
+          newDSCount,
+          totalDS,
+          _app$currentUsage4,
+          _args5 = arguments,
+          _t3;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              options = _args5.length > 2 && _args5[2] !== undefined ? _args5[2] : {};
+              _context5.prev = 1;
+              _context5.next = 2;
+              return this.appsApiService.fetchApp(destinationAppId, {
+                fields: ['id', 'name', 'plan', 'limits', 'currentUsage']
+              });
+            case 2:
+              app = _context5.sent;
+              errors = []; // Check if plan has limits
+              if (app.limits) {
+                // Check page limit
+                if (app.limits.pages && mergeConfig.pageIds) {
+                  newPageCount = Array.isArray(mergeConfig.pageIds) ? mergeConfig.pageIds.length : 0;
+                  totalPages = (((_app$currentUsage = app.currentUsage) === null || _app$currentUsage === void 0 ? void 0 : _app$currentUsage.pages) || 0) + newPageCount;
+                  if (totalPages > app.limits.pages) {
+                    errors.push({
+                      type: 'PLAN_LIMIT_EXCEEDED',
+                      category: 'plan',
+                      message: "Merge would exceed page limit (".concat(totalPages, "/").concat(app.limits.pages, ")"),
+                      limit: app.limits.pages,
+                      current: ((_app$currentUsage2 = app.currentUsage) === null || _app$currentUsage2 === void 0 ? void 0 : _app$currentUsage2.pages) || 0,
+                      additional: newPageCount
+                    });
+                  }
+                }
+
+                // Check data source limit
+                if (app.limits.dataSources && mergeConfig.dataSources) {
+                  newDSCount = Array.isArray(mergeConfig.dataSources) ? mergeConfig.dataSources.length : 0;
+                  totalDS = (((_app$currentUsage3 = app.currentUsage) === null || _app$currentUsage3 === void 0 ? void 0 : _app$currentUsage3.dataSources) || 0) + newDSCount;
+                  if (totalDS > app.limits.dataSources) {
+                    errors.push({
+                      type: 'PLAN_LIMIT_EXCEEDED',
+                      category: 'plan',
+                      message: "Merge would exceed data source limit (".concat(totalDS, "/").concat(app.limits.dataSources, ")"),
+                      limit: app.limits.dataSources,
+                      current: ((_app$currentUsage4 = app.currentUsage) === null || _app$currentUsage4 === void 0 ? void 0 : _app$currentUsage4.dataSources) || 0,
+                      additional: newDSCount
+                    });
+                  }
+                }
+              }
+              return _context5.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 3:
+              _context5.prev = 3;
+              _t3 = _context5["catch"](1);
+              return _context5.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  type: 'PLAN_LIMIT_CHECK_FAILED',
+                  category: 'api',
+                  message: 'Failed to check plan limits',
+                  originalError: _t3
+                }]
+              });
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this, [[1, 3]]);
+      }));
+      function checkPlanLimits(_x5, _x6) {
+        return _checkPlanLimits.apply(this, arguments);
+      }
+      return checkPlanLimits;
+    }()
+    /**
+     * Check lock status of an app
+     *
+     * @param {number} appId - App ID to check
+     * @param {Object} [options={}] - Check options
+     * @returns {Promise<Object>} Validation result
+     *
+     * @example
+     * const result = await validationController.checkLockStatus(123);
+     */
+    )
+  }, {
+    key: "checkLockStatus",
+    value: (function () {
+      var _checkLockStatus = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee6(appId) {
+        var options,
+          app,
+          errors,
+          now,
+          lockedUntil,
+          isLocked,
+          _args6 = arguments,
+          _t4;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 1 && _args6[1] !== undefined ? _args6[1] : {};
+              _context6.prev = 1;
+              _context6.next = 2;
+              return this.appsApiService.fetchApp(appId, {
+                fields: ['id', 'name', 'lockedUntil', 'lockedBy']
+              });
+            case 2:
+              app = _context6.sent;
+              errors = [];
+              now = new Date();
+              lockedUntil = app.lockedUntil ? new Date(app.lockedUntil) : null;
+              if (lockedUntil && lockedUntil > now) {
+                errors.push({
+                  type: 'APP_LOCKED',
+                  category: 'lock',
+                  message: "App is currently locked until ".concat(lockedUntil.toISOString()),
+                  lockedUntil: app.lockedUntil,
+                  lockedBy: app.lockedBy
+                });
+              }
+              isLocked = lockedUntil ? lockedUntil > now : false;
+              return _context6.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors,
+                isLocked: isLocked,
+                lockedUntil: app.lockedUntil
+              });
+            case 3:
+              _context6.prev = 3;
+              _t4 = _context6["catch"](1);
+              return _context6.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  type: 'LOCK_STATUS_CHECK_FAILED',
+                  category: 'api',
+                  message: 'Failed to check lock status',
+                  originalError: _t4
+                }]
+              });
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this, [[1, 3]]);
+      }));
+      function checkLockStatus(_x7) {
+        return _checkLockStatus.apply(this, arguments);
+      }
+      return checkLockStatus;
+    }())
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ValidationController);
+
+/***/ }),
+/* 176 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+// src/middleware/controllers/AppLockController.js
+/**
+ * AppLockController - Manages app locking lifecycle for merge operations
+ *
+ * Handles locking, unlocking, extending locks, and monitoring lock expiration
+ * with automatic extension capabilities.
+ *
+ * @class AppLockController
+ */
+var AppLockController = /*#__PURE__*/function () {
+  /**
+   * Create AppLockController instance
+   *
+   * @param {Object} mergeApiService - MergeApiService instance
+   * @param {Object} stateManager - StateManager instance
+   * @param {Object} eventEmitter - EventEmitter instance
+   */
+  function AppLockController(mergeApiService, stateManager, eventEmitter) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, AppLockController);
+    if (!mergeApiService) {
+      throw new Error('MergeApiService is required');
+    }
+    if (!stateManager) {
+      throw new Error('StateManager is required');
+    }
+    if (!eventEmitter) {
+      throw new Error('EventEmitter is required');
+    }
+    this.mergeApiService = mergeApiService;
+    this.stateManager = stateManager;
+    this.eventEmitter = eventEmitter;
+
+    // Track active monitoring timers
+    this.monitoringTimers = new Map();
+  }
+
+  /**
+   * Lock apps for merge configuration
+   *
+   * @param {number} sourceAppId - Source app ID
+   * @param {number} destinationAppId - Destination app ID
+   * @param {Object} [options={}] - Lock options
+   * @param {number} [options.duration=600] - Lock duration in seconds
+   * @param {boolean} [options.autoExtend=false] - Enable auto-extension
+   * @param {number} [options.warningThreshold=60] - Seconds before expiry to emit warning
+   * @returns {Promise<Object>} Lock result
+   *
+   * @example
+   * const result = await appLockController.lockApps(123, 456, {
+   *   duration: 600,
+   *   autoExtend: true
+   * });
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(AppLockController, [{
+    key: "lockApps",
+    value: (function () {
+      var _lockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(sourceAppId, destinationAppId) {
+        var options,
+          _options$duration,
+          duration,
+          _options$autoExtend,
+          autoExtend,
+          _options$warningThres,
+          warningThreshold,
+          lockResult,
+          _args = arguments,
+          _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!destinationAppId || typeof destinationAppId !== 'number')) {
+                _context.next = 2;
+                break;
+              }
+              throw new Error('Valid destination app ID is required');
+            case 2:
+              _options$duration = options.duration, duration = _options$duration === void 0 ? 600 : _options$duration, _options$autoExtend = options.autoExtend, autoExtend = _options$autoExtend === void 0 ? false : _options$autoExtend, _options$warningThres = options.warningThreshold, warningThreshold = _options$warningThres === void 0 ? 60 : _options$warningThres;
+              _context.prev = 3;
+              _context.next = 4;
+              return this.mergeApiService.lockApps(sourceAppId, {
+                targetApp: {
+                  id: destinationAppId
+                },
+                lockDuration: duration
+              });
+            case 4:
+              lockResult = _context.sent;
+              // Update state with lock information
+              this.stateManager.setState('lockStatus', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                lockedAt: new Date().toISOString(),
+                lockedUntil: lockResult.lockedUntil,
+                duration: duration,
+                autoExtend: autoExtend
+              });
+
+              // Emit lock acquired event
+              this.eventEmitter.emit('lock:acquired', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                lockedUntil: lockResult.lockedUntil
+              });
+
+              // Start monitoring if auto-extend enabled
+              if (autoExtend) {
+                this.monitorLockExpiration(sourceAppId, {
+                  destinationAppId: destinationAppId,
+                  warningThreshold: warningThreshold,
+                  autoExtend: true
+                });
+              }
+              return _context.abrupt("return", lockResult);
+            case 5:
+              _context.prev = 5;
+              _t = _context["catch"](3);
+              // Emit lock failed event
+              this.eventEmitter.emit('lock:failed', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                error: _t.message
+              });
+              throw _t;
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this, [[3, 5]]);
+      }));
+      function lockApps(_x, _x2) {
+        return _lockApps.apply(this, arguments);
+      }
+      return lockApps;
+    }()
+    /**
+     * Unlock apps
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {number} destinationAppId - Destination app ID
+     * @returns {Promise<Object>} Unlock result
+     *
+     * @example
+     * await appLockController.unlockApps(123, 456);
+     */
+    )
+  }, {
+    key: "unlockApps",
+    value: (function () {
+      var _unlockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2(sourceAppId, destinationAppId) {
+        var unlockResult, _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context2.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!destinationAppId || typeof destinationAppId !== 'number')) {
+                _context2.next = 2;
+                break;
+              }
+              throw new Error('Valid destination app ID is required');
+            case 2:
+              _context2.prev = 2;
+              // Stop any active monitoring
+              this.stopMonitoring(sourceAppId);
+
+              // Unlock apps via merge API
+              _context2.next = 3;
+              return this.mergeApiService.unlockApps(sourceAppId, {
+                targetApp: {
+                  id: destinationAppId
+                }
+              });
+            case 3:
+              unlockResult = _context2.sent;
+              // Clear lock state
+              this.stateManager.setState('lockStatus', null);
+
+              // Emit lock released event
+              this.eventEmitter.emit('lock:released', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId
+              });
+              return _context2.abrupt("return", unlockResult);
+            case 4:
+              _context2.prev = 4;
+              _t2 = _context2["catch"](2);
+              this.eventEmitter.emit('lock:release-failed', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                error: _t2.message
+              });
+              throw _t2;
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this, [[2, 4]]);
+      }));
+      function unlockApps(_x3, _x4) {
+        return _unlockApps.apply(this, arguments);
+      }
+      return unlockApps;
+    }()
+    /**
+     * Extend lock duration
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {number} destinationAppId - Destination app ID
+     * @param {Object} [options={}] - Extend options
+     * @param {number} [options.additionalDuration=300] - Additional seconds to add
+     * @returns {Promise<Object>} Extended lock result
+     *
+     * @example
+     * await appLockController.extendLock(123, 456, { additionalDuration: 300 });
+     */
+    )
+  }, {
+    key: "extendLock",
+    value: (function () {
+      var _extendLock = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3(sourceAppId, destinationAppId) {
+        var options,
+          _options$additionalDu,
+          additionalDuration,
+          extendResult,
+          currentLockState,
+          _args3 = arguments,
+          _t3;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!destinationAppId || typeof destinationAppId !== 'number')) {
+                _context3.next = 2;
+                break;
+              }
+              throw new Error('Valid destination app ID is required');
+            case 2:
+              _options$additionalDu = options.additionalDuration, additionalDuration = _options$additionalDu === void 0 ? 300 : _options$additionalDu;
+              _context3.prev = 3;
+              _context3.next = 4;
+              return this.mergeApiService.extendLock(sourceAppId, {
+                targetApp: {
+                  id: destinationAppId
+                },
+                extendDuration: additionalDuration
+              });
+            case 4:
+              extendResult = _context3.sent;
+              // Update state with new lock time
+              currentLockState = this.stateManager.getState('lockStatus') || {};
+              this.stateManager.setState('lockStatus', _objectSpread(_objectSpread({}, currentLockState), {}, {
+                lockedUntil: extendResult.lockedUntil,
+                lastExtended: new Date().toISOString()
+              }));
+
+              // Emit lock extended event
+              this.eventEmitter.emit('lock:extended', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                lockedUntil: extendResult.lockedUntil,
+                additionalDuration: additionalDuration
+              });
+              return _context3.abrupt("return", extendResult);
+            case 5:
+              _context3.prev = 5;
+              _t3 = _context3["catch"](3);
+              this.eventEmitter.emit('lock:extend-failed', {
+                sourceAppId: sourceAppId,
+                destinationAppId: destinationAppId,
+                error: _t3.message
+              });
+              throw _t3;
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this, [[3, 5]]);
+      }));
+      function extendLock(_x5, _x6) {
+        return _extendLock.apply(this, arguments);
+      }
+      return extendLock;
+    }()
+    /**
+     * Check lock status
+     *
+     * @param {number} appId - App ID to check
+     * @returns {Object} Lock status from state
+     *
+     * @example
+     * const status = appLockController.checkLockStatus(123);
+     */
+    )
+  }, {
+    key: "checkLockStatus",
+    value: function checkLockStatus(appId) {
+      var lockStatus = this.stateManager.getState('lockStatus');
+      if (!lockStatus || lockStatus.sourceAppId !== appId && lockStatus.destinationAppId !== appId) {
+        return {
+          isLocked: false,
+          lockStatus: null
+        };
+      }
+      var now = new Date();
+      var lockedUntil = new Date(lockStatus.lockedUntil);
+      var isLocked = lockedUntil > now;
+      return {
+        isLocked: isLocked,
+        lockStatus: lockStatus,
+        remainingSeconds: isLocked ? Math.floor((lockedUntil - now) / 1000) : 0
+      };
+    }
+
+    /**
+     * Monitor lock expiration with optional auto-extension
+     *
+     * @param {number} appId - App ID to monitor
+     * @param {Object} [options={}] - Monitoring options
+     * @param {number} [options.destinationAppId] - Destination app ID for lock extension
+     * @param {number} [options.warningThreshold=60] - Seconds before expiry to emit warning
+     * @param {boolean} [options.autoExtend=false] - Automatically extend lock
+     * @param {number} [options.checkInterval=10] - Check interval in seconds
+     * @returns {void}
+     *
+     * @example
+     * appLockController.monitorLockExpiration(123, {
+     *   destinationAppId: 456,
+     *   autoExtend: true,
+     *   warningThreshold: 60
+     * });
+     */
+  }, {
+    key: "monitorLockExpiration",
+    value: function monitorLockExpiration(appId) {
+      var _this = this;
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var destinationAppId = options.destinationAppId,
+        _options$warningThres2 = options.warningThreshold,
+        warningThreshold = _options$warningThres2 === void 0 ? 60 : _options$warningThres2,
+        _options$autoExtend2 = options.autoExtend,
+        autoExtend = _options$autoExtend2 === void 0 ? false : _options$autoExtend2,
+        _options$checkInterva = options.checkInterval,
+        checkInterval = _options$checkInterva === void 0 ? 10 : _options$checkInterva;
+
+      // Stop any existing monitoring for this app
+      this.stopMonitoring(appId);
+
+      // Create monitoring interval
+      var timerId = setInterval(function () {
+        var status = _this.checkLockStatus(appId);
+        if (!status.isLocked) {
+          // Lock expired
+          _this.eventEmitter.emit('lock:expired', {
+            sourceAppId: appId,
+            destinationAppId: destinationAppId
+          });
+          _this.stopMonitoring(appId);
+          return;
+        }
+
+        // Check if approaching expiration
+        if (status.remainingSeconds <= warningThreshold) {
+          _this.eventEmitter.emit('lock:expiring', {
+            sourceAppId: appId,
+            destinationAppId: destinationAppId,
+            remainingSeconds: status.remainingSeconds
+          });
+
+          // Auto-extend if enabled
+          if (autoExtend && destinationAppId) {
+            _this.extendLock(appId, destinationAppId, {
+              additionalDuration: 300
+            })["catch"](function (error) {
+              _this.eventEmitter.emit('lock:auto-extend-failed', {
+                sourceAppId: appId,
+                destinationAppId: destinationAppId,
+                error: error.message
+              });
+            });
+          }
+        }
+      }, checkInterval * 1000);
+
+      // Store timer reference
+      this.monitoringTimers.set(appId, timerId);
+    }
+
+    /**
+     * Stop monitoring lock expiration
+     *
+     * @param {number} appId - App ID to stop monitoring
+     * @returns {void}
+     *
+     * @example
+     * appLockController.stopMonitoring(123);
+     */
+  }, {
+    key: "stopMonitoring",
+    value: function stopMonitoring(appId) {
+      var timerId = this.monitoringTimers.get(appId);
+      if (timerId) {
+        clearInterval(timerId);
+        this.monitoringTimers["delete"](appId);
+      }
+    }
+
+    /**
+     * Clean up all monitoring timers
+     *
+     * @returns {void}
+     */
+  }, {
+    key: "cleanup",
+    value: function cleanup() {
+      this.monitoringTimers.forEach(function (timerId) {
+        clearInterval(timerId);
+      });
+      this.monitoringTimers.clear();
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AppLockController);
+
+/***/ }),
+/* 177 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5__);
+
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+// src/middleware/controllers/MergeConfigurationController.js
+/**
+ * MergeConfigurationController - Orchestrates multi-step merge configuration workflow
+ *
+ * Manages the entire configuration process including destination selection,
+ * resource configuration, validation, and state management.
+ *
+ * @class MergeConfigurationController
+ */
+var MergeConfigurationController = /*#__PURE__*/function () {
+  /**
+   * Create MergeConfigurationController instance
+   *
+   * @param {Object} dependencies - Controller dependencies
+   * @param {Object} dependencies.appsApiService - AppsApiService instance
+   * @param {Object} dependencies.pagesApiService - PagesApiService instance
+   * @param {Object} dependencies.dataSourcesApiService - DataSourcesApiService instance
+   * @param {Object} dependencies.mediaApiService - MediaApiService instance
+   * @param {Object} dependencies.stateManager - StateManager instance
+   * @param {Object} dependencies.validationController - ValidationController instance
+   * @param {Object} dependencies.appLockController - AppLockController instance
+   * @param {Object} dependencies.eventEmitter - EventEmitter instance
+   */
+  function MergeConfigurationController() {
+    var dependencies = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_3__["default"])(this, MergeConfigurationController);
+    var appsApiService = dependencies.appsApiService,
+      pagesApiService = dependencies.pagesApiService,
+      dataSourcesApiService = dependencies.dataSourcesApiService,
+      mediaApiService = dependencies.mediaApiService,
+      stateManager = dependencies.stateManager,
+      validationController = dependencies.validationController,
+      appLockController = dependencies.appLockController,
+      eventEmitter = dependencies.eventEmitter;
+
+    // Validate required dependencies
+    if (!appsApiService) throw new Error('appsApiService is required');
+    if (!pagesApiService) throw new Error('pagesApiService is required');
+    if (!dataSourcesApiService) throw new Error('dataSourcesApiService is required');
+    if (!mediaApiService) throw new Error('mediaApiService is required');
+    if (!stateManager) throw new Error('stateManager is required');
+    if (!validationController) throw new Error('validationController is required');
+    if (!appLockController) throw new Error('appLockController is required');
+    if (!eventEmitter) throw new Error('eventEmitter is required');
+    this.appsApiService = appsApiService;
+    this.pagesApiService = pagesApiService;
+    this.dataSourcesApiService = dataSourcesApiService;
+    this.mediaApiService = mediaApiService;
+    this.stateManager = stateManager;
+    this.validationController = validationController;
+    this.appLockController = appLockController;
+    this.eventEmitter = eventEmitter;
+
+    // Define workflow steps
+    this.workflowSteps = ['destination-selection', 'resource-configuration', 'review'];
+  }
+
+  /**
+   * Start configuration workflow
+   *
+   * @param {number} sourceAppId - Source app ID
+   * @param {Object} [options={}] - Configuration options
+   * @param {boolean} [options.validateSource=true] - Validate source app
+   * @returns {Promise<Object>} Configuration initialization result
+   *
+   * @example
+   * const result = await controller.startConfiguration(123);
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4__["default"])(MergeConfigurationController, [{
+    key: "startConfiguration",
+    value: (function () {
+      var _startConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee(sourceAppId) {
+        var options,
+          _options$validateSour,
+          validateSource,
+          validation,
+          _args = arguments,
+          _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              _options$validateSour = options.validateSource, validateSource = _options$validateSour === void 0 ? true : _options$validateSour;
+              _context.prev = 2;
+              if (!validateSource) {
+                _context.next = 4;
+                break;
+              }
+              _context.next = 3;
+              return this.validationController.validateAppForMerge(sourceAppId, {
+                checkDuplicates: true,
+                checkPermissions: true,
+                checkLock: false
+              });
+            case 3:
+              validation = _context.sent;
+              if (validation.isValid) {
+                _context.next = 4;
+                break;
+              }
+              throw new Error("Source app validation failed: ".concat(validation.errors.map(function (e) {
+                return e.message;
+              }).join(', ')));
+            case 4:
+              // Initialize configuration state
+              this.stateManager.setState('mergeConfiguration', {
+                sourceAppId: sourceAppId,
+                currentStep: 'destination-selection',
+                stepIndex: 0,
+                startedAt: new Date().toISOString(),
+                isComplete: false
+              });
+
+              // Emit configuration started event
+              this.eventEmitter.emit('configuration:started', {
+                sourceAppId: sourceAppId
+              });
+              return _context.abrupt("return", {
+                success: true,
+                sourceAppId: sourceAppId,
+                currentStep: 'destination-selection'
+              });
+            case 5:
+              _context.prev = 5;
+              _t = _context["catch"](2);
+              this.eventEmitter.emit('configuration:failed', {
+                sourceAppId: sourceAppId,
+                error: _t.message
+              });
+              throw _t;
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this, [[2, 5]]);
+      }));
+      function startConfiguration(_x) {
+        return _startConfiguration.apply(this, arguments);
+      }
+      return startConfiguration;
+    }()
+    /**
+     * Validate current step
+     *
+     * @param {string} stepName - Step name to validate
+     * @param {Object} [options={}] - Validation options
+     * @returns {Promise<Object>} Validation result
+     *
+     * @example
+     * const result = await controller.validateStep('destination-selection');
+     */
+    )
+  }, {
+    key: "validateStep",
+    value: (function () {
+      var _validateStep = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee2(stepName) {
+        var options,
+          config,
+          _args2 = arguments,
+          _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+              config = this.stateManager.getState('mergeConfiguration');
+              if (config) {
+                _context2.next = 1;
+                break;
+              }
+              return _context2.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  message: 'No active configuration found'
+                }]
+              });
+            case 1:
+              _t2 = stepName;
+              _context2.next = _t2 === 'destination-selection' ? 2 : _t2 === 'resource-configuration' ? 3 : _t2 === 'review' ? 4 : 5;
+              break;
+            case 2:
+              return _context2.abrupt("return", this.validateDestinationSelection(config));
+            case 3:
+              return _context2.abrupt("return", this.validateResourceConfiguration(config));
+            case 4:
+              return _context2.abrupt("return", this.validateReview(config));
+            case 5:
+              return _context2.abrupt("return", {
+                isValid: false,
+                errors: [{
+                  message: "Unknown step: ".concat(stepName)
+                }]
+              });
+            case 6:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, this);
+      }));
+      function validateStep(_x2) {
+        return _validateStep.apply(this, arguments);
+      }
+      return validateStep;
+    }()
+    /**
+     * Validate destination selection step
+     *
+     * @param {Object} config - Current configuration
+     * @returns {Promise<Object>} Validation result
+     */
+    )
+  }, {
+    key: "validateDestinationSelection",
+    value: (function () {
+      var _validateDestinationSelection = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee3(config) {
+        var errors;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              errors = [];
+              if (!config.destinationAppId) {
+                errors.push({
+                  message: 'Destination app must be selected'
+                });
+              }
+              if (!config.destinationOrganizationId) {
+                errors.push({
+                  message: 'Destination organization must be selected'
+                });
+              }
+              if (config.sourceAppId === config.destinationAppId) {
+                errors.push({
+                  message: 'Source and destination apps must be different'
+                });
+              }
+              return _context3.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 1:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }));
+      function validateDestinationSelection(_x3) {
+        return _validateDestinationSelection.apply(this, arguments);
+      }
+      return validateDestinationSelection;
+    }()
+    /**
+     * Validate resource configuration step
+     *
+     * @param {Object} config - Current configuration
+     * @returns {Promise<Object>} Validation result
+     */
+    )
+  }, {
+    key: "validateResourceConfiguration",
+    value: (function () {
+      var _validateResourceConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee4(config) {
+        var errors, hasPages, hasDataSources, hasFiles, hasFolders;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              errors = []; // Check that at least one resource is selected
+              hasPages = config.pageIds && (config.pageIds === 'all' || config.pageIds.length > 0);
+              hasDataSources = config.dataSources && (config.dataSources === 'all' || config.dataSources.length > 0);
+              hasFiles = config.fileIds && (config.fileIds === 'all' || config.fileIds.length > 0);
+              hasFolders = config.folderIds && (config.folderIds === 'all' || config.folderIds.length > 0);
+              if (!hasPages && !hasDataSources && !hasFiles && !hasFolders) {
+                errors.push({
+                  message: 'At least one resource must be selected for merge'
+                });
+              }
+              return _context4.abrupt("return", {
+                isValid: errors.length === 0,
+                errors: errors
+              });
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }));
+      function validateResourceConfiguration(_x4) {
+        return _validateResourceConfiguration.apply(this, arguments);
+      }
+      return validateResourceConfiguration;
+    }()
+    /**
+     * Validate review step
+     *
+     * @param {Object} config - Current configuration
+     * @returns {Promise<Object>} Validation result
+     */
+    )
+  }, {
+    key: "validateReview",
+    value: (function () {
+      var _validateReview = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee5(config) {
+        var destValidation, resourceValidation, allErrors;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 1;
+              return this.validateDestinationSelection(config);
+            case 1:
+              destValidation = _context5.sent;
+              _context5.next = 2;
+              return this.validateResourceConfiguration(config);
+            case 2:
+              resourceValidation = _context5.sent;
+              allErrors = [].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(destValidation.errors), (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(resourceValidation.errors));
+              return _context5.abrupt("return", {
+                isValid: allErrors.length === 0,
+                errors: allErrors
+              });
+            case 3:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5, this);
+      }));
+      function validateReview(_x5) {
+        return _validateReview.apply(this, arguments);
+      }
+      return validateReview;
+    }()
+    /**
+     * Proceed to next step
+     *
+     * @param {Object} [options={}] - Options
+     * @param {boolean} [options.autoValidate=true] - Validate current step before proceeding
+     * @returns {Promise<Object>} Result with new current step
+     *
+     * @example
+     * const result = await controller.proceedToNextStep();
+     */
+    )
+  }, {
+    key: "proceedToNextStep",
+    value: (function () {
+      var _proceedToNextStep = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee6() {
+        var options,
+          _options$autoValidate,
+          autoValidate,
+          config,
+          validation,
+          currentIndex,
+          nextIndex,
+          nextStep,
+          _args6 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              options = _args6.length > 0 && _args6[0] !== undefined ? _args6[0] : {};
+              _options$autoValidate = options.autoValidate, autoValidate = _options$autoValidate === void 0 ? true : _options$autoValidate;
+              config = this.stateManager.getState('mergeConfiguration');
+              if (config) {
+                _context6.next = 1;
+                break;
+              }
+              throw new Error('No active configuration found');
+            case 1:
+              if (!autoValidate) {
+                _context6.next = 3;
+                break;
+              }
+              _context6.next = 2;
+              return this.validateStep(config.currentStep);
+            case 2:
+              validation = _context6.sent;
+              if (validation.isValid) {
+                _context6.next = 3;
+                break;
+              }
+              throw new Error("Current step validation failed: ".concat(validation.errors.map(function (e) {
+                return e.message;
+              }).join(', ')));
+            case 3:
+              // Calculate next step
+              currentIndex = this.workflowSteps.indexOf(config.currentStep);
+              nextIndex = currentIndex + 1;
+              if (!(nextIndex >= this.workflowSteps.length)) {
+                _context6.next = 4;
+                break;
+              }
+              // Mark as complete
+              this.stateManager.setState('mergeConfiguration.isComplete', true);
+              this.eventEmitter.emit('configuration:completed', {
+                sourceAppId: config.sourceAppId,
+                destinationAppId: config.destinationAppId
+              });
+              return _context6.abrupt("return", {
+                success: true,
+                isComplete: true,
+                currentStep: config.currentStep
+              });
+            case 4:
+              nextStep = this.workflowSteps[nextIndex]; // Update state
+              this.stateManager.setState('mergeConfiguration.currentStep', nextStep);
+              this.stateManager.setState('mergeConfiguration.stepIndex', nextIndex);
+              this.eventEmitter.emit('configuration:step-changed', {
+                previousStep: config.currentStep,
+                currentStep: nextStep
+              });
+              return _context6.abrupt("return", {
+                success: true,
+                currentStep: nextStep,
+                previousStep: config.currentStep
+              });
+            case 5:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6, this);
+      }));
+      function proceedToNextStep() {
+        return _proceedToNextStep.apply(this, arguments);
+      }
+      return proceedToNextStep;
+    }()
+    /**
+     * Return to previous step
+     *
+     * @param {Object} [options={}] - Options
+     * @param {boolean} [options.preserveState=true] - Keep configuration data for current step
+     * @returns {Promise<Object>} Result with new current step
+     *
+     * @example
+     * const result = await controller.returnToPreviousStep();
+     */
+    )
+  }, {
+    key: "returnToPreviousStep",
+    value: (function () {
+      var _returnToPreviousStep = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee7() {
+        var options,
+          _options$preserveStat,
+          preserveState,
+          config,
+          currentIndex,
+          previousIndex,
+          previousStep,
+          _args7 = arguments;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              options = _args7.length > 0 && _args7[0] !== undefined ? _args7[0] : {};
+              _options$preserveStat = options.preserveState, preserveState = _options$preserveStat === void 0 ? true : _options$preserveStat;
+              config = this.stateManager.getState('mergeConfiguration');
+              if (config) {
+                _context7.next = 1;
+                break;
+              }
+              throw new Error('No active configuration found');
+            case 1:
+              currentIndex = this.workflowSteps.indexOf(config.currentStep);
+              if (!(currentIndex <= 0)) {
+                _context7.next = 2;
+                break;
+              }
+              throw new Error('Already at first step');
+            case 2:
+              previousIndex = currentIndex - 1;
+              previousStep = this.workflowSteps[previousIndex]; // Update state
+              this.stateManager.setState('mergeConfiguration.currentStep', previousStep);
+              this.stateManager.setState('mergeConfiguration.stepIndex', previousIndex);
+              this.eventEmitter.emit('configuration:step-changed', {
+                previousStep: config.currentStep,
+                currentStep: previousStep
+              });
+              return _context7.abrupt("return", {
+                success: true,
+                currentStep: previousStep,
+                nextStep: config.currentStep
+              });
+            case 3:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7, this);
+      }));
+      function returnToPreviousStep() {
+        return _returnToPreviousStep.apply(this, arguments);
+      }
+      return returnToPreviousStep;
+    }()
+    /**
+     * Cancel configuration workflow
+     *
+     * @param {Object} [options={}] - Options
+     * @param {boolean} [options.autoUnlock=true] - Automatically unlock apps
+     * @returns {Promise<Object>} Cancellation result
+     *
+     * @example
+     * await controller.cancelConfiguration();
+     */
+    )
+  }, {
+    key: "cancelConfiguration",
+    value: (function () {
+      var _cancelConfiguration = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().mark(function _callee8() {
+        var options,
+          _options$autoUnlock,
+          autoUnlock,
+          config,
+          _args8 = arguments,
+          _t3;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_5___default().wrap(function (_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              options = _args8.length > 0 && _args8[0] !== undefined ? _args8[0] : {};
+              _options$autoUnlock = options.autoUnlock, autoUnlock = _options$autoUnlock === void 0 ? true : _options$autoUnlock;
+              config = this.stateManager.getState('mergeConfiguration');
+              if (config) {
+                _context8.next = 1;
+                break;
+              }
+              throw new Error('No active configuration found');
+            case 1:
+              _context8.prev = 1;
+              if (!(autoUnlock && config.destinationAppId)) {
+                _context8.next = 2;
+                break;
+              }
+              _context8.next = 2;
+              return this.appLockController.unlockApps(config.sourceAppId, config.destinationAppId);
+            case 2:
+              // Clear configuration state
+              this.stateManager.setState('mergeConfiguration', null);
+              this.eventEmitter.emit('configuration:cancelled', {
+                sourceAppId: config.sourceAppId,
+                destinationAppId: config.destinationAppId
+              });
+              return _context8.abrupt("return", {
+                success: true,
+                cancelled: true
+              });
+            case 3:
+              _context8.prev = 3;
+              _t3 = _context8["catch"](1);
+              this.eventEmitter.emit('configuration:cancel-failed', {
+                error: _t3.message
+              });
+              throw _t3;
+            case 4:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8, this, [[1, 3]]);
+      }));
+      function cancelConfiguration() {
+        return _cancelConfiguration.apply(this, arguments);
+      }
+      return cancelConfiguration;
+    }()
+    /**
+     * Get current configuration
+     *
+     * @param {Object} [options={}] - Options
+     * @param {boolean} [options.includeSummary=false] - Include resource counts summary
+     * @returns {Object} Current configuration
+     *
+     * @example
+     * const config = controller.getConfiguration({ includeSummary: true });
+     */
+    )
+  }, {
+    key: "getConfiguration",
+    value: function getConfiguration() {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var _options$includeSumma = options.includeSummary,
+        includeSummary = _options$includeSumma === void 0 ? false : _options$includeSumma;
+      var config = this.stateManager.getState('mergeConfiguration');
+      if (!config) {
+        return null;
+      }
+      if (!includeSummary) {
+        return config;
+      }
+
+      // Calculate summary
+      var summary = {
+        hasPages: config.pageIds === 'all' || Array.isArray(config.pageIds) && config.pageIds.length > 0,
+        hasDataSources: config.dataSources === 'all' || Array.isArray(config.dataSources) && config.dataSources.length > 0,
+        hasFiles: config.fileIds === 'all' || Array.isArray(config.fileIds) && config.fileIds.length > 0,
+        hasFolders: config.folderIds === 'all' || Array.isArray(config.folderIds) && config.folderIds.length > 0,
+        pageCount: Array.isArray(config.pageIds) ? config.pageIds.length : config.pageIds === 'all' ? 'all' : 0,
+        dataSourceCount: Array.isArray(config.dataSources) ? config.dataSources.length : config.dataSources === 'all' ? 'all' : 0,
+        fileCount: Array.isArray(config.fileIds) ? config.fileIds.length : config.fileIds === 'all' ? 'all' : 0,
+        folderCount: Array.isArray(config.folderIds) ? config.folderIds.length : config.folderIds === 'all' ? 'all' : 0
+      };
+      return _objectSpread(_objectSpread({}, config), {}, {
+        summary: summary
+      });
+    }
+
+    /**
+     * Update configuration data
+     *
+     * @param {Object} updates - Configuration updates
+     * @returns {Object} Updated configuration
+     *
+     * @example
+     * controller.updateConfiguration({ destinationAppId: 456 });
+     */
+  }, {
+    key: "updateConfiguration",
+    value: function updateConfiguration(updates) {
+      var _this = this;
+      var config = this.stateManager.getState('mergeConfiguration');
+      if (!config) {
+        throw new Error('No active configuration found');
+      }
+
+      // Merge updates into configuration
+      Object.keys(updates).forEach(function (key) {
+        _this.stateManager.setState("mergeConfiguration.".concat(key), updates[key]);
+      });
+      this.eventEmitter.emit('configuration:updated', {
+        updates: updates,
+        config: this.stateManager.getState('mergeConfiguration')
+      });
+      return this.stateManager.getState('mergeConfiguration');
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MergeConfigurationController);
+
+/***/ }),
+/* 178 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(12);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(163);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+// src/middleware/controllers/MergeExecutionController.js
+/**
+ * MergeExecutionController - Manages merge execution and progress monitoring
+ *
+ * Handles merge initiation, progress monitoring with WebSocket/polling fallback,
+ * and automatic app unlocking on completion or error.
+ *
+ * @class MergeExecutionController
+ */
+var MergeExecutionController = /*#__PURE__*/function () {
+  /**
+   * Create MergeExecutionController instance
+   *
+   * @param {Object} mergeApiService - MergeApiService instance
+   * @param {Object} stateManager - StateManager instance
+   * @param {Object} eventEmitter - EventEmitter instance
+   */
+  function MergeExecutionController(mergeApiService, stateManager, eventEmitter) {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__["default"])(this, MergeExecutionController);
+    if (!mergeApiService) {
+      throw new Error('MergeApiService is required');
+    }
+    if (!stateManager) {
+      throw new Error('StateManager is required');
+    }
+    if (!eventEmitter) {
+      throw new Error('EventEmitter is required');
+    }
+    this.mergeApiService = mergeApiService;
+    this.stateManager = stateManager;
+    this.eventEmitter = eventEmitter;
+
+    // Track active monitoring
+    this.monitoringTimers = new Map();
+  }
+
+  /**
+   * Initiate merge operation
+   *
+   * @param {number} sourceAppId - Source app ID
+   * @param {Object} mergeConfig - Merge configuration
+   * @param {Object} [options={}] - Execution options
+   * @param {boolean} [options.startMonitoring=true] - Start progress monitoring automatically
+   * @param {number} [options.pollInterval=2000] - Polling interval in ms
+   * @returns {Promise<Object>} Merge initiation result with mergeId
+   *
+   * @example
+   * const result = await controller.initiateMerge(123, mergeConfig);
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(MergeExecutionController, [{
+    key: "initiateMerge",
+    value: (function () {
+      var _initiateMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee(sourceAppId, mergeConfig) {
+        var options,
+          _options$startMonitor,
+          startMonitoring,
+          _options$pollInterval,
+          pollInterval,
+          result,
+          _args = arguments,
+          _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              options = _args.length > 2 && _args[2] !== undefined ? _args[2] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (mergeConfig) {
+                _context.next = 2;
+                break;
+              }
+              throw new Error('Merge configuration is required');
+            case 2:
+              _options$startMonitor = options.startMonitoring, startMonitoring = _options$startMonitor === void 0 ? true : _options$startMonitor, _options$pollInterval = options.pollInterval, pollInterval = _options$pollInterval === void 0 ? 2000 : _options$pollInterval;
+              _context.prev = 3;
+              _context.next = 4;
+              return this.mergeApiService.initiateMerge(sourceAppId, mergeConfig);
+            case 4:
+              result = _context.sent;
+              // Update state with merge information
+              this.stateManager.setState('mergeStatus', {
+                mergeId: result.mergeId,
+                sourceAppId: sourceAppId,
+                destinationAppId: mergeConfig.destinationAppId,
+                status: result.status || 'in_progress',
+                progress: result.progress || 0,
+                startedAt: new Date().toISOString()
+              });
+
+              // Emit merge initiated event
+              this.eventEmitter.emit('merge:initiated', {
+                mergeId: result.mergeId,
+                sourceAppId: sourceAppId,
+                destinationAppId: mergeConfig.destinationAppId
+              });
+
+              // Start monitoring if requested
+              if (startMonitoring) {
+                this.monitorProgress(sourceAppId, result.mergeId, {
+                  pollInterval: pollInterval
+                });
+              }
+              return _context.abrupt("return", result);
+            case 5:
+              _context.prev = 5;
+              _t = _context["catch"](3);
+              this.eventEmitter.emit('merge:failed', {
+                sourceAppId: sourceAppId,
+                error: _t.message
+              });
+              throw _t;
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee, this, [[3, 5]]);
+      }));
+      function initiateMerge(_x, _x2) {
+        return _initiateMerge.apply(this, arguments);
+      }
+      return initiateMerge;
+    }()
+    /**
+     * Monitor merge progress with polling
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {number} mergeId - Merge ID to monitor
+     * @param {Object} [options={}] - Monitoring options
+     * @param {number} [options.pollInterval=2000] - Polling interval in ms
+     * @param {boolean} [options.useWebSocket=false] - Use WebSocket (not implemented)
+     * @returns {void}
+     *
+     * @example
+     * controller.monitorProgress(123, 5000, { pollInterval: 2000 });
+     */
+    )
+  }, {
+    key: "monitorProgress",
+    value: function monitorProgress(sourceAppId, mergeId) {
+      var _this = this;
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var _options$pollInterval2 = options.pollInterval,
+        pollInterval = _options$pollInterval2 === void 0 ? 2000 : _options$pollInterval2,
+        _options$useWebSocket = options.useWebSocket,
+        useWebSocket = _options$useWebSocket === void 0 ? false : _options$useWebSocket;
+
+      // Stop any existing monitoring for this app
+      this.stopMonitoring(sourceAppId);
+
+      // Create polling interval
+      var timerId = setInterval(/*#__PURE__*/(0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee2() {
+        var status, _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 1;
+              return _this.mergeApiService.getMergeStatus(sourceAppId, {
+                mergeId: mergeId
+              });
+            case 1:
+              status = _context2.sent;
+              // Update state with latest status
+              _this.stateManager.setState('mergeStatus', _objectSpread(_objectSpread({}, _this.stateManager.getState('mergeStatus')), {}, {
+                status: status.status,
+                progress: status.progress || 0,
+                currentStage: status.currentStage,
+                lastUpdated: new Date().toISOString()
+              }));
+
+              // Emit progress event
+              _this.eventEmitter.emit('merge:progress', {
+                mergeId: mergeId,
+                sourceAppId: sourceAppId,
+                status: status.status,
+                progress: status.progress,
+                currentStage: status.currentStage
+              });
+
+              // Check for stage completion
+              if (status.currentStage && status.stageComplete) {
+                _this.eventEmitter.emit('merge:stage-complete', {
+                  mergeId: mergeId,
+                  sourceAppId: sourceAppId,
+                  stage: status.currentStage
+                });
+              }
+
+              // Check for completion or error
+              if (status.status === 'completed' || status.status === 'failed' || status.status === 'error') {
+                _this.stopMonitoring(sourceAppId);
+                if (status.status === 'completed') {
+                  _this.eventEmitter.emit('merge:complete', {
+                    mergeId: mergeId,
+                    sourceAppId: sourceAppId,
+                    result: status.result
+                  });
+                } else {
+                  _this.eventEmitter.emit('merge:error', {
+                    mergeId: mergeId,
+                    sourceAppId: sourceAppId,
+                    error: status.error || 'Merge failed'
+                  });
+                }
+              }
+              _context2.next = 3;
+              break;
+            case 2:
+              _context2.prev = 2;
+              _t2 = _context2["catch"](0);
+              _this.eventEmitter.emit('merge:monitoring-error', {
+                mergeId: mergeId,
+                sourceAppId: sourceAppId,
+                error: _t2.message
+              });
+            case 3:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2, null, [[0, 2]]);
+      })), pollInterval);
+
+      // Store timer reference
+      this.monitoringTimers.set(sourceAppId, timerId);
+    }
+
+    /**
+     * Stop monitoring merge progress
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @returns {void}
+     *
+     * @example
+     * controller.stopMonitoring(123);
+     */
+  }, {
+    key: "stopMonitoring",
+    value: function stopMonitoring(sourceAppId) {
+      var timerId = this.monitoringTimers.get(sourceAppId);
+      if (timerId) {
+        clearInterval(timerId);
+        this.monitoringTimers["delete"](sourceAppId);
+      }
+    }
+
+    /**
+     * Get merge result
+     *
+     * @param {number} sourceAppId - Source app ID
+     * @param {number} mergeId - Merge ID
+     * @param {Object} [options={}] - Options
+     * @returns {Promise<Object>} Merge result
+     *
+     * @example
+     * const result = await controller.getMergeResult(123, 5000);
+     */
+  }, {
+    key: "getMergeResult",
+    value: (function () {
+      var _getMergeResult = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee3(sourceAppId, mergeId) {
+        var options,
+          status,
+          _args3 = arguments,
+          _t3;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              options = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : {};
+              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
+                _context3.next = 1;
+                break;
+              }
+              throw new Error('Valid source app ID is required');
+            case 1:
+              if (!(!mergeId || typeof mergeId !== 'number')) {
+                _context3.next = 2;
+                break;
+              }
+              throw new Error('Valid merge ID is required');
+            case 2:
+              _context3.prev = 2;
+              _context3.next = 3;
+              return this.mergeApiService.getMergeStatus(sourceAppId, {
+                mergeId: mergeId
+              });
+            case 3:
+              status = _context3.sent;
+              return _context3.abrupt("return", {
+                mergeId: mergeId,
+                status: status.status,
+                progress: status.progress,
+                result: status.result,
+                error: status.error
+              });
+            case 4:
+              _context3.prev = 4;
+              _t3 = _context3["catch"](2);
+              throw new Error("Failed to get merge result: ".concat(_t3.message));
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3, this, [[2, 4]]);
+      }));
+      function getMergeResult(_x3, _x4) {
+        return _getMergeResult.apply(this, arguments);
+      }
+      return getMergeResult;
+    }()
+    /**
+     * Fetch merge logs
+     *
+     * @param {number} appId - App ID
+     * @param {number} mergeId - Merge ID
+     * @param {Object} [options={}] - Fetch options
+     * @param {Array<string>} [options.types] - Filter by log types
+     * @param {Object} [options.pagination] - Pagination configuration
+     * @returns {Promise<Array>} Array of log entries
+     *
+     * @example
+     * const logs = await controller.fetchLogs(123, 5000, {
+     *   types: ['info', 'error']
+     * });
+     */
+    )
+  }, {
+    key: "fetchLogs",
+    value: (function () {
+      var _fetchLogs = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().mark(function _callee4(appId, mergeId) {
+        var options,
+          logs,
+          _args4 = arguments,
+          _t4;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_4___default().wrap(function (_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              options = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : {};
+              if (!(!appId || typeof appId !== 'number')) {
+                _context4.next = 1;
+                break;
+              }
+              throw new Error('Valid app ID is required');
+            case 1:
+              if (!(!mergeId || typeof mergeId !== 'number')) {
+                _context4.next = 2;
+                break;
+              }
+              throw new Error('Valid merge ID is required');
+            case 2:
+              _context4.prev = 2;
+              _context4.next = 3;
+              return this.mergeApiService.fetchMergeLogs(appId, _objectSpread({
+                mergeId: mergeId
+              }, options));
+            case 3:
+              logs = _context4.sent;
+              return _context4.abrupt("return", logs);
+            case 4:
+              _context4.prev = 4;
+              _t4 = _context4["catch"](2);
+              throw new Error("Failed to fetch logs: ".concat(_t4.message));
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4, this, [[2, 4]]);
+      }));
+      function fetchLogs(_x5, _x6) {
+        return _fetchLogs.apply(this, arguments);
+      }
+      return fetchLogs;
+    }()
+    /**
+     * Clean up all monitoring timers
+     *
+     * @returns {void}
+     */
+    )
+  }, {
+    key: "cleanup",
+    value: function cleanup() {
+      this.monitoringTimers.forEach(function (timerId) {
+        clearInterval(timerId);
+      });
+      this.monitoringTimers.clear();
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MergeExecutionController);
+
+/***/ }),
+/* 179 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(163);
+
+
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+// src/middleware/utils/DataMapper.js
+/**
+ * DataMapper - Transform API responses to internal models
+ *
+ * Provides methods to transform API response data into consistent internal models,
+ * filtering fields and normalizing structures.
+ *
+ * @class DataMapper
+ */
+var DataMapper = /*#__PURE__*/function () {
+  function DataMapper() {
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, DataMapper);
+  }
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(DataMapper, null, [{
+    key: "transformAppResponse",
+    value:
+    /**
+     * Transform app API response
+     *
+     * @param {Object} apiResponse - Raw API response
+     * @param {Object} [options={}] - Transform options
+     * @param {Array<string>} [options.fields] - Fields to include
+     * @returns {Object} Transformed app object
+     *
+     * @example
+     * const app = DataMapper.transformAppResponse(apiData, { fields: ['id', 'name'] });
+     */
+    function transformAppResponse(apiResponse) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      if (!apiResponse) {
+        return null;
+      }
+      var fields = options.fields;
+      var transformed = {
+        id: apiResponse.id,
+        name: apiResponse.name,
+        organizationId: apiResponse.organizationId,
+        userRole: apiResponse.userRole,
+        lockedUntil: apiResponse.lockedUntil,
+        lockedBy: apiResponse.lockedBy,
+        settings: apiResponse.settings,
+        plan: apiResponse.plan,
+        limits: apiResponse.limits,
+        currentUsage: apiResponse.currentUsage,
+        createdAt: apiResponse.createdAt,
+        updatedAt: apiResponse.updatedAt
+      };
+
+      // Filter by fields if specified
+      if (fields && Array.isArray(fields)) {
+        return this.filterFields(transformed, fields);
+      }
+      return transformed;
+    }
+
+    /**
+     * Transform page API response
+     *
+     * @param {Object} apiResponse - Raw API response
+     * @param {Object} [options={}] - Transform options
+     * @param {Array<string>} [options.fields] - Fields to include
+     * @param {boolean} [options.includeAssociations=false] - Include associations
+     * @returns {Object} Transformed page object
+     *
+     * @example
+     * const page = DataMapper.transformPageResponse(pageData, {
+     *   fields: ['id', 'title'],
+     *   includeAssociations: true
+     * });
+     */
+  }, {
+    key: "transformPageResponse",
+    value: function transformPageResponse(apiResponse) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      if (!apiResponse) {
+        return null;
+      }
+      var fields = options.fields,
+        _options$includeAssoc = options.includeAssociations,
+        includeAssociations = _options$includeAssoc === void 0 ? false : _options$includeAssoc;
+      var transformed = {
+        id: apiResponse.id,
+        title: apiResponse.title,
+        order: apiResponse.order,
+        appId: apiResponse.appId,
+        template: apiResponse.template,
+        settings: apiResponse.settings,
+        createdAt: apiResponse.createdAt,
+        updatedAt: apiResponse.updatedAt
+      };
+
+      // Include associations if requested
+      if (includeAssociations) {
+        transformed.associatedDataSources = apiResponse.associatedDataSources || [];
+        transformed.associatedFiles = apiResponse.associatedFiles || [];
+      }
+
+      // Filter by fields if specified
+      if (fields && Array.isArray(fields)) {
+        return this.filterFields(transformed, fields);
+      }
+      return transformed;
+    }
+
+    /**
+     * Transform data source API response
+     *
+     * @param {Object} apiResponse - Raw API response
+     * @param {Object} [options={}] - Transform options
+     * @param {Array<string>} [options.fields] - Fields to include
+     * @returns {Object} Transformed data source object
+     *
+     * @example
+     * const dataSource = DataMapper.transformDataSourceResponse(dsData);
+     */
+  }, {
+    key: "transformDataSourceResponse",
+    value: function transformDataSourceResponse(apiResponse) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      if (!apiResponse) {
+        return null;
+      }
+      var fields = options.fields;
+      var transformed = {
+        id: apiResponse.id,
+        name: apiResponse.name,
+        type: apiResponse.type,
+        appId: apiResponse.appId,
+        entriesCount: apiResponse.entriesCount,
+        hasGlobalDependency: apiResponse.hasGlobalDependency,
+        inUse: apiResponse.inUse,
+        createdAt: apiResponse.createdAt,
+        updatedAt: apiResponse.updatedAt
+      };
+
+      // Filter by fields if specified
+      if (fields && Array.isArray(fields)) {
+        return this.filterFields(transformed, fields);
+      }
+      return transformed;
+    }
+
+    /**
+     * Transform media API response
+     *
+     * @param {Object} apiResponse - Raw API response
+     * @param {Object} [options={}] - Transform options
+     * @param {Array<string>} [options.fields] - Fields to include
+     * @returns {Object} Transformed media object
+     *
+     * @example
+     * const file = DataMapper.transformMediaResponse(fileData);
+     */
+  }, {
+    key: "transformMediaResponse",
+    value: function transformMediaResponse(apiResponse) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      if (!apiResponse) {
+        return null;
+      }
+      var fields = options.fields;
+      var transformed = {
+        id: apiResponse.id,
+        name: apiResponse.name,
+        type: apiResponse.type,
+        size: apiResponse.size,
+        url: apiResponse.url,
+        appId: apiResponse.appId,
+        folderId: apiResponse.folderId,
+        isGlobalLibrary: apiResponse.isGlobalLibrary,
+        createdAt: apiResponse.createdAt,
+        updatedAt: apiResponse.updatedAt
+      };
+
+      // Filter by fields if specified
+      if (fields && Array.isArray(fields)) {
+        return this.filterFields(transformed, fields);
+      }
+      return transformed;
+    }
+
+    /**
+     * Build API request from internal model
+     *
+     * @param {Object} internalModel - Internal data model
+     * @returns {Object} API request format
+     *
+     * @example
+     * const apiRequest = DataMapper.buildApiRequest(mergeConfig);
+     */
+  }, {
+    key: "buildApiRequest",
+    value: function buildApiRequest(internalModel) {
+      if (!internalModel) {
+        return {};
+      }
+
+      // Transform internal model to API format
+      // This is typically a pass-through but can normalize field names
+      return _objectSpread({}, internalModel);
+    }
+
+    /**
+     * Filter object to include only specified fields
+     *
+     * @param {Object} obj - Object to filter
+     * @param {Array<string>} fields - Fields to include
+     * @returns {Object} Filtered object
+     *
+     * @example
+     * const filtered = DataMapper.filterFields({ id: 1, name: 'Test', extra: 'data' }, ['id', 'name']);
+     * // Returns: { id: 1, name: 'Test' }
+     */
+  }, {
+    key: "filterFields",
+    value: function filterFields(obj, fields) {
+      if (!obj || !fields || !Array.isArray(fields)) {
+        return obj;
+      }
+      var filtered = {};
+      fields.forEach(function (field) {
+        if (obj.hasOwnProperty(field)) {
+          filtered[field] = obj[field];
+        }
+      });
+      return filtered;
+    }
+
+    /**
+     * Transform array of API responses
+     *
+     * @param {Array} apiResponses - Array of API responses
+     * @param {Function} transformFn - Transform function to apply
+     * @param {Object} [options={}] - Transform options
+     * @returns {Array} Array of transformed objects
+     *
+     * @example
+     * const apps = DataMapper.transformArray(apiApps, DataMapper.transformAppResponse, { fields: ['id', 'name'] });
+     */
+  }, {
+    key: "transformArray",
+    value: function transformArray(apiResponses, transformFn) {
+      var _this = this;
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      if (!Array.isArray(apiResponses)) {
+        return [];
+      }
+      return apiResponses.map(function (response) {
+        return transformFn.call(_this, response, options);
+      });
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataMapper);
+
+/***/ }),
+/* 180 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(162);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(163);
+
+
+// src/middleware/utils/CacheManager.js
+/**
+ * CacheManager - API response caching with LRU eviction
+ *
+ * Provides simple in-memory caching with TTL and LRU eviction strategies.
+ *
+ * @class CacheManager
+ */
+var CacheManager = /*#__PURE__*/function () {
+  /**
+   * Create CacheManager instance
+   *
+   * @param {Object} [options={}] - Cache options
+   * @param {number} [options.maxSize=100] - Maximum cache entries
+   * @param {number} [options.defaultTTL=300000] - Default TTL in ms (5 minutes)
+   */
+  function CacheManager() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, CacheManager);
+    var _options$maxSize = options.maxSize,
+      maxSize = _options$maxSize === void 0 ? 100 : _options$maxSize,
+      _options$defaultTTL = options.defaultTTL,
+      defaultTTL = _options$defaultTTL === void 0 ? 300000 : _options$defaultTTL;
+    this.maxSize = maxSize;
+    this.defaultTTL = defaultTTL;
+    this.cache = new Map();
+  }
+
+  /**
+   * Generate deterministic cache key from endpoint and options
+   *
+   * @param {string} endpoint - API endpoint
+   * @param {Object} [options={}] - Request options
+   * @returns {string} Cache key
+   *
+   * @example
+   * const key = cacheManager.generateCacheKey('v1/apps', { organizationId: 123 });
+   * // Returns: "v1/apps:{'organizationId':123}"
+   */
+  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(CacheManager, [{
+    key: "generateCacheKey",
+    value: function generateCacheKey(endpoint) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      // Sort options keys for deterministic key generation
+      var sortedOptions = {};
+      Object.keys(options).sort().forEach(function (key) {
+        sortedOptions[key] = options[key];
+      });
+      return "".concat(endpoint, ":").concat(JSON.stringify(sortedOptions));
+    }
+
+    /**
+     * Get cached data
+     *
+     * @param {string} key - Cache key
+     * @returns {*} Cached data or null if not found/expired
+     *
+     * @example
+     * const data = cacheManager.get('v1/apps:{}');
+     */
+  }, {
+    key: "get",
+    value: function get(key) {
+      var entry = this.cache.get(key);
+      if (!entry) {
+        return null;
+      }
+
+      // Check if expired
+      var now = Date.now();
+      if (entry.expiresAt && entry.expiresAt < now) {
+        this.cache["delete"](key);
+        return null;
+      }
+
+      // Update access time for LRU
+      entry.lastAccessed = now;
+      return entry.data;
+    }
+
+    /**
+     * Set cached data
+     *
+     * @param {string} key - Cache key
+     * @param {*} data - Data to cache
+     * @param {number} [ttl] - TTL in ms (defaults to defaultTTL)
+     * @returns {void}
+     *
+     * @example
+     * cacheManager.set('v1/apps:{}', appsData, 60000);
+     */
+  }, {
+    key: "set",
+    value: function set(key, data, ttl) {
+      var now = Date.now();
+      var actualTTL = ttl !== undefined ? ttl : this.defaultTTL;
+
+      // Evict if at max size
+      if (this.cache.size >= this.maxSize && !this.cache.has(key)) {
+        this.evictLRU();
+      }
+      this.cache.set(key, {
+        data: data,
+        expiresAt: actualTTL > 0 ? now + actualTTL : null,
+        createdAt: now,
+        lastAccessed: now
+      });
+    }
+
+    /**
+     * Clear entire cache
+     *
+     * @returns {void}
+     *
+     * @example
+     * cacheManager.clear();
+     */
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.cache.clear();
+    }
+
+    /**
+     * Evict least recently used entry
+     *
+     * @returns {void}
+     */
+  }, {
+    key: "evictLRU",
+    value: function evictLRU() {
+      var oldestKey = null;
+      var oldestTime = Infinity;
+
+      // Find least recently accessed entry
+      this.cache.forEach(function (entry, key) {
+        if (entry.lastAccessed < oldestTime) {
+          oldestTime = entry.lastAccessed;
+          oldestKey = key;
+        }
+      });
+      if (oldestKey) {
+        this.cache["delete"](oldestKey);
+      }
+    }
+
+    /**
+     * Get cache size
+     *
+     * @returns {number} Current cache size
+     */
+  }, {
+    key: "size",
+    value: function size() {
+      return this.cache.size;
+    }
+
+    /**
+     * Check if key exists in cache
+     *
+     * @param {string} key - Cache key
+     * @returns {boolean} True if key exists and not expired
+     */
+  }, {
+    key: "has",
+    value: function has(key) {
+      return this.get(key) !== null;
+    }
+
+    /**
+     * Delete entry from cache
+     *
+     * @param {string} key - Cache key
+     * @returns {boolean} True if entry was deleted
+     */
+  }, {
+    key: "delete",
+    value: function _delete(key) {
+      return this.cache["delete"](key);
+    }
+  }]);
+}();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CacheManager);
+
+/***/ }),
+/* 181 */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DEFAULTS: () => (/* binding */ DEFAULTS),
+/* harmony export */   getMergedConfig: () => (/* binding */ getMergedConfig)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+// src/middleware/config/defaults.js
+
+/**
+ * Default configuration values
+ *
+ * Defines default settings for API, locks, merge, cache, and validation.
+ */
+
+var DEFAULTS = {
+  // API configuration
+  API: {
+    timeout: 30000,
+    // 30 seconds
+    retryAttempts: 3,
+    retryDelay: 1000,
+    // 1 second
+    retryBackoff: 2 // Exponential backoff multiplier
+  },
+  // Lock configuration
+  LOCK: {
+    defaultDuration: 600,
+    // 10 minutes in seconds
+    autoExtend: true,
+    extendDuration: 300,
+    // 5 minutes in seconds
+    warningThreshold: 60,
+    // 1 minute in seconds
+    checkInterval: 10 // 10 seconds
+  },
+  // Merge configuration
+  MERGE: {
+    enableWebSocket: false,
+    // WebSocket not implemented yet
+    pollInterval: 2000,
+    // 2 seconds
+    maxRetries: 3,
+    retryDelay: 5000 // 5 seconds
+  },
+  // Cache configuration
+  CACHE: {
+    enabled: true,
+    defaultTTL: 300000,
+    // 5 minutes in ms
+    maxSize: 100,
+    // Maximum cached entries
+    maxAge: 3600000 // 1 hour in ms
+  },
+  // Validation configuration
+  VALIDATION: {
+    level: 'strict',
+    // 'strict' or 'lenient'
+    blockOnError: true,
+    checkDuplicates: true,
+    checkPermissions: true,
+    checkLock: true,
+    checkPlanLimits: true
+  },
+  // Workflow configuration
+  WORKFLOW: {
+    steps: ['destination-selection', 'resource-configuration', 'review'],
+    autoSave: false,
+    confirmNavigation: true
+  },
+  // Resource selection defaults
+  RESOURCES: {
+    includePages: true,
+    includeDataSources: true,
+    includeFiles: true,
+    includeFolders: true,
+    includeAppSettings: false,
+    includeMenuSettings: false,
+    includeAppearanceSettings: false,
+    includeGlobalCode: false
+  }
+};
+
+/**
+ * Get merged configuration
+ *
+ * @param {Object} [userConfig={}] - User-provided configuration
+ * @returns {Object} Merged configuration with defaults
+ */
+function getMergedConfig() {
+  var userConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return {
+    api: _objectSpread(_objectSpread({}, DEFAULTS.API), userConfig.api || {}),
+    lock: _objectSpread(_objectSpread({}, DEFAULTS.LOCK), userConfig.lock || {}),
+    merge: _objectSpread(_objectSpread({}, DEFAULTS.MERGE), userConfig.merge || {}),
+    cache: _objectSpread(_objectSpread({}, DEFAULTS.CACHE), userConfig.cache || {}),
+    validation: _objectSpread(_objectSpread({}, DEFAULTS.VALIDATION), userConfig.validation || {}),
+    workflow: _objectSpread(_objectSpread({}, DEFAULTS.WORKFLOW), userConfig.workflow || {}),
+    resources: _objectSpread(_objectSpread({}, DEFAULTS.RESOURCES), userConfig.resources || {})
+  };
+}
+
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -22965,15 +29905,56 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _Application_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _Application_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7);
+/* harmony import */ var _middleware_middleware_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(161);
 
 
-var app = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createApp)(_Application_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-app.config.errorHandler = function (err, vm, info) {
-  console.error('[App Merge] Error:', err, info);
-};
-app.mount('#app-merge');
+
+
+
+// Initialize middleware
+var middleware = new _middleware_middleware_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+console.log('[App Merge] Starting middleware initialization...');
+
+// Initialize middleware asynchronously
+middleware.initialize().then(function () {
+  var _middleware$core, _middleware$core2, _middleware$core3, _middleware$core4;
+  console.log('[App Merge] Middleware initialized successfully');
+  console.log('[App Merge] Middleware structure:', {
+    hasCore: !!middleware.core,
+    hasApiClient: !!((_middleware$core = middleware.core) !== null && _middleware$core !== void 0 && _middleware$core.apiClient),
+    apiClientType: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])((_middleware$core2 = middleware.core) === null || _middleware$core2 === void 0 ? void 0 : _middleware$core2.apiClient),
+    hasGetMethod: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])((_middleware$core3 = middleware.core) === null || _middleware$core3 === void 0 || (_middleware$core3 = _middleware$core3.apiClient) === null || _middleware$core3 === void 0 ? void 0 : _middleware$core3.get),
+    hasPostMethod: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])((_middleware$core4 = middleware.core) === null || _middleware$core4 === void 0 || (_middleware$core4 = _middleware$core4.apiClient) === null || _middleware$core4 === void 0 ? void 0 : _middleware$core4.post)
+  });
+
+  // Expose middleware globally for backward compatibility
+  window.FlipletAppMerge = window.FlipletAppMerge || {};
+  window.FlipletAppMerge.middleware = middleware;
+
+  // Create and mount Vue app
+  var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_Application_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+  // Provide middleware to all child components via Vue's dependency injection
+  app.provide('middleware', middleware);
+  app.config.errorHandler = function (err, vm, info) {
+    console.error('[App Merge] Error:', err, info);
+  };
+  app.mount('#app-merge');
+  console.log('[App Merge] Vue app mounted');
+})["catch"](function (err) {
+  console.error('[App Merge] Failed to initialize middleware:', err);
+  console.error('[App Merge] Error stack:', err.stack);
+
+  // Mount app anyway, but show error state
+  var app = (0,vue__WEBPACK_IMPORTED_MODULE_1__.createApp)(_Application_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
+  app.config.errorHandler = function (err, vm, info) {
+    console.error('[App Merge] Error:', err, info);
+  };
+  app.mount('#app-merge');
+});
 })();
 
 /******/ })()

@@ -171,8 +171,5 @@ class CacheManager {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = CacheManager;
-}
+export default CacheManager;
 

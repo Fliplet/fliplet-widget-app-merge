@@ -263,6 +263,8 @@ import WarningBanner from '../feedback/WarningBanner.vue';
 export default {
   name: 'MergeComplete',
 
+  inject: ['middleware'],
+
   components: {
     CheckCircle2,
     AlertTriangle,
@@ -342,8 +344,8 @@ export default {
         this.loading = true;
         this.error = null;
 
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch final merge status with results
           const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {

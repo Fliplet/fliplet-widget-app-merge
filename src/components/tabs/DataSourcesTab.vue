@@ -171,6 +171,8 @@ import { isGlobalDependency } from '../../utils/computedFields.js';
 export default {
   name: 'DataSourcesTab',
 
+  inject: ['middleware'],
+
   components: {
     AlertTriangle,
     FlipletTableWrapper
@@ -292,13 +294,14 @@ export default {
       this.error = null;
 
       try {
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch data sources with associations included
           const params = {
             appId: this.sourceAppId,
-            include: 'associatedPages,associatedFiles'
+            include: 'associatedPages,associatedFiles',
+            excludeTypes: 'bookmarks,likes,comments,menu,conversation'
           };
           const response = await apiClient.get('v1/data-sources', params);
 

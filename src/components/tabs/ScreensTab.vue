@@ -117,6 +117,8 @@ import { mapPageFields } from '../../utils/apiFieldMapping.js';
 export default {
   name: 'ScreensTab',
 
+  inject: ['middleware'],
+
   components: {
     FlipletTableWrapper
   },
@@ -230,8 +232,8 @@ export default {
       this.error = null;
 
       try {
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch pages with associations included
           const params = {

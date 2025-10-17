@@ -80,7 +80,7 @@ class ApiClient {
 
     // Add query params for GET requests
     if (data && requestConfig.method === 'GET') {
-      requestConfig.params = data;
+      requestConfig.url = this.buildUrlWithQueryParams(requestConfig.url, data);
     }
 
     return this.executeWithRetry(requestConfig);
@@ -111,6 +111,33 @@ class ApiClient {
 
     // Default: Fliplet.API.request() will add the base URL
     return cleanEndpoint;
+  }
+
+  /**
+   * Build URL with query parameters
+   *
+   * @param {string} url - Base URL
+   * @param {Object} params - Query parameters object
+   * @returns {string} URL with query parameters
+   *
+   * @private
+   */
+  buildUrlWithQueryParams(url, params) {
+    if (!params || typeof params !== 'object') {
+      return url;
+    }
+
+    const queryString = Object.keys(params)
+      .filter(key => params[key] !== null && params[key] !== undefined)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .join('&');
+
+    if (queryString) {
+      const separator = url.includes('?') ? '&' : '?';
+      return `${url}${separator}${queryString}`;
+    }
+
+    return url;
   }
 
   /**
@@ -241,8 +268,5 @@ class ApiClient {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ApiClient;
-}
+export default ApiClient;
 

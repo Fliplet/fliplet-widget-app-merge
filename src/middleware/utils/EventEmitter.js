@@ -186,8 +186,5 @@ class EventEmitter {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = EventEmitter;
-}
+export default EventEmitter;
 

@@ -24,7 +24,7 @@
 
       <!-- Merge configuration view -->
       <MergeConfiguration
-        v-if="currentView === 'configuration' && selectedDestinationApp"
+        v-if="currentView === 'configuration' && selectedDestinationApp && sourceApp.id"
         :source-app-id="sourceApp.id"
         :source-app-name="sourceApp.name"
         :destination-app-id="selectedDestinationApp.id"
@@ -37,7 +37,10 @@
 
       <!-- Merge Review view -->
       <MergeReview
-        v-if="currentView === 'review'"
+        v-if="currentView === 'review' && sourceApp.id && selectedDestinationApp"
+        :source-app-id="sourceApp.id"
+        :destination-app-id="selectedDestinationApp.id"
+        :merge-config="mergeConfiguration"
         @start-merge="handleStartMerge"
         @edit-settings="goToConfiguration"
         @cancel="handleCancel"
@@ -58,6 +61,41 @@
         @open-app="handleOpenApp"
         @view-audit-log="handleViewAuditLog"
       />
+
+      <!-- Error view -->
+      <div
+        v-if="currentView === 'error'"
+        class="flex flex-col items-center justify-center p-12 text-center"
+      >
+        <div class="mb-4 rounded-full bg-red-100 p-3">
+          <svg
+            class="h-6 w-6 text-red-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+            />
+          </svg>
+        </div>
+        <h2 class="mb-2 text-lg font-semibold text-gray-900">
+          Configuration Error
+        </h2>
+        <p class="mb-6 text-sm text-gray-600">
+          {{ error }}
+        </p>
+        <button
+          type="button"
+          class="rounded bg-primary px-4 py-2 text-sm font-medium text-white transition hover:bg-primary/90"
+          @click="handleRetry"
+        >
+          Try Again
+        </button>
+      </div>
     </template>
 
     <template #actions>
@@ -94,8 +132,9 @@ export default {
       currentStep: 0,
       totalSteps: 5,
       selectedDestinationApp: null,
+      error: null,
       sourceApp: {
-        id: 123,
+        id: null,
         name: 'Source App'
       },
       mergeConfiguration: {
@@ -129,8 +168,7 @@ export default {
   },
 
   created() {
-    // Initialize middleware when component is created
-    this.initializeMiddleware();
+    this.initializeApp();
   },
 
   beforeUnmount() {
@@ -152,6 +190,44 @@ export default {
   },
 
   methods: {
+    /**
+     * Handle application errors
+     */
+    handleError(message) {
+      this.error = message;
+      this.currentView = 'error';
+    },
+
+    /**
+     * Handle retry button click
+     */
+    handleRetry() {
+      this.error = null;
+      this.currentView = 'dashboard';
+
+      // Re-initialize the app
+      this.initializeApp();
+    },
+
+    /**
+     * Initialize the application
+     */
+    initializeApp() {
+      // Initialize source app ID from URL query parameter
+      const appId = parseInt(window.Fliplet.Navigate.query.appId, 10);
+
+      if (!appId || isNaN(appId)) {
+        console.error('App Merge: Invalid or missing appId in URL query parameters');
+        this.handleError('Invalid app ID. Please ensure you are accessing this widget from within an app.');
+        return;
+      }
+
+      this.sourceApp.id = appId;
+
+      // Initialize middleware when component is created
+      this.initializeMiddleware();
+    },
+
     /**
      * Initialize middleware
      */

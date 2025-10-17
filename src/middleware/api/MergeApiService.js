@@ -257,8 +257,5 @@ class MergeApiService {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MergeApiService;
-}
+export default MergeApiService;
 

@@ -288,6 +288,8 @@ export default {
     WarningBanner
   },
 
+  inject: ['middleware'],
+
   emits: ['configure-merge', 'view-audit-log', 'cancel', 'view-merge-results'],
 
   data() {
@@ -362,8 +364,8 @@ export default {
         this.error = null;
 
         // Fetch current user for publisher rights check
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch current user
           const userResponse = await apiClient.get('v1/user');
@@ -399,9 +401,9 @@ export default {
             isPublished: true,
             updatedAt: '2025-01-15T10:30:00Z',
             lockedUntil: null,
-            users: [
-              { email: 'user@example.com', userRoleId: 1 }
-            ]
+            appUser: {
+              appRoleId: 1 // Publisher role
+            }
           };
 
           this.mergeHistory = [];

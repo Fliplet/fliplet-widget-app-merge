@@ -206,8 +206,5 @@ class MediaApiService {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MediaApiService;
-}
+export default MediaApiService;
 

@@ -291,8 +291,5 @@ class MergeExecutionController {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = MergeExecutionController;
-}
+export default MergeExecutionController;
 

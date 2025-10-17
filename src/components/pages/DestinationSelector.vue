@@ -169,6 +169,8 @@ export default {
     FlipletTableWrapper
   },
 
+  inject: ['middleware'],
+
   emits: ['app-selected', 'back', 'cancel'],
 
   data() {
@@ -245,8 +247,8 @@ export default {
         this.loading = true;
         this.error = null;
 
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch current user
           const userResponse = await apiClient.get('v1/user');
@@ -288,8 +290,8 @@ export default {
         this.loading = true;
         this.error = null;
 
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch apps with filters: publisher: true, mergeable: true
           const params = {
@@ -310,10 +312,13 @@ export default {
 
             // Calculate computed fields
             mappedApp.isLocked = isLocked(app.lockedUntil);
+
+            // Check publisher rights using appUser.appRoleId
             mappedApp.hasPublisherRights = hasPublisherRights(app, this.currentUser);
 
             // Map isPublished to isLive for display
             mappedApp.isLive = mappedApp.isPublished;
+
 
             return mappedApp;
           });
@@ -330,9 +335,9 @@ export default {
               isLive: false,
               isLocked: false,
               hasPublisherRights: true,
-              users: [
-                { email: 'user@example.com', userRoleId: 1 }
-              ]
+              appUser: {
+                appRoleId: 1 // Publisher role
+              }
             }
           ];
 

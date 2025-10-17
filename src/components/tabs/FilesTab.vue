@@ -132,6 +132,8 @@ import { mapMediaFields } from '../../utils/apiFieldMapping.js';
 export default {
   name: 'FilesTab',
 
+  inject: ['middleware'],
+
   components: {
     FlipletTableWrapper
   },
@@ -253,14 +255,20 @@ export default {
       this.error = null;
 
       try {
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        // Validate required props
+        if (!this.sourceAppId) {
+          throw new Error('Source app ID is required to load files');
+        }
+
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Fetch media with associations included
           const params = {
             appId: this.sourceAppId,
             include: 'associatedPages,associatedDS'
           };
+
           const response = await apiClient.get('v1/media', params);
 
           // API returns { files: [], folders: [] } - merge into single array

@@ -237,8 +237,5 @@ class AppsApiService {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AppsApiService;
-}
+export default AppsApiService;
 

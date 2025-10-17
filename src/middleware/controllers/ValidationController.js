@@ -365,8 +365,5 @@ class ValidationController {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = ValidationController;
-}
+export default ValidationController;
 

@@ -22,33 +22,33 @@
  * const result = await middleware.initiateMerge(sourceAppId, mergeConfig);
  */
 
-// Import core classes
-const ApiClient = require('./core/ApiClient');
-const StateManager = require('./core/StateManager');
-const ValidationEngine = require('./core/ValidationEngine');
-const ErrorHandler = require('./core/ErrorHandler');
+// Import core classes (using dynamic import since they're CommonJS)
+import ApiClient from './core/ApiClient';
+import StateManager from './core/StateManager';
+import ValidationEngine from './core/ValidationEngine';
+import ErrorHandler from './core/ErrorHandler';
 
 // Import API services
-const AppsApiService = require('./api/AppsApiService');
-const OrganizationsApiService = require('./api/OrganizationsApiService');
-const PagesApiService = require('./api/PagesApiService');
-const DataSourcesApiService = require('./api/DataSourcesApiService');
-const MediaApiService = require('./api/MediaApiService');
-const MergeApiService = require('./api/MergeApiService');
+import AppsApiService from './api/AppsApiService';
+import OrganizationsApiService from './api/OrganizationsApiService';
+import PagesApiService from './api/PagesApiService';
+import DataSourcesApiService from './api/DataSourcesApiService';
+import MediaApiService from './api/MediaApiService';
+import MergeApiService from './api/MergeApiService';
 
 // Import controllers
-const ValidationController = require('./controllers/ValidationController');
-const AppLockController = require('./controllers/AppLockController');
-const MergeConfigurationController = require('./controllers/MergeConfigurationController');
-const MergeExecutionController = require('./controllers/MergeExecutionController');
+import ValidationController from './controllers/ValidationController';
+import AppLockController from './controllers/AppLockController';
+import MergeConfigurationController from './controllers/MergeConfigurationController';
+import MergeExecutionController from './controllers/MergeExecutionController';
 
 // Import utilities
-const EventEmitter = require('./utils/EventEmitter');
-const DataMapper = require('./utils/DataMapper');
-const CacheManager = require('./utils/CacheManager');
+import EventEmitter from './utils/EventEmitter';
+import DataMapper from './utils/DataMapper';
+import CacheManager from './utils/CacheManager';
 
 // Import configuration
-const { getMergedConfig } = require('./config/defaults');
+import { getMergedConfig } from './config/defaults';
 
 class AppMergeMiddleware {
   /**
@@ -85,8 +85,19 @@ class AppMergeMiddleware {
     // Merge configurations
     this.config = getMergedConfig({ ...this.userConfig, ...config });
 
+    // Debug: Check imports
+    console.log('[Middleware] EventEmitter type:', typeof EventEmitter);
+    console.log('[Middleware] EventEmitter:', EventEmitter);
+    console.log('[Middleware] ApiClient type:', typeof ApiClient);
+    console.log('[Middleware] ApiClient:', ApiClient);
+    console.log('[Middleware] StateManager type:', typeof StateManager);
+    console.log('[Middleware] CacheManager type:', typeof CacheManager);
+
     // Initialize utilities
     this.utils.eventEmitter = new EventEmitter();
+    console.log('[Middleware] eventEmitter instance:', this.utils.eventEmitter);
+    console.log('[Middleware] eventEmitter has .on?', typeof this.utils.eventEmitter.on);
+
     this.utils.cacheManager = new CacheManager({
       maxSize: this.config.cache.maxSize,
       defaultTTL: this.config.cache.defaultTTL
@@ -95,6 +106,10 @@ class AppMergeMiddleware {
 
     // Initialize core foundation
     this.core.apiClient = new ApiClient();
+    console.log('[Middleware] apiClient instance:', this.core.apiClient);
+    console.log('[Middleware] apiClient has .get?', typeof this.core.apiClient.get);
+    console.log('[Middleware] apiClient has .post?', typeof this.core.apiClient.post);
+
     this.core.stateManager = new StateManager(this.utils.eventEmitter);
     this.core.validationEngine = new ValidationEngine();
     this.core.errorHandler = new ErrorHandler();
@@ -300,8 +315,6 @@ class AppMergeMiddleware {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = AppMergeMiddleware;
-}
+// ES6 export
+export default AppMergeMiddleware;
 

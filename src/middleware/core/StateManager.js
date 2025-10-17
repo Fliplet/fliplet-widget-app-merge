@@ -1,6 +1,6 @@
 // src/middleware/core/StateManager.js
 
-const EventEmitter = require('../utils/EventEmitter');
+import EventEmitter from '../utils/EventEmitter';
 
 /**
  * StateManager - Temporary merge configuration state management
@@ -356,8 +356,5 @@ class StateManager {
   }
 }
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = StateManager;
-}
+export default StateManager;
 

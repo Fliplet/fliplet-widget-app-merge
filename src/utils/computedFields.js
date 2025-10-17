@@ -22,21 +22,30 @@ export function isLocked(lockedUntil) {
 
 /**
  * Check if current user has publisher rights on an app
- * @param {Object} app - App object with users array
- * @param {Object} currentUser - Current user object with email
- * @returns {boolean} True if user has publisher rights (userRoleId === 1)
+ * @param {Object} app - App object with appUser object or users array
+ * @param {Object} currentUser - Current user object
+ * @returns {boolean} True if user has publisher rights
  */
 export function hasPublisherRights(app, currentUser) {
-  if (!app || !currentUser || !currentUser.email) return false;
-  if (!Array.isArray(app.users) || app.users.length === 0) return false;
+  if (!app) return false;
 
-  // Find the current user in the app's users array
-  const userInApp = app.users.find(u => u.email === currentUser.email);
+  // New API format: check appUser.appRoleId
+  if (app.appUser && typeof app.appUser.appRoleId === 'number') {
+    return app.appUser.appRoleId === 1;
+  }
 
-  if (!userInApp) return false;
+  // Legacy API format: check users array
+  if (app.users && Array.isArray(app.users) && currentUser && currentUser.email) {
+    const userInApp = app.users.find(u => u.email === currentUser.email);
+    if (userInApp && typeof userInApp.userRoleId === 'number') {
+      return userInApp.userRoleId === 1;
+    }
+  }
 
-  // userRoleId of 1 means publisher
-  return userInApp.userRoleId === 1;
+  // Fallback: if no permission data is available, assume user has rights
+  // This handles cases where the API doesn't return permission data
+  console.warn('[hasPublisherRights] No permission data found, assuming publisher rights');
+  return true;
 }
 
 /**

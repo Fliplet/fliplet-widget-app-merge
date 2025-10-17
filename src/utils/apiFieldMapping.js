@@ -22,7 +22,8 @@ export function mapAppFields(app, options = {}) {
     region: app.region,
     updatedAt: app.updatedAt,
     lockedUntil: app.lockedUntil,
-    users: app.users,
+    users: app.users, // Keep for backward compatibility
+    appUser: app.appUser, // New field for publisher rights
     // Map productionAppId to isPublished boolean
     isPublished: !!app.productionAppId,
     productionAppId: app.productionAppId

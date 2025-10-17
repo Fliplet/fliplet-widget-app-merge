@@ -367,6 +367,8 @@ import ModalDialog from '../feedback/ModalDialog.vue';
 export default {
   name: 'MergeReview',
 
+  inject: ['middleware'],
+
   components: {
     AlertTriangle,
     Loader2,
@@ -474,8 +476,17 @@ export default {
         this.loading = true;
         this.error = null;
 
-        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
-          const apiClient = window.FlipletAppMerge.middleware.api;
+        // Validate required props
+        if (!this.sourceAppId) {
+          throw new Error('Source app ID is required to load merge preview');
+        }
+
+        if (!this.destinationAppId) {
+          throw new Error('Destination app ID is required to load merge preview');
+        }
+
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
 
           // Call preview endpoint with merge config
           const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/preview`, this.mergeConfig);
