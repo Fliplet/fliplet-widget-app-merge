@@ -230,7 +230,8 @@ export default {
         id: ds.id,
         name: ds.name,
         entryCount: ds.entryCount || 0,
-        modified: ds.lastModified ? this.formatDate(ds.lastModified) : 'Unknown'
+        modified: ds.lastModified ? this.formatDate(ds.lastModified) : 'Unknown',
+        _selected: this.selection.includes(ds.id)
       }));
     },
 

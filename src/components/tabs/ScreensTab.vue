@@ -168,7 +168,8 @@ export default {
         name: screen.name,
         dataSourceCount: screen.associatedDataSources?.length || 0,
         fileCount: screen.associatedFiles?.length || 0,
-        lastModified: screen.lastModified ? this.formatDate(screen.lastModified) : 'Unknown'
+        lastModified: screen.lastModified ? this.formatDate(screen.lastModified) : 'Unknown',
+        _selected: this.selection.includes(screen.id)
       }));
     },
 

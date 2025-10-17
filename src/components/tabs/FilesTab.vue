@@ -191,7 +191,8 @@ export default {
         name: file.name,
         path: file.path || '/',
         type: file.type || 'file',
-        lastModified: file.lastModified ? this.formatDate(file.lastModified) : 'Unknown'
+        lastModified: file.lastModified ? this.formatDate(file.lastModified) : 'Unknown',
+        _selected: this.selection.includes(file.id)
       }));
     },
 

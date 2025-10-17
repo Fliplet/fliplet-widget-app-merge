@@ -17,12 +17,25 @@
     </div>
 
     <!-- Error state -->
-    <WarningBanner
-      v-if="error"
-      type="error"
-      :message="error"
-      data-testid="review-error"
-    />
+    <div v-if="error" class="space-y-6">
+      <WarningBanner
+        type="error"
+        :message="error"
+        data-testid="review-error"
+      />
+
+      <!-- Back button for error state -->
+      <div class="flex justify-between">
+        <button
+          type="button"
+          class="rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+          data-testid="back-button-error"
+          @click="handleBack"
+        >
+          Back
+        </button>
+      </div>
+    </div>
 
     <!-- Content -->
     <div v-if="!loading && !error">
@@ -327,18 +340,10 @@
           <button
             type="button"
             class="rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-            data-testid="cancel-button"
-            @click="promptCancel"
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            class="rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
             data-testid="edit-settings-button"
             @click="handleEditSettings"
           >
-            Edit Settings
+            Back
           </button>
         </div>
         <button
@@ -386,13 +391,17 @@ export default {
       type: Number,
       required: true
     },
+    destinationApp: {
+      type: Object,
+      required: true
+    },
     mergeConfig: {
       type: Object,
       required: true
     }
   },
 
-  emits: ['start-merge', 'edit-settings', 'cancel'],
+  emits: ['start-merge', 'edit-settings', 'cancel', 'back'],
 
   data() {
     return {
@@ -469,6 +478,166 @@ export default {
 
   methods: {
     /**
+     * Transform merge configuration to API payload format
+     */
+    transformMergeConfigToApiPayload() {
+      // The mergeConfig contains a selections object with the actual data
+      const selections = this.mergeConfig.selections || {};
+
+      // Debug: Log the actual data structure
+      console.log('MergeReview - mergeConfig:', this.mergeConfig);
+      console.log('MergeReview - selections:', selections);
+      console.log('MergeReview - settings array:', selections.settings);
+
+      return {
+        destinationAppId: this.destinationAppId,
+        destinationOrganizationId: this.destinationApp.organizationId,
+        region: this.destinationApp.region || 'eu',
+        fileIds: selections.files || [],
+        folderIds: [], // TODO: Handle folder selections when implemented
+        mergeAppSettings: selections.settings?.includes('appSettings') || false,
+        mergeAppMenuSettings: selections.settings?.includes('menuSettings') || false,
+        mergeAppearanceSettings: selections.settings?.includes('appearanceSettings') || false,
+        mergeGlobalCode: selections.settings?.includes('globalCode') || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections['data-sources'] || []).map(ds => ({
+          id: ds.id || ds, // Handle both object and primitive ID
+          scope: ds.scope || 'structure'
+        })),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+
+    /**
+     * Transform API response to component preview format
+     */
+    transformApiResponseToPreview(response) {
+      // Handle both direct response and nested preview object
+      const data = response.preview || response || {};
+
+      // Debug: Log the API response data
+      console.log('MergeReview - API response data:', data);
+      console.log('MergeReview - mergeAppMenuSettings:', data.mergeAppMenuSettings);
+
+      // Transform pages data
+      const screens = [];
+      if (data.pages) {
+        // Add copied pages
+        if (data.pages.copied && Array.isArray(data.pages.copied)) {
+          screens.push(...data.pages.copied.map(page => ({
+            id: page.id,
+            name: page.title || page.name,
+            status: 'copy',
+            warnings: []
+          })));
+        }
+        // Add overwritten pages
+        if (data.pages.overwritten && Array.isArray(data.pages.overwritten)) {
+          screens.push(...data.pages.overwritten.map(page => ({
+            id: page.id,
+            name: page.title || page.name,
+            status: 'overwrite',
+            warnings: []
+          })));
+        }
+      }
+
+      // Transform data sources data
+      const dataSources = [];
+      if (data.dataSources) {
+        // Add copied data sources
+        if (data.dataSources.copied && Array.isArray(data.dataSources.copied)) {
+          dataSources.push(...data.dataSources.copied.map(ds => ({
+            id: ds.id,
+            name: ds.name,
+            copyMode: 'structure-only', // Default to structure-only
+            status: 'copy',
+            warnings: []
+          })));
+        }
+        // Add overwritten data sources
+        if (data.dataSources.overwritten && Array.isArray(data.dataSources.overwritten)) {
+          dataSources.push(...data.dataSources.overwritten.map(ds => ({
+            id: ds.id,
+            name: ds.name,
+            copyMode: 'structure-only', // Default to structure-only
+            status: 'overwrite',
+            warnings: []
+          })));
+        }
+      }
+
+      // Transform files data
+      const files = [];
+      if (data.files) {
+        // Add copied files
+        if (data.files.copied && Array.isArray(data.files.copied)) {
+          files.push(...data.files.copied.map(file => ({
+            id: file.id,
+            name: file.name,
+            path: file.path || '/',
+            type: file.type || 'file',
+            status: 'copy',
+            warnings: []
+          })));
+        }
+        // Add overwritten files
+        if (data.files.overwritten && Array.isArray(data.files.overwritten)) {
+          files.push(...data.files.overwritten.map(file => ({
+            id: file.id,
+            name: file.name,
+            path: file.path || '/',
+            type: file.type || 'file',
+            status: 'overwrite',
+            warnings: []
+          })));
+        }
+      }
+
+      // Transform configuration settings
+      const configurations = [];
+      if (data.mergeAppSettings) {
+        configurations.push({
+          type: 'appSettings',
+          label: 'App Settings',
+          description: 'Global app configuration and settings',
+          status: 'copy'
+        });
+      }
+      if (data.mergeAppMenuSettings) {
+        configurations.push({
+          type: 'menuSettings',
+          label: 'Menu Settings',
+          description: 'App navigation menu configuration',
+          status: 'copy'
+        });
+      }
+      if (data.mergeAppearanceSettings) {
+        configurations.push({
+          type: 'appearanceSettings',
+          label: 'Appearance Settings',
+          description: 'Visual styling and theme settings',
+          status: 'copy'
+        });
+      }
+      if (data.mergeGlobalCode) {
+        configurations.push({
+          type: 'globalCode',
+          label: 'Global Code',
+          description: 'Custom JavaScript, CSS, and HTML',
+          status: 'copy'
+        });
+      }
+
+      return {
+        screens,
+        dataSources,
+        files,
+        configurations
+      };
+    },
+
+    /**
      * Load merge preview from middleware
      */
     async loadMergePreview() {
@@ -485,27 +654,38 @@ export default {
           throw new Error('Destination app ID is required to load merge preview');
         }
 
+        if (!this.destinationApp || !this.destinationApp.organizationId) {
+          throw new Error('Destination organization ID is required to load merge preview');
+        }
+
         if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
           const apiClient = this.middleware.core.apiClient;
 
-          // Call preview endpoint with merge config
-          const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/preview`, this.mergeConfig);
+          // Transform merge config to API payload format
+          const apiPayload = this.transformMergeConfigToApiPayload();
 
-          this.preview = response.preview || response || {
-            screens: [],
-            dataSources: [],
-            files: [],
-            configurations: []
-          };
+          // Debug: Log the payload being sent
+          console.log('Merge Preview API Payload:', JSON.stringify(apiPayload, null, 2));
+
+          // Call preview endpoint with merge config
+          const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/preview`, apiPayload);
+
+          // Transform the API response to match the component's expected format
+          this.preview = this.transformApiResponseToPreview(response);
+
+          // Debug: Log the transformed preview data
+          console.log('MergeReview - Transformed preview:', this.preview);
 
           // Get plan limits from merge status endpoint
-          const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {});
-          const limitWarnings = statusResponse.limitWarnings || {};
+          // Note: This endpoint requires a mergeId, but we don't have one yet for preview
+          // We'll skip this for now and handle plan limits differently
+          // const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, { mergeId: null });
+          // const limitWarnings = statusResponse.limitWarnings || {};
 
           this.planLimits = {
-            screensLimit: limitWarnings.screensLimit || null,
-            dataSourcesLimit: limitWarnings.dataSourcesLimit || null,
-            filesLimit: limitWarnings.filesLimit || null
+            screensLimit: null,
+            dataSourcesLimit: null,
+            filesLimit: null
           };
         } else {
           // Fallback to mock data
@@ -555,7 +735,8 @@ export default {
           };
         }
       } catch (err) {
-        this.error = 'Unable to load merge preview. Please try again.';
+        // Extract error message using Fliplet.parseError
+        this.error = Fliplet.parseError(err) || 'Unable to load merge preview. Please try again.';
         console.error('Failed to load merge preview:', err);
       } finally {
         this.loading = false;
@@ -609,6 +790,13 @@ export default {
     confirmCancel() {
       this.showCancelWarning = false;
       this.$emit('cancel');
+    },
+
+    /**
+     * Handle back button click
+     */
+    handleBack() {
+      this.$emit('back');
     }
   }
 };

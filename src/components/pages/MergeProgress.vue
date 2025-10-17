@@ -165,6 +165,18 @@ export default {
       type: Number,
       required: true
     },
+    destinationAppId: {
+      type: Number,
+      required: true
+    },
+    destinationApp: {
+      type: Object,
+      required: true
+    },
+    mergeConfig: {
+      type: Object,
+      required: true
+    },
     mergeId: {
       type: [Number, String],
       required: true
@@ -232,6 +244,45 @@ export default {
 
   methods: {
     /**
+     * Get merge configuration in API payload format
+     */
+    getMergeConfiguration() {
+      // The mergeConfig contains a selections object with the actual data
+      const selections = this.mergeConfig.selections || {};
+
+      // Debug: Log the selections to understand the data structure
+      console.log('[MergeProgress] Merge config selections:', selections);
+      console.log('[MergeProgress] Data sources selection:', selections['data-sources']);
+
+      return {
+        destinationOrganizationId: this.destinationApp.organizationId,
+        fileIds: selections.files || [],
+        folderIds: [], // TODO: Handle folder selections when implemented
+        mergeAppSettings: selections.settings?.includes('appSettings') || false,
+        mergeAppMenuSettings: selections.settings?.includes('menuSettings') || false,
+        mergeAppearanceSettings: selections.settings?.includes('appearanceSettings') || false,
+        mergeGlobalCode: selections.settings?.includes('globalCode') || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections['data-sources'] || []).map(ds => {
+          // Handle both object format and primitive ID format
+          if (typeof ds === 'object' && ds.id) {
+            return {
+              id: ds.id,
+              structureOnly: ds.structureOnly || true
+            };
+          } else {
+            // If it's just an ID (primitive), create object with default structureOnly
+            return {
+              id: ds,
+              structureOnly: true // Default to structure-only
+            };
+          }
+        }),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+
+    /**
      * Start the merge process
      */
     async startMerge() {
@@ -242,8 +293,24 @@ export default {
         console.log('[MergeProgress] Middleware API available, initiating merge...');
 
         try {
+          // Get the merge configuration from the parent component
+          const mergeConfig = this.getMergeConfiguration();
+
+          // Debug: Log the API payload
+          console.log('[MergeProgress] API payload:', mergeConfig);
+
           const response = await apiClient.post(`v1/apps/${this.sourceAppId}/merge`, {
-            mergeId: this.mergeId
+            destinationAppId: this.destinationAppId,
+            destinationOrganizationId: mergeConfig.destinationOrganizationId,
+            fileIds: mergeConfig.fileIds || [],
+            folderIds: mergeConfig.folderIds || [],
+            mergeAppSettings: mergeConfig.mergeAppSettings || false,
+            mergeAppMenuSettings: mergeConfig.mergeAppMenuSettings || false,
+            mergeAppearanceSettings: mergeConfig.mergeAppearanceSettings || false,
+            mergeGlobalCode: mergeConfig.mergeGlobalCode || false,
+            pageIds: mergeConfig.pageIds || [],
+            dataSources: mergeConfig.dataSources || [],
+            customDataSourcesInUse: mergeConfig.customDataSourcesInUse || []
           });
           console.log('[MergeProgress] Merge initiated successfully:', response);
         } catch (error) {
@@ -296,8 +363,16 @@ export default {
           // Get merge logs
           console.log('[MergeProgress] Fetching merge logs...');
           logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
-            mergeId: this.mergeId,
-            types: ['app.merge.initiated', 'app.merge.progress', 'app.merge.completed', 'app.merge.error']
+            where: {
+              type: {
+                $iLike: '%app.merge%'
+              },
+              data: {
+                $contains: {
+                  mergeId: this.mergeId
+                }
+              }
+            }
           });
           console.log('[MergeProgress] Logs response:', logsResponse);
         } else {

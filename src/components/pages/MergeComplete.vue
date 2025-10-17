@@ -364,7 +364,11 @@ export default {
 
           // Fetch merge history from audit logs
           const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
-            types: ['app.merge.initiated']
+            where: {
+              type: {
+                $iLike: '%app.merge%'
+              }
+            }
           });
 
           const logs = logsResponse.logs || logsResponse || [];

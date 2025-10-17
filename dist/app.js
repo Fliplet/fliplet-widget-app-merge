@@ -12873,6 +12873,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Dashboard view "), $data.currentView === 'dashboard' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeDashboard, {
         key: 0,
+        ref: "mergeDashboard",
         onConfigureMerge: $options.goToDestinationSelector,
         onViewAuditLog: $options.handleViewAuditLog,
         onCancel: $options.handleCancel
@@ -12887,25 +12888,31 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "source-app-name": $data.sourceApp.name,
         "destination-app-id": $data.selectedDestinationApp.id,
         "destination-app-name": $data.selectedDestinationApp.name,
+        "initial-selections": $options.getInitialSelections(),
         onReview: $options.handleReview,
         onBack: $options.goToDestinationSelector,
         onCancel: $options.handleCancel,
         onExtendLock: $options.handleExtendLock
-      }, null, 8 /* PROPS */, ["source-app-id", "source-app-name", "destination-app-id", "destination-app-name", "onReview", "onBack", "onCancel", "onExtendLock"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Review view "), $data.currentView === 'review' && $data.sourceApp.id && $data.selectedDestinationApp ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeReview, {
+      }, null, 8 /* PROPS */, ["source-app-id", "source-app-name", "destination-app-id", "destination-app-name", "initial-selections", "onReview", "onBack", "onCancel", "onExtendLock"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Review view "), $data.currentView === 'review' && $data.sourceApp.id && $data.selectedDestinationApp ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeReview, {
         key: 3,
         "source-app-id": $data.sourceApp.id,
         "destination-app-id": $data.selectedDestinationApp.id,
+        "destination-app": $data.selectedDestinationApp,
         "merge-config": $data.mergeConfiguration,
         onStartMerge: $options.handleStartMerge,
         onEditSettings: $options.goToConfiguration,
-        onCancel: $options.handleCancel
-      }, null, 8 /* PROPS */, ["source-app-id", "destination-app-id", "merge-config", "onStartMerge", "onEditSettings", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Progress view "), $data.currentView === 'progress' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeProgress, {
+        onCancel: $options.handleCancel,
+        onBack: $options.goToConfiguration
+      }, null, 8 /* PROPS */, ["source-app-id", "destination-app-id", "destination-app", "merge-config", "onStartMerge", "onEditSettings", "onCancel", "onBack"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Progress view "), $data.currentView === 'progress' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeProgress, {
         key: 4,
         "source-app-id": $data.sourceApp.id,
+        "destination-app-id": $data.selectedDestinationApp.id,
+        "destination-app": $data.selectedDestinationApp,
+        "merge-config": $data.mergeConfiguration,
         "merge-id": $data.mergeId,
         onMergeComplete: $options.handleMergeComplete,
         onMergeError: $options.handleMergeError
-      }, null, 8 /* PROPS */, ["source-app-id", "merge-id", "onMergeComplete", "onMergeError"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Complete view "), $data.currentView === 'complete' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeComplete, {
+      }, null, 8 /* PROPS */, ["source-app-id", "destination-app-id", "destination-app", "merge-config", "merge-id", "onMergeComplete", "onMergeError"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Merge Complete view "), $data.currentView === 'complete' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_MergeComplete, {
         key: 5,
         onOpenApp: $options.handleOpenApp,
         onViewAuditLog: $options.handleViewAuditLog
@@ -13092,9 +13099,17 @@ __webpack_require__.r(__webpack_exports__);
      * Navigate to dashboard
      */
     goToDashboard: function goToDashboard() {
+      var _this = this;
       this.currentView = 'dashboard';
       this.currentStep = 0;
       this.clearState();
+
+      // Refresh dashboard data to show updated merge history
+      this.$nextTick(function () {
+        if (_this.$refs.mergeDashboard) {
+          _this.$refs.mergeDashboard.refreshData();
+        }
+      });
     },
     /**
      * Navigate to destination selector
@@ -13135,19 +13150,19 @@ __webpack_require__.r(__webpack_exports__);
      * Handle destination app selection
      */
     handleDestinationSelected: function handleDestinationSelected(app) {
-      var _this = this;
+      var _this2 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _this.selectedDestinationApp = app;
+              _this2.selectedDestinationApp = app;
 
               // Lock both apps before proceeding
               _context.next = 1;
-              return _this.lockApps();
+              return _this2.lockApps();
             case 1:
-              _this.currentView = 'configuration';
-              _this.currentStep = 2;
+              _this2.currentView = 'configuration';
+              _this2.currentStep = 2;
             case 2:
             case "end":
               return _context.stop();
@@ -13166,19 +13181,65 @@ __webpack_require__.r(__webpack_exports__);
       this.goToReview();
     },
     /**
+     * Get initial selections for MergeConfiguration component
+     */
+    getInitialSelections: function getInitialSelections() {
+      if (this.mergeConfiguration && this.mergeConfiguration.selections) {
+        return this.mergeConfiguration.selections;
+      }
+      return {
+        screens: [],
+        'data-sources': [],
+        files: [],
+        settings: []
+      };
+    },
+    /**
+     * Transform merge configuration to API payload format
+     */
+    transformMergeConfigToApiPayload: function transformMergeConfigToApiPayload(selections) {
+      var _selections$configura, _selections$configura2, _selections$configura3;
+      if (!this.selectedDestinationApp) {
+        throw new Error('Destination app not selected');
+      }
+      return {
+        destinationAppId: this.selectedDestinationApp.id,
+        destinationOrganizationId: this.selectedDestinationApp.organizationId,
+        region: this.selectedDestinationApp.region || 'eu',
+        fileIds: selections.files || [],
+        folderIds: (selections.folders || []).map(function (folder) {
+          return {
+            id: folder.id,
+            scope: folder.scope || 'folders'
+          };
+        }),
+        mergeAppSettings: ((_selections$configura = selections.configurations) === null || _selections$configura === void 0 ? void 0 : _selections$configura.includes('appSettings')) || false,
+        mergeAppearanceSettings: ((_selections$configura2 = selections.configurations) === null || _selections$configura2 === void 0 ? void 0 : _selections$configura2.includes('appearanceSettings')) || false,
+        mergeGlobalCode: ((_selections$configura3 = selections.configurations) === null || _selections$configura3 === void 0 ? void 0 : _selections$configura3.includes('globalCode')) || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections.dataSources || []).map(function (ds) {
+          return {
+            id: ds.id,
+            scope: ds.scope || 'structure'
+          };
+        }),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+    /**
      * Handle start merge
      */
     handleStartMerge: function handleStartMerge() {
-      var _this2 = this;
+      var _this3 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               // Generate a unique merge ID
-              _this2.mergeId = "merge-".concat(Date.now(), "-").concat(Math.random().toString(36).substr(2, 9));
+              _this3.mergeId = "merge-".concat(Date.now(), "-").concat(Math.random().toString(36).substr(2, 9));
 
               // Navigate to progress view
-              _this2.goToProgress();
+              _this3.goToProgress();
 
               // TODO: Trigger merge via middleware
               // await window.FlipletAppMerge.middleware.controllers.mergeExecution.startMerge({
@@ -13200,8 +13261,8 @@ __webpack_require__.r(__webpack_exports__);
       // Unlock apps
       this.unlockApps();
 
-      // Navigate to complete view
-      this.goToComplete();
+      // Navigate back to dashboard to show the new merge in history
+      this.goToDashboard();
     },
     /**
      * Handle merge error
@@ -13269,20 +13330,20 @@ __webpack_require__.r(__webpack_exports__);
      * Handle cancel
      */
     handleCancel: function handleCancel() {
-      var _this3 = this;
+      var _this4 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              if (!_this3.isAppsLocked) {
+              if (!_this4.isAppsLocked) {
                 _context4.next = 1;
                 break;
               }
               _context4.next = 1;
-              return _this3.unlockApps();
+              return _this4.unlockApps();
             case 1:
               // Clear state
-              _this3.clearState();
+              _this4.clearState();
 
               // TODO: Close overlay via Studio API
               // window.Fliplet.Studio.emit('overlay-close');
@@ -13299,7 +13360,7 @@ __webpack_require__.r(__webpack_exports__);
      * Lock both source and destination apps
      */
     lockApps: function lockApps() {
-      var _this4 = this;
+      var _this5 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee5() {
         var _t;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context5) {
@@ -13312,7 +13373,7 @@ __webpack_require__.r(__webpack_exports__);
               //   targetAppId: this.selectedDestinationApp.id
               // });
 
-              _this4.isAppsLocked = true;
+              _this5.isAppsLocked = true;
               console.log('Apps locked');
               _context5.next = 2;
               break;
@@ -13332,7 +13393,7 @@ __webpack_require__.r(__webpack_exports__);
      * Unlock both source and destination apps
      */
     unlockApps: function unlockApps() {
-      var _this5 = this;
+      var _this6 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee6() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context6) {
           while (1) switch (_context6.prev = _context6.next) {
@@ -13344,7 +13405,7 @@ __webpack_require__.r(__webpack_exports__);
                 //   targetAppId: this.selectedDestinationApp.id
                 // });
 
-                _this5.isAppsLocked = false;
+                _this6.isAppsLocked = false;
                 console.log('Apps unlocked');
               } catch (error) {
                 console.error('Failed to unlock apps:', error);
@@ -13374,7 +13435,7 @@ __webpack_require__.r(__webpack_exports__);
      * Handle global errors
      */
     handleGlobalError: function handleGlobalError(error) {
-      var _this6 = this;
+      var _this7 = this;
       // Determine error severity
       var isCritical = this.isCriticalError(error);
       if (isCritical) {
@@ -13397,7 +13458,7 @@ __webpack_require__.r(__webpack_exports__);
 
         // Clear error after 5 seconds
         setTimeout(function () {
-          _this6.globalError = null;
+          _this7.globalError = null;
         }, 5000);
       }
 
@@ -15148,56 +15209,74 @@ __webpack_require__.r(__webpack_exports__);
     this.loadAppDetails();
   },
   methods: {
-    loadAppDetails: function loadAppDetails() {
+    /**
+     * Refresh all data (app details and merge history)
+     */
+    refreshData: function refreshData() {
       var _this = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
-        var apiClient, userResponse, _yield$Promise$all, _yield$Promise$all2, appData, organization, mergeHistory, _t;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _this.loading = true;
-              _this.error = null;
+              _context.next = 1;
+              return _this.loadAppDetails();
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
+    },
+    loadAppDetails: function loadAppDetails() {
+      var _this2 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
+        var apiClient, userResponse, _yield$Promise$all, _yield$Promise$all2, appData, organization, mergeHistory, _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _this2.loading = true;
+              _this2.error = null;
 
               // Fetch current user for publisher rights check
-              if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
-                _context.next = 3;
+              if (!(_this2.middleware && _this2.middleware.core && _this2.middleware.core.apiClient)) {
+                _context2.next = 3;
                 break;
               }
-              apiClient = _this.middleware.core.apiClient; // Fetch current user
-              _context.next = 1;
+              apiClient = _this2.middleware.core.apiClient; // Fetch current user
+              _context2.next = 1;
               return apiClient.get('v1/user');
             case 1:
-              userResponse = _context.sent;
-              _this.currentUser = userResponse.user || userResponse;
-              _context.next = 2;
-              return Promise.all([_this.fetchAppDetails(apiClient), _this.fetchOrganization(apiClient), _this.fetchMergeHistory(apiClient)]);
+              userResponse = _context2.sent;
+              _this2.currentUser = userResponse.user || userResponse;
+              _context2.next = 2;
+              return Promise.all([_this2.fetchAppDetails(apiClient), _this2.fetchOrganization(apiClient), _this2.fetchMergeHistory(apiClient)]);
             case 2:
-              _yield$Promise$all = _context.sent;
+              _yield$Promise$all = _context2.sent;
               _yield$Promise$all2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_yield$Promise$all, 3);
               appData = _yield$Promise$all2[0];
               organization = _yield$Promise$all2[1];
               mergeHistory = _yield$Promise$all2[2];
               // Apply field mapping
-              _this.appDetails = (0,_utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_9__.mapAppFields)(appData, {
+              _this2.appDetails = (0,_utils_apiFieldMapping_js__WEBPACK_IMPORTED_MODULE_9__.mapAppFields)(appData, {
                 organization: organization
               });
-              _this.mergeHistory = mergeHistory;
+              _this2.mergeHistory = mergeHistory;
 
               // Ensure region is set
-              if (!_this.appDetails.region && organization) {
-                _this.appDetails.region = organization.region;
+              if (!_this2.appDetails.region && organization) {
+                _this2.appDetails.region = organization.region;
               }
-              _context.next = 5;
+              _context2.next = 5;
               break;
             case 3:
-              _context.next = 4;
+              _context2.next = 4;
               return Promise.resolve();
             case 4:
-              _this.currentUser = {
+              _this2.currentUser = {
                 email: 'user@example.com'
               };
-              _this.appDetails = {
+              _this2.appDetails = {
                 id: 123,
                 name: 'Source App',
                 organizationName: 'Acme Corp',
@@ -15209,97 +15288,101 @@ __webpack_require__.r(__webpack_exports__);
                   appRoleId: 1 // Publisher role
                 }
               };
-              _this.mergeHistory = [];
+              _this2.mergeHistory = [];
             case 5:
-              _context.next = 7;
+              _context2.next = 7;
               break;
             case 6:
-              _context.prev = 6;
-              _t = _context["catch"](0);
-              _this.error = 'Unable to load app details. Please try again.';
+              _context2.prev = 6;
+              _t = _context2["catch"](0);
+              _this2.error = 'Unable to load app details. Please try again.';
               console.error('Failed to load app details:', _t);
             case 7:
-              _context.prev = 7;
-              _this.loading = false;
-              return _context.finish(7);
+              _context2.prev = 7;
+              _this2.loading = false;
+              return _context2.finish(7);
             case 8:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, null, [[0, 6, 7, 8]]);
-      }))();
-    },
-    fetchAppDetails: function fetchAppDetails(apiClient) {
-      var _this2 = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee2() {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.next = 1;
-              return apiClient.get("v1/apps/".concat(_this2.sourceAppId));
-            case 1:
-              response = _context2.sent;
-              return _context2.abrupt("return", response.app || response);
-            case 2:
             case "end":
               return _context2.stop();
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 6, 7, 8]]);
       }))();
     },
-    fetchOrganization: function fetchOrganization(apiClient) {
+    fetchAppDetails: function fetchAppDetails(apiClient) {
       var _this3 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee3() {
-        var appData, orgResponse;
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context3) {
           while (1) switch (_context3.prev = _context3.next) {
             case 0:
-              if (_this3.sourceAppId) {
-                _context3.next = 1;
-                break;
-              }
-              return _context3.abrupt("return", null);
+              _context3.next = 1;
+              return apiClient.get("v1/apps/".concat(_this3.sourceAppId));
             case 1:
-              _context3.next = 2;
-              return _this3.fetchAppDetails(apiClient);
+              response = _context3.sent;
+              return _context3.abrupt("return", response.app || response);
             case 2:
-              appData = _context3.sent;
-              if (appData.organizationId) {
-                _context3.next = 3;
-                break;
-              }
-              return _context3.abrupt("return", null);
-            case 3:
-              _context3.next = 4;
-              return apiClient.get("v1/organizations/".concat(appData.organizationId));
-            case 4:
-              orgResponse = _context3.sent;
-              return _context3.abrupt("return", orgResponse.organization || orgResponse);
-            case 5:
             case "end":
               return _context3.stop();
           }
         }, _callee3);
       }))();
     },
-    fetchMergeHistory: function fetchMergeHistory(apiClient) {
+    fetchOrganization: function fetchOrganization(apiClient) {
       var _this4 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee4() {
-        var logsResponse, logs, _t2;
+        var appData, orgResponse;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.prev = 0;
-              _this4.mergeHistoryLoading = true;
-              _context4.next = 1;
-              return apiClient.post("v1/apps/".concat(_this4.sourceAppId, "/logs"), {
-                types: ['app.merge.initiated']
+              if (_this4.sourceAppId) {
+                _context4.next = 1;
+                break;
+              }
+              return _context4.abrupt("return", null);
+            case 1:
+              _context4.next = 2;
+              return _this4.fetchAppDetails(apiClient);
+            case 2:
+              appData = _context4.sent;
+              if (appData.organizationId) {
+                _context4.next = 3;
+                break;
+              }
+              return _context4.abrupt("return", null);
+            case 3:
+              _context4.next = 4;
+              return apiClient.get("v1/organizations/".concat(appData.organizationId));
+            case 4:
+              orgResponse = _context4.sent;
+              return _context4.abrupt("return", orgResponse.organization || orgResponse);
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    fetchMergeHistory: function fetchMergeHistory(apiClient) {
+      var _this5 = this;
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee5() {
+        var logsResponse, logs, _t2;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.prev = 0;
+              _this5.mergeHistoryLoading = true;
+              _context5.next = 1;
+              return apiClient.post("v1/apps/".concat(_this5.sourceAppId, "/logs"), {
+                where: {
+                  type: {
+                    $iLike: '%app.merge%'
+                  }
+                }
               });
             case 1:
-              logsResponse = _context4.sent;
+              logsResponse = _context5.sent;
               logs = logsResponse.logs || logsResponse || [];
-              return _context4.abrupt("return", logs.slice(0, 5).map(function (log) {
+              return _context5.abrupt("return", logs.slice(0, 5).map(function (log) {
                 return {
                   id: log.mergeId || log.id,
                   completedAt: log.createdAt || log.completedAt || Date.now(),
@@ -15309,19 +15392,19 @@ __webpack_require__.r(__webpack_exports__);
                 };
               }));
             case 2:
-              _context4.prev = 2;
-              _t2 = _context4["catch"](0);
+              _context5.prev = 2;
+              _t2 = _context5["catch"](0);
               console.error('Failed to fetch merge history:', _t2);
-              return _context4.abrupt("return", []);
+              return _context5.abrupt("return", []);
             case 3:
-              _context4.prev = 3;
-              _this4.mergeHistoryLoading = false;
-              return _context4.finish(3);
+              _context5.prev = 3;
+              _this5.mergeHistoryLoading = false;
+              return _context5.finish(3);
             case 4:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
-        }, _callee4, null, [[0, 2, 3, 4]]);
+        }, _callee5, null, [[0, 2, 3, 4]]);
       }))();
     },
     handleConfigureMerge: function handleConfigureMerge() {
@@ -18007,6 +18090,17 @@ __webpack_require__.r(__webpack_exports__);
     lockedUntil: {
       type: Number,
       "default": null
+    },
+    initialSelections: {
+      type: Object,
+      "default": function _default() {
+        return {
+          screens: [],
+          'data-sources': [],
+          files: [],
+          settings: []
+        };
+      }
     }
   },
   emits: ['review', 'back', 'cancel', 'extend-lock', 'lock-expired', 'copy-mode-change', 'folder-option-change'],
@@ -18027,10 +18121,10 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Settings'
       }],
       selections: {
-        screens: [],
-        'data-sources': [],
-        files: [],
-        settings: []
+        screens: (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.initialSelections.screens),
+        'data-sources': (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.initialSelections['data-sources']),
+        files: (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.initialSelections.files),
+        settings: (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(this.initialSelections.settings)
       }
     };
   },
@@ -18703,7 +18797,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           name: screen.name,
           dataSourceCount: ((_screen$associatedDat = screen.associatedDataSources) === null || _screen$associatedDat === void 0 ? void 0 : _screen$associatedDat.length) || 0,
           fileCount: ((_screen$associatedFil = screen.associatedFiles) === null || _screen$associatedFil === void 0 ? void 0 : _screen$associatedFil.length) || 0,
-          lastModified: screen.lastModified ? _this.formatDate(screen.lastModified) : 'Unknown'
+          lastModified: screen.lastModified ? _this.formatDate(screen.lastModified) : 'Unknown',
+          _selected: _this.selection.includes(screen.id)
         };
       });
     },
@@ -19334,7 +19429,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           id: ds.id,
           name: ds.name,
           entryCount: ds.entryCount || 0,
-          modified: ds.lastModified ? _this.formatDate(ds.lastModified) : 'Unknown'
+          modified: ds.lastModified ? _this.formatDate(ds.lastModified) : 'Unknown',
+          _selected: _this.selection.includes(ds.id)
         };
       });
     },
@@ -19971,7 +20067,8 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
           name: file.name,
           path: file.path || '/',
           type: file.type || 'file',
-          lastModified: file.lastModified ? _this.formatDate(file.lastModified) : 'Unknown'
+          lastModified: file.lastModified ? _this.formatDate(file.lastModified) : 'Unknown',
+          _selected: _this.selection.includes(file.id)
         };
       });
     },
@@ -20970,144 +21067,145 @@ var _hoisted_2 = {
   "data-testid": "loading-state"
 };
 var _hoisted_3 = {
-  key: 2
+  key: 1,
+  "class": "space-y-6"
 };
 var _hoisted_4 = {
-  "class": "space-y-6"
+  "class": "flex justify-between"
 };
 var _hoisted_5 = {
-  "class": "space-y-6"
+  key: 2
 };
 var _hoisted_6 = {
+  "class": "space-y-6"
+};
+var _hoisted_7 = {
+  "class": "space-y-6"
+};
+var _hoisted_8 = {
   key: 0,
   "class": "rounded-lg border border-gray-200 bg-white p-6 shadow"
 };
-var _hoisted_7 = {
+var _hoisted_9 = {
   "class": "mb-4 text-base font-semibold text-gray-900"
 };
-var _hoisted_8 = {
+var _hoisted_10 = {
   "class": "overflow-x-auto"
 };
-var _hoisted_9 = {
+var _hoisted_11 = {
   "class": "min-w-full divide-y divide-gray-200"
 };
-var _hoisted_10 = {
+var _hoisted_12 = {
   "class": "divide-y divide-gray-200"
 };
-var _hoisted_11 = {
+var _hoisted_13 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-900"
 };
-var _hoisted_12 = {
+var _hoisted_14 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-500"
 };
-var _hoisted_13 = {
+var _hoisted_15 = {
   "class": "whitespace-nowrap px-4 py-3"
 };
-var _hoisted_14 = {
+var _hoisted_16 = {
   "class": "px-4 py-3 text-sm text-gray-600"
 };
-var _hoisted_15 = {
+var _hoisted_17 = {
   key: 0,
   "class": "flex items-start gap-1.5"
 };
-var _hoisted_16 = {
+var _hoisted_18 = {
   key: 1,
   "class": "rounded-lg border border-gray-200 bg-white p-6 shadow"
 };
-var _hoisted_17 = {
+var _hoisted_19 = {
   "class": "mb-4 text-base font-semibold text-gray-900"
 };
-var _hoisted_18 = {
+var _hoisted_20 = {
   "class": "overflow-x-auto"
 };
-var _hoisted_19 = {
+var _hoisted_21 = {
   "class": "min-w-full divide-y divide-gray-200"
 };
-var _hoisted_20 = {
+var _hoisted_22 = {
   "class": "divide-y divide-gray-200"
 };
-var _hoisted_21 = {
+var _hoisted_23 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-900"
 };
-var _hoisted_22 = {
+var _hoisted_24 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-500"
 };
-var _hoisted_23 = {
+var _hoisted_25 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-600"
 };
-var _hoisted_24 = {
+var _hoisted_26 = {
   "class": "whitespace-nowrap px-4 py-3"
 };
-var _hoisted_25 = {
+var _hoisted_27 = {
   "class": "px-4 py-3 text-sm text-gray-600"
 };
-var _hoisted_26 = {
+var _hoisted_28 = {
   key: 0,
   "class": "flex items-start gap-1.5"
 };
-var _hoisted_27 = {
+var _hoisted_29 = {
   key: 2,
   "class": "rounded-lg border border-gray-200 bg-white p-6 shadow"
 };
-var _hoisted_28 = {
+var _hoisted_30 = {
   "class": "mb-4 text-base font-semibold text-gray-900"
 };
-var _hoisted_29 = {
+var _hoisted_31 = {
   "class": "overflow-x-auto"
 };
-var _hoisted_30 = {
+var _hoisted_32 = {
   "class": "min-w-full divide-y divide-gray-200"
 };
-var _hoisted_31 = {
+var _hoisted_33 = {
   "class": "divide-y divide-gray-200"
 };
-var _hoisted_32 = {
+var _hoisted_34 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-900"
 };
-var _hoisted_33 = {
+var _hoisted_35 = {
   "class": "px-4 py-3 text-sm text-gray-500"
 };
-var _hoisted_34 = {
+var _hoisted_36 = {
   "class": "whitespace-nowrap px-4 py-3 text-sm text-gray-600"
 };
-var _hoisted_35 = {
+var _hoisted_37 = {
   "class": "whitespace-nowrap px-4 py-3"
 };
-var _hoisted_36 = {
+var _hoisted_38 = {
   "class": "px-4 py-3 text-sm text-gray-600"
 };
-var _hoisted_37 = {
+var _hoisted_39 = {
   key: 0,
   "class": "flex items-start gap-1.5"
 };
-var _hoisted_38 = {
+var _hoisted_40 = {
   key: 3,
   "class": "rounded-lg border border-gray-200 bg-white p-6 shadow"
 };
-var _hoisted_39 = {
+var _hoisted_41 = {
   "class": "mb-4 text-base font-semibold text-gray-900"
 };
-var _hoisted_40 = {
+var _hoisted_42 = {
   "class": "space-y-3"
 };
-var _hoisted_41 = {
+var _hoisted_43 = {
   "class": "font-medium text-gray-900"
 };
-var _hoisted_42 = {
+var _hoisted_44 = {
   key: 0,
   "class": "mt-1 text-sm text-gray-600"
 };
-var _hoisted_43 = {
+var _hoisted_45 = {
   "class": "rounded-lg bg-primary/5 p-6"
 };
-var _hoisted_44 = {
-  "class": "mt-4 grid grid-cols-2 gap-4 md:grid-cols-4"
-};
-var _hoisted_45 = {
-  "class": "text-2xl font-bold text-primary"
-};
 var _hoisted_46 = {
-  "class": "text-2xl font-bold text-primary"
+  "class": "mt-4 grid grid-cols-2 gap-4 md:grid-cols-4"
 };
 var _hoisted_47 = {
   "class": "text-2xl font-bold text-primary"
@@ -21116,12 +21214,18 @@ var _hoisted_48 = {
   "class": "text-2xl font-bold text-primary"
 };
 var _hoisted_49 = {
-  "class": "mt-8 flex justify-between border-t border-gray-200 pt-6"
+  "class": "text-2xl font-bold text-primary"
 };
 var _hoisted_50 = {
+  "class": "text-2xl font-bold text-primary"
+};
+var _hoisted_51 = {
+  "class": "mt-8 flex justify-between border-t border-gray-200 pt-6"
+};
+var _hoisted_52 = {
   "class": "flex gap-3"
 };
-var _hoisted_51 = ["disabled"];
+var _hoisted_53 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$data$preview$screen, _$data$preview$dataSo, _$data$preview$files, _$data$preview$config;
   var _component_Loader2 = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Loader2");
@@ -21134,12 +21238,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "aria-hidden": "true"
   }), _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "sr-only"
-  }, "Loading merge preview...", -1 /* CACHED */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Error state "), $data.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_WarningBanner, {
-    key: 1,
+  }, "Loading merge preview...", -1 /* CACHED */))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Error state "), $data.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_WarningBanner, {
     type: "error",
     message: $data.error,
     "data-testid": "review-error"
-  }, null, 8 /* PROPS */, ["message"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content "), !$data.loading && !$data.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 8 /* PROPS */, ["message"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Back button for error state "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    type: "button",
+    "class": "rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50",
+    "data-testid": "back-button-error",
+    onClick: _cache[0] || (_cache[0] = function () {
+      return $options.handleBack && $options.handleBack.apply($options, arguments);
+    })
+  }, " Back ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Content "), !$data.loading && !$data.error ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "rounded-lg border border-gray-200 bg-white p-6 shadow"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     "class": "text-lg font-semibold text-gray-900"
@@ -21150,7 +21260,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "warning",
     message: $options.planLimitWarningMessage,
     "data-testid": "plan-limit-warning"
-  }, null, 8 /* PROPS */, ["message"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [$data.preview.screens && $data.preview.screens.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_7, " Screens (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.screens.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_9, [_cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }, null, 8 /* PROPS */, ["message"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$data.preview.screens && $data.preview.screens.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_9, " Screens (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.screens.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_11, [_cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Name "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
@@ -21158,17 +21268,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Status "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.screens, function (screen) {
+  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_12, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.screens, function (screen) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: screen.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(screen.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(screen.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(screen.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(screen.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
       status: screen.status,
       label: $options.getStatusLabel(screen.status)
-    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, [screen.warnings && screen.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
+    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_16, [screen.warnings && screen.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
       "class": "h-4 w-4 flex-shrink-0 text-warning",
       "aria-hidden": "true"
     }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(screen.warnings.join(', ')), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.dataSources && $data.preview.dataSources.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_17, " Data Sources (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.dataSources.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_19, [_cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.dataSources && $data.preview.dataSources.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_19, " Data Sources (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.dataSources.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_21, [_cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Name "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
@@ -21178,17 +21288,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Status "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_20, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.dataSources, function (ds) {
+  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_22, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.dataSources, function (ds) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: ds.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.copyMode === 'structure-only' ? 'Structure only' : 'Structure and data'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.copyMode === 'structure-only' ? 'Structure only' : 'Structure and data'), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
       status: ds.status,
       label: $options.getStatusLabel(ds.status)
-    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_25, [ds.warnings && ds.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
+    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_27, [ds.warnings && ds.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
       "class": "h-4 w-4 flex-shrink-0 text-warning",
       "aria-hidden": "true"
     }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(ds.warnings.join(', ')), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.files && $data.preview.files.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_28, " Files (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.files.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_30, [_cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.files && $data.preview.files.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_30, " Files (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.files.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_32, [_cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Name "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
@@ -21198,33 +21308,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
   }, " Status "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
-  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_31, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.files, function (file) {
+  }, " Warnings ")])], -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", _hoisted_33, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.files, function (file) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: file.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.path), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.type), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.name), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.path), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.type), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
       status: file.status,
       label: $options.getStatusLabel(file.status)
-    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_36, [file.warnings && file.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
+    }, null, 8 /* PROPS */, ["status", "label"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_38, [file.warnings && file.warnings.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AlertTriangle, {
       "class": "h-4 w-4 flex-shrink-0 text-warning",
       "aria-hidden": "true"
     }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(file.warnings.join(', ')), 1 /* TEXT */)])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
-  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.configurations && $data.preview.configurations.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_39, " App-Level Configurations (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.configurations.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_40, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.configurations, function (config) {
+  }), 128 /* KEYED_FRAGMENT */))])])])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.preview.configurations && $data.preview.configurations.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_40, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", _hoisted_41, " App-Level Configurations (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.preview.configurations.length) + ") ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.preview.configurations, function (config) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       key: config.type,
       "class": "flex items-center justify-between rounded border border-gray-200 p-4"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(config.label), 1 /* TEXT */), config.description ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_42, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(config.description), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_43, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(config.label), 1 /* TEXT */), config.description ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(config.description), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StatusBadge, {
       status: config.status,
       label: $options.getStatusLabel(config.status)
     }, null, 8 /* PROPS */, ["status", "label"])]);
-  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [_cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
+  }), 128 /* KEYED_FRAGMENT */))])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
     "class": "text-base font-semibold text-gray-900"
-  }, " Summary ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$screen = $data.preview.screens) === null || _$data$preview$screen === void 0 ? void 0 : _$data$preview$screen.length) || 0), 1 /* TEXT */), _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  }, " Summary ", -1 /* CACHED */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$screen = $data.preview.screens) === null || _$data$preview$screen === void 0 ? void 0 : _$data$preview$screen.length) || 0), 1 /* TEXT */), _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "text-sm text-gray-600"
-  }, " Screens ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$dataSo = $data.preview.dataSources) === null || _$data$preview$dataSo === void 0 ? void 0 : _$data$preview$dataSo.length) || 0), 1 /* TEXT */), _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  }, " Screens ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$dataSo = $data.preview.dataSources) === null || _$data$preview$dataSo === void 0 ? void 0 : _$data$preview$dataSo.length) || 0), 1 /* TEXT */), _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "text-sm text-gray-600"
-  }, " Data Sources ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$files = $data.preview.files) === null || _$data$preview$files === void 0 ? void 0 : _$data$preview$files.length) || 0), 1 /* TEXT */), _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  }, " Data Sources ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$files = $data.preview.files) === null || _$data$preview$files === void 0 ? void 0 : _$data$preview$files.length) || 0), 1 /* TEXT */), _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "text-sm text-gray-600"
-  }, " Files ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_48, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$config = $data.preview.configurations) === null || _$data$preview$config === void 0 ? void 0 : _$data$preview$config.length) || 0), 1 /* TEXT */), _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
+  }, " Files ", -1 /* CACHED */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(((_$data$preview$config = $data.preview.configurations) === null || _$data$preview$config === void 0 ? void 0 : _$data$preview$config.length) || 0), 1 /* TEXT */), _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "text-sm text-gray-600"
   }, " Configurations ", -1 /* CACHED */))])])])]), $data.showCancelWarning ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_ModalDialog, {
     key: 0,
@@ -21235,21 +21345,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "confirm-variant": "danger",
     onConfirm: $options.confirmCancel,
     onCancel: $options.dismissCancelWarning
-  }, null, 8 /* PROPS */, ["onConfirm", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Actions "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_50, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    type: "button",
-    "class": "rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50",
-    "data-testid": "cancel-button",
-    onClick: _cache[0] || (_cache[0] = function () {
-      return $options.promptCancel && $options.promptCancel.apply($options, arguments);
-    })
-  }, " Cancel "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 8 /* PROPS */, ["onConfirm", "onCancel"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Actions "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_52, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-50",
     "data-testid": "edit-settings-button",
     onClick: _cache[1] || (_cache[1] = function () {
       return $options.handleEditSettings && $options.handleEditSettings.apply($options, arguments);
     })
-  }, " Edit Settings ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " Back ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "rounded bg-primary px-6 py-2 text-sm font-medium text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50",
     disabled: !$options.canStartMerge,
@@ -21257,7 +21360,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.handleStartMerge && $options.handleStartMerge.apply($options, arguments);
     })
-  }, " Start Merge ", 8 /* PROPS */, _hoisted_51)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
+  }, " Start Merge ", 8 /* PROPS */, _hoisted_53)])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -21282,13 +21385,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(12);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(62);
-/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(79);
-/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(65);
-/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(74);
-/* harmony import */ var _feedback_ModalDialog_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(143);
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(62);
+/* harmony import */ var lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(79);
+/* harmony import */ var _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(65);
+/* harmony import */ var _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
+/* harmony import */ var _feedback_ModalDialog_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(143);
+
 
 
 
@@ -21299,11 +21404,11 @@ __webpack_require__.r(__webpack_exports__);
   name: 'MergeReview',
   inject: ['middleware'],
   components: {
-    AlertTriangle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__["default"],
-    Loader2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_2__["default"],
-    StatusBadge: _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-    WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-    ModalDialog: _feedback_ModalDialog_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+    AlertTriangle: lucide_vue_next__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Loader2: lucide_vue_next__WEBPACK_IMPORTED_MODULE_3__["default"],
+    StatusBadge: _ui_StatusBadge_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+    WarningBanner: _feedback_WarningBanner_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ModalDialog: _feedback_ModalDialog_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   props: {
     sourceAppId: {
@@ -21314,12 +21419,16 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: true
     },
+    destinationApp: {
+      type: Object,
+      required: true
+    },
     mergeConfig: {
       type: Object,
       required: true
     }
   },
-  emits: ['start-merge', 'edit-settings', 'cancel'],
+  emits: ['start-merge', 'edit-settings', 'cancel', 'back'],
   data: function data() {
     return {
       loading: true,
@@ -21379,13 +21488,188 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     /**
+     * Transform merge configuration to API payload format
+     */
+    transformMergeConfigToApiPayload: function transformMergeConfigToApiPayload() {
+      var _selections$settings, _selections$settings2, _selections$settings3, _selections$settings4;
+      // The mergeConfig contains a selections object with the actual data
+      var selections = this.mergeConfig.selections || {};
+
+      // Debug: Log the actual data structure
+      console.log('MergeReview - mergeConfig:', this.mergeConfig);
+      console.log('MergeReview - selections:', selections);
+      console.log('MergeReview - settings array:', selections.settings);
+      return {
+        destinationAppId: this.destinationAppId,
+        destinationOrganizationId: this.destinationApp.organizationId,
+        region: this.destinationApp.region || 'eu',
+        fileIds: selections.files || [],
+        folderIds: [],
+        // TODO: Handle folder selections when implemented
+        mergeAppSettings: ((_selections$settings = selections.settings) === null || _selections$settings === void 0 ? void 0 : _selections$settings.includes('appSettings')) || false,
+        mergeAppMenuSettings: ((_selections$settings2 = selections.settings) === null || _selections$settings2 === void 0 ? void 0 : _selections$settings2.includes('menuSettings')) || false,
+        mergeAppearanceSettings: ((_selections$settings3 = selections.settings) === null || _selections$settings3 === void 0 ? void 0 : _selections$settings3.includes('appearanceSettings')) || false,
+        mergeGlobalCode: ((_selections$settings4 = selections.settings) === null || _selections$settings4 === void 0 ? void 0 : _selections$settings4.includes('globalCode')) || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections['data-sources'] || []).map(function (ds) {
+          return {
+            id: ds.id || ds,
+            // Handle both object and primitive ID
+            scope: ds.scope || 'structure'
+          };
+        }),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+    /**
+     * Transform API response to component preview format
+     */
+    transformApiResponseToPreview: function transformApiResponseToPreview(response) {
+      // Handle both direct response and nested preview object
+      var data = response.preview || response || {};
+
+      // Debug: Log the API response data
+      console.log('MergeReview - API response data:', data);
+      console.log('MergeReview - mergeAppMenuSettings:', data.mergeAppMenuSettings);
+
+      // Transform pages data
+      var screens = [];
+      if (data.pages) {
+        // Add copied pages
+        if (data.pages.copied && Array.isArray(data.pages.copied)) {
+          screens.push.apply(screens, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.pages.copied.map(function (page) {
+            return {
+              id: page.id,
+              name: page.title || page.name,
+              status: 'copy',
+              warnings: []
+            };
+          })));
+        }
+        // Add overwritten pages
+        if (data.pages.overwritten && Array.isArray(data.pages.overwritten)) {
+          screens.push.apply(screens, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.pages.overwritten.map(function (page) {
+            return {
+              id: page.id,
+              name: page.title || page.name,
+              status: 'overwrite',
+              warnings: []
+            };
+          })));
+        }
+      }
+
+      // Transform data sources data
+      var dataSources = [];
+      if (data.dataSources) {
+        // Add copied data sources
+        if (data.dataSources.copied && Array.isArray(data.dataSources.copied)) {
+          dataSources.push.apply(dataSources, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.dataSources.copied.map(function (ds) {
+            return {
+              id: ds.id,
+              name: ds.name,
+              copyMode: 'structure-only',
+              // Default to structure-only
+              status: 'copy',
+              warnings: []
+            };
+          })));
+        }
+        // Add overwritten data sources
+        if (data.dataSources.overwritten && Array.isArray(data.dataSources.overwritten)) {
+          dataSources.push.apply(dataSources, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.dataSources.overwritten.map(function (ds) {
+            return {
+              id: ds.id,
+              name: ds.name,
+              copyMode: 'structure-only',
+              // Default to structure-only
+              status: 'overwrite',
+              warnings: []
+            };
+          })));
+        }
+      }
+
+      // Transform files data
+      var files = [];
+      if (data.files) {
+        // Add copied files
+        if (data.files.copied && Array.isArray(data.files.copied)) {
+          files.push.apply(files, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.files.copied.map(function (file) {
+            return {
+              id: file.id,
+              name: file.name,
+              path: file.path || '/',
+              type: file.type || 'file',
+              status: 'copy',
+              warnings: []
+            };
+          })));
+        }
+        // Add overwritten files
+        if (data.files.overwritten && Array.isArray(data.files.overwritten)) {
+          files.push.apply(files, (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(data.files.overwritten.map(function (file) {
+            return {
+              id: file.id,
+              name: file.name,
+              path: file.path || '/',
+              type: file.type || 'file',
+              status: 'overwrite',
+              warnings: []
+            };
+          })));
+        }
+      }
+
+      // Transform configuration settings
+      var configurations = [];
+      if (data.mergeAppSettings) {
+        configurations.push({
+          type: 'appSettings',
+          label: 'App Settings',
+          description: 'Global app configuration and settings',
+          status: 'copy'
+        });
+      }
+      if (data.mergeAppMenuSettings) {
+        configurations.push({
+          type: 'menuSettings',
+          label: 'Menu Settings',
+          description: 'App navigation menu configuration',
+          status: 'copy'
+        });
+      }
+      if (data.mergeAppearanceSettings) {
+        configurations.push({
+          type: 'appearanceSettings',
+          label: 'Appearance Settings',
+          description: 'Visual styling and theme settings',
+          status: 'copy'
+        });
+      }
+      if (data.mergeGlobalCode) {
+        configurations.push({
+          type: 'globalCode',
+          label: 'Global Code',
+          description: 'Custom JavaScript, CSS, and HTML',
+          status: 'copy'
+        });
+      }
+      return {
+        screens: screens,
+        dataSources: dataSources,
+        files: files,
+        configurations: configurations
+      };
+    },
+    /**
      * Load merge preview from middleware
      */
     loadMergePreview: function loadMergePreview() {
       var _this = this;
-      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
-        var apiClient, response, statusResponse, limitWarnings, _t;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context) {
+      return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
+        var apiClient, apiPayload, response, _t;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
@@ -21405,32 +21689,41 @@ __webpack_require__.r(__webpack_exports__);
               }
               throw new Error('Destination app ID is required to load merge preview');
             case 2:
+              if (!(!_this.destinationApp || !_this.destinationApp.organizationId)) {
+                _context.next = 3;
+                break;
+              }
+              throw new Error('Destination organization ID is required to load merge preview');
+            case 3:
               if (!(_this.middleware && _this.middleware.core && _this.middleware.core.apiClient)) {
                 _context.next = 5;
                 break;
               }
-              apiClient = _this.middleware.core.apiClient; // Call preview endpoint with merge config
-              _context.next = 3;
-              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/preview"), _this.mergeConfig);
-            case 3:
+              apiClient = _this.middleware.core.apiClient; // Transform merge config to API payload format
+              apiPayload = _this.transformMergeConfigToApiPayload(); // Debug: Log the payload being sent
+              console.log('Merge Preview API Payload:', JSON.stringify(apiPayload, null, 2));
+
+              // Call preview endpoint with merge config
+              _context.next = 4;
+              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/preview"), apiPayload);
+            case 4:
               response = _context.sent;
-              _this.preview = response.preview || response || {
-                screens: [],
-                dataSources: [],
-                files: [],
-                configurations: []
-              };
+              // Transform the API response to match the component's expected format
+              _this.preview = _this.transformApiResponseToPreview(response);
+
+              // Debug: Log the transformed preview data
+              console.log('MergeReview - Transformed preview:', _this.preview);
 
               // Get plan limits from merge status endpoint
-              _context.next = 4;
-              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge/status"), {});
-            case 4:
-              statusResponse = _context.sent;
-              limitWarnings = statusResponse.limitWarnings || {};
+              // Note: This endpoint requires a mergeId, but we don't have one yet for preview
+              // We'll skip this for now and handle plan limits differently
+              // const statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, { mergeId: null });
+              // const limitWarnings = statusResponse.limitWarnings || {};
+
               _this.planLimits = {
-                screensLimit: limitWarnings.screensLimit || null,
-                dataSourcesLimit: limitWarnings.dataSourcesLimit || null,
-                filesLimit: limitWarnings.filesLimit || null
+                screensLimit: null,
+                dataSourcesLimit: null,
+                filesLimit: null
               };
               _context.next = 7;
               break;
@@ -21478,7 +21771,8 @@ __webpack_require__.r(__webpack_exports__);
             case 8:
               _context.prev = 8;
               _t = _context["catch"](0);
-              _this.error = 'Unable to load merge preview. Please try again.';
+              // Extract error message using Fliplet.parseError
+              _this.error = Fliplet.parseError(_t) || 'Unable to load merge preview. Please try again.';
               console.error('Failed to load merge preview:', _t);
             case 9:
               _context.prev = 9;
@@ -21531,6 +21825,12 @@ __webpack_require__.r(__webpack_exports__);
     confirmCancel: function confirmCancel() {
       this.showCancelWarning = false;
       this.$emit('cancel');
+    },
+    /**
+     * Handle back button click
+     */
+    handleBack: function handleBack() {
+      this.$emit('back');
     }
   }
 });
@@ -22165,6 +22465,18 @@ __webpack_require__.r(__webpack_exports__);
       type: Number,
       required: true
     },
+    destinationAppId: {
+      type: Number,
+      required: true
+    },
+    destinationApp: {
+      type: Object,
+      required: true
+    },
+    mergeConfig: {
+      type: Object,
+      required: true
+    },
     mergeId: {
       type: [Number, String],
       required: true
@@ -22223,12 +22535,51 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     /**
+     * Get merge configuration in API payload format
+     */
+    getMergeConfiguration: function getMergeConfiguration() {
+      var _selections$settings, _selections$settings2, _selections$settings3, _selections$settings4;
+      // The mergeConfig contains a selections object with the actual data
+      var selections = this.mergeConfig.selections || {};
+
+      // Debug: Log the selections to understand the data structure
+      console.log('[MergeProgress] Merge config selections:', selections);
+      console.log('[MergeProgress] Data sources selection:', selections['data-sources']);
+      return {
+        destinationOrganizationId: this.destinationApp.organizationId,
+        fileIds: selections.files || [],
+        folderIds: [],
+        // TODO: Handle folder selections when implemented
+        mergeAppSettings: ((_selections$settings = selections.settings) === null || _selections$settings === void 0 ? void 0 : _selections$settings.includes('appSettings')) || false,
+        mergeAppMenuSettings: ((_selections$settings2 = selections.settings) === null || _selections$settings2 === void 0 ? void 0 : _selections$settings2.includes('menuSettings')) || false,
+        mergeAppearanceSettings: ((_selections$settings3 = selections.settings) === null || _selections$settings3 === void 0 ? void 0 : _selections$settings3.includes('appearanceSettings')) || false,
+        mergeGlobalCode: ((_selections$settings4 = selections.settings) === null || _selections$settings4 === void 0 ? void 0 : _selections$settings4.includes('globalCode')) || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections['data-sources'] || []).map(function (ds) {
+          // Handle both object format and primitive ID format
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(ds) === 'object' && ds.id) {
+            return {
+              id: ds.id,
+              structureOnly: ds.structureOnly || true
+            };
+          } else {
+            // If it's just an ID (primitive), create object with default structureOnly
+            return {
+              id: ds,
+              structureOnly: true // Default to structure-only
+            };
+          }
+        }),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+    /**
      * Start the merge process
      */
     startMerge: function startMerge() {
       var _this = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().mark(function _callee() {
-        var apiClient, response, _t;
+        var apiClient, mergeConfig, response, _t;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_2___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
@@ -22240,9 +22591,22 @@ __webpack_require__.r(__webpack_exports__);
               apiClient = _this.middleware.core.apiClient;
               console.log('[MergeProgress] Middleware API available, initiating merge...');
               _context.prev = 1;
+              // Get the merge configuration from the parent component
+              mergeConfig = _this.getMergeConfiguration(); // Debug: Log the API payload
+              console.log('[MergeProgress] API payload:', mergeConfig);
               _context.next = 2;
               return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge"), {
-                mergeId: _this.mergeId
+                destinationAppId: _this.destinationAppId,
+                destinationOrganizationId: mergeConfig.destinationOrganizationId,
+                fileIds: mergeConfig.fileIds || [],
+                folderIds: mergeConfig.folderIds || [],
+                mergeAppSettings: mergeConfig.mergeAppSettings || false,
+                mergeAppMenuSettings: mergeConfig.mergeAppMenuSettings || false,
+                mergeAppearanceSettings: mergeConfig.mergeAppearanceSettings || false,
+                mergeGlobalCode: mergeConfig.mergeGlobalCode || false,
+                pageIds: mergeConfig.pageIds || [],
+                dataSources: mergeConfig.dataSources || [],
+                customDataSourcesInUse: mergeConfig.customDataSourcesInUse || []
               });
             case 2:
               response = _context.sent;
@@ -22319,8 +22683,16 @@ __webpack_require__.r(__webpack_exports__);
               console.log('[MergeProgress] Fetching merge logs...');
               _context2.next = 3;
               return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/logs"), {
-                mergeId: _this2.mergeId,
-                types: ['app.merge.initiated', 'app.merge.progress', 'app.merge.completed', 'app.merge.error']
+                where: {
+                  type: {
+                    $iLike: '%app.merge%'
+                  },
+                  data: {
+                    $contains: {
+                      mergeId: _this2.mergeId
+                    }
+                  }
+                }
               });
             case 3:
               logsResponse = _context2.sent;
@@ -22896,7 +23268,11 @@ __webpack_require__.r(__webpack_exports__);
               // Fetch merge history from audit logs
               _context.next = 2;
               return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/logs"), {
-                types: ['app.merge.initiated']
+                where: {
+                  type: {
+                    $iLike: '%app.merge%'
+                  }
+                }
               });
             case 2:
               logsResponse = _context.sent;

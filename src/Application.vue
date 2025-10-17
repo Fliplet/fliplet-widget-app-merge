@@ -9,6 +9,7 @@
       <!-- Dashboard view -->
       <MergeDashboard
         v-if="currentView === 'dashboard'"
+        ref="mergeDashboard"
         @configure-merge="goToDestinationSelector"
         @view-audit-log="handleViewAuditLog"
         @cancel="handleCancel"
@@ -29,6 +30,7 @@
         :source-app-name="sourceApp.name"
         :destination-app-id="selectedDestinationApp.id"
         :destination-app-name="selectedDestinationApp.name"
+        :initial-selections="getInitialSelections()"
         @review="handleReview"
         @back="goToDestinationSelector"
         @cancel="handleCancel"
@@ -40,16 +42,21 @@
         v-if="currentView === 'review' && sourceApp.id && selectedDestinationApp"
         :source-app-id="sourceApp.id"
         :destination-app-id="selectedDestinationApp.id"
+        :destination-app="selectedDestinationApp"
         :merge-config="mergeConfiguration"
         @start-merge="handleStartMerge"
         @edit-settings="goToConfiguration"
         @cancel="handleCancel"
+        @back="goToConfiguration"
       />
 
       <!-- Merge Progress view -->
       <MergeProgress
         v-if="currentView === 'progress'"
         :source-app-id="sourceApp.id"
+        :destination-app-id="selectedDestinationApp.id"
+        :destination-app="selectedDestinationApp"
+        :merge-config="mergeConfiguration"
         :merge-id="mergeId"
         @merge-complete="handleMergeComplete"
         @merge-error="handleMergeError"
@@ -245,6 +252,13 @@ export default {
       this.currentView = 'dashboard';
       this.currentStep = 0;
       this.clearState();
+
+      // Refresh dashboard data to show updated merge history
+      this.$nextTick(() => {
+        if (this.$refs.mergeDashboard) {
+          this.$refs.mergeDashboard.refreshData();
+        }
+      });
     },
 
     /**
@@ -312,6 +326,51 @@ export default {
     },
 
     /**
+     * Get initial selections for MergeConfiguration component
+     */
+    getInitialSelections() {
+      if (this.mergeConfiguration && this.mergeConfiguration.selections) {
+        return this.mergeConfiguration.selections;
+      }
+
+      return {
+        screens: [],
+        'data-sources': [],
+        files: [],
+        settings: []
+      };
+    },
+
+    /**
+     * Transform merge configuration to API payload format
+     */
+    transformMergeConfigToApiPayload(selections) {
+      if (!this.selectedDestinationApp) {
+        throw new Error('Destination app not selected');
+      }
+
+      return {
+        destinationAppId: this.selectedDestinationApp.id,
+        destinationOrganizationId: this.selectedDestinationApp.organizationId,
+        region: this.selectedDestinationApp.region || 'eu',
+        fileIds: selections.files || [],
+        folderIds: (selections.folders || []).map(folder => ({
+          id: folder.id,
+          scope: folder.scope || 'folders'
+        })),
+        mergeAppSettings: selections.configurations?.includes('appSettings') || false,
+        mergeAppearanceSettings: selections.configurations?.includes('appearanceSettings') || false,
+        mergeGlobalCode: selections.configurations?.includes('globalCode') || false,
+        pageIds: selections.screens || [],
+        dataSources: (selections.dataSources || []).map(ds => ({
+          id: ds.id,
+          scope: ds.scope || 'structure'
+        })),
+        customDataSourcesInUse: selections.customDataSourcesInUse || []
+      };
+    },
+
+    /**
      * Handle start merge
      */
     async handleStartMerge() {
@@ -336,8 +395,8 @@ export default {
       // Unlock apps
       this.unlockApps();
 
-      // Navigate to complete view
-      this.goToComplete();
+      // Navigate back to dashboard to show the new merge in history
+      this.goToDashboard();
     },
 
     /**

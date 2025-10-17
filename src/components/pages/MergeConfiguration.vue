@@ -211,6 +211,15 @@ export default {
     lockedUntil: {
       type: Number,
       default: null
+    },
+    initialSelections: {
+      type: Object,
+      default: () => ({
+        screens: [],
+        'data-sources': [],
+        files: [],
+        settings: []
+      })
     }
   },
 
@@ -226,10 +235,10 @@ export default {
         { id: 'settings', label: 'Settings' }
       ],
       selections: {
-        screens: [],
-        'data-sources': [],
-        files: [],
-        settings: []
+        screens: [...this.initialSelections.screens],
+        'data-sources': [...this.initialSelections['data-sources']],
+        files: [...this.initialSelections.files],
+        settings: [...this.initialSelections.settings]
       }
     };
   },

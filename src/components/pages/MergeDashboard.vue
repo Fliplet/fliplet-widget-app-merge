@@ -358,6 +358,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Refresh all data (app details and merge history)
+     */
+    async refreshData() {
+      await this.loadAppDetails();
+    },
+
     async loadAppDetails() {
       try {
         this.loading = true;
@@ -441,7 +448,11 @@ export default {
         this.mergeHistoryLoading = true;
 
         const logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
-          types: ['app.merge.initiated']
+          where: {
+            type: {
+              $iLike: '%app.merge%'
+            }
+          }
         });
 
         const logs = logsResponse.logs || logsResponse || [];
