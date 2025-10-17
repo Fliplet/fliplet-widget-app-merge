@@ -543,10 +543,428 @@ function fetchData(id, options = {
 
 ## Implementation Considerations
 
+### Module System & Build Configuration
+
+**APPLICABILITY:** These guidelines apply only to projects using **ES6 modules with Babel and Webpack**. If your project uses:
+- Pure vanilla JavaScript without a build system
+- TypeScript (which handles modules differently)
+- Different bundlers (Rollup, esbuild, Vite, Parcel) with their own module handling
+- CommonJS exclusively with Node.js
+- Native ES6 modules without transpilation
+
+...then these specific Babel + Webpack guidelines may not apply. Consult your build tool's documentation for module system configuration.
+
+**CRITICAL (Babel + Webpack projects only):** Use pure ES6 modules throughout middleware. Never mix with CommonJS.
+
+#### ES6 Module System Requirements (Babel + Webpack Context)
+
+**Why Pure ES6 Modules in Babel + Webpack Projects?**
+
+When using Babel with Webpack, ES6 modules should be used exclusively for the following reasons:
+
+❌ **Problems with Mixed Module Systems:**
+- **`.default` Wrapper Issues:** Babel transforming ES6 to CommonJS wraps exports in `.default` objects
+- **Class Instantiation Failures:** EventEmitter and other classes fail with "is not a constructor" errors
+- **Dual Export Conflicts:** Having both `export default` and `module.exports` creates conflicts
+- **Build Errors:** Using `module.exports` in ES6 context triggers "ES Modules may not assign module.exports" errors
+- **Unpredictable Behavior:** Different import patterns (`import` vs `require`) behave differently
+
+✅ **Benefits of Pure ES6 Modules:**
+- **Native Webpack Support:** Webpack 5 natively handles ES6 modules without transformation
+- **No Wrapper Objects:** Clean imports without `.default` access patterns
+- **Tree Shaking:** Better dead code elimination for smaller bundles
+- **Future-Proof:** Standard modern JavaScript that works everywhere
+- **Predictable Imports:** Consistent behavior across all imports
+
+#### Babel Configuration (Babel + Webpack Projects)
+
+**Note:** This configuration is specific to Babel + Webpack setups. If you're using a different build tool (Vite, Rollup, esbuild, etc.), consult that tool's documentation for module handling.
+
+Configure Babel to preserve ES6 modules and let Webpack handle them natively:
+
+**`.babelrc` - Required Configuration for Babel + Webpack**
+```json
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false
+    }]
+  ]
+}
+```
+
+**Critical Setting:** `"modules": false` tells Babel NOT to transform ES6 modules to CommonJS. This is essential because:
+- Allows Webpack to process ES6 modules natively
+- Prevents `.default` wrapper issues
+- Enables proper tree-shaking
+- Avoids class instantiation errors
+
+**What Happens Without This Setting:**
+1. Babel transforms `export default MyClass` to `module.exports = { default: MyClass }`
+2. Import becomes `import MyClass from './file'` but MyClass is actually `{ default: MyClass }`
+3. `new MyClass()` fails because you're trying to instantiate an object, not a class
+4. Must use `new MyClass.default()` which is incorrect and breaks everywhere
+
+#### Correct Module Export Patterns
+
+**✅ Correct: Pure ES6 Default Export**
+```javascript
+// src/middleware/core/ApiClient.js
+class ApiClient {
+  constructor(config) {
+    this.config = config;
+  }
+
+  async get(endpoint, params) {
+    // Implementation
+  }
+}
+
+// ONLY ES6 export - no module.exports
+export default ApiClient;
+```
+
+**✅ Correct: Pure ES6 Named Exports**
+```javascript
+// src/middleware/utils/validators.js
+export function validateEmail(email) {
+  // Implementation
+}
+
+export function validatePhone(phone) {
+  // Implementation
+}
+
+export const VALIDATION_PATTERNS = {
+  email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  phone: /^\+?[\d\s-()]+$/
+};
+```
+
+**✅ Correct: Mixed Default and Named Exports**
+```javascript
+// src/middleware/core/EventEmitter.js
+class EventEmitter {
+  // Implementation
+}
+
+export const EVENT_TYPES = {
+  SUCCESS: 'success',
+  ERROR: 'error'
+};
+
+export default EventEmitter;
+```
+
+**❌ Incorrect: Mixing ES6 and CommonJS**
+```javascript
+// DON'T DO THIS - causes .default wrapper issues
+class ApiClient {
+  // ...
+}
+
+export default ApiClient;
+module.exports = ApiClient;  // ❌ Error: ES Modules may not assign module.exports
+```
+
+**❌ Incorrect: Pure CommonJS in ES6 Context**
+```javascript
+// DON'T DO THIS - breaks with ES6 module system
+class ApiClient {
+  // ...
+}
+
+module.exports = ApiClient;  // ❌ Error with ES6 modules enabled
+module.exports.ApiClient = ApiClient;  // ❌ Error with ES6 modules enabled
+```
+
+**❌ Incorrect: Trying to Support Both Systems**
+```javascript
+// DON'T DO THIS - creates unpredictable behavior
+class ApiClient {
+  // ...
+}
+
+export default ApiClient;
+
+// Trying to support CommonJS too
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = ApiClient;  // ❌ Causes conflicts and errors
+}
+```
+
+#### Correct Import Patterns
+
+**✅ Correct: Pure ES6 Imports**
+```javascript
+// Import default export
+import ApiClient from './core/ApiClient.js';
+import EventEmitter from './core/EventEmitter.js';
+
+// Import named exports
+import { validateEmail, validatePhone } from './utils/validators.js';
+
+// Import default and named exports together
+import EventEmitter, { EVENT_TYPES } from './core/EventEmitter.js';
+
+// Import everything as namespace
+import * as validators from './utils/validators.js';
+
+// Use imported classes
+const client = new ApiClient(config);
+const emitter = new EventEmitter();
+```
+
+**❌ Incorrect: CommonJS require()**
+```javascript
+// DON'T DO THIS in ES6 module context
+const ApiClient = require('./core/ApiClient.js');
+const { validateEmail } = require('./utils/validators.js');
+
+// These will fail or require .default access with mixed module systems
+```
+
+#### Webpack Configuration for ES6 Modules
+
+Webpack 5 natively supports ES6 modules when Babel is configured correctly:
+
+**`webpack.config.js`**
+```javascript
+module.exports = {
+  mode: 'production', // or 'development'
+
+  entry: './src/main.js',
+
+  output: {
+    filename: 'app.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                modules: false  // CRITICAL: Let Webpack handle ES6 modules
+              }]
+            ]
+          }
+        }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      }
+    ]
+  },
+
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  }
+};
+```
+
+**Key Points:**
+- Babel loader with `modules: false` lets Webpack process ES6 natively
+- Webpack handles module resolution, bundling, and optimization
+- Tree-shaking works properly with native ES6 modules
+- No `.default` wrapper issues in final bundle
+
+#### Global Namespace Exposure for Vue Integration (Vue Projects Only)
+
+**APPLICABILITY:** This pattern applies only when integrating middleware with **Vue 3.x applications**. For other frameworks or vanilla JavaScript, use appropriate integration patterns for that context.
+
+While using ES6 modules internally, expose middleware to global namespace for initialization:
+
+**Pattern for Main Middleware Class:**
+```javascript
+// src/middleware/middleware.js
+import ApiClient from './core/ApiClient.js';
+import StateManager from './core/StateManager.js';
+import EventEmitter from './core/EventEmitter.js';
+
+class AppMergeMiddleware extends EventEmitter {
+  constructor() {
+    super();
+    this.core = {
+      apiClient: null,
+      stateManager: null
+    };
+    this.api = {};
+  }
+
+  async initialize() {
+    // Initialize API client
+    this.core.apiClient = new ApiClient();
+
+    // Initialize state manager
+    this.core.stateManager = new StateManager();
+
+    // Initialize API services
+    // ...
+
+    return this;
+  }
+}
+
+// ES6 default export for module system
+export default AppMergeMiddleware;
+
+// Also expose to global namespace for Vue initialization
+// This allows main.js to import and use it
+if (typeof window !== 'undefined') {
+  window.AppMergeMiddleware = AppMergeMiddleware;
+}
+```
+
+**Integration with Vue:**
+```javascript
+// src/main.js
+import { createApp } from 'vue';
+import Application from './Application.vue';
+import AppMergeMiddleware from './middleware/middleware.js';
+
+// Use imported class (ES6 module import)
+const middleware = new AppMergeMiddleware();
+
+// Initialize middleware before mounting Vue
+middleware.initialize().then(() => {
+  const app = createApp(Application);
+
+  // Provide middleware to all components via dependency injection
+  app.provide('middleware', middleware);
+
+  app.mount('#app-merge');
+}).catch(error => {
+  console.error('Failed to initialize middleware:', error);
+});
+```
+
+#### File Structure for ES6 Modules
+
+Organize middleware files using ES6 module structure:
+
+```
+/src/middleware/
+├── core/
+│   ├── ApiClient.js          # export default ApiClient
+│   ├── StateManager.js       # export default StateManager
+│   ├── EventEmitter.js       # export default EventEmitter
+│   ├── ValidationEngine.js   # export default ValidationEngine
+│   └── ErrorHandler.js       # export default ErrorHandler
+├── api/
+│   ├── AppsApiService.js     # export default AppsApiService
+│   ├── DataSourcesApiService.js
+│   └── ...
+├── controllers/
+│   ├── WorkflowManager.js    # export default WorkflowManager
+│   └── ...
+├── utils/
+│   ├── validators.js         # export { validateX, validateY, ... }
+│   ├── formatters.js         # export { formatDate, formatCurrency, ... }
+│   └── helpers.js            # export { helperA, helperB, ... }
+├── config/
+│   ├── endpoints.js          # export const ENDPOINTS = { ... }
+│   ├── constants.js          # export const CONSTANTS = { ... }
+│   └── ...
+└── middleware.js             # export default AppMergeMiddleware + window exposure
+```
+
+**Import Pattern in Main Middleware:**
+```javascript
+// src/middleware/middleware.js
+import EventEmitter from './core/EventEmitter.js';
+import ApiClient from './core/ApiClient.js';
+import StateManager from './core/StateManager.js';
+import ValidationEngine from './core/ValidationEngine.js';
+import ErrorHandler from './core/ErrorHandler.js';
+
+import AppsApiService from './api/AppsApiService.js';
+import DataSourcesApiService from './api/DataSourcesApiService.js';
+
+import WorkflowManager from './controllers/WorkflowManager.js';
+
+import { ENDPOINTS } from './config/endpoints.js';
+import { CONSTANTS } from './config/constants.js';
+
+class AppMergeMiddleware extends EventEmitter {
+  constructor() {
+    super();
+    // Initialize using imported classes
+    this.core = {
+      apiClient: new ApiClient(ENDPOINTS),
+      stateManager: new StateManager(),
+      validationEngine: new ValidationEngine(),
+      errorHandler: new ErrorHandler()
+    };
+  }
+}
+
+export default AppMergeMiddleware;
+```
+
+#### Build Process Verification
+
+After configuring ES6 modules, verify the build works correctly:
+
+**1. Check Babel Configuration:**
+```bash
+# Verify .babelrc exists with correct settings
+cat .babelrc
+# Should show: { "presets": [["@babel/preset-env", { "modules": false }]] }
+```
+
+**2. Run Build:**
+```bash
+npm run build
+```
+
+**3. Verify No Errors:**
+- No "is not a constructor" errors
+- No "ES Modules may not assign module.exports" errors
+- No `.default` access needed in bundled code
+
+**4. Test Import/Export:**
+```javascript
+// In any middleware file, this should work:
+import SomeClass from './SomeClass.js';
+const instance = new SomeClass(); // Should work without .default
+```
+
+#### Common Migration Issues and Solutions
+
+**Issue 1: "EventEmitter is not a constructor"**
+- **Cause:** Babel transformed ES6 to CommonJS, creating `.default` wrapper
+- **Solution:** Set `"modules": false` in `.babelrc`
+
+**Issue 2: "ES Modules may not assign module.exports"**
+- **Cause:** Mixing `export default` and `module.exports` in same file
+- **Solution:** Remove all `module.exports` statements, use only ES6 exports
+
+**Issue 3: "Cannot find module" errors**
+- **Cause:** Incorrect import paths or missing file extensions
+- **Solution:** Use explicit `.js` extensions in import paths
+
+**Issue 4: ".default is undefined"**
+- **Cause:** Babel transforming modules despite Webpack expecting native ES6
+- **Solution:** Verify `"modules": false` is set in Babel config
+
 ### Development Approach
-- **No Module System:** Pure vanilla JavaScript with global namespace
+- **Module System:** Choose appropriate module system for your project:
+  - **With build system (Babel + Webpack):** Pure ES6 imports/exports (see Module System section above for Babel configuration)
+  - **With TypeScript:** Use ES6 modules with TypeScript's native handling
+  - **With other bundlers (Vite, Rollup, etc.):** Follow that tool's module recommendations
+  - **Without build system:** Use appropriate pattern (UMD, IIFE, or native ES6 if browser support allows)
 - **Fliplet API Integration:** ALL HTTP requests must use Fliplet.API.request() (https://developers.fliplet.com/API/core/api.html)
-- **Dependency Injection:** Constructor-based dependency injection
+- **Dependency Injection:** Constructor-based dependency injection (pattern depends on module system choice)
 - **Event-Driven:** Event system for component communication
 - **Self-Documenting:** Comprehensive JSDoc documentation
 
@@ -743,9 +1161,10 @@ The generated plan should be suitable for:
 4. **ENFORCE Fliplet.API.request() usage** - All HTTP communication must use Fliplet.API.request()
 5. **Include specific details** that can be converted to actionable tasks
 6. **Plan for proper workflow enforcement** and data integrity
-7. **Design for vanilla JavaScript** without module systems
-8. **Prepare for task generation** by including implementation details
-9. **ENFORCE behavior-parameterized design** - All middleware functions must accept behavioral options, never caller identity parameters
-10. **VALIDATE against anti-patterns** - Explicitly check for and avoid caller-identification patterns, hidden branching, and ambiguous parameters
-11. **DOCUMENT design rationale** - Explain capabilities in terms of behavioral needs, not specific UI contexts
-12. **APPLY validation checklist** - Ensure every function design passes the Middleware Design Validation Checklist
+7. **Choose appropriate module system** - Determine if project uses ES6 modules, CommonJS, TypeScript, or no build system
+8. **Apply module system guidelines** (Babel + Webpack projects only) - Follow ES6 module patterns in "Module System & Build Configuration" section
+9. **Prepare for task generation** by including implementation details
+10. **ENFORCE behavior-parameterized design** - All middleware functions must accept behavioral options, never caller identity parameters
+11. **VALIDATE against anti-patterns** - Explicitly check for and avoid caller-identification patterns, hidden branching, and ambiguous parameters
+12. **DOCUMENT design rationale** - Explain capabilities in terms of behavioral needs, not specific UI contexts
+13. **APPLY validation checklist** - Ensure every function design passes the Middleware Design Validation Checklist

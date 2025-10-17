@@ -1716,6 +1716,369 @@ beforeUnmount() {
 }
 \`\`\`
 
+## Vue Dependency Injection & Module System
+
+**APPLICABILITY:** These guidelines apply only to projects using **Vue 3.x with ES6 modules and a build system (Webpack/Babel)**. If your project uses a different framework, build tool, or no build system at all, skip this section.
+
+### Vue 3 Dependency Injection Pattern
+
+**CRITICAL (Vue 3 projects only):** Always use Vue's `provide`/`inject` pattern for middleware access. Never rely on global variables.
+
+#### Why Dependency Injection?
+
+❌ **Problems with Global Variables:**
+- Race conditions when components mount before middleware initializes
+- Timing issues with `window.FlipletAppMerge.middleware` availability
+- No guarantee middleware exists when components need it
+- Difficult to test components in isolation
+
+✅ **Benefits of Dependency Injection:**
+- Middleware guaranteed to be available when components mount
+- Clean separation of concerns
+- Easy to mock for testing
+- No timing issues or race conditions
+- Vue lifecycle manages dependencies correctly
+
+#### Implementation Pattern
+
+**Step 1: Initialize and Provide Middleware (main.js)**
+
+```javascript
+// src/main.js
+import { createApp } from 'vue';
+import Application from './Application.vue';
+import AppMergeMiddleware from './middleware/middleware.js';
+
+// Initialize middleware first
+const middleware = new AppMergeMiddleware();
+
+// Wait for middleware to initialize before mounting Vue app
+middleware.initialize().then(() => {
+  const app = createApp(Application);
+
+  // Provide middleware to all components via dependency injection
+  app.provide('middleware', middleware);
+
+  app.mount('#app-merge');
+}).catch(error => {
+  console.error('Failed to initialize middleware:', error);
+});
+```
+
+**Step 2: Inject Middleware in Components**
+
+```vue
+<script>
+export default {
+  name: 'MyComponent',
+
+  // Inject middleware provided by parent
+  inject: ['middleware'],
+
+  data() {
+    return {
+      items: [],
+      loading: false,
+      error: null
+    };
+  },
+
+  async mounted() {
+    await this.loadData();
+  },
+
+  methods: {
+    async loadData() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        // Access middleware through inject - it's guaranteed to exist
+        if (this.middleware && this.middleware.core && this.middleware.core.apiClient) {
+          const apiClient = this.middleware.core.apiClient;
+
+          // Use the API client
+          const response = await apiClient.get('v1/apps');
+          this.items = response.apps || [];
+        } else {
+          // Fallback for development/testing
+          this.items = [];
+        }
+      } catch (err) {
+        this.error = err.message;
+        console.error('Failed to load data:', err);
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
+};
+</script>
+```
+
+**Step 3: Correct Middleware Access Path**
+
+✅ **Correct:** Access API client through `middleware.core.apiClient`
+```javascript
+const apiClient = this.middleware.core.apiClient;
+const response = await apiClient.get('v1/apps');
+```
+
+❌ **Incorrect:** Accessing through `middleware.api` (this is the services object, not the client)
+```javascript
+// This will fail - middleware.api is the services object, not the API client
+const apiClient = this.middleware.api;
+const response = await apiClient.get('v1/apps'); // Error: get is not a function
+```
+
+#### Component Property Ordering
+
+Vue components should declare properties in this order:
+
+```javascript
+export default {
+  name: 'ComponentName',          // 1. Component name
+
+  inject: ['middleware'],         // 2. Dependency injection (before components!)
+
+  components: {                   // 3. Child components
+    SomeComponent
+  },
+
+  props: {                        // 4. Props
+    // ...
+  },
+
+  emits: ['event-name'],          // 5. Emitted events
+
+  data() {                        // 6. Reactive data
+    return {
+      // ...
+    };
+  },
+
+  computed: {                     // 7. Computed properties
+    // ...
+  },
+
+  watch: {                        // 8. Watchers
+    // ...
+  },
+
+  created() {},                   // 9. Lifecycle hooks (in order)
+  mounted() {},
+  beforeUnmount() {},
+
+  methods: {                      // 10. Methods (last)
+    // ...
+  }
+};
+```
+
+**Note:** `inject` must come before `components` to ensure middleware is available for all child components.
+
+### ES6 Module System Best Practices
+
+**APPLICABILITY:** These guidelines apply only when using **ES6 modules with Babel and Webpack**. If your project uses:
+- Pure vanilla JavaScript without a build system
+- TypeScript (which handles modules differently)
+- Different bundlers (Rollup, esbuild, Vite) with their own configurations
+- CommonJS exclusively
+
+...then these specific Babel + Webpack guidelines may not apply. Consult your build tool's documentation.
+
+**CRITICAL (Babel + Webpack projects only):** Use pure ES6 modules throughout the middleware layer. Do not mix with CommonJS.
+
+#### Why Pure ES6 Modules? (Babel + Webpack Context)
+
+❌ **Problems with Mixed Module Systems:**
+- Babel transforming ES6 to CommonJS creates `.default` wrapper objects
+- EventEmitter and other class instantiation fails with "is not a constructor" errors
+- Dual exports (both ES6 and CommonJS) create conflicts
+- `module.exports` triggers "ES Modules may not assign module.exports" errors
+
+✅ **Benefits of Pure ES6:**
+- Webpack 5 natively supports ES6 modules
+- No `.default` wrapper issues
+- Cleaner imports and exports
+- Better tree-shaking and optimization
+- Standard modern JavaScript
+
+#### Babel Configuration (Babel + Webpack Projects)
+
+**Note:** This configuration is specific to Babel + Webpack setups. Other build tools may have different configurations.
+
+Configure Babel to preserve ES6 modules and let Webpack handle them:
+
+**`.babelrc`**
+```json
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "modules": false
+    }]
+  ]
+}
+```
+
+**Key Setting:** `"modules": false` tells Babel NOT to transform ES6 modules to CommonJS.
+
+#### Correct Module Export Pattern
+
+✅ **Correct:** Pure ES6 default export
+```javascript
+// src/middleware/middleware.js
+class AppMergeMiddleware {
+  constructor() {
+    // ...
+  }
+
+  initialize() {
+    // ...
+  }
+}
+
+// Only ES6 export - no module.exports
+export default AppMergeMiddleware;
+```
+
+✅ **Correct:** Pure ES6 named exports
+```javascript
+// src/middleware/utils/helpers.js
+export function formatDate(date) {
+  // ...
+}
+
+export function parseJSON(str) {
+  // ...
+}
+
+export const CONSTANTS = {
+  // ...
+};
+```
+
+❌ **Incorrect:** Mixing ES6 and CommonJS
+```javascript
+// DON'T DO THIS - causes .default wrapper issues
+class AppMergeMiddleware {
+  // ...
+}
+
+export default AppMergeMiddleware;
+module.exports = AppMergeMiddleware;  // ❌ Error: ES Modules may not assign
+```
+
+❌ **Incorrect:** Pure CommonJS in ES6 module context
+```javascript
+// DON'T DO THIS in ES6 module context
+class AppMergeMiddleware {
+  // ...
+}
+
+module.exports = AppMergeMiddleware;  // ❌ Error with ES6 modules
+```
+
+#### Correct Import Pattern
+
+✅ **Correct:** Pure ES6 imports
+```javascript
+// Import default export
+import AppMergeMiddleware from './middleware/middleware.js';
+
+// Import named exports
+import { formatDate, parseJSON } from './utils/helpers.js';
+
+// Import everything as namespace
+import * as helpers from './utils/helpers.js';
+```
+
+❌ **Incorrect:** CommonJS require in ES6 context
+```javascript
+// DON'T DO THIS in ES6 module context
+const AppMergeMiddleware = require('./middleware/middleware.js');
+```
+
+#### Webpack Configuration
+
+Webpack 5 natively supports ES6 modules when Babel is configured correctly:
+
+**`webpack.config.js`**
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', {
+                modules: false  // Let Webpack handle modules
+              }]
+            ]
+          }
+        }
+      }
+    ]
+  }
+};
+```
+
+#### Global Namespace Exposure (for Vue Integration)
+
+After bundling, expose middleware to global namespace for Vue app initialization:
+
+**`src/middleware/middleware.js` (end of file)**
+```javascript
+class AppMergeMiddleware {
+  // ... class implementation
+}
+
+// ES6 default export for module system
+export default AppMergeMiddleware;
+
+// Also expose to global namespace for initialization in main.js
+if (typeof window !== 'undefined') {
+  window.AppMergeMiddleware = AppMergeMiddleware;
+}
+```
+
+**`src/main.js`**
+```javascript
+import { createApp } from 'vue';
+import Application from './Application.vue';
+import AppMergeMiddleware from './middleware/middleware.js';
+
+// Use imported class (ES6 module)
+const middleware = new AppMergeMiddleware();
+
+// Initialize and provide to Vue
+middleware.initialize().then(() => {
+  const app = createApp(Application);
+  app.provide('middleware', middleware);
+  app.mount('#app-merge');
+});
+```
+
+### Critical Implementation Checklist
+
+**Note:** This checklist applies to Vue 3 + Babel + Webpack projects. Skip items that don't apply to your technology stack.
+
+Before generating UI implementation tasks, verify (if applicable):
+
+1. **✅ Babel Configuration (Babel + Webpack only):** `.babelrc` has `"modules": false` setting
+2. **✅ Pure ES6 Exports (ES6 module projects only):** All middleware files use only `export default` or `export { }` syntax
+3. **✅ No CommonJS (ES6 module projects only):** No `module.exports` or `require()` statements in ES6 modules
+4. **✅ Vue Dependency Injection (Vue 3 only):** `app.provide('middleware', middleware)` in main.js
+5. **✅ Component Injection (Vue 3 only):** All components use `inject: ['middleware']`
+6. **✅ Correct Access Path (project-specific):** Components access middleware through documented path (e.g., `middleware.core.apiClient`)
+7. **✅ Property Ordering (Vue Options API only):** `inject` comes before `components` in component definitions
+8. **✅ Middleware Initialization (all projects):** Middleware initialized before UI framework mounts
+9. **✅ Build Configuration (build system projects only):** Build tool configured to handle module system correctly
+
 ## Implementation Guidelines
 
 ### Package Dependencies Setup
@@ -2384,20 +2747,22 @@ The generated plan should be suitable for:
 3. **Check widget context** - Clarify if building for interface or build context
 4. **Review Fliplet documentation** - Use the reference table to understand constraints
 5. **Analyze the middleware architecture** thoroughly before beginning (but don't depend on it)
-6. **Use Tailwind CSS exclusively** - All styling must use Tailwind utility classes
-7. **Use lucide-vue-next for icons** - Do not use other icon libraries unless absolutely necessary
-8. **Design for Vue.js 3.5.13** - Use Options API for compatibility
-9. **Configure Tailwind theme** - Extend with Fliplet brand colors, spacing, and design tokens
-10. **Plan NPM dependencies** - List all required packages in package.json (Tailwind, lucide-vue-next, etc.)
-11. **Plan build process** - Ensure Tailwind compilation through Gulp/Webpack into dist/ folder
-12. **Create a complete UI/UX plan** that addresses every user touchpoint
-13. **Ensure the plan structure** matches the required format exactly
-14. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
-15. **Include specific details** that can be converted to actionable tasks
-16. **Plan for accessibility** and responsive design throughout (WCAG 2.1 AA)
-17. **Focus on visual excellence** - Attention to spacing, typography, colors, and interactions
-18. **Consider non-technical reviewers** in your language choices
-19. **Prepare for task generation** by including implementation details
-20. **Follow implementation guidelines** - Only compiled files (dist/) declared in widget.json
-21. **Fliplet dependencies** - Only fliplet-core is required; avoid fliplet-studio-ui, bootstrap-css
-22. **Enable rapid prototyping** - UI should be demonstrable to stakeholders without functional middleware
+6. **Use Tailwind CSS exclusively** (Vue projects) - All styling must use Tailwind utility classes
+7. **Use lucide-vue-next for icons** (Vue projects) - Do not use other icon libraries unless absolutely necessary
+8. **Design for Vue.js 3.5.13** (Vue projects) - Use Options API for compatibility
+9. **Configure Tailwind theme** (Tailwind projects) - Extend with Fliplet brand colors, spacing, and design tokens
+10. **Plan NPM dependencies** - List all required packages in package.json
+11. **Plan build process** - Ensure proper compilation through build tools into dist/ folder
+12. **Apply module system guidelines** (Babel + Webpack projects) - Follow ES6 module patterns in "Vue Dependency Injection & Module System" section
+13. **Apply dependency injection** (Vue 3 projects) - Use provide/inject pattern instead of global variables
+14. **Create a complete UI/UX plan** that addresses every user touchpoint
+15. **Ensure the plan structure** matches the required format exactly
+16. **Use generic naming** - Replace [WidgetName], [project-name] with actual values
+17. **Include specific details** that can be converted to actionable tasks
+18. **Plan for accessibility** and responsive design throughout (WCAG 2.1 AA)
+19. **Focus on visual excellence** - Attention to spacing, typography, colors, and interactions
+20. **Consider non-technical reviewers** in your language choices
+21. **Prepare for task generation** by including implementation details
+22. **Follow implementation guidelines** - Only compiled files (dist/) declared in widget.json
+23. **Fliplet dependencies** - Only fliplet-core is required; avoid fliplet-studio-ui, bootstrap-css
+24. **Enable rapid prototyping** - UI should be demonstrable to stakeholders without functional middleware
