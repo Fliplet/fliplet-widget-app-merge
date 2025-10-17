@@ -15053,16 +15053,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     // Get sourceAppId from widget instance data or URL query params
-    if (window.Fliplet && window.Fliplet.Widget && window.Fliplet.Widget.getData) {
-      var widgetData = window.Fliplet.Widget.getData();
-      this.sourceAppId = widgetData.sourceAppId || widgetData.appId;
-    }
-    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Env && window.Fliplet.Env.get('appId')) {
-      this.sourceAppId = window.Fliplet.Env.get('appId');
-    }
-    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Navigate && window.Fliplet.Navigate.query) {
-      this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
-    }
+    this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
     this.loadAppDetails();
   },
   methods: {
@@ -16832,16 +16823,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     // Get sourceAppId from widget instance data or URL query params
-    if (window.Fliplet && window.Fliplet.Widget && window.Fliplet.Widget.getData) {
-      var widgetData = window.Fliplet.Widget.getData();
-      this.sourceAppId = widgetData.sourceAppId || widgetData.appId;
-    }
-    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Env && window.Fliplet.Env.get('appId')) {
-      this.sourceAppId = window.Fliplet.Env.get('appId');
-    }
-    if (!this.sourceAppId && window.Fliplet && window.Fliplet.Navigate && window.Fliplet.Navigate.query) {
-      this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
-    }
+    this.sourceAppId = parseInt(window.Fliplet.Navigate.query.appId, 10);
     this.loadOrganizations();
   },
   methods: {
