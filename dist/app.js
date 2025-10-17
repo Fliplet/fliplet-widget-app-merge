@@ -12916,7 +12916,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_MergeConfiguration_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(99);
 /* harmony import */ var _components_pages_MergeReview_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(138);
 /* harmony import */ var _components_pages_MergeProgress_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(151);
-/* harmony import */ var _components_pages_MergeComplete_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(159);
+/* harmony import */ var _components_pages_MergeComplete_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(156);
 
 
 
@@ -22058,12 +22058,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   emits: ['merge-complete', 'merge-error'],
-  inject: {
-    injectedMergeService: {
-      from: 'mergeService',
-      "default": null
-    }
-  },
   data: function data() {
     return {
       progressPercentage: 0,
@@ -22072,8 +22066,7 @@ __webpack_require__.r(__webpack_exports__);
       isComplete: false,
       hasError: false,
       eventUnsubscribe: null,
-      pollingInterval: null,
-      mergeService: null
+      pollingInterval: null
     };
   },
   computed: {
@@ -22095,7 +22088,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    this.mergeService = this.injectedMergeService || new (__webpack_require__(156))();
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -22114,27 +22106,39 @@ __webpack_require__.r(__webpack_exports__);
     startMerge: function startMerge() {
       var _this = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee() {
+        var apiClient, _t;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              if (!_this.mergeService.startMerge) {
-                _context.next = 1;
+              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+                _context.next = 4;
                 break;
               }
-              _context.next = 1;
-              return _this.mergeService.startMerge(_this.sourceAppId, {
+              apiClient = window.FlipletAppMerge.middleware.api;
+              _context.prev = 1;
+              _context.next = 2;
+              return apiClient.post("v1/apps/".concat(_this.sourceAppId, "/merge"), {
                 mergeId: _this.mergeId
               });
-            case 1:
+            case 2:
+              _context.next = 4;
+              break;
+            case 3:
+              _context.prev = 3;
+              _t = _context["catch"](1);
+              console.error('Failed to start merge:', _t);
+              _this.handleMergeError(_t);
+              return _context.abrupt("return");
+            case 4:
               _this.pollMergeStatus();
               _this.pollingInterval = setInterval(function () {
                 _this.pollMergeStatus();
               }, 5000);
-            case 2:
+            case 5:
             case "end":
               return _context.stop();
           }
-        }, _callee);
+        }, _callee, null, [[1, 3]]);
       }))();
     },
     /**
@@ -22143,7 +22147,7 @@ __webpack_require__.r(__webpack_exports__);
     pollMergeStatus: function pollMergeStatus() {
       var _this2 = this;
       return (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
-        var _this2$mergeService$g, _this2$mergeService, _this2$mergeService$f, _this2$mergeService2, statusResponse, logsResponse, logs, latestLog, _t;
+        var _logsResponse, statusResponse, logsResponse, apiClient, logs, latestLog, _t2;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function (_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
@@ -22157,27 +22161,36 @@ __webpack_require__.r(__webpack_exports__);
               return _context2.abrupt("return");
             case 1:
               _context2.prev = 1;
+              statusResponse = null;
+              logsResponse = null;
+              if (!(window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api)) {
+                _context2.next = 4;
+                break;
+              }
+              apiClient = window.FlipletAppMerge.middleware.api; // Get merge status
               _context2.next = 2;
-              return (_this2$mergeService$g = (_this2$mergeService = _this2.mergeService).getMergeStatus) === null || _this2$mergeService$g === void 0 ? void 0 : _this2$mergeService$g.call(_this2$mergeService, _this2.sourceAppId, {
+              return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/merge/status"), {
                 mergeId: _this2.mergeId
               });
             case 2:
               statusResponse = _context2.sent;
+              _context2.next = 3;
+              return apiClient.post("v1/apps/".concat(_this2.sourceAppId, "/logs"), {
+                mergeId: _this2.mergeId,
+                types: ['app.merge.initiated', 'app.merge.progress', 'app.merge.completed', 'app.merge.error']
+              });
+            case 3:
+              logsResponse = _context2.sent;
+            case 4:
               if (statusResponse) {
-                _context2.next = 3;
+                _context2.next = 5;
                 break;
               }
               return _context2.abrupt("return");
-            case 3:
+            case 5:
               _this2.progressPercentage = statusResponse.progress || statusResponse.percentage || 0;
               _this2.currentPhase = statusResponse.phase || _this2.currentPhase;
-              _context2.next = 4;
-              return (_this2$mergeService$f = (_this2$mergeService2 = _this2.mergeService).fetchMergeLogs) === null || _this2$mergeService$f === void 0 ? void 0 : _this2$mergeService$f.call(_this2$mergeService2, _this2.sourceAppId, {
-                mergeId: _this2.mergeId
-              });
-            case 4:
-              logsResponse = _context2.sent;
-              logs = (logsResponse === null || logsResponse === void 0 ? void 0 : logsResponse.logs) || logsResponse || [];
+              logs = ((_logsResponse = logsResponse) === null || _logsResponse === void 0 ? void 0 : _logsResponse.logs) || logsResponse || [];
               if (logs.length > 0) {
                 latestLog = logs[logs.length - 1];
                 _this2.currentPhase = _this2.determinePhaseFromLogType(latestLog.type);
@@ -22195,6 +22208,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
                 });
               }
+              _this2.handleProgressUpdate(statusResponse);
               if (statusResponse.status === 'completed') {
                 _this2.handleMergeComplete();
               } else if (statusResponse.status === 'error' || statusResponse.status === 'failed') {
@@ -22202,17 +22216,17 @@ __webpack_require__.r(__webpack_exports__);
                   message: statusResponse.error || 'Merge failed'
                 });
               }
-              _context2.next = 6;
+              _context2.next = 7;
               break;
-            case 5:
-              _context2.prev = 5;
-              _t = _context2["catch"](1);
-              console.error('Failed to poll merge status:', _t);
             case 6:
+              _context2.prev = 6;
+              _t2 = _context2["catch"](1);
+              console.error('Failed to poll merge status:', _t2);
+            case 7:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[1, 5]]);
+        }, _callee2, null, [[1, 6]]);
       }))();
     },
     /**
@@ -22279,8 +22293,8 @@ __webpack_require__.r(__webpack_exports__);
      * Handle progress update from middleware
      */
     handleProgressUpdate: function handleProgressUpdate(data) {
-      this.progressPercentage = data.percentage;
-      this.currentPhase = data.phase;
+      this.progressPercentage = data.progress || data.percentage || this.progressPercentage;
+      this.currentPhase = data.phase || this.currentPhase;
       if (data.message) {
         this.addMessage({
           text: data.message,
@@ -22352,491 +22366,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 156 */
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(157);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(158);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3__);
-/* module decorator */ module = __webpack_require__.hmd(module);
-
-
-
-
-// src/middleware/api/MergeApiService.js
-/**
- * MergeApiService - Wrapper for merge-related API endpoints
- *
- * Provides methods to interact with merge operation endpoints.
- *
- * @class MergeApiService
- */
-var MergeApiService = /*#__PURE__*/function () {
-  /**
-   * Create MergeApiService instance
-   *
-   * @param {Object} apiClient - ApiClient instance for making requests
-   */
-  function MergeApiService(apiClient) {
-    (0,_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__["default"])(this, MergeApiService);
-    if (!apiClient) {
-      throw new Error('ApiClient is required');
-    }
-    this.apiClient = apiClient;
-  }
-
-  /**
-   * Lock apps for merge configuration
-   *
-   * @param {number} sourceAppId - Source app ID to lock
-   * @param {Object} [options={}] - Lock options
-   * @param {Object} [options.targetApp] - Target app configuration
-   * @param {number} [options.targetApp.id] - Target app ID
-   * @param {string} [options.targetApp.region] - Target app region
-   * @param {number} [options.lockDuration=600] - Lock duration in seconds
-   * @returns {Promise<Object>} Lock result
-   *
-   * @example
-   * const result = await mergeApiService.lockApps(123, {
-   *   targetApp: { id: 456, region: 'eu' },
-   *   lockDuration: 600
-   * });
-   */
-  return (0,_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__["default"])(MergeApiService, [{
-    key: "lockApps",
-    value: (function () {
-      var _lockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee(sourceAppId) {
-        var options,
-          _options$targetApp,
-          targetApp,
-          _options$lockDuration,
-          lockDuration,
-          response,
-          _args = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              _options$targetApp = options.targetApp, targetApp = _options$targetApp === void 0 ? {} : _options$targetApp, _options$lockDuration = options.lockDuration, lockDuration = _options$lockDuration === void 0 ? 600 : _options$lockDuration;
-              _context.next = 2;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/lock"), {
-                targetApp: targetApp,
-                lockDuration: lockDuration
-              });
-            case 2:
-              response = _context.sent;
-              return _context.abrupt("return", response);
-            case 3:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee, this);
-      }));
-      function lockApps(_x) {
-        return _lockApps.apply(this, arguments);
-      }
-      return lockApps;
-    }()
-    /**
-     * Unlock apps
-     *
-     * @param {number} sourceAppId - Source app ID
-     * @param {Object} [options={}] - Unlock options
-     * @param {Object} [options.targetApp] - Target app configuration
-     * @returns {Promise<Object>} Unlock result
-     *
-     * @example
-     * await mergeApiService.unlockApps(123, {
-     *   targetApp: { id: 456 }
-     * });
-     */
-    )
-  }, {
-    key: "unlockApps",
-    value: (function () {
-      var _unlockApps = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee2(sourceAppId) {
-        var options,
-          _options$targetApp2,
-          targetApp,
-          response,
-          _args2 = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context2.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              _options$targetApp2 = options.targetApp, targetApp = _options$targetApp2 === void 0 ? {} : _options$targetApp2;
-              _context2.next = 2;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/unlock"), {
-                targetApp: targetApp
-              });
-            case 2:
-              response = _context2.sent;
-              return _context2.abrupt("return", response);
-            case 3:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, this);
-      }));
-      function unlockApps(_x2) {
-        return _unlockApps.apply(this, arguments);
-      }
-      return unlockApps;
-    }()
-    /**
-     * Extend lock duration
-     *
-     * @param {number} sourceAppId - Source app ID
-     * @param {Object} [options={}] - Extend options
-     * @param {Object} [options.targetApp] - Target app configuration
-     * @param {number} [options.extendDuration=300] - Duration to add in seconds
-     * @returns {Promise<Object>} Extended lock result
-     *
-     * @example
-     * await mergeApiService.extendLock(123, {
-     *   targetApp: { id: 456 },
-     *   extendDuration: 300
-     * });
-     */
-    )
-  }, {
-    key: "extendLock",
-    value: (function () {
-      var _extendLock = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee3(sourceAppId) {
-        var options,
-          _options$targetApp3,
-          targetApp,
-          _options$extendDurati,
-          extendDuration,
-          response,
-          _args3 = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context3.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              _options$targetApp3 = options.targetApp, targetApp = _options$targetApp3 === void 0 ? {} : _options$targetApp3, _options$extendDurati = options.extendDuration, extendDuration = _options$extendDurati === void 0 ? 300 : _options$extendDurati;
-              _context3.next = 2;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/lock/extend"), {
-                targetApp: targetApp,
-                extendDuration: extendDuration
-              });
-            case 2:
-              response = _context3.sent;
-              return _context3.abrupt("return", response);
-            case 3:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3, this);
-      }));
-      function extendLock(_x3) {
-        return _extendLock.apply(this, arguments);
-      }
-      return extendLock;
-    }()
-    /**
-     * Preview merge results
-     *
-     * @param {number} sourceAppId - Source app ID
-     * @param {Object} mergeConfig - Merge configuration
-     * @param {number} mergeConfig.destinationAppId - Destination app ID
-     * @param {number} mergeConfig.destinationOrganizationId - Destination org ID
-     * @param {Array|string} mergeConfig.pageIds - Page IDs to merge or 'all'
-     * @param {Array|string} mergeConfig.dataSources - Data sources to merge or 'all'
-     * @param {Array|string} mergeConfig.fileIds - File IDs to merge or 'all'
-     * @param {Array|string} mergeConfig.folderIds - Folder IDs to merge or 'all'
-     * @param {boolean} [mergeConfig.mergeAppSettings=false] - Merge app settings
-     * @param {boolean} [mergeConfig.mergeMenuSettings=false] - Merge menu settings
-     * @param {boolean} [mergeConfig.mergeAppearanceSettings=false] - Merge appearance
-     * @param {boolean} [mergeConfig.mergeGlobalCode=false] - Merge global code
-     * @param {Array} [mergeConfig.customDataSourcesInUse=[]] - Custom data sources in use
-     * @returns {Promise<Object>} Preview results
-     *
-     * @example
-     * const preview = await mergeApiService.previewMerge(123, {
-     *   destinationAppId: 456,
-     *   destinationOrganizationId: 100,
-     *   pageIds: [1, 2, 3],
-     *   dataSources: [],
-     *   fileIds: 'all',
-     *   folderIds: []
-     * });
-     */
-    )
-  }, {
-    key: "previewMerge",
-    value: (function () {
-      var _previewMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee4(sourceAppId, mergeConfig) {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context4.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              if (!(!mergeConfig || !mergeConfig.destinationAppId)) {
-                _context4.next = 2;
-                break;
-              }
-              throw new Error('Valid merge configuration with destinationAppId is required');
-            case 2:
-              _context4.next = 3;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/preview"), mergeConfig);
-            case 3:
-              response = _context4.sent;
-              return _context4.abrupt("return", response);
-            case 4:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4, this);
-      }));
-      function previewMerge(_x4, _x5) {
-        return _previewMerge.apply(this, arguments);
-      }
-      return previewMerge;
-    }()
-    /**
-     * Initiate merge
-     *
-     * @param {number} sourceAppId - Source app ID
-     * @param {Object} mergeConfig - Merge configuration (same structure as previewMerge)
-     * @returns {Promise<Object>} Merge initiation result with mergeId
-     *
-     * @example
-     * const result = await mergeApiService.initiateMerge(123, mergeConfig);
-     */
-    )
-  }, {
-    key: "initiateMerge",
-    value: (function () {
-      var _initiateMerge = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee5(sourceAppId, mergeConfig) {
-        var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context5.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              if (!(!mergeConfig || !mergeConfig.destinationAppId)) {
-                _context5.next = 2;
-                break;
-              }
-              throw new Error('Valid merge configuration with destinationAppId is required');
-            case 2:
-              _context5.next = 3;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge"), mergeConfig);
-            case 3:
-              response = _context5.sent;
-              return _context5.abrupt("return", response);
-            case 4:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5, this);
-      }));
-      function initiateMerge(_x6, _x7) {
-        return _initiateMerge.apply(this, arguments);
-      }
-      return initiateMerge;
-    }()
-    /**
-     * Get merge status
-     *
-     * @param {number} sourceAppId - Source app ID
-     * @param {Object} [options={}] - Status options
-     * @param {number} [options.mergeId] - Merge ID to check
-     * @returns {Promise<Object>} Merge status
-     *
-     * @example
-     * const status = await mergeApiService.getMergeStatus(123, { mergeId: 5000 });
-     */
-    )
-  }, {
-    key: "getMergeStatus",
-    value: (function () {
-      var _getMergeStatus = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee6(sourceAppId) {
-        var options,
-          mergeId,
-          data,
-          response,
-          _args6 = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              options = _args6.length > 1 && _args6[1] !== undefined ? _args6[1] : {};
-              if (!(!sourceAppId || typeof sourceAppId !== 'number')) {
-                _context6.next = 1;
-                break;
-              }
-              throw new Error('Valid source app ID is required');
-            case 1:
-              mergeId = options.mergeId;
-              data = mergeId ? {
-                mergeId: mergeId
-              } : {};
-              _context6.next = 2;
-              return this.apiClient.post("v1/apps/".concat(sourceAppId, "/merge/status"), data);
-            case 2:
-              response = _context6.sent;
-              return _context6.abrupt("return", response);
-            case 3:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6, this);
-      }));
-      function getMergeStatus(_x8) {
-        return _getMergeStatus.apply(this, arguments);
-      }
-      return getMergeStatus;
-    }()
-    /**
-     * Fetch merge logs
-     *
-     * @param {number} appId - App ID
-     * @param {Object} [options={}] - Fetch options
-     * @param {number} [options.mergeId] - Filter by merge ID
-     * @param {Array<string>} [options.types=[]] - Filter by log types
-     * @param {Object} [options.pagination] - Pagination configuration
-     * @param {number} [options.pagination.page=1] - Page number
-     * @param {number} [options.pagination.limit=50] - Items per page
-     * @returns {Promise<Array>} Array of log entries
-     *
-     * @example
-     * const logs = await mergeApiService.fetchMergeLogs(123, {
-     *   mergeId: 5000,
-     *   types: ['info', 'error']
-     * });
-     */
-    )
-  }, {
-    key: "fetchMergeLogs",
-    value: (function () {
-      var _fetchMergeLogs = (0,_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().mark(function _callee7(appId) {
-        var options,
-          mergeId,
-          _options$types,
-          types,
-          _options$pagination,
-          pagination,
-          data,
-          response,
-          _args7 = arguments;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_3___default().wrap(function (_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              options = _args7.length > 1 && _args7[1] !== undefined ? _args7[1] : {};
-              if (!(!appId || typeof appId !== 'number')) {
-                _context7.next = 1;
-                break;
-              }
-              throw new Error('Valid app ID is required');
-            case 1:
-              mergeId = options.mergeId, _options$types = options.types, types = _options$types === void 0 ? [] : _options$types, _options$pagination = options.pagination, pagination = _options$pagination === void 0 ? {
-                page: 1,
-                limit: 50
-              } : _options$pagination;
-              data = {};
-              if (mergeId) {
-                data.mergeId = mergeId;
-              }
-              if (types.length > 0) {
-                data.types = types;
-              }
-              if (pagination) {
-                data.page = pagination.page || 1;
-                data.limit = pagination.limit || 50;
-              }
-              _context7.next = 2;
-              return this.apiClient.post("v1/apps/".concat(appId, "/logs"), data);
-            case 2:
-              response = _context7.sent;
-              return _context7.abrupt("return", response.logs || response);
-            case 3:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7, this);
-      }));
-      function fetchMergeLogs(_x9) {
-        return _fetchMergeLogs.apply(this, arguments);
-      }
-      return fetchMergeLogs;
-    }())
-  }]);
-}(); // Export for use in other modules
-if ( true && module.exports) {
-  module.exports = MergeApiService;
-}
-
-/***/ }),
-/* 157 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ _classCallCheck)
-/* harmony export */ });
-function _classCallCheck(a, n) {
-  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
-}
-
-
-/***/ }),
-/* 158 */
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ _createClass)
-/* harmony export */ });
-/* harmony import */ var _toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(83);
-
-function _defineProperties(e, r) {
-  for (var t = 0; t < r.length; t++) {
-    var o = r[t];
-    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, (0,_toPropertyKey_js__WEBPACK_IMPORTED_MODULE_0__["default"])(o.key), o);
-  }
-}
-function _createClass(e, r, t) {
-  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
-    writable: !1
-  }), e;
-}
-
-
-/***/ }),
-/* 159 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22844,8 +22373,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(160);
-/* harmony import */ var _MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(162);
+/* harmony import */ var _MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(157);
+/* harmony import */ var _MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(159);
 /* harmony import */ var _node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(44);
 
 
@@ -22861,7 +22390,7 @@ if (false) // removed by dead control flow
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
 
 /***/ }),
-/* 160 */
+/* 157 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22869,11 +22398,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(161);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_template_id_4b86ccf4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(158);
 
 
 /***/ }),
-/* 161 */
+/* 158 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23078,7 +22607,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 }
 
 /***/ }),
-/* 162 */
+/* 159 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23086,11 +22615,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(163);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_1_use_node_modules_vue_loader_dist_index_js_ruleSet_1_rules_7_use_0_MergeComplete_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(160);
  
 
 /***/ }),
-/* 163 */
+/* 160 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -23318,15 +22847,12 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
 /******/ 			id: moduleId,
-/******/ 			loaded: false,
+/******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -23367,21 +22893,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/harmony module decorator */
-/******/ 	(() => {
-/******/ 		__webpack_require__.hmd = (module) => {
-/******/ 			module = Object.create(module);
-/******/ 			if (!module.children) module.children = [];
-/******/ 			Object.defineProperty(module, 'exports', {
-/******/ 				enumerable: true,
-/******/ 				set: () => {
-/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
-/******/ 				}
-/******/ 			});
-/******/ 			return module;
-/******/ 		};
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

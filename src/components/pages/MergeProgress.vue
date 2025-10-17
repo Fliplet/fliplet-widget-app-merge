@@ -171,12 +171,6 @@ export default {
 
   emits: ['merge-complete', 'merge-error'],
 
-  inject: {
-    injectedMergeService: {
-      from: 'mergeService',
-      default: null
-    }
-  },
 
   data() {
     return {
@@ -186,8 +180,7 @@ export default {
       isComplete: false,
       hasError: false,
       eventUnsubscribe: null,
-      pollingInterval: null,
-      mergeService: null
+      pollingInterval: null
     };
   },
 
@@ -212,7 +205,6 @@ export default {
   },
 
   mounted() {
-    this.mergeService = this.injectedMergeService || new (require('../../middleware/api/MergeApiService'))();
     this.startMerge();
     this.subscribeToMergeEvents();
   },
@@ -232,10 +224,18 @@ export default {
      * Start the merge process
      */
     async startMerge() {
-      if (this.mergeService.startMerge) {
-        await this.mergeService.startMerge(this.sourceAppId, {
-          mergeId: this.mergeId
-        });
+      if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+        const apiClient = window.FlipletAppMerge.middleware.api;
+
+        try {
+          await apiClient.post(`v1/apps/${this.sourceAppId}/merge`, {
+            mergeId: this.mergeId
+          });
+        } catch (error) {
+          console.error('Failed to start merge:', error);
+          this.handleMergeError(error);
+          return;
+        }
       }
 
       this.pollMergeStatus();
@@ -257,9 +257,23 @@ export default {
       }
 
       try {
-        const statusResponse = await this.mergeService.getMergeStatus?.(this.sourceAppId, {
-          mergeId: this.mergeId
-        });
+        let statusResponse = null;
+        let logsResponse = null;
+
+        if (window.FlipletAppMerge && window.FlipletAppMerge.middleware && window.FlipletAppMerge.middleware.api) {
+          const apiClient = window.FlipletAppMerge.middleware.api;
+
+          // Get merge status
+          statusResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/merge/status`, {
+            mergeId: this.mergeId
+          });
+
+          // Get merge logs
+          logsResponse = await apiClient.post(`v1/apps/${this.sourceAppId}/logs`, {
+            mergeId: this.mergeId,
+            types: ['app.merge.initiated', 'app.merge.progress', 'app.merge.completed', 'app.merge.error']
+          });
+        }
 
         if (!statusResponse) {
           return;
@@ -267,10 +281,6 @@ export default {
 
         this.progressPercentage = statusResponse.progress || statusResponse.percentage || 0;
         this.currentPhase = statusResponse.phase || this.currentPhase;
-
-        const logsResponse = await this.mergeService.fetchMergeLogs?.(this.sourceAppId, {
-          mergeId: this.mergeId
-        });
 
         const logs = logsResponse?.logs || logsResponse || [];
 
@@ -291,6 +301,8 @@ export default {
             }
           });
         }
+
+        this.handleProgressUpdate(statusResponse);
 
         if (statusResponse.status === 'completed') {
           this.handleMergeComplete();
@@ -374,8 +386,8 @@ export default {
      * Handle progress update from middleware
      */
     handleProgressUpdate(data) {
-      this.progressPercentage = data.percentage;
-      this.currentPhase = data.phase;
+      this.progressPercentage = data.progress || data.percentage || this.progressPercentage;
+      this.currentPhase = data.phase || this.currentPhase;
 
       if (data.message) {
         this.addMessage({
