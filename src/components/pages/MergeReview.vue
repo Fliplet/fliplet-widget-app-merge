@@ -485,39 +485,46 @@ export default {
           screens: [
             {
               id: 1,
-              name: 'Home Screen',
+              name: 'Digital Business Card',
               status: 'copy',
               warnings: []
             },
             {
               id: 2,
-              name: 'Profile Screen',
-              status: 'overwrite',
-              warnings: ['Contains non-copyable components']
+              name: 'Floor Plan',
+              status: 'copy',
+              warnings: []
             }
           ],
           dataSources: [
             {
-              id: 10,
+              id: 1,
               name: 'Users',
               copyMode: 'structure-only',
               status: 'copy',
               warnings: []
             },
             {
-              id: 11,
-              name: 'Products',
-              copyMode: 'structure-and-data',
-              status: 'overwrite',
-              warnings: ['This will overwrite existing data']
+              id: 2,
+              name: 'Speaker Contact Info',
+              copyMode: 'structure-only',
+              status: 'copy',
+              warnings: []
+            },
+            {
+              id: 3,
+              name: 'Floor Plan Assignments',
+              copyMode: 'structure-only',
+              status: 'copy',
+              warnings: []
             }
           ],
           files: [
             {
-              id: 100,
-              name: 'logo.png',
-              path: '/assets/logo.png',
-              type: 'image',
+              id: 1,
+              name: 'Floor Plan PDF',
+              path: '/assets/',
+              type: 'folder',
               status: 'copy',
               warnings: []
             }

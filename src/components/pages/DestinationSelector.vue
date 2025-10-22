@@ -267,7 +267,7 @@ export default {
             name: 'Partner Retreat',
             organizationId: 1,
             updatedAt: Date.now() - 86400000,
-            isLive: false,
+            isLive: true,
             isLocked: false,
             hasPublisherRights: true,
             isDuplicate: false

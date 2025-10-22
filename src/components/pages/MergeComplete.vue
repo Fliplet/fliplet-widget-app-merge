@@ -351,16 +351,16 @@ export default {
           {
             id: 1,
             completedAt: Date.now() - 86400000,
-            sourceAppName: 'App A',
-            targetAppName: 'App B',
+            sourceAppName: 'Partner Retreat (Dev 2025)',
+            targetAppName: 'Partner Retreat',
             itemsCount: 15,
             status: 'success'
           },
           {
             id: 2,
             completedAt: Date.now() - 172800000,
-            sourceAppName: 'App C',
-            targetAppName: 'App D',
+            sourceAppName: 'Partner Retreat (Dev 2025)',
+            targetAppName: 'Partner Retreat',
             itemsCount: 8,
             status: 'success'
           }

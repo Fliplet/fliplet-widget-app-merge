@@ -15968,7 +15968,7 @@ __webpack_require__.r(__webpack_exports__);
                 name: 'Partner Retreat',
                 organizationId: 1,
                 updatedAt: Date.now() - 86400000,
-                isLive: false,
+                isLive: true,
                 isLocked: false,
                 hasPublisherRights: true,
                 isDuplicate: false
@@ -20284,33 +20284,39 @@ __webpack_require__.r(__webpack_exports__);
               _this.preview = {
                 screens: [{
                   id: 1,
-                  name: 'Home Screen',
+                  name: 'Digital Business Card',
                   status: 'copy',
                   warnings: []
                 }, {
                   id: 2,
-                  name: 'Profile Screen',
-                  status: 'overwrite',
-                  warnings: ['Contains non-copyable components']
+                  name: 'Floor Plan',
+                  status: 'copy',
+                  warnings: []
                 }],
                 dataSources: [{
-                  id: 10,
+                  id: 1,
                   name: 'Users',
                   copyMode: 'structure-only',
                   status: 'copy',
                   warnings: []
                 }, {
-                  id: 11,
-                  name: 'Products',
-                  copyMode: 'structure-and-data',
-                  status: 'overwrite',
-                  warnings: ['This will overwrite existing data']
+                  id: 2,
+                  name: 'Speaker Contact Info',
+                  copyMode: 'structure-only',
+                  status: 'copy',
+                  warnings: []
+                }, {
+                  id: 3,
+                  name: 'Floor Plan Assignments',
+                  copyMode: 'structure-only',
+                  status: 'copy',
+                  warnings: []
                 }],
                 files: [{
-                  id: 100,
-                  name: 'logo.png',
-                  path: '/assets/logo.png',
-                  type: 'image',
+                  id: 1,
+                  name: 'Floor Plan PDF',
+                  path: '/assets/',
+                  type: 'folder',
                   status: 'copy',
                   warnings: []
                 }],
@@ -21164,15 +21170,15 @@ __webpack_require__.r(__webpack_exports__);
               _this.previousMerges = [{
                 id: 1,
                 completedAt: Date.now() - 86400000,
-                sourceAppName: 'App A',
-                targetAppName: 'App B',
+                sourceAppName: 'Partner Retreat (Dev 2025)',
+                targetAppName: 'Partner Retreat',
                 itemsCount: 15,
                 status: 'success'
               }, {
                 id: 2,
                 completedAt: Date.now() - 172800000,
-                sourceAppName: 'App C',
-                targetAppName: 'App D',
+                sourceAppName: 'Partner Retreat (Dev 2025)',
+                targetAppName: 'Partner Retreat',
                 itemsCount: 8,
                 status: 'success'
               }];
