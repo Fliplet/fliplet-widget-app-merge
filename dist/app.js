@@ -14854,11 +14854,11 @@ __webpack_require__.r(__webpack_exports__);
             case 1:
               _this.appDetails = {
                 id: 123,
-                name: 'Source App',
+                name: 'Partner Retreat (Dev 2025)',
                 organizationName: 'Acme Corp',
                 region: 'EU',
                 isPublished: true,
-                updatedAt: '2025-01-15T10:30:00Z',
+                updatedAt: '2025-10-25T10:30:00Z',
                 updatedBy: 'John Smith',
                 lockedUntil: null
               };
@@ -15965,10 +15965,37 @@ __webpack_require__.r(__webpack_exports__);
             case 1:
               _this3.apps = [{
                 id: 200,
-                name: 'Destination App',
+                name: 'Partner Retreat',
                 organizationId: 1,
                 updatedAt: Date.now() - 86400000,
                 isLive: false,
+                isLocked: false,
+                hasPublisherRights: true,
+                isDuplicate: false
+              }, {
+                id: 201,
+                name: 'Partner Retreat (Staging)',
+                organizationId: 1,
+                updatedAt: Date.now() - 172800000,
+                isLive: false,
+                isLocked: false,
+                hasPublisherRights: true,
+                isDuplicate: false
+              }, {
+                id: 202,
+                name: 'Conference App 2025',
+                organizationId: 1,
+                updatedAt: Date.now() - 259200000,
+                isLive: true,
+                isLocked: false,
+                hasPublisherRights: true,
+                isDuplicate: false
+              }, {
+                id: 203,
+                name: 'Event Management System',
+                organizationId: 1,
+                updatedAt: Date.now() - 345600000,
+                isLive: true,
                 isLocked: false,
                 hasPublisherRights: true,
                 isDuplicate: false
@@ -17793,7 +17820,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             case 2:
               _this4.screens = [{
                 id: 1,
-                name: 'Home Screen',
+                name: 'Digital Business Card',
                 lastModified: Date.now() - 86400000,
                 hasNonCopyableComponents: false,
                 associatedDataSources: [{
@@ -17801,7 +17828,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                   name: 'Users'
                 }, {
                   id: 2,
-                  name: 'Settings'
+                  name: 'Speaker Contact Info'
                 }],
                 associatedFiles: [{
                   id: 1,
@@ -17812,12 +17839,12 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                 }]
               }, {
                 id: 2,
-                name: 'Login Screen',
+                name: 'Floor Plan',
                 lastModified: Date.now() - 172800000,
                 hasNonCopyableComponents: false,
                 associatedDataSources: [{
                   id: 3,
-                  name: 'Authentication'
+                  name: 'Floor Plan Assignments'
                 }],
                 associatedFiles: []
               }, {
@@ -18392,21 +18419,21 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                 isGlobalDependency: false,
                 associatedScreens: [{
                   id: 1,
-                  name: 'Home Screen'
+                  name: 'Digital Business Card'
                 }, {
                   id: 2,
-                  name: 'Login Screen'
+                  name: 'Floor Plan'
                 }],
                 associatedFiles: []
               }, {
                 id: 2,
-                name: 'Settings',
+                name: 'Speaker Contact Info',
                 lastModified: Date.now() - 172800000,
                 entryCount: 25,
                 isGlobalDependency: true,
                 associatedScreens: [{
                   id: 1,
-                  name: 'Home Screen'
+                  name: 'Digital Business Card'
                 }],
                 associatedFiles: [{
                   id: 1,
@@ -18414,13 +18441,13 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                 }]
               }, {
                 id: 3,
-                name: 'Authentication',
+                name: 'Floor Plan Assignments',
                 lastModified: Date.now() - 259200000,
                 entryCount: 5,
                 isGlobalDependency: false,
                 associatedScreens: [{
                   id: 2,
-                  name: 'Login Screen'
+                  name: 'Floor Plan'
                 }],
                 associatedFiles: []
               }];
@@ -18983,14 +19010,14 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
             case 2:
               _this4.files = [{
                 id: 1,
-                name: 'Marketing assets',
+                name: 'Floor Plan PDF',
                 type: 'folder',
                 path: '/assets/',
                 addedAt: Date.now() - 86400000,
                 isGlobalLibrary: false,
                 associatedScreens: [{
                   id: 10,
-                  name: 'Home Screen'
+                  name: 'Digital Business Card'
                 }],
                 associatedDataSources: [],
                 children: [{
@@ -19001,7 +19028,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
                   addedAt: Date.now() - 3600000,
                   associatedScreens: [{
                     id: 10,
-                    name: 'Home Screen'
+                    name: 'Digital Business Card'
                   }],
                   associatedDataSources: []
                 }]

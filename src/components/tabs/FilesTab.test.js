@@ -82,7 +82,7 @@ describe('FilesTab', () => {
       expect(firstRow).toEqual(
         expect.objectContaining({
           id: 1,
-          name: 'Marketing assets',
+          name: 'Floor Plan PDF',
           status: ''
         })
       );

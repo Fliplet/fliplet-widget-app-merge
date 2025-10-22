@@ -302,19 +302,19 @@ export default {
             entryCount: 150,
             isGlobalDependency: false,
             associatedScreens: [
-              { id: 1, name: 'Home Screen' },
-              { id: 2, name: 'Login Screen' }
+              { id: 1, name: 'Digital Business Card' },
+              { id: 2, name: 'Floor Plan' }
             ],
             associatedFiles: []
           },
           {
             id: 2,
-            name: 'Settings',
+            name: 'Speaker Contact Info',
             lastModified: Date.now() - 172800000,
             entryCount: 25,
             isGlobalDependency: true,
             associatedScreens: [
-              { id: 1, name: 'Home Screen' }
+              { id: 1, name: 'Digital Business Card' }
             ],
             associatedFiles: [
               { id: 1, name: 'config.json' }
@@ -322,12 +322,12 @@ export default {
           },
           {
             id: 3,
-            name: 'Authentication',
+            name: 'Floor Plan Assignments',
             lastModified: Date.now() - 259200000,
             entryCount: 5,
             isGlobalDependency: false,
             associatedScreens: [
-              { id: 2, name: 'Login Screen' }
+              { id: 2, name: 'Floor Plan' }
             ],
             associatedFiles: []
           }

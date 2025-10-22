@@ -237,11 +237,11 @@ export default {
 
         this.appDetails = {
           id: 123,
-          name: 'Source App',
+          name: 'Partner Retreat (Dev 2025)',
           organizationName: 'Acme Corp',
           region: 'EU',
           isPublished: true,
-          updatedAt: '2025-01-15T10:30:00Z',
+          updatedAt: '2025-10-25T10:30:00Z',
           updatedBy: 'John Smith',
           lockedUntil: null
         };

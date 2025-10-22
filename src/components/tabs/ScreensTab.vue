@@ -240,12 +240,12 @@ export default {
         this.screens = [
           {
             id: 1,
-            name: 'Home Screen',
+            name: 'Digital Business Card',
             lastModified: Date.now() - 86400000,
             hasNonCopyableComponents: false,
             associatedDataSources: [
               { id: 1, name: 'Users' },
-              { id: 2, name: 'Settings' }
+              { id: 2, name: 'Speaker Contact Info' }
             ],
             associatedFiles: [
               { id: 1, name: 'logo.png' },
@@ -254,11 +254,11 @@ export default {
           },
           {
             id: 2,
-            name: 'Login Screen',
+            name: 'Floor Plan',
             lastModified: Date.now() - 172800000,
             hasNonCopyableComponents: false,
             associatedDataSources: [
-              { id: 3, name: 'Authentication' }
+              { id: 3, name: 'Floor Plan Assignments' }
             ],
             associatedFiles: []
           },

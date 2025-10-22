@@ -264,10 +264,40 @@ export default {
         this.apps = [
           {
             id: 200,
-            name: 'Destination App',
+            name: 'Partner Retreat',
             organizationId: 1,
             updatedAt: Date.now() - 86400000,
             isLive: false,
+            isLocked: false,
+            hasPublisherRights: true,
+            isDuplicate: false
+          },
+          {
+            id: 201,
+            name: 'Partner Retreat (Staging)',
+            organizationId: 1,
+            updatedAt: Date.now() - 172800000,
+            isLive: false,
+            isLocked: false,
+            hasPublisherRights: true,
+            isDuplicate: false
+          },
+          {
+            id: 202,
+            name: 'Conference App 2025',
+            organizationId: 1,
+            updatedAt: Date.now() - 259200000,
+            isLive: true,
+            isLocked: false,
+            hasPublisherRights: true,
+            isDuplicate: false
+          },
+          {
+            id: 203,
+            name: 'Event Management System',
+            organizationId: 1,
+            updatedAt: Date.now() - 345600000,
+            isLive: true,
             isLocked: false,
             hasPublisherRights: true,
             isDuplicate: false

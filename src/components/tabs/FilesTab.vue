@@ -260,15 +260,15 @@ export default {
         this.files = [
           {
             id: 1,
-            name: 'Marketing assets',
+            name: 'Floor Plan PDF',
             type: 'folder',
             path: '/assets/',
             addedAt: Date.now() - 86400000,
             isGlobalLibrary: false,
-            associatedScreens: [{ id: 10, name: 'Home Screen' }],
+            associatedScreens: [{ id: 10, name: 'Digital Business Card' }],
             associatedDataSources: [],
             children: [
-              { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', addedAt: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Home Screen' }], associatedDataSources: [] }
+              { id: 2, name: 'logo.png', type: 'image', path: '/assets/logo.png', addedAt: Date.now() - 3600000, associatedScreens: [{ id: 10, name: 'Digital Business Card' }], associatedDataSources: [] }
             ]
           },
           {
