@@ -336,14 +336,11 @@ export default {
         await Promise.resolve();
 
         this.results = {
-          screensCopied: 5,
-          dataSourcesCopied: 3,
-          filesCopied: 12,
-          configurationsCopied: 2,
-          issues: [
-            'Screen "Profile" contains non-copyable components that were skipped',
-            'File "config.json" was overwritten in destination'
-          ],
+          screensCopied: 2,
+          dataSourcesCopied: 2,
+          filesCopied: 1,
+          configurationsCopied: 0,
+          issues: [],
           planLimitWarnings: []
         };
 

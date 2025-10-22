@@ -20294,12 +20294,6 @@ __webpack_require__.r(__webpack_exports__);
                   warnings: []
                 }],
                 dataSources: [{
-                  id: 1,
-                  name: 'Users',
-                  copyMode: 'structure-only',
-                  status: 'copy',
-                  warnings: []
-                }, {
                   id: 2,
                   name: 'Speaker Contact Info',
                   copyMode: 'structure-only',
@@ -20320,17 +20314,7 @@ __webpack_require__.r(__webpack_exports__);
                   status: 'copy',
                   warnings: []
                 }],
-                configurations: [{
-                  type: 'app-settings',
-                  label: 'App Settings',
-                  description: 'General app configuration',
-                  status: 'overwrite'
-                }, {
-                  type: 'menu-settings',
-                  label: 'Menu Settings',
-                  description: 'Navigation menu configuration',
-                  status: 'copy'
-                }]
+                configurations: []
               };
               _this.planLimits = {
                 screensLimit: null,
@@ -21160,11 +21144,11 @@ __webpack_require__.r(__webpack_exports__);
               return Promise.resolve();
             case 1:
               _this.results = {
-                screensCopied: 5,
-                dataSourcesCopied: 3,
-                filesCopied: 12,
-                configurationsCopied: 2,
-                issues: ['Screen "Profile" contains non-copyable components that were skipped', 'File "config.json" was overwritten in destination'],
+                screensCopied: 2,
+                dataSourcesCopied: 2,
+                filesCopied: 1,
+                configurationsCopied: 0,
+                issues: [],
                 planLimitWarnings: []
               };
               _this.previousMerges = [{

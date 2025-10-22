@@ -123,9 +123,7 @@ describe('MergeReview', () => {
 
       expect(wrapper.text()).toContain('Home Screen');
       expect(wrapper.text()).toContain('Profile Screen');
-      expect(wrapper.text()).toContain('Users');
       expect(wrapper.text()).toContain('logo.png');
-      expect(wrapper.text()).toContain('App Settings');
     });
 
     it('displays loading state when loading is true', () => {

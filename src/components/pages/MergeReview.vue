@@ -498,13 +498,6 @@ export default {
           ],
           dataSources: [
             {
-              id: 1,
-              name: 'Users',
-              copyMode: 'structure-only',
-              status: 'copy',
-              warnings: []
-            },
-            {
               id: 2,
               name: 'Speaker Contact Info',
               copyMode: 'structure-only',
@@ -529,20 +522,7 @@ export default {
               warnings: []
             }
           ],
-          configurations: [
-            {
-              type: 'app-settings',
-              label: 'App Settings',
-              description: 'General app configuration',
-              status: 'overwrite'
-            },
-            {
-              type: 'menu-settings',
-              label: 'Menu Settings',
-              description: 'Navigation menu configuration',
-              status: 'copy'
-            }
-          ]
+          configurations: []
         };
 
         this.planLimits = {
