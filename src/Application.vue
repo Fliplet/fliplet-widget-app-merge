@@ -94,7 +94,7 @@ export default {
       selectedDestinationApp: null,
       sourceApp: {
         id: 123,
-        name: 'Source App'
+        name: 'Partner Retreat (Dev 2025)'
       },
       mergeConfiguration: {
         screens: [],
