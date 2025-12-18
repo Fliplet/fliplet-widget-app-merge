@@ -1,8 +1,6 @@
 # App Merge Product Requirements Document (PRD)
 
-> **Full Project Scope:** This document describes the complete App Merge project requirements including backend APIs, version control, Studio integration, permissions, and all system components.
->
-> **Looking for the Widget/UI scope?** See [02-widget-prd.md](./02-widget-prd.md) for the product requirements specific to the App Merge UI widget that lives in this directory.
+This document describes the complete App Merge project requirements including backend APIs, version control, Studio integration, permissions, and all system components.
 
 ## Executive Summary
 
@@ -29,7 +27,7 @@
       1. Merging multiple apps within the same Organisation.
       2. Merging apps across different Organisations (e.g., dev, staging, production).
       3. Reviewing and undoing specific merge changes (via version control)
-      4. The merge process should take in under 5 minutes even for large apps.
+      4. The merge process should complete in under 5 minutes even for large apps.
    3. Target Audience:
       1. Fliplet Studio users responsible for maintaining multiple app versions.
       2. Organisation Admins or product teams who maintain multiple environments.
@@ -168,24 +166,7 @@
 7. Logs
    1. Users can view an audit trail of code changes, merges, and configuration modifications for each merge for compliance and troubleshooting.
    2. The merge feature logs all changes, including details of the environments involved, the merge configuration, and the user who performed the merge. These logs should be accessible in both the source and destination Organisations, as well as in the app’s audit log.
-8. Global code version control
-   1. Users can view a list of global code versions
-   2. Only the most recent 30 versions are kept in the system
-   3. Each version will specify the following:
-      1. Version number
-      2. Timestamp when the version was created
-      3. Who modified the global code to generate the version
-      4. No. of data sources included as dependencies in the version
-      5. No. of libraries included as dependencies in the version
-      6. Description of what was changed
-   4. Each version will record the description of what was changed in the version, which would be one of the following reasons:
-      1. App merge
-      2. Code modified: CSS, JS, Data sources, Libraries (only list the aspects that have changed)
-   5. A global code version is generated whenever changes are made to global CSS/JS, library and data source dependencies. However, If the code was changed by the user, a new version is created only if at least 5 minutes have passed since the last version
-   6. Changes triggered by app merges should always create a new version, regardless of timing
-   7. Users can view the full code for each version, including the listed data sources and libraries. There’s no need to highlight the changes.
-   8. Users can restore the global code customisations to a selected version, which will copy the restored version as a new version
-9. App locking
+8. App locking
    1. When a user starts to configure a merge, both the source and destination apps will be locked. During the merge operation, both the source and destination apps will also be locked.
    2. When an app is locked, Studio users will be unable to edit either app until the merge completes or fails. An app that is currently locked cannot be selected as a source or destination app for a new merge. The UI must clearly indicate when an app is locked and prevent it from being selected for other merge operations.
    3. When a user begins configuring a merge, both the source and destination apps will be locked to prevent edits. The locking mechanism has the following behaviour:
@@ -204,24 +185,24 @@
       1. App settings update
       2. Page CRUD
       3. App/page component CRUD
-10. Information
+9.  Information
     1. The merge feature can also be used to copy apps, screens, or data sources when the destination does not yet exist, maintaining control over what is transferred between environments.
     2. Users receive a final message confirming successful completion of the merge.
     3. Clear status messages are provided throughout the merge process to inform users of progress.
     4. The UI explains how to correct issues (e.g., missing files, app settings not copied) at the end of the merge, and these details are also logged.
     5. The merge UI clarifies which app settings are copied and which are excluded.
     6. Users must be made aware that the merge could disrupt users currently accessing the app, and that changes to screens or app settings may require the app to be republished or updated.
-11. Additional Functional Modifications
+10. Additional Functional Modifications
     1. The user must select a destination app and organisation or specify that a new app must be created in a specific organisation.
     2. Any error messages should be reported during the merge process so the user is aware of any issues that will impact the merge.
     3. When an app merge completes, an email, Studio notification and Studio push notification will be sent to the user that initiated the merge to inform them whether it was successful or not.
     4. The user can review the merge logs which should include a summary of everything that was completed and highlight any issues or errors.
     5. The user is provided the ability to load the destination app and is encouraged to review all changes, test the app, and publish it if required. The user is reminded that data source changes will go live immediately.
     6. API should be updated to prevent screens & data sources from being created/updated to have the duplicate names in the same app.
-12. Fliplet admins must be able to
+11. Fliplet admins must be able to
     1. Copy apps between Fliplet instances e.g. prod, staging, local environment, cloud environments, etc
     2. The admin UI in Studio should support this functionality
-13. Clone endpoints must not timeout when copying large apps
+12. Clone endpoints must not timeout when copying large apps
     1. Users should be notified when copying tasks are completed
     2. The admin UI in Studio should support this functionality
 

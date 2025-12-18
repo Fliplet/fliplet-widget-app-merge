@@ -1,8 +1,6 @@
 # App Merge User Flow - Design Specification
 
-> **Full Project Scope:** This document describes the complete App Merge design specification including UI flows, backend processes, Studio integration, global code versioning, and all system components.
->
-> **Looking for the Widget/UI scope?** See [04-widget-design-spec.md](./04-widget-design-spec.md) for the design specification specific to the App Merge UI widget that lives in this directory.
+This document describes the complete App Merge design specification including UI flows, backend processes, Studio integration, global code versioning, and all system components.
 
 ## States
 
