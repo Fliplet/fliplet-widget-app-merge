@@ -310,6 +310,66 @@ Payload
 
 # REST Endpoints
 
+## Get Current User
+
+**(No change) Endpoint:** `GET /v1/user`
+
+**Usage:**
+
+This endpoint retrieves the current authenticated user's details along with session information, organization context, and setup status.
+
+**Authentication:** Required
+
+**Success Response:**
+**Status: 200**
+
+```javascript
+{
+  "user": {
+    "id": 123,
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "auth_token": "auth-token-string",
+    "isImpersonating": false,
+    "policy": {},
+    "preferences": {
+      "isSubscribedToMarketingEmails": true,
+      "weeklyReportEmailOptOut": false
+    }
+    // ... other user fields
+  },
+  "session": {
+    // session public data if session exists
+  },
+  "host": "api.fliplet.com",
+  "region": "eu",
+  "flImpersonator": {
+    "id": 456,
+    "firstName": "Admin",
+    "lastName": "User",
+    "email": "admin@example.com",
+    "userRoleId": 1
+  }
+}
+```
+
+**Error Responses:**
+
+* **Status: 400**
+  ```javascript
+  {
+    "message": "Maintenance mode message"
+  }
+  ```
+
+**Notes:**
+- Prevents Studio access during maintenance mode
+- Handles impersonation scenarios (includes `flImpersonator` if user is being impersonated)
+- For regular users (non-system users), includes twofactor settings and organization context
+- Adds user setup status to response for users with organizations
+- Automatically touches session to keep it alive
+
 ## Get App Details
 
 **(No change) Endpoint:** `GET /v1/apps/:appId`
