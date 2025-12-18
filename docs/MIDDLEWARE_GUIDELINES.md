@@ -69,6 +69,26 @@ function getData(id: string, options: {
 
 ### Handling the REST API
 
+**Use Fliplet's API Method:**
+```javascript
+// ✅ CORRECT - Use Fliplet.API.request()
+Fliplet.API.request({
+  url: 'v1/apps/' + appId,
+  method: 'GET'
+}).then(function(response) {
+  return response;
+});
+
+// ❌ WRONG - Raw fetch() doesn't handle Fliplet auth
+fetch('https://api.fliplet.com/v1/apps/' + appId)
+```
+
+Fliplet.API.request() automatically:
+- Adds authentication tokens
+- Handles base URLs and environments
+- Manages cross-region requests
+- Provides consistent error handling
+
 **API Response Transformation:**
 - Middleware should transform REST API responses into UI-friendly shapes
 - Transformations should be **driven by the options passed in**, not by assumptions about the caller

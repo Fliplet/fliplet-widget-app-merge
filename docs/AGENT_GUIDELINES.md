@@ -109,6 +109,67 @@ const mockApps = [
 // const apps = await MergeAPI.getApps(organizationId);
 ```
 
+### 6. **CRITICAL**: Avoid Handlebars Conflicts in HTML
+
+Screen HTML is processed by Fliplet's Handlebars rendering engine **before** any screen custom code is used to process it. This means any custom functionality that uses the `{{ }}` or `{{{ }}}` syntax that could cause a conflict with Handlebars!
+
+```vue
+<!-- ✅ CORRECT: Use v-text directive -->
+<span v-text="userName"></span>
+<div v-text="result.message"></div>
+
+<!-- ✅ CORRECT: For complex output -->
+<span>Status: </span><span v-text="statusText"></span>
+
+<!-- ✅ CORRECT: For HTML content -->
+<div v-html="htmlContent"></div>
+
+<!-- ❌ WRONG: Text interpolation - Handlebars will process it! -->
+<span>{{ userName }}</span>
+<div>{{ result.message }}</div>
+
+<!-- ⚠️  WORKAROUND: Escape if absolutely needed -->
+<span>\{{ userName }}</span>  <!-- Handlebars passes "{{ userName }}" to Vue -->
+```
+
+**Why This Matters**:
+- Fliplet processes `{{ }}` and `{{{ }}}` as Handlebars tags before any screen code runs
+- Vue (or any custom JavaScript) never sees the interpolation syntax
+- Results in empty output or rendering errors
+- **Always use `v-text` or `v-html` directives instead**
+
+### 7. **CRITICAL**: Use Fliplet.API.request() for API Calls
+
+Never use raw `fetch()` - it doesn't handle Fliplet authentication properly.
+
+```javascript
+// ✅ CORRECT - Use Fliplet's API method
+Fliplet.API.request({
+  url: 'v1/apps/123',
+  method: 'GET'
+}).then(function(response) {
+  console.log(response);
+});
+
+// ✅ CORRECT - POST with data
+Fliplet.API.request({
+  url: 'v1/apps/123/merge',
+  method: 'POST',
+  data: { destinationAppId: 456 }
+});
+
+// ❌ WRONG - Raw fetch doesn't work in Fliplet
+fetch('https://api.fliplet.com/v1/apps/123')
+  .then(res => res.json())
+```
+
+**Why**:
+- `Fliplet.API.request()` automatically adds auth tokens
+- Handles environment-specific base URLs
+- Manages cross-region requests
+- Provides consistent error handling
+- Works across all Fliplet deployments
+
 ## Naming Conventions
 
 ### Components

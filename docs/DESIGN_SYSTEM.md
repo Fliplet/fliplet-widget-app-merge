@@ -432,6 +432,108 @@ Layering order for overlapping elements:
 
 ---
 
+## Component State Patterns
+
+This section defines how components should handle multiple visual states to ensure clear, non-contradictory user interfaces.
+
+### Visibility Rules
+
+#### Use Conditional Display Logic
+- Use `v-if` for mutually exclusive content (not `v-show`)
+- Ensures only one primary message is displayed per state
+- Prevents contradictory information from appearing simultaneously
+
+**Example - Poor Implementation:**
+```vue
+<!-- ❌ BAD: Both messages can appear at once -->
+<div class="timer">
+  <span>Lock expires in: {{ time }}</span>
+  <span v-if="isExpired">Lock Expired!</span>
+</div>
+```
+
+**Example - Good Implementation:**
+```vue
+<!-- ✅ GOOD: Mutually exclusive display -->
+<div class="timer">
+  <template v-if="!isExpired">
+    <span>Lock expires in: {{ time }}</span>
+  </template>
+  <template v-else>
+    <span>Lock Expired!</span>
+  </template>
+</div>
+```
+
+#### Progressive Disclosure
+Components should reveal information and actions progressively as states change:
+
+1. **Default State**: Show essential information only
+2. **Warning State**: Add contextual actions (buttons, links)
+3. **Critical/Completed State**: Replace with outcome message and next steps
+
+**Example - Lock Timer Progression:**
+- **Normal** (>2 min): Show countdown
+- **Warning** (<2 min): Show countdown + "Extend Lock" button
+- **Expired**: Replace all with "Lock Expired! Return to dashboard"
+
+### State Messaging Patterns
+
+#### Verb Tense by State
+- **Active/In-Progress States**: Present tense
+  - "Lock expires in 5:00"
+  - "Merge is processing..."
+- **Completed States**: Past tense + guidance
+  - "Lock expired - please return to dashboard"
+  - "Merge completed - view results"
+- **Future/Scheduled States**: Future tense
+  - "Will overwrite existing data"
+  - "Changes will be applied"
+
+#### One Primary Message Per State
+Each component state should have **one clear primary message**, not multiple competing messages.
+
+| ❌ Contradictory | ✅ Clear |
+|-----------------|---------|
+| "Lock expires in: 0:00" + "Lock Expired!" | "Lock Expired! Return to dashboard" |
+| "Processing..." + "Complete!" | "Complete! 142 items merged" |
+| "Loading..." + "Failed" | "Failed to load. Retry?" |
+
+### Component-Specific Patterns
+
+#### Stateful Components (Alerts, Timers, Progress)
+- Define all possible states upfront
+- Document what elements are **shown** and **hidden** in each state
+- Specify state transition logic and triggers
+
+#### Action Buttons in States
+- **Available actions only**: Show buttons only when action is valid
+- **Disabled vs Hidden**: Use `v-if` to hide unavailable actions (not `:disabled`)
+- **State-specific buttons**: "Extend Lock" appears only in warning state, not normal or expired
+
+### Implementation Checklist
+
+When implementing stateful components:
+
+- [ ] Define all possible visual states
+- [ ] For each state, specify what is **shown** and **hidden**
+- [ ] Use `v-if` / `v-else` for mutually exclusive content
+- [ ] Ensure only one primary message per state
+- [ ] Use appropriate verb tense for each state
+- [ ] Show actions only when they're valid
+- [ ] Document state transitions in component specifications
+
+### Testing State Behavior
+
+When testing components with time-based or dynamic states:
+
+- **Use future timestamps** for countdown timers (not past timestamps)
+- **Create test data** that demonstrates each state clearly
+- **Verify state transitions** by observing real-time behavior
+- **Check for contradictions** - ensure no conflicting messages appear
+
+---
+
 ## Layout & Container
 
 ### Max Width

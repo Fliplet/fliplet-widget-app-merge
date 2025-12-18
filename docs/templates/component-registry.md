@@ -577,11 +577,94 @@ export default {
 </script>
 ```
 
-### Visual States
+### Additional Examples
 
-- **Normal**: Gray background, time remaining shown
-- **Warning** (< 2 minutes): Orange background, "Extend Lock" button visible
-- **Expired**: Red background, "Lock Expired!" message
+#### Testing Different States
+
+```vue
+<template>
+  <div class="timer-states-demo">
+    <h4>Normal State (5 minutes remaining):</h4>
+    <merge-lock-timer
+      :locked-until="Date.now() + (5 * 60 * 1000)"
+      @expired="handleExpiry"
+      @extend="handleExtend"
+    />
+    <!-- Renders: "🕐 Lock expires in: 5:00" -->
+
+    <h4>Warning State (90 seconds remaining):</h4>
+    <merge-lock-timer
+      :locked-until="Date.now() + (90 * 1000)"
+      @expired="handleExpiry"
+      @extend="handleExtend"
+    />
+    <!-- Renders: "🕐 Lock expires in: 1:30 [Extend Lock]" (orange background) -->
+
+    <h4>Expired State:</h4>
+    <merge-lock-timer
+      :locked-until="Date.now() - 60000"
+      @expired="handleExpiry"
+    />
+    <!-- Renders: "⚠️ Lock Expired! Please return to the dashboard." (red background) -->
+  </div>
+</template>
+
+<script>
+export default {
+  setup() {
+    const handleExpiry = () => {
+      console.log('Lock expired - redirecting to dashboard');
+      Fliplet.Navigate.screen(123); // Redirect to dashboard
+    };
+
+    const handleExtend = async () => {
+      console.log('Extending lock...');
+      // API call to extend lock
+    };
+
+    return { handleExpiry, handleExtend };
+  }
+}
+</script>
+```
+
+### Visual States & Content Display
+
+The timer uses mutually exclusive display logic to prevent contradictory messages.
+
+#### Normal State (> 2 minutes remaining)
+- **Background**: Gray (#f8f9fa)
+- **Border**: Standard gray border
+- **Display**:
+  - Clock icon (`fa-clock-o`)
+  - "Lock expires in: MM:SS"
+- **Hidden**:
+  - Extend button
+  - Expired message
+
+#### Warning State (< 2 minutes remaining)
+- **Background**: Orange/yellow (#fff3cd)
+- **Border**: Yellow (#ffeaa7)
+- **Text Color**: Dark yellow (#856404)
+- **Display**:
+  - Clock icon (`fa-clock-o`)
+  - "Lock expires in: MM:SS"
+  - "Extend Lock" button (primary action)
+- **Hidden**:
+  - Expired message
+
+#### Expired State (0:00 remaining)
+- **Background**: Red/pink (#f8d7da)
+- **Border**: Pink (#f5c6cb)
+- **Text Color**: Dark red (#721c24)
+- **Display**:
+  - Warning icon (`fa-exclamation-triangle`)
+  - "Lock Expired! Please return to the dashboard."
+- **Hidden**:
+  - Timer countdown
+  - Extend button
+
+**State Transition Pattern**: The component uses `<template v-if>` / `<template v-else>` to ensure only one message is shown at a time, preventing conflicting information like "Lock expires in: 0:00" appearing alongside "Lock Expired!"
 
 ### Timer Format
 
@@ -597,23 +680,22 @@ Displays time as `MM:SS` (e.g., `14:32`, `2:05`, `0:30`)
 
 ## Global Registration
 
-All components are registered globally in the application and can be used without importing:
+All components are registered via the `window.registerMergeComponents()` function which is called on each Vue app instance:
 
 ```javascript
-// In Global JS (after Vue loads)
-window.addEventListener('vue-loaded', function() {
-  var Vue = window.Vue;
-
-  Vue.component('merge-button', { /* ... */ });
-  Vue.component('merge-card', { /* ... */ });
-  Vue.component('merge-alert', { /* ... */ });
-  Vue.component('merge-modal', { /* ... */ });
-  Vue.component('merge-badge', { /* ... */ });
-  Vue.component('merge-progress-bar', { /* ... */ });
-  Vue.component('merge-stepper', { /* ... */ });
-  Vue.component('merge-loading-spinner', { /* ... */ });
-  Vue.component('merge-lock-timer', { /* ... */ });
-});
+// In Global JS - Component Registration Function
+window.registerMergeComponents = function(app) {
+  app.component('merge-button', { /* ... */ });
+  app.component('merge-card', { /* ... */ });
+  app.component('merge-alert', { /* ... */ });
+  app.component('merge-modal', { /* ... */ });
+  app.component('merge-badge', { /* ... */ });
+  app.component('merge-progress-bar', { /* ... */ });
+  app.component('merge-stepper', { /* ... */ });
+  app.component('merge-loading-spinner', { /* ... */ });
+  app.component('merge-lock-timer', { /* ... */ });
+  return app;
+};
 ```
 
 ## Component Naming Convention
