@@ -12,7 +12,7 @@ Building a comprehensive App Merge UI as a Fliplet app (ID: 427998) that enables
 
 - **Project Phase**: Phase 1 Complete → Phase 2 Screen Implementation
 - **Overall Completion**: 50% (Documentation: 100%, Phase 1: 100%, Phase 2: 0%)
-- **Documentation**: All 25 documents complete (~12K lines, including HANDLEBARS_CONFLICTS.md)
+- **Documentation**: All 26 documents complete (~13K lines, including error-handling.md standard)
 - **Implementation**: Phase 1 ✅ COMPLETE | Phase 2 Next
 
 ## Current Sprint Status
@@ -300,12 +300,23 @@ Building a comprehensive App Merge UI as a Fliplet app (ID: 427998) that enables
 
 **PHASE 1.4 API TESTER + CRITICAL FIXES** 🎉
 
-**API Middleware Correction** (Latest):
+**API Middleware & Tester Improvements** (Latest - Dec 18):
 - ✅ Fixed API middleware to use `Fliplet.API.request()` instead of raw `fetch()`
-  - Fliplet apps require `Fliplet.API.request()` for proper authentication
-  - Handles auth tokens, base URLs, environments automatically
-  - Resolved 404 errors in API calls
-  - All 27 middleware functions now use correct Fliplet API method
+- ✅ Corrected 4 wrong endpoints (Data Sources, Files) to match tech spec
+- ✅ Added required parameter validation to 20 middleware functions
+- ✅ Expanded API Tester UI with all 27 function signatures
+- ✅ Added clear error messages for missing required parameters
+- ✅ Parameters now marked with * to indicate required vs optional
+- ✅ Automatic user context: `getOrganizationApps` now fetches userId from session automatically
+- ✅ API Tester error display: Now uses `Fliplet.parseError()` for robust error extraction
+- ✅ Error classification: Distinguishes validation errors from API errors
+- ✅ Error handling standard: Created comprehensive guide using `Fliplet.parseError()` pattern
+- ✅ Null safety fix: `getOrganizationApps` now safely checks nested session properties
+- ✅ Safe null checking pattern documented for nested property access
+- ✅ Created comprehensive fix documentation: `docs/implementation/phase-1-foundation/1.6-api-fixes.md`
+- ✅ Documented automatic context pattern: `docs/implementation/phase-1-foundation/1.7-automatic-user-context.md`
+- ✅ Documented error display enhancement: `docs/implementation/phase-1-foundation/1.8-api-tester-error-display.md`
+- ✅ Documented null safety fix: `docs/implementation/phase-1-foundation/1.9-null-safety-fix.md`
 
 **Handlebars Conflict Discovery**:
 - ✅ Documented critical issue: Screen HTML processed by Handlebars first

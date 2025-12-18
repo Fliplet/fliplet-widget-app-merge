@@ -24,8 +24,8 @@ How to handle loading states for data fetching and async operations.
 
 ---
 
-### 2. [Error Handling](error-handling.md)
-Strategies for catching, displaying, and recovering from errors.
+### 2. [Error Handling](error-handling.md) ⭐ **REQUIRED STANDARD**
+**Standard for all error handling** - Always use `Fliplet.parseError()` for extracting error messages.
 
 **Use when**:
 - Making API calls
@@ -33,7 +33,9 @@ Strategies for catching, displaying, and recovering from errors.
 - Handling edge cases
 - Processing data that might fail
 
-**Key concepts**: Try-catch blocks, error messages, retry mechanisms, graceful degradation
+**Key concepts**: `Fliplet.parseError()` for message extraction, try-catch blocks, error display, logging
+
+**Critical**: Always use `Fliplet.parseError(error, fallback)` - never `error.message` directly!
 
 ---
 

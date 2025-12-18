@@ -147,6 +147,44 @@ fetch('https://api.fliplet.com/v1/apps/123')
 - Provides consistent error handling
 - Works across all Fliplet deployments
 
+### 8. **CRITICAL**: Use Fliplet.parseError() for Error Messages
+
+Always use `Fliplet.parseError()` to extract error messages from error objects - never access `error.message` directly.
+
+```javascript
+// ✅ CORRECT - Use Fliplet.parseError()
+try {
+  const result = await MergeAPI.getAppDetails(appId);
+} catch (error) {
+  const message = Fliplet.parseError(error, 'Failed to load app');
+  this.error = message;
+  console.error('Error details:', error);
+}
+
+// ❌ WRONG - Direct property access
+try {
+  const result = await MergeAPI.getAppDetails(appId);
+} catch (error) {
+  const message = error.message || 'Failed to load app';  // Fragile!
+}
+
+// ❌ WRONG - Stringify Error objects
+try {
+  const result = await MergeAPI.getAppDetails(appId);
+} catch (error) {
+  const errorData = JSON.stringify(error);  // Returns "{}"
+}
+```
+
+**Why**:
+- `Fliplet.parseError()` handles nested error structures
+- Supports multiple error formats (string, object, array, XHR)
+- Recursively extracts from common error keys (responseJSON, message, error_message, description, responseText, error)
+- Provides fallback if no error found
+- Error objects don't stringify properly - properties are non-enumerable
+
+**See**: [Error Handling Patterns](./patterns/error-handling.md) for comprehensive guide.
+
 ## Naming Conventions
 
 ### Components
