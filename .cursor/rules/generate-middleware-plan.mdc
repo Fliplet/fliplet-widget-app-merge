@@ -18,12 +18,109 @@ To guide an AI assistant in analyzing existing documents including (but not limi
 
 ## Process
 
+This rule uses a **progressive generation approach** to ensure thorough review at each major architectural decision point. The plan is generated in three phases, with user approval required between phases.
+
+### Phase 1: Core Architecture & Design Principles (Foundation)
+
+Generate the foundational architecture that defines how the middleware will be structured:
+
 1. **Analyze API Documentation:** Read and thoroughly analyze all provided REST API documentation files
 2. **Identify System Patterns:** Extract workflows, dependencies, data structures, and business rules
-3. **Design Architecture:** Create a complete middleware architecture that enforces proper sequencing
-4. **Map Components:** Define all classes, services, and controllers needed
-5. **Plan Integration:** Design how components will work together
-6. **Generate Plan Document:** Create structured markdown plan ready for task generation
+3. **Design Core Architecture Principles:** Define behavior-parameterized design philosophy, component hierarchy, and design patterns
+4. **Generate Phase 1 Sections:**
+   - Overview
+   - System Architecture (Core Principles, Component Hierarchy, Middleware Design Principles)
+   - Functional Requirements (high-level FRs)
+   - Anti-Patterns to Avoid
+   - Middleware Design Validation Checklist
+
+**Output:** Present Phase 1 sections to the user with this message:
+
+> "I have generated the core architecture and design principles for the middleware plan. This establishes the foundational patterns and principles that will guide all implementation.
+>
+> Please review:
+> - Core architectural principles (behavior-parameterized design)
+> - Component hierarchy and relationships
+> - Middleware design patterns and anti-patterns
+> - Design validation checklist
+>
+> **Ready to proceed with technical component specifications?** Respond with **'Go'** to continue to Phase 2."
+
+**Wait for user confirmation before proceeding.**
+
+---
+
+### Phase 2: Technical Components & API Integration (Implementation Specs)
+
+Once Phase 1 is approved, generate detailed technical specifications for all components:
+
+5. **Design Component Architecture:** Define all classes, services, and controllers with detailed specifications
+6. **Map API Integration:** Map API endpoints to service methods with behavioral options
+7. **Plan Workflow Controllers:** Define workflow orchestration and state management
+8. **Generate Phase 2 Sections:**
+   - Technical Architecture (Core Foundation Classes, API Service Classes, Workflow Controller Classes, Supporting Infrastructure)
+   - API Integration Mapping (Endpoint Groups, Workflow Sequences)
+   - State Management Design
+   - Validation Framework Design
+   - Error Handling Strategy
+
+**Output:** Present Phase 2 sections to the user with this message:
+
+> "I have generated the detailed technical component specifications and API integration mapping.
+>
+> Please review:
+> - Core classes and their responsibilities (ApiClient, StateManager, ValidationEngine, etc.)
+> - API service method signatures with behavioral options
+> - Workflow controller designs
+> - State management schema and transitions
+> - Validation rules and error handling strategies
+>
+> **Ready to proceed with implementation planning?** Respond with **'Go'** to continue to Phase 3."
+
+**Wait for user confirmation before proceeding.**
+
+---
+
+### Phase 3: Implementation Details & Testing Strategy (Development Plan)
+
+Once Phase 2 is approved, generate implementation details and development strategy:
+
+9. **Plan Module System:** Determine appropriate module system (ES6, CommonJS, TypeScript, etc.) based on project stack
+10. **Design File Structure:** Define complete directory structure and file organization
+11. **Plan Testing Strategy:** Define test framework, coverage strategy, and test infrastructure
+12. **Generate Phase 3 Sections:**
+   - Implementation Considerations (Module System & Build Configuration, Development Approach)
+   - Integration Patterns (Dependency Injection, Event System, Configuration Management)
+   - Testing Foundations (Framework & Conventions, Setup Artifacts, Execution & CI)
+   - Testing Strategy (detailed test approach)
+   - File Structure Plan
+   - Performance Considerations
+   - Success Metrics
+
+**Output:** Present Phase 3 sections to the user with this message:
+
+> "I have completed the middleware architecture plan with implementation details and testing strategy.
+>
+> Phase 3 includes:
+> - Module system configuration (if applicable to your stack)
+> - Complete file structure
+> - Testing framework setup and strategy
+> - Integration patterns
+> - Performance considerations
+>
+> The complete plan is now ready for review and can be used to generate implementation tasks using `generate-tasks.mdc`."
+
+---
+
+### Progressive Generation Benefits
+
+This phased approach ensures:
+
+✅ **Architectural Review First:** Core design patterns validated before detailed specs
+✅ **Separation of Concerns:** Architecture, implementation, and testing reviewed independently
+✅ **Iterative Refinement:** Early feedback prevents costly rework in later phases
+✅ **Focused Discussion:** Each phase has clear scope for stakeholder review
+✅ **Flexibility:** User can request changes at each checkpoint before proceeding
 
 ## Input Requirements
 

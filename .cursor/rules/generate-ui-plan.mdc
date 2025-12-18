@@ -76,17 +76,125 @@ Before generating the UI plan, clarify with the user whether the UI is being bui
 
 ## Process
 
+This rule uses a **progressive generation approach** to ensure thorough review at each major UX and design decision point. The plan is generated in three phases, with user approval required between phases.
+
+### Phase 1: User Experience & State Design (UX Foundation)
+
+Generate the user experience design and comprehensive state specifications:
+
 1. **Clarify Context:** Determine if building for interface or build context
 2. **Interpret Product & Design Docs:** Absorb PRD and design specifications to understand business goals, target personas, canonical screens, and prescribed interactions
-3. **Analyze Middleware Architecture:** Read and understand the existing middleware plan and implementation
-4. **Plan Mock-First Infrastructure:** Design UIConfig, DataService abstraction, MockDataService, fixtures, and test scenarios to enable independent UI development
-5. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
-6. **Identify UI Requirements:** Extract user workflows, data displays, interactions, and contextual warnings called out in product/design docs
-7. **Design Component Architecture:** Create reusable Vue.js 3.5.13 components that use DataService abstraction (never directly access middleware)
-8. **Plan Responsive Layouts:** Design mobile-first responsive interfaces
-9. **Define Customization Framework:** Plan theming and branding customization
-10. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout
-11. **Generate Plan Document:** Create structured markdown plan ready for review and task generation
+3. **Map User Journeys:** Define complete user flows with entry points, steps, and success criteria
+4. **Design State Matrix:** Create comprehensive state-oriented UX specifications for every canonical screen/state
+5. **Plan Analytics Strategy:** Define product success metrics, analytics events, and audit logging requirements
+6. **Generate Phase 1 Sections:**
+   - Overview (with Source Alignment to PRD/design specs)
+   - Design Principles
+   - User Journey Mapping (all primary and secondary flows)
+   - State-Oriented UX Specifications (UI State Matrix, State Transition Matrix)
+   - Product Analytics & Audit Logging
+
+**Output:** Present Phase 1 sections to the user with this message:
+
+> "I have generated the user experience design and state specifications for the UI/UX plan. This establishes the complete user journey mapping and state behavior that will guide all interface design.
+>
+> Please review:
+> - User journeys (primary and secondary flows aligned with PRD)
+> - State matrix (every canonical state from design specs with entry triggers, allowed actions, transitions)
+> - State transitions (interaction matrix showing valid state changes)
+> - Analytics strategy (success metrics and event tracking)
+>
+> **Ready to proceed with visual design and component architecture?** Respond with **'Go'** to continue to Phase 2."
+
+**Wait for user confirmation before proceeding.**
+
+---
+
+### Phase 2: Visual Design & Component Architecture (UI Design)
+
+Once Phase 1 is approved, generate visual design system and component specifications:
+
+6. **Define Technical Stack:** Specify Vue.js version, styling framework (Tailwind CSS), and icon library (lucide-vue-next)
+7. **Check Available Assets:** Review Fliplet's asset library for compatible dependencies
+8. **Design Component Architecture:** Create reusable component specifications with props, states, and behaviors
+9. **Plan Responsive Strategy:** Define breakpoints, layout patterns, and mobile-first adaptations
+10. **Plan Theming System:** Design Tailwind configuration with Fliplet brand tokens
+11. **Document Accessibility:** Ensure WCAG 2.1 AA compliance throughout all components
+12. **Generate Phase 2 Sections:**
+   - Technical Stack (Framework, Styling, Icons, Dependencies)
+   - Component Architecture (Layout, Page, Form, UI, and Feedback components)
+   - Responsive Design Strategy (Breakpoints, Layout Patterns, Tailwind Classes)
+   - Theming & Customization (Tailwind Config, Design Tokens, Common Patterns)
+   - Interaction Patterns (Forms, Data Loading, Navigation)
+   - Accessibility Requirements (WCAG compliance, implementation guidelines, testing)
+
+**Output:** Present Phase 2 sections to the user with this message:
+
+> "I have generated the visual design system and component architecture for the UI/UX plan.
+>
+> Please review:
+> - Technical stack (Vue 3.5.13, Tailwind CSS, lucide-vue-next)
+> - Component architecture (all layout, page, form, UI, and feedback components)
+> - Responsive design strategy (mobile-first breakpoints and patterns)
+> - Theming system (Tailwind config with Fliplet brand colors)
+> - Interaction patterns (forms, loading states, navigation)
+> - Accessibility requirements (WCAG 2.1 AA compliance)
+>
+> **Ready to proceed with implementation planning?** Respond with **'Go'** to continue to Phase 3."
+
+**Wait for user confirmation before proceeding.**
+
+---
+
+### Phase 3: Implementation Details & Development Setup (Development Plan)
+
+Once Phase 2 is approved, generate implementation infrastructure and development strategy:
+
+13. **Plan Mock-First Infrastructure:** Design UIConfig, DataService abstraction, MockDataService, fixtures, and test scenarios to enable independent UI development
+14. **Plan Middleware Integration:** Define how components integrate with DataService (never directly accessing middleware)
+15. **Plan Build Configuration:** Define NPM dependencies, Tailwind/PostCSS setup, Gulp/Webpack build process
+16. **Plan Widget File Loading:** Define widget.json configuration and asset loading strategy
+17. **Document Module System:** Add Vue dependency injection and ES6 module patterns (if applicable to stack)
+18. **Generate Phase 3 Sections:**
+   - Mock-First Development Strategy (UIConfig, DataService, MockDataService, fixtures, scenarios, benefits)
+   - Integration with Middleware (migration from mock to middleware, state management, event system)
+   - Vue Dependency Injection & Module System (if Vue 3 + Babel + Webpack)
+   - Implementation Guidelines (Package dependencies, build config, widget file loading)
+   - Component Documentation (component template with examples)
+   - Testing Strategy (component testing, user testing)
+   - QA Test Plan Generation (requirements for generating test plans)
+   - File Structure Plan
+   - Implementation Priorities (phased rollout)
+   - Success Metrics
+
+**Output:** Present Phase 3 sections to the user with this message:
+
+> "I have completed the UI/UX plan with implementation details and development setup.
+>
+> Phase 3 includes:
+> - Mock-first development infrastructure (UIConfig, DataService, fixtures)
+> - Middleware integration strategy (progressive from mock → hybrid → full)
+> - Build configuration (NPM packages, Tailwind, Gulp/Webpack)
+> - Widget.json setup and asset loading
+> - Module system patterns (if applicable to your stack)
+> - Complete file structure
+> - Testing and QA planning
+>
+> The complete plan is now ready for review and can be used to generate implementation tasks using `generate-tasks.mdc`."
+
+---
+
+### Progressive Generation Benefits
+
+This phased approach ensures:
+
+✅ **UX Review First:** User journeys and states validated before visual design
+✅ **Design System Review:** Visual design and components reviewed before implementation details
+✅ **Separation of Concerns:** UX, visual design, and implementation reviewed independently
+✅ **Stakeholder-Appropriate:** Product managers review UX, designers review visuals, developers review implementation
+✅ **Iterative Refinement:** Early feedback prevents costly rework in later phases
+✅ **Mock-First Enabled:** UI can be built and demonstrated independently of middleware
+✅ **Flexibility:** User can request changes at each checkpoint before proceeding
 
 ## Input Requirements
 
