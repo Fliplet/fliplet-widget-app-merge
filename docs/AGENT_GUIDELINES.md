@@ -111,32 +111,9 @@ const mockApps = [
 
 ### 6. **CRITICAL**: Avoid Handlebars Conflicts in HTML
 
-Screen HTML is processed by Fliplet's Handlebars rendering engine **before** any screen custom code is used to process it. This means any custom functionality that uses the `{{ }}` or `{{{ }}}` syntax that could cause a conflict with Handlebars!
+Screen HTML is processed by Fliplet's Handlebars rendering engine before Vue sees it. **Never use `{{ }}` or `{{{ }}}` syntax** - use `v-text` and `v-html` directives instead.
 
-```vue
-<!-- ✅ CORRECT: Use v-text directive -->
-<span v-text="userName"></span>
-<div v-text="result.message"></div>
-
-<!-- ✅ CORRECT: For complex output -->
-<span>Status: </span><span v-text="statusText"></span>
-
-<!-- ✅ CORRECT: For HTML content -->
-<div v-html="htmlContent"></div>
-
-<!-- ❌ WRONG: Text interpolation - Handlebars will process it! -->
-<span>{{ userName }}</span>
-<div>{{ result.message }}</div>
-
-<!-- ⚠️  WORKAROUND: Escape if absolutely needed -->
-<span>\{{ userName }}</span>  <!-- Handlebars passes "{{ userName }}" to Vue -->
-```
-
-**Why This Matters**:
-- Fliplet processes `{{ }}` and `{{{ }}}` as Handlebars tags before any screen code runs
-- Vue (or any custom JavaScript) never sees the interpolation syntax
-- Results in empty output or rendering errors
-- **Always use `v-text` or `v-html` directives instead**
+**See [HANDLEBARS_CONFLICTS.md](HANDLEBARS_CONFLICTS.md) for complete details, examples, and edge cases.**
 
 ### 7. **CRITICAL**: Use Fliplet.API.request() for API Calls
 
